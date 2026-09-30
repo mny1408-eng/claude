@@ -30,11 +30,17 @@ npx remotion render src/index.ts VoxAd-A "..\OneDrive\WeDo x KFOC\landing page\r
 ## Local assets (not in git)
 This repo is public, so these stay on the production PC only and must be added before rendering:
 - `public/audio/music.mp3`: "Curious Minds" by Turning_Pages (Pixabay), download from Pixabay
-- `public/img/`: `coach-nas.jpeg` (from the landing page), `site-hero.jpg`, `site-q1.jpg` (scorecard screenshots)
+- `public/img/`: `coach-nas.jpeg` (from the landing page), `site-hero.jpg`, `site-q1.jpg` (scorecard screenshots), `master-template-v2.png` (Canva "Educational Carousel Master Template v2" exported at 1080 wide; the carousel footer crops the WDT logo from it)
 - `public/voice/`: Coach Nas recordings (`T1-real/source.mp3`) and generated voice clips
 - `public/clips/`: optional user video clips
 
 Regenerate the sound effects with `node scripts/gen-sfx.mjs` if `public/sfx/` is missing.
+
+## PM carousels (1080 × 1440)
+- Template: `src/carousel/template.tsx` (coded copy of Canva Master Template v2)
+- One file per day: `src/carousel/Cxx<Topic>.tsx`, copy taken word-for-word from the Notion daily page
+- Render: `npx remotion still src/index.ts Carousel-02-10-Coaching slide-1.png --frame=0` (frame = slide index)
+- `media/carousels/<date>/` holds slides published for Metricool to fetch (public links); remove after Metricool has its copy
 
 ## Where things live
 - `src/scenes.tsx` – all on-screen text and the 6 scenes (edit copy here)
