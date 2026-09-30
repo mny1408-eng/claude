@@ -1,15 +1,74 @@
 {
   "date": "2026-09-30",
   "source": "Notion 30/09/2026 — Nasi Campur Lab / REEL 2 — AYAM GORENG (QA reviewed 27/09)",
-  "search_intent": {"primary": "ayam goreng masa diet", "supporting": ["makan luar masa diet", "portion makan", "calorie deficit"]},
-  "series": "Makan Luar",
+  "search_intent": {
+    "primary": "ayam goreng masa diet",
+    "supporting": [
+      "makan luar masa diet",
+      "portion makan",
+      "calorie deficit"
+    ]
+  },
   "footer": "@coachnas.pharmacist",
   "scenes": [
-    {"type": "hook", "duration": 3.5, "kicker": "Ayam goreng masa diet", "text": "AYAM GORENG TAK AUTOMATIK ROSAKKAN DIET.", "highlight": ["AUTOMATIK"]},
-    {"type": "statement", "duration": 4.5, "text": "Tapi “tak apa, asalkan real food”…", "highlight": ["food”…"], "sub": "pun tak bermaksud portion dan frequency tak penting."},
-    {"type": "statement", "duration": 4.5, "text": "Saya tak suka dua extreme.", "highlight": ["extreme"], "sub": "Satu, takut terus pada makanan bergoreng. Dua, langsung tak tengok amount."},
-    {"type": "steps", "duration": 5.0, "title": "Yang sebenarnya penting:", "step_size": 62, "steps": ["Bukan forbidden", "Portion matters", "Frequency matters", "Overall pattern"]},
-    {"type": "statement", "duration": 4.0, "text": "Makan dengan sedar dalam keseluruhan pattern.", "highlight": ["pattern"], "sub": "Plan yang boleh hidup dalam dunia sebenar."},
-    {"type": "cta", "duration": 3.0, "text": "Share video ni.", "highlight": ["Share"], "sub": "Tak perlu takut satu lauk."}
-  ]
+    {
+      "type": "hook",
+      "duration": 3.5,
+      "kicker": "Ayam goreng masa diet",
+      "text": "AYAM GORENG TAK AUTOMATIK ROSAKKAN DIET.",
+      "highlight": [
+        "AUTOMATIK"
+      ]
+    },
+    {
+      "type": "statement",
+      "duration": 4.5,
+      "text": "Tapi “tak apa, asalkan real food”…",
+      "highlight": [
+        "food”…"
+      ],
+      "sub": "pun tak bermaksud portion dan frequency tak penting."
+    },
+    {
+      "type": "statement",
+      "duration": 4.5,
+      "text": "Saya tak suka dua extreme.",
+      "highlight": [
+        "extreme"
+      ],
+      "sub": "Satu, takut terus pada makanan bergoreng. Dua, langsung tak tengok amount."
+    },
+    {
+      "type": "steps",
+      "duration": 5.0,
+      "title": "Yang sebenarnya penting:",
+      "step_size": 62,
+      "steps": [
+        "Bukan forbidden",
+        "Portion matters",
+        "Frequency matters",
+        "Overall pattern"
+      ]
+    },
+    {
+      "type": "statement",
+      "duration": 4.0,
+      "text": "Makan dengan sedar dalam keseluruhan pattern.",
+      "highlight": [
+        "pattern"
+      ],
+      "sub": "Plan yang boleh hidup dalam dunia sebenar."
+    },
+    {
+      "type": "cta",
+      "duration": 3.0,
+      "text": "Share video ni.",
+      "highlight": [
+        "Share"
+      ],
+      "sub": "Tak perlu takut satu lauk."
+    }
+  ],
+  "date_label": "30/09",
+  "music": "auto"
 }
