@@ -236,6 +236,8 @@ def main(spec_path, out_path):
     audio = os.path.join(base, spec["audio"])
 
     segs, _ = speech_segments(audio)
+    # Drop false starts / retakes before "audio_start" (seconds into the raw recording).
+    segs = [sg for sg in segs if sg[0] >= spec.get("audio_start", 0.0)]
     offset = max(0.0, segs[0][0] - spec.get("lead_in", 0.25))  # trim dead air before the first word
     nuclei = count_nuclei(audio, segs)
     timeline, spans, skipped = build_timeline(spec, segs, nuclei, offset)
