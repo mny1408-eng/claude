@@ -1,12 +1,13 @@
 {
   "date": "2026-09-30",
   "source": "Notion 30/09/2026 — Nasi Campur Lab / AM STATIC (QA reviewed 27/09)",
+  "series": "Makan Luar",
   "footer": "@coachnas.pharmacist",
   "scenes": [
-    {"type": "hook", "duration": 3.5, "kicker": "Makan luar masa diet", "lines": ["NASI CAMPUR", "TAK PERLU JADI EXAM."]},
-    {"type": "steps", "duration": 5.0, "title": "Ikut turutan ni:", "steps": ["Protein", "Sayur", "Portion nasi", "Enjoy"]},
-    {"type": "statement", "duration": 3.5, "text": "Bina plate yang practical dan boleh diulang."},
-    {"type": "statement", "duration": 3.0, "text": "Bukan cari satu lauk “perfect”."},
-    {"type": "cta", "duration": 3.0, "text": "Save post ni.", "sub": "Guna masa lunch nanti."}
+    {"type": "hook", "duration": 3.5, "kicker": "Nasi masa diet", "text": "NASI CAMPUR TAK PERLU JADI EXAM.", "highlight": ["EXAM"]},
+    {"type": "steps", "duration": 4.5, "title": "Ikut turutan ni:", "steps": ["Protein", "Sayur", "Portion nasi", "Enjoy"]},
+    {"type": "statement", "duration": 3.5, "text": "Bina plate yang practical dan boleh diulang.", "highlight": ["diulang"]},
+    {"type": "statement", "duration": 3.0, "text": "Bukan cari satu lauk “perfect”.", "highlight": ["perfect"]},
+    {"type": "cta", "duration": 3.0, "text": "Save post ni.", "highlight": ["Save"], "sub": "Guna masa lunch nanti."}
   ]
 }
