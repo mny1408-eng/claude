@@ -1,7 +1,7 @@
 """Render a faceless text Reel (1080x1920 MP4) from a JSON spec.
 
 Visual style matches the Coach Nas AM Canva posters (ivory #f9f6f0, deep green
-#163d32, gold #c9a84c, Cormorant Garamond headlines and italics, green footer bar
+#163d32, gold #c9a84c, Plus Jakarta Sans headlines and italics, green footer bar
 with WDT logo and handle, date top-right, mint CTA box with green edge), plus the
 motion rules in docs/video-style-rotation.md (gold underline on the key word,
 green wipe between scenes).
@@ -36,10 +36,10 @@ SOFT = (77, 107, 96)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_DIR = os.path.join(HERE, "fonts")
-HEAD = os.path.join(FONT_DIR, "cormorant-garamond-700-normal.ttf")
-ITALIC = os.path.join(FONT_DIR, "cormorant-garamond-600-italic.ttf")
-SANS_BOLD = os.path.join(FONT_DIR, "montserrat-700.ttf")
-SANS = os.path.join(FONT_DIR, "montserrat-500.ttf")
+HEAD = os.path.join(FONT_DIR, "plus-jakarta-sans-800-normal.ttf")
+ITALIC = os.path.join(FONT_DIR, "plus-jakarta-sans-500-italic.ttf")
+SANS_BOLD = os.path.join(FONT_DIR, "plus-jakarta-sans-700-normal.ttf")
+SANS = os.path.join(FONT_DIR, "plus-jakarta-sans-500-normal.ttf")
 LOGO = os.path.join(HERE, "assets", "wdt-logo.png")
 
 # Keep text clear of Instagram's Reel UI (top bar, caption/buttons at bottom, right rail).
@@ -145,7 +145,7 @@ def render_scene(spec, scene, t):
     hl = scene.get("highlight", [])
 
     if kind == "hook":
-        hf = font(HEAD, 128)
+        hf = font(HEAD, 100)
         lines = wrap(d, scene["text"], hf, max_w)
         y = SAFE_TOP + 120
         if scene.get("kicker"):
@@ -157,17 +157,17 @@ def render_scene(spec, scene, t):
         d.rectangle([SAFE_LEFT, y, SAFE_LEFT + int(90 * a3), y + 4], fill=GOLD)
         if scene.get("sub"):
             a2 = fade(t, 1.1)
-            sf = font(ITALIC, 60)
+            sf = font(ITALIC, 46)
             plain_lines(img, wrap(d, scene["sub"], sf, max_w), sf, GREEN, y + 50, a2, (1 - a2) * 30)
 
     elif kind == "steps":
         y = SAFE_TOP + 100
-        tf = font(ITALIC, 64)
+        tf = font(ITALIC, 48)
         a = fade(t, 0.0)
         y = plain_lines(img, wrap(d, scene["title"], tf, max_w), tf, GREEN, y, a, (1 - a) * 30) + 60
-        nf = font(HEAD, 66)
-        sf = font(HEAD, scene.get("step_size", 76))
-        notef = font(ITALIC, 44)
+        nf = font(HEAD, 54)
+        sf = font(HEAD, scene.get("step_size", 54))
+        notef = font(ITALIC, 38)
         gap = scene.get("step_gap", 0.8)
         notes = scene.get("notes", [])
         row_h = 270 if notes else 180
@@ -182,17 +182,17 @@ def render_scene(spec, scene, t):
             last = i == len(scene["steps"]) - 1
             ld.ellipse([SAFE_LEFT + off, cy, SAFE_LEFT + 110 + off, cy + 110], fill=(GOLD if last else GREEN) + (al,))
             num = str(i + 1)
-            ld.text((SAFE_LEFT + 55 + off - ld.textlength(num, font=nf) / 2, cy + 12), num, font=nf, fill=IVORY + (al,))
-            ld.text((SAFE_LEFT + 150 + off, cy + 14), step.upper(), font=sf, fill=GREEN + (al,))
+            ld.text((SAFE_LEFT + 55 + off - ld.textlength(num, font=nf) / 2, cy + 22), num, font=nf, fill=IVORY + (al,))
+            ld.text((SAFE_LEFT + 150 + off, cy + 26), step.upper(), font=sf, fill=GREEN + (al,))
             if i < len(notes) and notes[i]:
                 for j, ln in enumerate(wrap(ld, notes[i], notef, text_w)):
                     ld.text((SAFE_LEFT + 150 + off, cy + 110 + j * 52), ln, font=notef, fill=SOFT + (al,))
             img.alpha_composite(layer)
 
     elif kind == "statement":
-        bf = font(HEAD, 104)
+        bf = font(HEAD, 84)
         lines = wrap(d, scene["text"], bf, max_w)
-        sf = font(ITALIC, 60)
+        sf = font(ITALIC, 46)
         sub = wrap(d, scene["sub"], sf, max_w) if scene.get("sub") else []
         block_h = len(lines) * bf.size * 1.15 + (50 + len(sub) * sf.size * 1.3 if sub else 0)
         y = (SAFE_TOP + SAFE_BOTTOM) / 2 - block_h / 2
@@ -203,7 +203,7 @@ def render_scene(spec, scene, t):
             plain_lines(img, sub, sf, SOFT, y, a2, (1 - a2) * 30)
 
     elif kind == "cta":
-        cf = font(HEAD, 84)
+        cf = font(HEAD, 64)
         lines = wrap(d, scene["text"].upper(), cf, max_w - 80)
         box_h = len(lines) * cf.size * 1.15 + 90
         y = (SAFE_TOP + SAFE_BOTTOM) / 2 - box_h / 2 - 60
@@ -222,7 +222,7 @@ def render_scene(spec, scene, t):
             yy += cf.size * 1.15
         if scene.get("sub"):
             a2 = fade(t, 0.6)
-            sf = font(ITALIC, 60)
+            sf = font(ITALIC, 46)
             plain_lines(img, wrap(d, scene["sub"], sf, max_w), sf, GREEN, y + box_h + 50, a2, (1 - a2) * 30)
 
     return img

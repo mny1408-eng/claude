@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-30",
+  "source": "Notion 30/09/2026 — Nasi Campur Lab / REEL 2 — AYAM GORENG (QA reviewed 27/09). Voice: Coach Nas teleprompter recording 30/09 19:18.",
+  "audio": "../audio/2026-09-30-reel2.mp3",
+  "date_label": "30/09",
+  "kicker": "Ayam goreng masa diet",
+  "footer": "@coachnas.pharmacist",
+  "lines": [
+    {"text": "Ayam goreng sekali tak automatik rosakkan diet.", "highlight": ["automatik"], "overlay": "Bukan forbidden"},
+    {"text": "Tapi ayat ‘tak apa, asalkan real food’ pun tak bermaksud portion dan frequency tak penting.", "highlight": ["portion", "frequency"], "overlay": "Frequency matters"},
+    {"text": "Cara masak boleh mengubah energy density.", "highlight": ["energy", "density."]},
+    {"text": "Portion, lauk lain, minuman dan pattern makan sepanjang minggu pun memainkan peranan.", "highlight": ["portion,", "pattern"], "overlay": "Portion matters"},
+    {"text": "So saya tak suka dua extreme:", "highlight": ["extreme:"]},
+    {"text": "satu, takut terus pada makanan bergoreng.", "highlight": ["takut"]},
+    {"text": "Dua, langsung tak tengok amount.", "highlight": ["amount."]},
+    {"text": "Kalau suka ayam goreng, makan dengan sedar dalam keseluruhan pattern.", "highlight": ["sedar", "pattern."], "overlay": "Overall pattern"},
+    {"text": "Kita bina plan yang boleh hidup dalam dunia sebenar.", "highlight": ["dunia", "sebenar."]}
+  ],
+  "end_card": {"duration": 2.8, "text": "Share video ni.", "sub": "Tak perlu takut satu lauk."}
+}
