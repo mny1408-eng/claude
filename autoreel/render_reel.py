@@ -133,28 +133,40 @@ def render_scene(spec, scene, t):
         tf = font(SANS_BOLD, 54)
         a = fade(t, 0.0)
         y = plain_lines(img, wrap(d, scene["title"], tf, max_w), tf, SOFT, y, a, (1 - a) * 30) + 60
-        nf, sf = font(DISPLAY, 62), font(SANS_HEAVY, 70)
+        nf, sf, notef = font(DISPLAY, 62), font(SANS_HEAVY, scene.get("step_size", 70)), font(SANS, 40)
         gap = scene.get("step_gap", 0.8)
+        notes = scene.get("notes", [])
+        row_h = 290 if notes else 190
+        text_w = SAFE_RIGHT - SAFE_LEFT - 160
         for i, step in enumerate(scene["steps"]):
             a = fade(t, 0.4 + i * gap)
             if a <= 0:
                 continue
             layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
             ld = ImageDraw.Draw(layer)
-            cy, off, al = y + i * 190, (1 - a) * 60, int(255 * a)
+            cy, off, al = y + i * row_h, (1 - a) * 60, int(255 * a)
             last = i == len(scene["steps"]) - 1
             ld.ellipse([SAFE_LEFT + off, cy, SAFE_LEFT + 120 + off, cy + 120], fill=(GOLD if last else GREEN) + (al,))
             num = str(i + 1)
             ld.text((SAFE_LEFT + 60 + off - ld.textlength(num, font=nf) / 2, cy + 18), num, font=nf, fill=IVORY + (al,))
             ld.text((SAFE_LEFT + 160 + off, cy + 26), step, font=sf, fill=GREEN + (al,))
+            if i < len(notes):
+                for j, ln in enumerate(wrap(ld, notes[i], notef, text_w)):
+                    ld.text((SAFE_LEFT + 160 + off, cy + 118 + j * 50), ln, font=notef, fill=SOFT + (al,))
             img.alpha_composite(layer)
 
     elif kind == "statement":
         bf = font(DISPLAY, 88)
         lines = wrap(d, scene["text"], bf, max_w)
-        y = (SAFE_TOP + SAFE_BOTTOM) / 2 - len(lines) * bf.size * 1.2 / 2
+        sf = font(SANS, 50)
+        sub = wrap(d, scene["sub"], sf, max_w) if scene.get("sub") else []
+        block_h = len(lines) * bf.size * 1.2 + (40 + len(sub) * sf.size * 1.25 if sub else 0)
+        y = (SAFE_TOP + SAFE_BOTTOM) / 2 - block_h / 2
         a = fade(t, 0.0, 0.6)
-        rich_lines(img, lines, bf, y, a, (1 - a) * 40, hl, (t - 0.7) / 0.5)
+        y = rich_lines(img, lines, bf, y, a, (1 - a) * 40, hl, (t - 0.7) / 0.5) + 40
+        if sub:
+            a2 = fade(t, 0.8)
+            plain_lines(img, sub, sf, SOFT, y, a2, (1 - a2) * 30)
 
     elif kind == "cta":
         cf = font(DISPLAY, 100)
