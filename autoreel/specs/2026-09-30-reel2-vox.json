@@ -1,0 +1,117 @@
+{
+  "date": "2026-09-30",
+  "source": "Notion 30/09/2026 — Nasi Campur Lab / REEL 2 — AYAM GORENG (QA reviewed 27/09). Voice: Coach Nas teleprompter recording 30/09 19:18.",
+  "audio": "../audio/2026-09-30-reel2.mp3",
+  "cuts": [[0, 7.7], [17.2, 26.95]],
+  "cut_notes": "0-7.7s false start; 17.2-26.95s first attempt at 'Cara masak…' + 3.5s pause, retaken at 27.03s. Identified by pause detection + phone matching (phonetic.py), not by listening.",
+  "max_pause": 0.35,
+  "date_label": "30/09",
+  "kicker": "Ayam goreng masa diet",
+  "footer": "@coachnas.pharmacist",
+  "lines": [
+    {
+      "text": "Ayam goreng sekali tak automatik rosakkan diet.", "at": 7.84,
+      "board": [
+        {"type": "icon", "name": "drumstick", "x": 690, "y": 520, "size": 330, "rot": 6, "at": 0.0},
+        {"type": "card", "id": "c1", "style": "clip", "x": 500, "y": 880, "w": 820, "rot": -2, "at": 0.2, "hl_at": 1.0,
+         "blocks": [{"text": "Ayam goreng sekali", "weight": "heavy", "size": 80},
+                    {"text": "tak automatik rosakkan diet.", "weight": "bold", "size": 60, "highlight": ["automatik"]}]},
+        {"type": "stamp", "text": "Bukan forbidden", "x": 560, "y": 1230, "rot": -8, "at": 2.2}
+      ]
+    },
+    {
+      "text": "Tapi ayat ‘tak apa, asalkan real food’ pun tak bermaksud portion dan frequency tak penting.", "at": 11.43,
+      "board": [
+        {"type": "card", "id": "q2", "style": "quote", "x": 500, "y": 560, "w": 820, "rot": 1.5, "at": 0.0,
+         "blocks": [{"text": "Tapi ayat…", "weight": "medium", "size": 40, "color": [96, 108, 100]},
+                    {"text": "‘tak apa, asalkan real food’", "weight": "italic", "size": 64}]},
+        {"type": "card", "id": "c2", "style": "clip", "x": 520, "y": 960, "w": 800, "rot": -1.5, "at": 1.4, "hl_at": 0.9,
+         "blocks": [{"text": "pun tak bermaksud", "weight": "medium", "size": 46},
+                    {"text": "portion dan frequency", "weight": "heavy", "size": 68, "highlight": ["portion", "frequency"]},
+                    {"text": "tak penting.", "weight": "medium", "size": 46}]},
+        {"type": "stamp", "text": "Frequency matters", "x": 580, "y": 1270, "rot": 6, "at": 3.3}
+      ]
+    },
+    {
+      "text": "Cara masak boleh mengubah energy density.", "at": 27.03,
+      "board": [
+        {"type": "icon", "name": "pan", "x": 330, "y": 560, "size": 300, "rot": -8, "at": 0.0},
+        {"type": "card", "id": "s3", "style": "sticky", "x": 330, "y": 860, "w": 420, "rot": -4, "at": 0.15,
+         "blocks": [{"text": "Cara masak", "weight": "heavy", "size": 64}]},
+        {"type": "label", "text": "boleh mengubah", "x": 690, "y": 760, "w": 380, "size": 46, "rot": -6, "at": 0.9},
+        {"type": "arrow", "from": [470, 930], "to": [610, 1060], "bend": -0.3, "at": 1.0},
+        {"type": "card", "id": "c3", "style": "dark", "x": 620, "y": 1160, "w": 540, "rot": 2, "at": 1.5,
+         "blocks": [{"text": "energy density", "weight": "heavy", "size": 64}]},
+        {"type": "icon", "name": "drop", "x": 800, "y": 960, "size": 150, "rot": 10, "at": 1.9}
+      ]
+    },
+    {
+      "text": "Portion, lauk lain, minuman dan pattern makan sepanjang minggu pun memainkan peranan.", "at": 31.40,
+      "board": [
+        {"type": "card", "id": "p1", "style": "sticky", "x": 300, "y": 540, "w": 380, "rot": -3, "at": 0.0,
+         "blocks": [{"text": "Portion", "weight": "heavy", "size": 58}]},
+        {"type": "card", "id": "p2", "style": "sticky", "x": 690, "y": 580, "w": 380, "rot": 3, "at": 0.6,
+         "blocks": [{"text": "Lauk lain", "weight": "heavy", "size": 58}]},
+        {"type": "card", "id": "p3", "style": "sticky", "x": 300, "y": 830, "w": 380, "rot": 2, "at": 1.1,
+         "blocks": [{"text": "Minuman", "weight": "heavy", "size": 58}]},
+        {"type": "card", "id": "p4", "style": "sticky", "x": 690, "y": 880, "w": 400, "rot": -2, "at": 1.6,
+         "blocks": [{"text": "Pattern makan sepanjang minggu", "weight": "heavy", "size": 50}]},
+        {"type": "label", "text": "…pun memainkan peranan.", "x": 500, "y": 1130, "w": 800, "size": 52, "rot": 0, "at": 2.6,
+         "color": [22, 61, 50]},
+        {"type": "stamp", "text": "Portion matters", "x": 560, "y": 1290, "rot": -6, "at": 3.0}
+      ]
+    },
+    {
+      "text": "So saya tak suka dua extreme:", "at": 36.01,
+      "board": [
+        {"type": "card", "id": "c5", "style": "dark", "x": 500, "y": 560, "w": 820, "rot": -1, "at": 0.0, "hl_at": 0.8,
+         "blocks": [{"text": "Saya tak suka", "weight": "medium", "size": 46},
+                    {"text": "dua extreme.", "weight": "heavy", "size": 84, "highlight": ["extreme"]}]}
+      ]
+    },
+    {
+      "text": "satu, takut terus pada makanan bergoreng.", "at": 38.74, "keep": true,
+      "board": [
+        {"type": "card", "id": "c6", "style": "clip", "x": 480, "y": 890, "w": 760, "rot": -2, "at": 0.0,
+         "blocks": [{"text": "1 · Takut terus pada makanan bergoreng.", "weight": "heavy", "size": 54}]},
+        {"type": "icon", "name": "drumstick", "x": 830, "y": 790, "size": 150, "rot": 20, "at": 0.3}
+      ]
+    },
+    {
+      "text": "Dua, langsung tak tengok amount.", "at": 41.76, "keep": true,
+      "board": [
+        {"type": "card", "id": "c7", "style": "clip", "x": 530, "y": 1140, "w": 760, "rot": 2, "at": 0.0,
+         "blocks": [{"text": "2 · Langsung tak tengok amount.", "weight": "heavy", "size": 54}]},
+        {"type": "strike", "box": [150, 800, 830, 990], "at": 0.6, "dur": 0.4},
+        {"type": "strike", "box": [180, 1060, 880, 1230], "at": 1.0, "dur": 0.4}
+      ]
+    },
+    {
+      "text": "Kalau suka ayam goreng, makan dengan sedar dalam keseluruhan pattern.", "at": 43.98,
+      "board": [
+        {"type": "calendar", "x": 500, "y": 500, "w": 820, "rot": -1, "at": 0.0, "mark_day": 2, "mark_at": 0.6, "title": "Seminggu"},
+        {"type": "card", "id": "c8", "style": "clip", "x": 500, "y": 920, "w": 820, "rot": -1.5, "at": 1.0, "hl_at": 1.3,
+         "blocks": [{"text": "Kalau suka ayam goreng,", "weight": "medium", "size": 46},
+                    {"text": "makan dengan sedar", "weight": "heavy", "size": 72, "highlight": ["sedar"]},
+                    {"text": "dalam keseluruhan pattern.", "weight": "bold", "size": 54, "highlight": ["pattern."]}]},
+        {"type": "stamp", "text": "Overall pattern", "x": 560, "y": 1290, "rot": 5, "at": 3.6}
+      ]
+    },
+    {
+      "text": "Kita bina plan yang boleh hidup dalam dunia sebenar.", "at": 50.71,
+      "board": [
+        {"type": "card", "id": "c9", "style": "dark", "x": 500, "y": 800, "w": 820, "rot": -1, "at": 0.0, "hl_at": 1.6,
+         "blocks": [{"text": "Kita bina plan yang boleh hidup", "weight": "heavy", "size": 66},
+                    {"text": "dalam dunia sebenar.", "weight": "heavy", "size": 66, "highlight": ["dunia", "sebenar."]}]}
+      ]
+    }
+  ],
+  "end_card": {
+    "duration": 2.8,
+    "board": [
+      {"type": "card", "id": "end", "style": "dark", "x": 500, "y": 760, "w": 760, "rot": -1, "at": 0.0, "hl_at": 0.5,
+       "blocks": [{"text": "Share video ni.", "weight": "heavy", "size": 84, "highlight": ["share"]}]},
+      {"type": "label", "text": "Tak perlu takut satu lauk.", "x": 500, "y": 990, "w": 760, "size": 50, "at": 0.5, "color": [22, 61, 50]}
+    ]
+  }
+}
