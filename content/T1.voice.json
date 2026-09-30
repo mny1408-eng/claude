@@ -1,0 +1,15 @@
+{
+  "reel": "T1",
+  "source": "Notion 📅 30/09/2026 — Nasi Campur Lab (QA reviewed 27/09): Reel 1 cover + teleprompter, PM carousel slide 7, Reel 1 CTA",
+  "lines": [
+    { "id": "hook", "scene": "hook", "text": "Nasi campur: saya tak cari lauk ‘diet’." },
+    { "id": "problem", "scene": "problem", "text": "Dekat kedai nasi campur, saya tak berdiri lama cari lauk yang kononnya paling diet." },
+    { "id": "plate-intro", "scene": "plate", "text": "Saya buat tiga keputusan je." },
+    { "id": "step1", "scene": "plate", "text": "Pertama, cari sumber protein yang jelas." },
+    { "id": "step2", "scene": "plate", "text": "Kedua, tambah sayur kalau ada pilihan yang sesuai." },
+    { "id": "step3", "scene": "plate", "text": "Ketiga, ambil nasi ikut portion yang masuk akal untuk keperluan dan meal tu." },
+    { "id": "extras", "scene": "extras", "text": "Lepas tu tengok kuah, lauk bergoreng dan extras sebagai sebahagian daripada keseluruhan plate — bukan makanan ‘haram’." },
+    { "id": "point", "scene": "point", "text": "Tujuan dia bukan nak bina plate perfect. Tujuan dia nak buat keputusan yang cukup baik dan boleh diulang walaupun makan luar." },
+    { "id": "cta", "scene": "cta", "text": "Kalau makan luar selalu buat plan hilang, cuba Scorecard dekat bio. Save untuk lunch." }
+  ]
+}

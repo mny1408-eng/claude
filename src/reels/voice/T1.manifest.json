@@ -1,0 +1,80 @@
+{
+  "reel": "T1",
+  "provider": "gemini",
+  "voice": "Charon",
+  "placeholder": true,
+  "lines": [
+    {
+      "id": "hook",
+      "scene": "hook",
+      "text": "Nasi campur: saya tak cari lauk ‘diet’.",
+      "key": "1a8ab1ea04",
+      "file": "voice/T1/hook-1a8ab1ea04.wav",
+      "duration": 3.4909583333333334
+    },
+    {
+      "id": "problem",
+      "scene": "problem",
+      "text": "Dekat kedai nasi campur, saya tak berdiri lama cari lauk yang kononnya paling diet.",
+      "key": "c10f12f949",
+      "file": "voice/T1/problem-c10f12f949.wav",
+      "duration": 5.090958333333333
+    },
+    {
+      "id": "plate-intro",
+      "scene": "plate",
+      "text": "Saya buat tiga keputusan je.",
+      "key": "27230a19bd",
+      "file": "voice/T1/plate-intro-27230a19bd.wav",
+      "duration": 2.210958333333333
+    },
+    {
+      "id": "step1",
+      "scene": "plate",
+      "text": "Pertama, cari sumber protein yang jelas.",
+      "key": "242abe7ced",
+      "file": "voice/T1/step1-242abe7ced.wav",
+      "duration": 3.250958333333333
+    },
+    {
+      "id": "step2",
+      "scene": "plate",
+      "text": "Kedua, tambah sayur kalau ada pilihan yang sesuai.",
+      "key": "f824ab3c8d",
+      "file": "voice/T1/step2-f824ab3c8d.wav",
+      "duration": 3.3709583333333333
+    },
+    {
+      "id": "step3",
+      "scene": "plate",
+      "text": "Ketiga, ambil nasi ikut portion yang masuk akal untuk keperluan dan meal tu.",
+      "key": "1e1e8d4af3",
+      "file": "voice/T1/step3-1e1e8d4af3.wav",
+      "duration": 5.930958333333334
+    },
+    {
+      "id": "extras",
+      "scene": "extras",
+      "text": "Lepas tu tengok kuah, lauk bergoreng dan extras sebagai sebahagian daripada keseluruhan plate — bukan makanan ‘haram’.",
+      "key": "d83e38436d",
+      "file": "voice/T1/extras-d83e38436d.wav",
+      "duration": 8.210958333333334
+    },
+    {
+      "id": "point",
+      "scene": "point",
+      "text": "Tujuan dia bukan nak bina plate perfect. Tujuan dia nak buat keputusan yang cukup baik dan boleh diulang walaupun makan luar.",
+      "key": "6c9934333a",
+      "file": "voice/T1/point-6c9934333a.wav",
+      "duration": 8.930958333333333
+    },
+    {
+      "id": "cta",
+      "scene": "cta",
+      "text": "Kalau makan luar selalu buat plan hilang, cuba Scorecard dekat bio. Save untuk lunch.",
+      "key": "201aaf5aea",
+      "file": "voice/T1/cta-201aaf5aea.wav",
+      "duration": 6.250958333333333
+    }
+  ]
+}

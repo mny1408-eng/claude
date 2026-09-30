@@ -1,0 +1,18 @@
+# Dependencies & build output
+node_modules/
+out/
+*.mp4
+
+# Media kept out of the public repo (see README "Local assets")
+# Pixabay music: licence forbids redistributing the file
+public/audio/
+# Coach Nas recordings + generated voice clips
+public/voice/
+# Coach Nas photo, site screenshots, Gemini images
+public/img/
+# User video clips
+public/clips/
+
+# Local secrets (keys live in user env vars, never in files)
+.env
+.env.*
