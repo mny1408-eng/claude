@@ -25,6 +25,9 @@ export const T = {
   gold: "#EAD49C",
 };
 
+// True when a slide is rendered inside a Reel (no swiping in video).
+export const ReelMode = React.createContext(false);
+
 export const W = 1080;
 export const H = 1440;
 const FOOTER = 162;
@@ -74,7 +77,7 @@ export const Slide: React.FC<{ index: number; total: number; children: React.Rea
           </>
         ) : (
           <>
-            SIMPAN <span style={{ color: T.dot }}>•</span> SWIPE
+            SIMPAN <span style={{ color: T.dot }}>•</span> <SwipeOrFollow />
             <svg viewBox="0 0 40 20" width={38} height={20}>
               <path d="M 2 10 H 36 M 28 3 L 36 10 L 28 17" fill="none" stroke={T.sage} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -216,3 +219,5 @@ export const WriteLine: React.FC<{ label?: string }> = ({ label }) => (
     <div style={{ flex: 1, borderBottom: `3px dashed ${T.rule}`, height: 40 }} />
   </div>
 );
+
+const SwipeOrFollow: React.FC = () => (React.useContext(ReelMode) ? <>FOLLOW</> : <>SWIPE</>);

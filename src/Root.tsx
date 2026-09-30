@@ -11,6 +11,15 @@ import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
 import { C04WeeklyReview, C04_SLIDES } from "./carousel/C04WeeklyReview";
+import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
+
+// PM carousels: each also becomes a 9:16 PM Reel (Reel-<id>).
+const CAROUSELS = [
+  { id: "01-10-DietRule", Slides: C01DietRule, slides: C01_DIET_RULE_SLIDES, music: 20 },
+  { id: "02-10-Coaching", Slides: C02Coaching, slides: C02_SLIDES, music: 50 },
+  { id: "03-10-Buffet", Slides: C03Buffet, slides: C03_SLIDES, music: 80 },
+  { id: "04-10-WeeklyReview", Slides: C04WeeklyReview, slides: C04_SLIDES, music: 110 },
+];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
 
@@ -59,10 +68,20 @@ export const Root: React.FC = () => (
       height={1920}
     />
     {/* PM carousels: one frame per slide, render with remotion still --frame=N */}
-    <Composition id="Carousel-01-10-DietRule" component={C01DietRule} durationInFrames={C01_DIET_RULE_SLIDES} fps={1} width={1080} height={1440} />
-    <Composition id="Carousel-02-10-Coaching" component={C02Coaching} durationInFrames={C02_SLIDES} fps={1} width={1080} height={1440} />
-    <Composition id="Carousel-03-10-Buffet" component={C03Buffet} durationInFrames={C03_SLIDES} fps={1} width={1080} height={1440} />
-    <Composition id="Carousel-04-10-WeeklyReview" component={C04WeeklyReview} durationInFrames={C04_SLIDES} fps={1} width={1080} height={1440} />
+    {CAROUSELS.map((c) => (
+      <Composition key={c.id} id={`Carousel-${c.id}`} component={c.Slides} durationInFrames={c.slides} fps={1} width={1080} height={1440} />
+    ))}
+    {CAROUSELS.map((c) => (
+      <Composition
+        key={`reel-${c.id}`}
+        id={`PMReel-${c.id}`}
+        component={() => <CarouselReel Slides={c.Slides} slides={c.slides} musicStartSec={c.music} />}
+        durationInFrames={carouselReelLength(c.slides)}
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
+    ))}
     {REELS.map((r) => (
       <Composition
         key={r.id}
