@@ -8,6 +8,7 @@ import { T1_VOICE_IS_PLACEHOLDER, T1_VOICE_SCENES } from "./reels/T1Voice";
 import { T1RealVoice, T1_REAL_SCENES } from "./reels/T1Real";
 import { T2_SCENES } from "./reels/T2DietRule";
 import { R0110_SCENES } from "./reels/R0110BaikJahat";
+import { R0110RealVoice, R0110_REAL_SCENES } from "./reels/R0110Real";
 import { R0210_SCENES } from "./reels/R0210DietKeras";
 import { R0310_SCENES } from "./reels/R0310Weekend";
 import { R0410_SCENES } from "./reels/R0410Tebus";
@@ -72,6 +73,14 @@ export const Root: React.FC = () => (
       id="T1-NasiCampur-CoachNasVoice"
       component={() => <Reel scenes={T1_REAL_SCENES} music="music.mp3" musicStartSec={40} musicLevel={0.25} overlay={<T1RealVoice />} />}
       durationInFrames={reelLength(T1_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-01-10-BaikJahat-CoachNasVoice"
+      component={() => <Reel scenes={R0110_REAL_SCENES} overlay={<R0110RealVoice />} />}
+      durationInFrames={reelLength(R0110_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
