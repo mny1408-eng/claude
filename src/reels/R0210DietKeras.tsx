@@ -9,7 +9,21 @@ import { SceneDef } from "../Reel";
 import { BoxStamp, Stack } from "./formats/common";
 import { CaptionScene, PortraitBadge } from "./formats/PortraitCaption";
 
-const Hook: React.FC = () => (
+// Frame (within each scene) where each element appears. Defaults = silent version;
+// R0210Real passes timings measured from Coach Nas's recording.
+export type R0210Timing = {
+  hook: { l1: number; l2: number; l3: number; hl: number };
+  hl: Record<string, number[]>; // caption highlights, in order of appearance
+  cta: { comment: number; stamp: number; relate: number };
+};
+
+export const R0210_SILENT: R0210Timing = {
+  hook: { l1: 8, l2: 16, l3: 24, hl: 36 },
+  hl: { yoyo: [34], restart: [30, 42], tahan: [28], structure: [26], perfect: [40] },
+  cta: { comment: 4, stamp: 18, relate: 34 },
+};
+
+const Hook: React.FC<{ t: R0210Timing["hook"] }> = ({ t }) => (
   <AbsoluteFill>
     <div style={{ position: "absolute", top: 300, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
       <Pop delay={2}>
@@ -17,23 +31,23 @@ const Hook: React.FC = () => (
       </Pop>
     </div>
     <Stack top={770} gap={6}>
-      <Line delay={8} size={64} weight={700}>DULU SAYA INGAT</Line>
-      <Line delay={16} size={64} weight={700}>SAYA PERLUKAN</Line>
-      <Line delay={24} size={80} weight={800}>
-        <Highlight delay={36}>DIET LEBIH KERAS.</Highlight>
+      <Line delay={t.l1} size={64} weight={700}>DULU SAYA INGAT</Line>
+      <Line delay={t.l2} size={64} weight={700}>SAYA PERLUKAN</Line>
+      <Line delay={t.l3} size={80} weight={800}>
+        <Highlight delay={t.hl}>DIET LEBIH KERAS.</Highlight>
       </Line>
     </Stack>
   </AbsoluteFill>
 );
 
-const CAPS: { id: string; dur: number; tag?: string; el: React.ReactNode }[] = [
+const caps = (hl: R0210Timing["hl"]): { id: string; dur: number; tag?: string; el: React.ReactNode }[] => [
   {
     id: "yoyo",
     dur: 120,
     tag: "Diet yoyo",
     el: (
       <>
-        Dulu saya ingat kalau progress tak jadi, maksudnya saya kena buat diet yang <Highlight delay={34}>lagi keras.</Highlight>
+        Dulu saya ingat kalau progress tak jadi, maksudnya saya kena buat diet yang <Highlight delay={hl.yoyo[0]}>lagi keras.</Highlight>
       </>
     ),
   },
@@ -43,7 +57,7 @@ const CAPS: { id: string; dur: number; tag?: string; el: React.ReactNode }[] = [
     tag: "Restart cycle",
     el: (
       <>
-        Saya dah lama melalui cycle cuba diet sendiri, <Highlight delay={30}>turun-naik</Highlight> dan <Highlight delay={42}>restart.</Highlight>
+        Saya dah lama melalui cycle cuba diet sendiri, <Highlight delay={hl.restart[0]}>turun-naik</Highlight> dan <Highlight delay={hl.restart[1]}>restart.</Highlight>
       </>
     ),
   },
@@ -52,7 +66,7 @@ const CAPS: { id: string; dur: number; tag?: string; el: React.ReactNode }[] = [
     dur: 125,
     el: (
       <>
-        Plan yang terlalu bergantung pada <Highlight delay={28}>‘aku kena tahan’</Highlight> memang susah nak hidup lama dalam rutin sebenar.
+        Plan yang terlalu bergantung pada <Highlight delay={hl.tahan[0]}>‘aku kena tahan’</Highlight> memang susah nak hidup lama dalam rutin sebenar.
       </>
     ),
   },
@@ -63,7 +77,7 @@ const CAPS: { id: string; dur: number; tag?: string; el: React.ReactNode }[] = [
     tag: "Repeatable structure",
     el: (
       <>
-        Saya mula lebih hargai <Highlight delay={26}>structure</Highlight> yang saya boleh ulang
+        Saya mula lebih hargai <Highlight delay={hl.structure[0]}>structure</Highlight> yang saya boleh ulang
       </>
     ),
   },
@@ -73,27 +87,30 @@ const CAPS: { id: string; dur: number; tag?: string; el: React.ReactNode }[] = [
     dur: 125,
     el: (
       <>
-        Plan yang hanya menjadi masa hidup perfect… <Highlight delay={40}>bukan plan</Highlight> yang saya nak bergantung lama.
+        Plan yang hanya menjadi masa hidup perfect… <Highlight delay={hl.perfect[0]}>bukan plan</Highlight> yang saya nak bergantung lama.
       </>
     ),
   },
 ];
 
-const CTA: React.FC = () => (
+const CTA: React.FC<{ t: R0210Timing["cta"] }> = ({ t }) => (
   <AbsoluteFill>
     <div style={{ position: "absolute", top: 300, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
       <PortraitBadge size={300} />
     </div>
     <Stack top={700} gap={26}>
-      <Line delay={4} size={76} weight={700}>Comment</Line>
-      <BoxStamp delay={18} rotate={-4} size={130}>“pernah”</BoxStamp>
-      <Line delay={34} size={76} weight={700} color={C.inkSoft}>kalau relate.</Line>
+      <Line delay={t.comment} size={76} weight={700}>Comment</Line>
+      <BoxStamp delay={t.stamp} rotate={-4} size={130}>“pernah”</BoxStamp>
+      <Line delay={t.relate} size={76} weight={700} color={C.inkSoft}>kalau relate.</Line>
     </Stack>
   </AbsoluteFill>
 );
 
-export const R0210_SCENES: SceneDef[] = [
-  { id: "hook", dur: 95, el: <Hook />, cues: [[2, "whoosh", 0.4], [8, "pop", 0.4], [36, "swipe", 0.5]] },
-  ...CAPS.map((c): SceneDef => ({ id: c.id, dur: c.dur, el: <CaptionScene tag={c.tag}>{c.el}</CaptionScene>, cues: [[4, "pop", 0.4]] })),
-  { id: "cta", dur: 115, el: <CTA />, cues: [[18, "stamp", 0.8], [34, "chime", 0.4]] },
+// Scene lengths default to the silent version (caption lengths live in caps()); the voiced version passes its own.
+export const r0210Scenes = (t: R0210Timing, dur: Record<string, number> = {}): SceneDef[] => [
+  { id: "hook", dur: dur.hook ?? 95, el: <Hook t={t.hook} />, cues: [[2, "whoosh", 0.4], [8, "pop", 0.4], [t.hook.hl, "swipe", 0.5]] },
+  ...caps(t.hl).map((c): SceneDef => ({ id: c.id, dur: dur[c.id] ?? c.dur, el: <CaptionScene tag={c.tag}>{c.el}</CaptionScene>, cues: [[4, "pop", 0.4]] })),
+  { id: "cta", dur: dur.cta ?? 115, el: <CTA t={t.cta} />, cues: [[t.cta.stamp, "stamp", 0.8], [t.cta.stamp + 16, "chime", 0.4]] },
 ];
+
+export const R0210_SCENES = r0210Scenes(R0210_SILENT);

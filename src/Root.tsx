@@ -10,6 +10,7 @@ import { T2_SCENES } from "./reels/T2DietRule";
 import { R0110_SCENES } from "./reels/R0110BaikJahat";
 import { R0110RealVoice, R0110_REAL_SCENES } from "./reels/R0110Real";
 import { R0210_SCENES } from "./reels/R0210DietKeras";
+import { R0210RealVoice, R0210_REAL_SCENES } from "./reels/R0210Real";
 import { R0310_SCENES } from "./reels/R0310Weekend";
 import { R0410_SCENES } from "./reels/R0410Tebus";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
@@ -81,6 +82,14 @@ export const Root: React.FC = () => (
       id="R1-01-10-BaikJahat-CoachNasVoice"
       component={() => <Reel scenes={R0110_REAL_SCENES} overlay={<R0110RealVoice />} />}
       durationInFrames={reelLength(R0110_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-02-10-DietKeras-CoachNasVoice"
+      component={() => <Reel scenes={R0210_REAL_SCENES} overlay={<R0210RealVoice />} />}
+      durationInFrames={reelLength(R0210_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
