@@ -1,0 +1,196 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Poppins;font-weight:400;src:url(../reel/fonts/p400.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:500;src:url(../reel/fonts/p500.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:600;src:url(../reel/fonts/p600.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:700;src:url(../reel/fonts/p700.woff2) format('woff2')}
+@font-face{font-family:Poppins;font-weight:800;src:url(../reel/fonts/p800.woff2) format('woff2')}
+:root{--cream:#F7F4EC;--green:#0E4A37;--green2:#16664C;--leaf:#7DB544;--ink:#1D2A24;--muted:#5E6B64;--warn:#B5562E;--card:#FFFFFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--cream)}
+#stage{position:absolute;left:0;top:240px;width:1080px;height:1350px}
+body{font-family:Poppins,sans-serif;color:var(--ink);position:relative}
+.a{position:absolute;opacity:0;will-change:transform,opacity}
+.bgdeco{position:absolute;border-radius:50%;filter:blur(0px)}
+.footer{position:absolute;left:0;right:0;bottom:0;height:96px;background:var(--green);display:flex;align-items:center;justify-content:center;gap:40px;padding:0 56px;color:#fff;z-index:50}
+.footer .h{font-size:30px;font-weight:600;letter-spacing:.3px}
+.footer .wdt{display:flex;align-items:center;gap:14px;font-size:20px;font-weight:500;opacity:.92}
+.footer .wdt b{background:var(--leaf);color:var(--green);font-weight:800;font-size:22px;padding:6px 14px;border-radius:10px;letter-spacing:1px}
+.tag{display:inline-block;background:var(--green);color:#fff;font-weight:600;font-size:26px;padding:10px 26px;border-radius:40px;letter-spacing:1px}
+.h1{font-weight:800;line-height:1.08;color:var(--green)}
+.center{left:0;right:0;text-align:center}
+.card{background:var(--card);border-radius:32px;box-shadow:0 18px 50px rgba(14,74,55,.12)}
+.hl{background:linear-gradient(transparent 58%,rgba(125,181,68,.45) 58%);padding:0 6px}
+.chip{background:#fff;border:3px solid var(--green);color:var(--green);font-weight:700;font-size:38px;padding:18px 34px;border-radius:24px;box-shadow:0 10px 30px rgba(14,74,55,.10)}
+.arrow{font-size:44px;color:var(--leaf);font-weight:800}
+.stat{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stat .n{font-size:110px;font-weight:800;color:var(--green);line-height:1}
+.stat .u{font-size:30px;font-weight:600;color:var(--muted);margin-top:8px}
+.step{display:flex;align-items:center;gap:30px;padding:30px 36px}
+.step .num{flex:none;width:84px;height:84px;border-radius:50%;background:var(--green);color:#fff;font-size:44px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step .tx{font-size:38px;font-weight:600;line-height:1.25}
+.step .tx small{display:block;font-size:26px;font-weight:500;color:var(--muted)}
+.nf{display:flex;justify-content:space-between;font-size:27px;font-weight:500;padding:6px 0;border-bottom:1px solid #E3E8E4}
+.nf b{font-weight:700;color:var(--green)}
+.nf.hi{background:rgba(125,181,68,.22);margin:0 -14px;padding:6px 14px;border-radius:10px;border-bottom:none}
+.nf.hi span,.nf.hi b{font-weight:800;color:var(--green)}
+.warnrow{display:flex;align-items:center;gap:24px;font-size:36px;font-weight:600;padding:26px 34px}
+.ico{flex:none;width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:38px;color:#fff}
+</style></head>
+<body>
+
+<!-- soft background decoration (always visible) -->
+<div class="bgdeco" style="width:700px;height:700px;right:-260px;top:-260px;background:radial-gradient(circle,rgba(125,181,68,.20),rgba(125,181,68,0) 70%)"></div>
+<div class="bgdeco" style="width:620px;height:620px;left:-240px;bottom:-120px;background:radial-gradient(circle,rgba(14,74,55,.10),rgba(14,74,55,0) 70%)"></div>
+
+<div id="stage">
+<!-- ============ SCENE 1: HOOK 0–5s ============ -->
+<div class="a center" data-t="0.1,5" style="top:20px"><span class="tag">REALITI DIET</span></div>
+<div class="a center h1" data-t="0.3,5" style="top:100px;font-size:64px">Diet pun dah.<br>Kurang makan pun dah.</div>
+<svg class="a" data-t="1.4,5" data-anim="pop" style="left:430px;top:265px" width="220" height="220" viewBox="0 0 300 300">
+  <circle cx="150" cy="150" r="138" fill="#fff" stroke="#0E4A37" stroke-width="12"/>
+  <g stroke="#0E4A37" stroke-width="8" stroke-linecap="round">
+    <line x1="150" y1="28" x2="150" y2="50"/><line x1="272" y1="150" x2="250" y2="150"/><line x1="150" y1="272" x2="150" y2="250"/><line x1="28" y1="150" x2="50" y2="150"/>
+  </g>
+  <line id="hrHand" x1="150" y1="150" x2="150" y2="85" stroke="#0E4A37" stroke-width="14" stroke-linecap="round"/>
+  <line id="minHand" x1="150" y1="150" x2="150" y2="55" stroke="#7DB544" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="150" cy="150" r="12" fill="#0E4A37"/>
+</svg>
+<div class="a center" data-t="2.0,5" style="top:500px;font-size:54px;font-weight:700;line-height:1.2">…tapi pukul <span class="hl">10 pagi</span><br><span style="color:var(--warn)">LAPAR</span> balik? 😩</div>
+<div class="a" data-t="0.2,5" style="left:250px;top:660px;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(125,181,68,.38) 0%,rgba(125,181,68,.18) 55%,rgba(125,181,68,0) 72%)"></div>
+
+<!-- ============ SCENE 2: PAIN 5–15s ============ -->
+<div class="a center" data-t="5.1,9.6" style="top:120px"><span class="tag">BREAKFAST BIASA KITA</span></div>
+<div class="a card" data-t="5.3,9.6" style="left:170px;top:220px;width:740px;height:560px;padding:50px 70px">
+  <div style="position:absolute;left:70px;right:70px;bottom:120px;height:340px;display:flex;align-items:flex-end;justify-content:space-around">
+    <div style="width:200px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end">
+      <div class="grow" data-start="5.8" data-h="100" style="width:180px;background:#E3A24A;border-radius:18px 18px 6px 6px;height:0"></div>
+    </div>
+    <div style="width:200px;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end">
+      <div class="grow" data-start="6.3" data-h="22" style="width:180px;background:var(--green);border-radius:18px 18px 6px 6px;height:0"></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:70px;right:70px;bottom:50px;display:flex;justify-content:space-around;font-size:34px;font-weight:700">
+    <div style="width:200px;text-align:center;color:#B87316">KARBO</div>
+    <div style="width:200px;text-align:center;color:var(--green)">PROTEIN</div>
+  </div>
+  <div style="position:absolute;right:30px;top:22px;font-size:20px;color:var(--muted);font-style:italic">*ilustrasi</div>
+</div>
+<div class="a center" data-t="6.8,9.6" style="top:830px;font-size:52px;font-weight:700;line-height:1.25">Karbo <span style="color:#B87316">tinggi</span>,<br>protein <span style="color:var(--green)">sikit</span>.</div>
+
+<div class="a center" data-t="9.7,15" style="top:110px;font-size:46px;font-weight:700;color:var(--muted)">Kenyang sekejap je…</div>
+<div class="a center" data-t="10.1,15" style="top:210px"><span class="chip">😩 Cepat lapar</span></div>
+<div class="a center arrow" data-t="10.5,15" style="top:310px">↓</div>
+<div class="a center" data-t="10.7,15" style="top:380px"><span class="chip">🍪 Craving</span></div>
+<div class="a center arrow" data-t="11.1,15" style="top:480px">↓</div>
+<div class="a center" data-t="11.3,15" style="top:550px"><span class="chip">🍟 Snacking</span></div>
+<div class="a center arrow" data-t="11.7,15" style="top:650px">↓</div>
+<div class="a center" data-t="11.9,15" style="top:720px"><span class="chip" style="border-color:var(--warn);color:var(--warn)">🌙 Malam makan lebih</span></div>
+<div class="a center" data-t="12.8,15" data-anim="pop" style="top:880px">
+  <div style="display:inline-block;background:var(--green);color:#fff;border-radius:32px;padding:30px 50px;text-align:center">
+    <div style="font-size:32px;font-weight:500;opacity:.9">Bukan willpower. Masalahnya…</div>
+    <div style="font-size:64px;font-weight:800;color:#CDEB9F;letter-spacing:1px">STRUKTUR MAKAN</div>
+  </div>
+</div>
+
+<!-- ============ SCENE 3: SOLUTION 15–32s ============ -->
+<!-- 15–19.5 product reveal -->
+<div class="a center" data-t="15.1,19.6" style="top:90px"><span class="tag">SOLUSI SIMPLE</span></div>
+<div class="a center h1" data-t="15.3,19.6" style="top:170px;font-size:84px">Formula 3</div>
+<div class="a center" data-t="15.6,19.6" style="top:275px;font-size:36px;font-weight:600;color:var(--muted)">Protein powder · Soy + Whey</div>
+<div class="a" data-t="15.5,19.6" data-anim="pop" style="left:140px;top:360px;width:800px;height:860px">
+  <div style="position:absolute;left:50px;top:40px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0%,rgba(205,235,159,.55) 45%,rgba(125,181,68,0) 70%)"></div>
+  <div class="shadow" data-start="15.5" style="position:absolute;left:170px;top:790px;width:460px;height:50px;border-radius:50%;background:radial-gradient(ellipse,rgba(14,74,55,.38),rgba(14,74,55,0) 70%)"></div>
+  <img class="float" data-start="15.5" data-amp="14" src="../reel/tin_proper.png" style="position:absolute;left:115px;top:20px;height:790px;filter:drop-shadow(0 26px 30px rgba(14,74,55,.22))">
+</div>
+
+<!-- 19.5–26 stats + label -->
+<div class="a center" data-t="19.7,26.2" style="top:80px"><span class="tag">PER 1 SUDU BESAR (6g)</span></div>
+<div class="a card stat" data-t="19.9,26.2" data-anim="pop" style="left:70px;top:180px;width:460px;height:330px;background:var(--green)">
+  <div class="n" style="color:#fff"><span class="cnt" data-start="19.9" data-to="5">5</span>g</div>
+  <div class="u" style="color:#CDEB9F;font-size:40px;font-weight:700">PROTEIN</div>
+</div>
+<div class="a card stat" data-t="20.4,26.2" data-anim="pop" style="left:550px;top:180px;width:460px;height:330px">
+  <div class="n"><span class="cnt" data-start="20.4" data-to="20">20</span></div>
+  <div class="u" style="font-size:40px;font-weight:700">kcal sahaja</div>
+</div>
+<div class="a card" data-t="21.0,26.2" data-anim="pop" style="left:70px;top:530px;width:940px;height:150px;display:flex;align-items:center;justify-content:space-around;font-size:40px;font-weight:700;color:var(--green)">
+  <span>0g Lemak</span><span style="color:#CBD5CF">|</span><span>0g Karbo</span><span style="color:#CBD5CF">|</span><span>0g Gula</span>
+</div>
+<div class="a" data-t="21.6,26.2" style="left:40px;top:740px;width:330px;height:430px">
+  <img class="float" data-start="21.6" data-amp="10" src="../reel/tin_proper.png" style="position:absolute;left:10px;top:20px;width:310px;filter:drop-shadow(0 18px 22px rgba(14,74,55,.25))">
+</div>
+<div class="a card" data-t="21.9,26.2" style="left:380px;top:705px;width:630px;height:505px;padding:28px 40px">
+  <div style="font-size:34px;font-weight:800;color:var(--green);line-height:1.1">Nutrition Facts</div>
+  <div style="font-size:22px;font-weight:500;color:var(--muted);border-bottom:3px solid var(--green);padding-bottom:10px;margin-bottom:6px">Per 1 sudu besar (6g) · 40 servings</div>
+  <div class="nf"><span>Tenaga</span><b>20 kcal</b></div>
+  <div class="nf"><span>Lemak</span><b>0 g</b></div>
+  <div class="nf"><span>Karbohidrat</span><b>0 g</b></div>
+  <div class="nf"><span>Gula</span><b>0 g</b></div>
+  <div class="nf hi"><span>Protein</span><b>5 g</b></div>
+  <div class="nf"><span>Natrium</span><b>50 mg</b></div>
+  <div style="font-size:19px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.35">Soy protein isolate 93% · Whey protein concentrate 6% · Halal (IFANCA)</div>
+</div>
+
+<!-- 26–32 how-to -->
+<div class="a center" data-t="26.3,32.2" style="top:110px"><span class="tag">CARA GUNA</span></div>
+<div class="a center h1" data-t="26.5,32.2" style="top:195px;font-size:66px">Senang campur je</div>
+<div class="a card step" data-t="27.0,32.2" style="left:90px;top:360px;width:900px"><div class="num">1</div><div class="tx">1–2 sudu dalam shake pagi<small>Tambah protein pada breakfast</small></div></div>
+<div class="a card step" data-t="28.0,32.2" style="left:90px;top:580px;width:900px"><div class="num">2</div><div class="tx">Tabur dalam oat / smoothie<small>Tak perlu masak lain</small></div></div>
+<div class="a card step" data-t="29.0,32.2" style="left:90px;top:800px;width:900px"><div class="num">3</div><div class="tx">Snek petang yang lebih tersusun<small>Susu rendah lemak + F3</small></div></div>
+
+<!-- ============ SCENE 4: PHARMACIST NOTE + CTA 32–45s ============ -->
+<div class="a center" data-t="32.3,38.6" style="top:100px"><span class="tag">💊 NOTA PHARMACIST</span></div>
+<div class="a center h1" data-t="32.5,38.6" style="top:190px;font-size:64px">Sokongan nutrisi.<br><span style="color:var(--warn)">Bukan ubat.</span> Bukan magic.</div>
+<div class="a card warnrow" data-t="33.8,38.6" style="left:110px;top:470px;width:860px"><div class="ico" style="background:var(--warn)">!</div><div>Mengandungi <b>susu</b> &amp; <b>soya</b></div></div>
+<div class="a card warnrow" data-t="34.6,38.6" style="left:110px;top:640px;width:860px"><div class="ico" style="background:var(--warn)">!</div><div>Masalah buah pinggang?<br><span style="font-weight:500;color:var(--muted);font-size:32px">Tanya doktor dulu ea</span></div></div>
+<div class="a center" data-t="35.6,38.6" style="top:900px;font-size:34px;font-weight:500;color:var(--muted)">Jumlah protein harian ikut individu.</div>
+
+<div class="a center" data-t="38.7,45.5" style="top:130px;font-size:52px;font-weight:700;line-height:1.25">Nak saya kira<br><span class="hl">protein harian</span> awak?</div>
+<div class="a center" data-t="39.4,45.5" data-anim="pop" style="top:360px">
+  <div id="nak" style="display:inline-block;background:var(--green);color:#fff;border-radius:40px;padding:34px 80px;box-shadow:0 20px 50px rgba(14,74,55,.35)">
+    <div style="font-size:34px;font-weight:500;opacity:.9">💬 Komen</div>
+    <div style="font-size:150px;font-weight:800;line-height:1;color:#CDEB9F;letter-spacing:6px">NAK</div>
+  </div>
+</div>
+<div class="a center" data-t="40.2,45.5" style="top:720px;font-size:38px;font-weight:600;color:var(--green)">Saya guide step by step 💚</div>
+<div class="a center" data-t="41.0,45.5" style="top:860px">
+  <div style="display:inline-block;border-top:3px solid var(--leaf);padding-top:26px">
+    <div style="font-size:56px;font-weight:800;color:var(--green)">Coach Nas</div>
+    <div style="font-size:30px;font-weight:500;color:var(--muted)">Clinical Pharmacist + Wellness Coach</div>
+  </div>
+</div>
+
+<div class="footer" style="border-radius:0"><div class="wdt"><b>WDT</b></div><div class="h">@coachnas.pharmacist</div></div>
+
+</div>
+<!-- extra decoration for 9:16 -->
+<div class="bgdeco" style="width:900px;height:900px;left:-300px;top:1500px;background:radial-gradient(circle,rgba(125,181,68,.16),rgba(125,181,68,0) 70%)"></div>
+<script>
+const ease=x=>1-Math.pow(1-Math.min(Math.max(x,0),1),3);
+const cl=x=>Math.min(Math.max(x,0),1);
+const els=[...document.querySelectorAll('.a')].map(e=>{const[i,o]=e.dataset.t.split(',').map(Number);return{e,i,o,anim:e.dataset.anim||'up'}});
+window.render=function(t){
+  for(const s of els){
+    const pin=ease((t-s.i)/0.55), pout=ease((t-(s.o-0.35))/0.35);
+    const op=pin*(1-pout);
+    s.e.style.opacity=op;
+    if(s.anim==='pop') s.e.style.transform=`scale(${0.86+0.14*pin})`;
+    else s.e.style.transform=`translateY(${(1-pin)*44 - pout*20}px)`;
+    s.e.style.visibility=op<=0.001?'hidden':'visible';
+  }
+  document.querySelectorAll('.grow').forEach(g=>{g.style.height=(+g.dataset.h*ease((t-+g.dataset.start)/0.9))+'%'});
+  document.querySelectorAll('.float').forEach(f=>{const k=t-+f.dataset.start, A=+f.dataset.amp; f.style.transform=`translateY(${Math.sin(k*2.2)*A}px) rotate(${Math.sin(k*1.4)*1.6}deg)`});
+  document.querySelectorAll('.shadow').forEach(f=>{const k=t-+f.dataset.start; f.style.transform=`scaleX(${1-0.06*Math.sin(k*2.2)})`});
+  document.querySelectorAll('.kb').forEach(k=>{k.style.transform=`scale(${1+0.06*cl((t-+k.dataset.start)/6)})`});
+  document.querySelectorAll('.cnt').forEach(c=>{c.textContent=Math.round(+c.dataset.to*ease((t-+c.dataset.start)/0.9))});
+  // clock: sweep from 7:00 to 10:00
+  const p=ease((t-1.4)/2.6), hours=7+3*p;
+  document.getElementById('hrHand').setAttribute('transform',`rotate(${(hours%12)*30} 150 150)`);
+  document.getElementById('minHand').setAttribute('transform',`rotate(${p*3*360} 150 150)`);
+  const nak=document.getElementById('nak'); nak.style.transform=t>40?`scale(${1+0.035*Math.sin((t-40)*5)})`:'none';
+};
+render(0);
+</script>
+</body></html>
