@@ -1,0 +1,113 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Poppins;font-weight:400;src:url(fonts/p400.woff2)}
+@font-face{font-family:Poppins;font-weight:500;src:url(fonts/p500.woff2)}
+@font-face{font-family:Poppins;font-weight:600;src:url(fonts/p600.woff2)}
+@font-face{font-family:Poppins;font-weight:700;src:url(fonts/p700.woff2)}
+@font-face{font-family:Poppins;font-weight:800;src:url(fonts/p800.woff2)}
+:root{--green:#0E4A37;--leaf:#7DB544;--cream:#F4F1E8;--ink:#1D2A24;--muted:#5E6B64}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#20302A;font-family:Poppins,sans-serif}
+.bg{position:absolute;inset:-60px;background-size:cover;background-position:center;filter:blur(38px) brightness(.72) saturate(1.1);opacity:0}
+.card{position:absolute;left:50%;border-radius:36px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);opacity:0;background:#fff}
+.card img.ph{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover}
+.hlbox{position:absolute;border:6px solid var(--leaf);border-radius:26px;box-shadow:0 0 0 2000px rgba(0,0,0,0),0 0 30px rgba(125,181,68,.8);opacity:0}
+.footer{position:absolute;left:50%;transform:translateX(-50%);top:1625px;display:flex;align-items:center;gap:18px;background:var(--green);color:#fff;padding:14px 34px;border-radius:60px;box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:10}
+.footer b{background:var(--leaf);color:var(--green);font-weight:800;font-size:22px;padding:4px 12px;border-radius:10px;letter-spacing:1px}
+.footer span{font-size:32px;font-weight:600}
+/* panel 7 rebuilt (no photo of person) */
+#p7{background:linear-gradient(170deg,#FBF9F3 0%,#EEF3E6 100%)}
+#p7 .tag{position:absolute;left:70px;top:80px;background:var(--green);color:#fff;font-weight:600;font-size:28px;padding:10px 26px;border-radius:40px;letter-spacing:1px}
+#p7 h2{position:absolute;left:70px;top:160px;right:70px;font-size:76px;line-height:1.05;font-weight:800;color:var(--green)}
+#p7 .q{position:absolute;left:70px;right:70px;top:350px;background:#fff;border-radius:34px;padding:44px 50px;font-size:40px;line-height:1.38;font-weight:500;color:var(--ink);box-shadow:0 14px 40px rgba(14,74,55,.12)}
+#p7 .q:after{content:"";position:absolute;left:90px;bottom:-30px;border:18px solid transparent;border-top:30px solid #fff;border-bottom:0}
+#p7 .q b{color:var(--green)}
+#p7 .prod{position:absolute;right:70px;bottom:70px;width:400px;height:480px;border-radius:30px;overflow:hidden;box-shadow:0 20px 50px rgba(14,74,55,.25)}
+#p7 .prod img{width:100%;height:100%;object-fit:cover}
+#p7 .sig{position:absolute;left:70px;bottom:110px}
+#p7 .sig .n{font-size:64px;font-weight:800;color:var(--green);border-bottom:4px solid var(--leaf);padding-bottom:6px;display:inline-block}
+#p7 .sig .r{font-size:30px;font-weight:500;color:var(--muted);margin-top:14px;line-height:1.35}
+#p7 .badge{position:absolute;left:70px;bottom:330px;display:flex;align-items:center;gap:14px;font-size:28px;font-weight:600;color:var(--green)}
+#p7 .badge i{width:56px;height:56px;border-radius:16px;background:var(--green);color:#fff;font-style:normal;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+</style></head><body>
+
+<div id="bgs"></div>
+<div id="cards"></div>
+<div class="footer"><b>WDT</b><span>@coachnas.pharmacist</span></div>
+
+<template id="t7">
+  <div class="tag">7 · NOTA PHARMACIST</div>
+  <h2>Kenapa protein penting?</h2>
+  <div class="q">Protein bukan sekadar untuk bina otot. Ia juga <b>bantu rasa kenyang lebih lama</b> dan <b>bantu kekalkan otot</b> semasa turun berat badan — sebahagian daripada pemakanan seimbang.</div>
+  <div class="badge"><i>Rx</i>Nasihat berasaskan bukti</div>
+  <div class="sig"><div class="n">Coach Nas</div><div class="r">Clinical Pharmacist<br>Wellness Coach</div></div>
+  <div class="prod"><img src="product.jpg"></div>
+</template>
+
+<script>
+// storyboard timing (seconds) & motion per panel
+const S=[
+ {p:1,a:0, b:3, h:1566, m:{z0:1.10,z1:1.0, fx:.5,fy:.3}, punch:true},
+ {p:2,a:3, b:6, h:1571, m:{z0:1.0, z1:1.10,fx:.5,fy:.70}},
+ {p:3,a:6, b:9, h:1580, m:{z0:1.0,z1:1.10,fx:.51,fy:.45}},
+ {p:4,a:9, b:15,h:1252, m:{z0:1.0, z1:1.05,fx:.5,fy:.55}, rows:[.30,.47,.645,.82]},
+ {p:5,a:15,b:22,h:1256, m:{z0:1.0,z1:1.08,fx:.75,fy:.35}},
+ {p:6,a:22,b:26,h:1263, m:{z0:1.07,z1:1.07,fx:.30,fy:.62, fx1:.70}},
+ {p:7,a:26,b:30,h:1376, m:{z0:1.0, z1:1.0, fx:.5,fy:.5}, html:true},
+ {p:8,a:30,b:35,h:1477, m:{z0:1.12,z1:1.0, fx:.5,fy:.70}},
+ {p:9,a:35,b:40.5,h:1385,m:{z0:1.0,z1:1.08,fx:.5,fy:.74}, pulse:true},
+];
+const T=0.4, MAXH=1440, TOP=120;
+const ease=x=>{x=Math.min(Math.max(x,0),1);return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
+const out3=x=>{x=Math.min(Math.max(x,0),1);return 1-Math.pow(1-x,3)};
+const bgs=document.getElementById('bgs'), cards=document.getElementById('cards');
+for(const s of S){
+  const h=Math.min(s.h,MAXH), w=Math.round(1000*h/s.h);
+  s.w=w; s.hh=h;
+  const bg=document.createElement('div'); bg.className='bg';
+  bg.style.backgroundImage=`url(${s.html?'bg8.jpg':'bg'+s.p+'.jpg'})`; bgs.appendChild(bg); s.bg=bg;
+  const c=document.createElement('div'); c.className='card';
+  c.style.width=w+'px'; c.style.height=h+'px'; c.style.marginLeft=(-w/2)+'px'; c.style.top=(TOP+(MAXH-h)/2)+'px';
+  if(s.html){
+    const inner=document.createElement('div'); inner.id='p7'; inner.className='ph';
+    inner.style.cssText='position:absolute;left:0;top:0;width:1000px;height:1376px;transform-origin:0 0;transform:scale('+(w/1000)+')';
+    inner.appendChild(document.getElementById('t7').content.cloneNode(true)); c.appendChild(inner); s.img=null; s.p7=inner;
+  } else {
+    const im=document.createElement('img'); im.className='ph'; im.src='p'+s.p+'.jpg'; c.appendChild(im); s.img=im;
+  }
+  if(s.rows){ s.hl=document.createElement('div'); s.hl.className='hlbox'; c.appendChild(s.hl); }
+  cards.appendChild(c); s.c=c;
+}
+window.render=function(t){
+  for(const s of S){
+    const vin=out3((t-s.a)/T), vout=s.b>=40?0:ease((t-(s.b-T*0.5))/T);
+    const op=vin*(1-vout);
+    s.c.style.opacity=op; s.bg.style.opacity=op; s.c.style.visibility=s.bg.style.visibility=op<.001?'hidden':'visible';
+    if(op<.001) continue;
+    const float=Math.sin((t-s.a)*1.6)*6;
+    let sc=0.90+0.10*vin + 0.04*vout, ty=(1-vin)*90 - vout*40 + float, rot=(1-vin)*-1.5;
+    if(s.punch && t-s.a<0.8){ const k=t-s.a; rot+=Math.sin(k*40)*Math.max(0,.8-k)*1.2; }
+    if(s.pulse && t>s.a+1.2) sc*=1+0.012*Math.sin((t-s.a)*6);
+    s.c.style.transform=`translateY(${ty}px) scale(${sc}) rotate(${rot}deg)`;
+    // ken burns inside card
+    const p=ease((t-s.a)/(s.b-s.a)), m=s.m;
+    const z=m.z0+(m.z1-m.z0)*p, fx=m.fx1!==undefined? m.fx+(m.fx1-m.fx)*p : m.fx;
+    const tx=(0.5-fx)*s.w*(z-1), tyy=(0.5-m.fy)*s.hh*(z-1);
+    if(s.img) s.img.style.transform=`translate(${tx}px,${tyy}px) scale(${z})`;
+    if(s.p7){ // stagger elements in rebuilt panel 7
+      [...s.p7.children].forEach((el,i)=>{const q=out3((t-s.a-0.25-i*0.18)/0.5); el.style.opacity=q; el.style.translate=`0 ${(1-q)*40}px`;});
+    }
+    if(s.hl){ // highlight each benefit row in turn
+      const k=t-s.a-0.8, idx=Math.floor(k/1.25);
+      if(k<0||idx>3){s.hl.style.opacity=0}else{
+        const y=s.rows[idx]*s.hh*z+tyy - (z-1)*s.hh*0.5, rh=0.165*s.hh*z;
+        const fr=k-idx*1.25; s.hl.style.opacity=Math.min(1,fr/0.2)*(fr>1.05?Math.max(0,1-(fr-1.05)/0.2):1);
+        s.hl.style.left=(0.06*s.w)+'px'; s.hl.style.width=(0.88*s.w)+'px';
+        s.hl.style.top=(y-rh/2)+'px'; s.hl.style.height=rh+'px';
+      }
+    }
+  }
+};
+render(0);
+</script></body></html>
