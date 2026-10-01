@@ -14,6 +14,9 @@ import { R0210_SCENES } from "./reels/R0210DietKeras";
 import { R0210RealVoice, R0210_REAL_SCENES } from "./reels/R0210Real";
 import { R0310_SCENES } from "./reels/R0310Weekend";
 import { R0410_SCENES } from "./reels/R0410Tebus";
+import { R0210_COACHING_SCENES } from "./reels/R0210Coaching";
+import { R0310_BUFFET_SCENES } from "./reels/R0310Buffet";
+import { R0410_REVIEW_SCENES } from "./reels/R0410WeeklyReview";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
@@ -39,6 +42,10 @@ const REELS = [
   { id: "R1-02-10-DietKeras", scenes: R0210_SCENES, musicStartSec: 15 },
   { id: "R1-03-10-Weekend", scenes: R0310_SCENES, musicStartSec: 60 },
   { id: "R1-04-10-Tebus", scenes: R0410_SCENES, musicStartSec: 95 },
+  // Daily Reel 2, designed version (format differs from that day's Reel 1).
+  { id: "R2-02-10-Coaching", scenes: R0210_COACHING_SCENES, musicStartSec: 50 },
+  { id: "R2-03-10-Buffet", scenes: R0310_BUFFET_SCENES, musicStartSec: 80 },
+  { id: "R2-04-10-WeeklyReview", scenes: R0410_REVIEW_SCENES, musicStartSec: 30 },
 ];
 
 export const Root: React.FC = () => (
