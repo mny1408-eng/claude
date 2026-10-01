@@ -71,6 +71,8 @@ Short-form video formats for Coach Nas. All of them can be built in code (Remoti
 
 **Build order:** progress bar → checklist → Mitos/Fakta → calendar flip.
 
+**Built so far:** progress bar reset (`src/templates/ProgressReset.tsx`), Mitos vs Fakta (`src/templates/MitosFakta.tsx`). Next: checklist, calendar flip, hybrid talking-head (needs clips).
+
 ---
 
 ## 4. Two-week organic rotation (5 posts/week)

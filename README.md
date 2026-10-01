@@ -48,3 +48,9 @@ Regenerate the sound effects with `node scripts/gen-sfx.mjs` if `public/sfx/` is
 - `src/kit.tsx` – Vox building blocks (highlighter, hand circle, stamp, tape)
 - `src/theme.ts` – brand colours / fonts
 - `scripts/gen-images.mjs` – Gemini collage images (needs billing enabled on the Gemini key)
+
+## Reel templates (`src/templates/`)
+Fill in a content object, get a reel. One file per reel in `src/reels/`, then add it to `REELS` in `src/Root.tsx`.
+- **Progress bar reset** (`ProgressReset.tsx`): bar climbs day by day, crashes to 0%, repeats. Example: `src/reels/P01ProgressReset.tsx` → `P01-ProgressReset`
+- **Mitos vs Fakta** (`MitosFakta.tsx`): myth card, crossed out and stamped, then the fact card with its source on screen (`source` is required). Example: `src/reels/M01KopiGemuk.tsx` → `M01-KopiGemuk`
+- Both end on the brand-frame end card (`shared.tsx`, default "Semak skor anda →").
