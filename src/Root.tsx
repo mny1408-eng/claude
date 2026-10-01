@@ -7,6 +7,7 @@ import { T1_SCENES } from "./reels/T1NasiCampur";
 import { T1_VOICE_IS_PLACEHOLDER, T1_VOICE_SCENES } from "./reels/T1Voice";
 import { T1RealVoice, T1_REAL_SCENES } from "./reels/T1Real";
 import { T2_SCENES } from "./reels/T2DietRule";
+import { R0110_SCENES } from "./reels/R0110BaikJahat";
 import { R0210_SCENES } from "./reels/R0210DietKeras";
 import { R0310_SCENES } from "./reels/R0310Weekend";
 import { R0410_SCENES } from "./reels/R0410Tebus";
@@ -31,6 +32,7 @@ const REELS = [
   { id: "T1-NasiCampur", scenes: T1_SCENES, musicStartSec: 40 },
   { id: "T2-DietRule", scenes: T2_SCENES, musicStartSec: 70 },
   // Daily Reel 1, designed version (one format per day, see docs/video-style-rotation.md).
+  { id: "R1-01-10-BaikJahat", scenes: R0110_SCENES, musicStartSec: 35 },
   { id: "R1-02-10-DietKeras", scenes: R0210_SCENES, musicStartSec: 15 },
   { id: "R1-03-10-Weekend", scenes: R0310_SCENES, musicStartSec: 60 },
   { id: "R1-04-10-Tebus", scenes: R0410_SCENES, musicStartSec: 95 },
