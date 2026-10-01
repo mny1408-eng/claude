@@ -10,16 +10,36 @@ import { Cue } from "../sound";
 import { SceneDef } from "../Reel";
 import { BoxStamp, CtaPill, Stack, Tag } from "./formats/common";
 
-const Hook: React.FC = () => (
+// Frame (within each scene) where each element appears. Defaults = silent version;
+// R0110Real passes timings measured from Coach Nas's recording.
+export type R0110Timing = {
+  hook: { line2: number; baik: number; atau: number; jahat: number };
+  labels: { line2: number; labelA: number; labelB: number; strikeA: number; strikeB: number; sebab: number; satu: number; satuHl: number };
+  tengok: { hl: number; tags: number; card: number; ticks: number[] };
+  auto: { cardA: number; hlA: number; cardB: number; hlB: number };
+  tanya: { line2: number; hl: number; ask: number[] };
+  cta: { hl: number; pill: number };
+};
+
+export const R0110_SILENT: R0110Timing = {
+  hook: { line2: 8, baik: 26, atau: 40, jahat: 50 },
+  labels: { line2: 12, labelA: 40, labelB: 56, strikeA: 150, strikeB: 162, sebab: 116, satu: 124, satuHl: 134 },
+  tengok: { hl: 12, tags: 26, card: 60, ticks: [0, 1, 2, 3, 4].map((i) => 70 + i * 22) },
+  auto: { cardA: 4, hlA: 22, cardB: 80, hlB: 100 },
+  tanya: { line2: 8, hl: 18, ask: [0, 1, 2, 3].map((i) => 34 + i * 34) },
+  cta: { hl: 20, pill: 44 },
+};
+
+const Hook: React.FC<{ t: R0110Timing["hook"] }> = ({ t }) => (
   <AbsoluteFill>
     <Stack top={420} gap={8}>
       <Line size={64} weight={700}>SAYA TAK SUKA</Line>
-      <Line delay={8} size={76} weight={800}>LABEL MAKANAN</Line>
+      <Line delay={t.line2} size={76} weight={800}>LABEL MAKANAN</Line>
     </Stack>
     <Stack top={690} gap={26}>
-      <BoxStamp delay={26} rotate={-5} size={130}>“BAIK”</BoxStamp>
-      <Line delay={40} size={56} weight={700} color={C.inkSoft}>ATAU</Line>
-      <BoxStamp delay={50} rotate={4} size={130}>“JAHAT”.</BoxStamp>
+      <BoxStamp delay={t.baik} rotate={-5} size={130}>“BAIK”</BoxStamp>
+      <Line delay={t.atau} size={56} weight={700} color={C.inkSoft}>ATAU</Line>
+      <BoxStamp delay={t.jahat} rotate={4} size={130}>“JAHAT”.</BoxStamp>
     </Stack>
   </AbsoluteFill>
 );
@@ -35,10 +55,7 @@ const Label: React.FC<{ children: React.ReactNode; delay: number; strikeAt: numb
   </Pop>
 );
 
-const STRIKE_A = 150;
-const STRIKE_B = 162;
-
-const Labels: React.FC = () => (
+const Labels: React.FC<{ t: R0110Timing["labels"] }> = ({ t }) => (
   <AbsoluteFill>
     <Stack top={270} gap={8}>
       <Line size={50} weight={600} color={C.inkSoft}>
@@ -46,52 +63,51 @@ const Labels: React.FC = () => (
         <br />
         dan coach,
       </Line>
-      <Line delay={12} size={66} weight={800}>
+      <Line delay={t.line2} size={66} weight={800}>
         saya berhati-hati
         <br />
         bila orang cakap
       </Line>
     </Stack>
     <Stack top={690} gap={44}>
-      <Label delay={40} strikeAt={STRIKE_A} rotate={-2}>makanan ni ‘baik’,</Label>
-      <Label delay={56} strikeAt={STRIKE_B} rotate={1.5}>makanan tu ‘jahat’.</Label>
+      <Label delay={t.labelA} strikeAt={t.strikeA} rotate={-2}>makanan ni ‘baik’,</Label>
+      <Label delay={t.labelB} strikeAt={t.strikeB} rotate={1.5}>makanan tu ‘jahat’.</Label>
     </Stack>
     <Stack top={1150} gap={8}>
-      <Line delay={116} size={58} weight={700}>
+      <Line delay={t.sebab} size={58} weight={700}>
         Sebab nutrition
         <br />
         jarang sesimple
       </Line>
-      <Line delay={124} size={88} weight={800}>
-        <Highlight delay={134}>satu label.</Highlight>
+      <Line delay={t.satu} size={88} weight={800}>
+        <Highlight delay={t.satuHl}>satu label.</Highlight>
       </Line>
     </Stack>
   </AbsoluteFill>
 );
 
 const LOOK = ["amount", "frequency", "keseluruhan diet", "tujuan individu", "konteks kesihatan"];
-const LOOK_AT = (i: number) => 70 + i * 22;
 const OVERLAYS = ["Context", "Amount", "Frequency", "Overall pattern"];
 
-const Tengok: React.FC = () => (
+const Tengok: React.FC<{ t: R0110Timing["tengok"] }> = ({ t }) => (
   <AbsoluteFill>
     <Stack top={280} gap={8}>
       <Line size={84} weight={800}>
-        Kita kena <Highlight delay={12}>tengok</Highlight>
+        Kita kena <Highlight delay={t.hl}>tengok</Highlight>
       </Line>
     </Stack>
     <div style={{ position: "absolute", top: 450, left: 60, right: 60, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20 }}>
       {OVERLAYS.map((o, i) => (
-        <Tag key={o} delay={26 + i * 8}>{o}</Tag>
+        <Tag key={o} delay={t.tags + i * 8}>{o}</Tag>
       ))}
     </div>
     <div style={{ position: "absolute", top: 660, left: 80, right: 80, display: "flex", justifyContent: "center" }}>
-      <Pop delay={60}>
+      <Pop delay={t.card}>
         <Card style={{ width: 920, padding: "40px 50px", display: "flex", flexDirection: "column", gap: 24 }}>
           {LOOK.map((a, i) => (
             <div key={a} style={{ display: "flex", alignItems: "center", gap: 26 }}>
               <div style={{ width: 64, height: 64, flexShrink: 0, border: `4px solid ${C.ink}`, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Mark kind="check" delay={LOOK_AT(i)} size={48} />
+                <Mark kind="check" delay={t.ticks[i]} size={48} />
               </div>
               <div style={{ fontSize: 54, fontWeight: 800, whiteSpace: "nowrap" }}>{a}</div>
             </div>
@@ -102,22 +118,22 @@ const Tengok: React.FC = () => (
   </AbsoluteFill>
 );
 
-const Auto: React.FC = () => (
+const Auto: React.FC<{ t: R0110Timing["auto"] }> = ({ t }) => (
   <AbsoluteFill>
     <div style={{ position: "absolute", top: 400, left: 80, right: 80, display: "flex", justifyContent: "center" }}>
-      <Pop delay={4} rotate={-1.5}>
+      <Pop delay={t.cardA} rotate={-1.5}>
         <Card style={{ width: 920, padding: "46px 50px", textAlign: "center" }}>
           <div style={{ fontSize: 60, fontWeight: 700, lineHeight: 1.22 }}>
-            Buang satu makanan <Highlight delay={22}>tak automatik</Highlight> jadikan diet bagus.
+            Buang satu makanan <Highlight delay={t.hlA}>tak automatik</Highlight> jadikan diet bagus.
           </div>
         </Card>
       </Pop>
     </div>
     <div style={{ position: "absolute", top: 850, left: 80, right: 80, display: "flex", justifyContent: "center" }}>
-      <Pop delay={80} rotate={1.5}>
+      <Pop delay={t.cardB} rotate={1.5}>
         <Card style={{ width: 920, padding: "46px 50px", textAlign: "center" }}>
           <div style={{ fontSize: 60, fontWeight: 700, lineHeight: 1.22 }}>
-            Dan makan satu makanan tertentu pun <Highlight delay={100}>tak automatik</Highlight> jadikan diet gagal.
+            Dan makan satu makanan tertentu pun <Highlight delay={t.hlB}>tak automatik</Highlight> jadikan diet gagal.
           </div>
         </Card>
       </Pop>
@@ -126,19 +142,18 @@ const Auto: React.FC = () => (
 );
 
 const ASK = ["apa peranan makanan ni\ndalam pattern aku,", "berapa kerap,", "berapa banyak,", "dan adakah structure\nkeseluruhan membantu goal aku?"];
-const ASK_AT = (i: number) => 34 + i * 34;
 
-const Tanya: React.FC = () => (
+const Tanya: React.FC<{ t: R0110Timing["tanya"] }> = ({ t }) => (
   <AbsoluteFill>
     <Stack top={300} gap={8}>
       <Line size={54} weight={600} color={C.inkSoft}>Lebih berguna</Line>
-      <Line delay={8} size={80} weight={800}>
-        kalau kita <Highlight delay={18}>tanya:</Highlight>
+      <Line delay={t.line2} size={80} weight={800}>
+        kalau kita <Highlight delay={t.hl}>tanya:</Highlight>
       </Line>
     </Stack>
     <Stack top={620} gap={30}>
       {ASK.map((q, i) => (
-        <Pop key={q} delay={ASK_AT(i)} rotate={i % 2 ? 1 : -1}>
+        <Pop key={q} delay={t.ask[i]} rotate={i % 2 ? 1 : -1}>
           <Card style={{ width: 920, padding: "30px 44px", textAlign: "center", fontSize: 46, fontWeight: 800, lineHeight: 1.2, whiteSpace: "pre-line" }}>{q}</Card>
         </Pop>
       ))}
@@ -146,25 +161,38 @@ const Tanya: React.FC = () => (
   </AbsoluteFill>
 );
 
-const CTA: React.FC = () => (
+const CTA: React.FC<{ t: R0110Timing["cta"] }> = ({ t }) => (
   <AbsoluteFill>
     <Stack top={520} gap={10}>
       <Line size={56} weight={600} color={C.inkSoft}>Context · Amount · Frequency</Line>
       <Line delay={10} size={84} weight={800}>
-        <Highlight delay={20}>Overall pattern</Highlight>
+        <Highlight delay={t.hl}>Overall pattern</Highlight>
       </Line>
     </Stack>
     <div style={{ position: "absolute", top: 960, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-      <CtaPill icon="save" delay={44}>Follow/save.</CtaPill>
+      <CtaPill icon="save" delay={t.pill}>Follow/save.</CtaPill>
     </div>
   </AbsoluteFill>
 );
 
-export const R0110_SCENES: SceneDef[] = [
-  { id: "hook", dur: 115, el: <Hook />, cues: [[0, "whoosh", 0.4], [26, "stamp", 0.85], [50, "stamp", 0.85]] },
-  { id: "labels", dur: 225, el: <Labels />, cues: [[40, "pop", 0.45], [56, "pop", 0.45], [134, "swipe", 0.5], [STRIKE_A, "scribble", 0.55], [STRIKE_B, "scribble", 0.55]] },
-  { id: "tengok", dur: 225, el: <Tengok />, cues: [[12, "swipe", 0.45], ...OVERLAYS.map((_, i): Cue => [26 + i * 8, "pop", 0.4]), ...LOOK.map((_, i): Cue => [LOOK_AT(i), "tick", 0.55])] },
-  { id: "auto", dur: 195, el: <Auto />, cues: [[4, "pop", 0.45], [22, "swipe", 0.45], [80, "pop", 0.45], [100, "swipe", 0.45]] },
-  { id: "tanya", dur: 215, el: <Tanya />, cues: [[18, "swipe", 0.45], ...ASK.map((_, i): Cue => [ASK_AT(i), "pop", 0.45])] },
-  { id: "cta", dur: 120, el: <CTA />, cues: [[20, "swipe", 0.45], [44, "pop", 0.5], [48, "chime", 0.45]] },
+// Scene lengths default to the silent version; the voiced version passes its own.
+export const r0110Scenes = (t: R0110Timing, dur: Record<string, number> = { hook: 115, labels: 225, tengok: 225, auto: 195, tanya: 215, cta: 120 }): SceneDef[] => [
+  { id: "hook", dur: dur.hook, el: <Hook t={t.hook} />, cues: [[0, "whoosh", 0.4], [t.hook.baik, "stamp", 0.85], [t.hook.jahat, "stamp", 0.85]] },
+  {
+    id: "labels",
+    dur: dur.labels,
+    el: <Labels t={t.labels} />,
+    cues: [[t.labels.labelA, "pop", 0.45], [t.labels.labelB, "pop", 0.45], [t.labels.satuHl, "swipe", 0.5], [t.labels.strikeA, "scribble", 0.55], [t.labels.strikeB, "scribble", 0.55]],
+  },
+  {
+    id: "tengok",
+    dur: dur.tengok,
+    el: <Tengok t={t.tengok} />,
+    cues: [[t.tengok.hl, "swipe", 0.45], ...OVERLAYS.map((_, i): Cue => [t.tengok.tags + i * 8, "pop", 0.4]), ...t.tengok.ticks.map((f): Cue => [f, "tick", 0.55])],
+  },
+  { id: "auto", dur: dur.auto, el: <Auto t={t.auto} />, cues: [[t.auto.cardA, "pop", 0.45], [t.auto.hlA, "swipe", 0.45], [t.auto.cardB, "pop", 0.45], [t.auto.hlB, "swipe", 0.45]] },
+  { id: "tanya", dur: dur.tanya, el: <Tanya t={t.tanya} />, cues: [[t.tanya.hl, "swipe", 0.45], ...t.tanya.ask.map((f): Cue => [f, "pop", 0.45])] },
+  { id: "cta", dur: dur.cta, el: <CTA t={t.cta} />, cues: [[t.cta.hl, "swipe", 0.45], [t.cta.pill, "pop", 0.5], [t.cta.pill + 4, "chime", 0.45]] },
 ];
+
+export const R0110_SCENES = r0110Scenes(R0110_SILENT);
