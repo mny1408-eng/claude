@@ -12,6 +12,20 @@ npx remotion render src/index.ts T3-CoffeeDay "..\OneDrive\WeDo x KFOC\landing p
 
 Needs `public/audio/music.mp3` (see main README). Music starts at 100 s into the track.
 
+### Version with your coffee clip (`T3-CoffeeDay-Clip`)
+
+Opens on real footage of Coach Nas making the coffee (5 s, "1 OKTOBER · Hari Kopi Sedunia" stamped over it), then continues from the ICO theme scene.
+
+1. Record: vertical 9:16, about 5–6 s, no music. Scoop → shake → pour over ice; keep the top third of the frame fairly plain (the text sits there).
+2. Save it as `public/clips/coffee-bancuh.mp4` (not in git). On iPhone set Camera → Formats → Most Compatible.
+3. Render:
+
+```
+npx remotion render src/index.ts T3-CoffeeDay-Clip "..\OneDrive\WeDo x KFOC\landing page\renders\T3-CoffeeDay-Clip.mp4"
+```
+
+Only the first 5 s of the clip are used.
+
 ## Scenes
 
 1. **1 OKTOBER** → Hari Kopi Sedunia · *tahun ni, pertama kali diiktiraf PBB*

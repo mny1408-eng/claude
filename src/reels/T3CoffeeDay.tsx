@@ -8,7 +8,7 @@
 // - HPPC per serving: 15 g protein, 80 kcal, < 1/4 tsp sugar (Herbalife Malaysia launch, Aug 2022).
 //   Check against the current tub label before posting.
 import React from "react";
-import { AbsoluteFill, Sequence, interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, HAND } from "../theme";
 import { Card, Highlight, Line, Mark, Note, Pop, Stamp, Strike, Underline } from "../kit";
 import { SceneDef } from "../Reel";
@@ -373,4 +373,43 @@ export const T3_SCENES: SceneDef[] = [
   },
   { id: "tips", dur: 200, el: <Tips />, cues: [[10, "swipe", 0.45], [20, "pop", 0.5], [70, "pop", 0.5], [120, "pop", 0.5]] },
   { id: "cta", dur: 150, el: <CTA />, cues: [[2, "pop", 0.45], [28, "swipe", 0.45], [50, "pop", 0.55], [54, "chime", 0.45], [64, "scribble", 0.35]] },
+];
+
+// ---------- Clip version: Coach Nas making coffee opens the reel ----------
+// Real footage as the hook, with the day stamped over it, then the same reel from scene 2.
+// The clip lives in public/clips/ on the production PC (not in git). Vertical, 4–6 s, no music.
+export const T3_CLIP_FILE = "coffee-bancuh.mp4";
+const CLIP_DUR = 150;
+
+const ClipHook: React.FC<{ file: string }> = ({ file }) => {
+  const f = useCurrentFrame();
+  // Fade the paper back in over the last half-second so the cut into scene 2 is soft.
+  const out = interpolate(f, [CLIP_DUR - 15, CLIP_DUR], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  return (
+    <AbsoluteFill>
+      <AbsoluteFill style={{ opacity: out }}>
+        <OffthreadVideo src={staticFile(`clips/${file}`)} muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        {/* top shade so the handle and text stay readable on any footage */}
+        <AbsoluteFill style={{ background: "linear-gradient(to bottom, rgba(247,245,237,0.85) 0%, rgba(247,245,237,0) 45%)" }} />
+      </AbsoluteFill>
+      <Stack top={250} gap={14}>
+        <BoxStamp delay={10} rotate={-4} size={92}>
+          1 OKTOBER
+        </BoxStamp>
+        <div style={{ height: 10 }} />
+        <Pop delay={28}>
+          <div style={{ background: C.paper, borderRadius: 14, padding: "14px 34px", boxShadow: "0 8px 24px rgba(0,0,0,0.18)" }}>
+            <Line delay={28} size={76} weight={800}>
+              <Highlight delay={40}>Hari Kopi</Highlight> Sedunia
+            </Line>
+          </div>
+        </Pop>
+      </Stack>
+    </AbsoluteFill>
+  );
+};
+
+export const t3ClipScenes = (file: string = T3_CLIP_FILE): SceneDef[] => [
+  { id: "clip-hook", dur: CLIP_DUR, el: <ClipHook file={file} />, cues: [[10, "stamp", 0.85], [28, "pop", 0.45], [40, "swipe", 0.45]] },
+  ...T3_SCENES.slice(1),
 ];
