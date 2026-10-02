@@ -38,8 +38,8 @@ Edit `config.json` only:
 
 ## Run locally
 ```
-node scripts/kalendar.mjs 2026-12            # schedule.json + whatsapp.txt
-node scripts/kalendar.mjs 2026-12 --render   # + kalendar.png (1080 × 1350, 4:5)
+node scripts/kalendar.mjs 2026-12            # schedule.json + whatsapp.txt + whatsapp-coachee.txt
+node scripts/kalendar.mjs 2026-12 --render   # + kalendar.png (coaches) + kalendar-coachee.png (no names), 1080 × 1350
 ```
 Output: `group-coaching/<YYYY-MM>/`. Preview/tweak the design live: `npx remotion studio src/kalendar/index.tsx`.
 
