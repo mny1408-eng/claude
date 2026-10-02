@@ -24,14 +24,16 @@ One-time repo setting: Settings → Actions → General → tick **"Allow GitHub
 
 Every 21-day run has exactly 15 weekdays, so 14 topic slots after the reminder-only Friday: always enough for the 14 topics.
 
-**Coach rotation:** round-robin in the order of `coaches`, 20 slots a month (3 briefing + 14 + 3 wrap-up).
-It continues from last month (anchor: `rotationAnchor`), so 6 coaches get 3 slots, 1 gets 2, and who gets 2 changes each month.
-No coach is ever on two content days in a row.
+**Coach rotation**
+- **Opening** (Briefing 1–3 + Day 1): the 4 main coaches (`"main": true`), one slot each. The order shifts by one every month, so each main coach takes each opening slot in turn.
+- **Everything else** (13 topics + 3 wrap-up): round-robin over all coaches, continuing from last month. If a coach comes up twice in a row, the next coach goes first.
+- Result: main coaches 3–4 slots a month, support coaches 2–3. No coach is ever on two content days in a row.
+- `rotationAnchor` = where the rotation started (Oct 2026: opening starts with Husna; the rest continues after Arif, who closed September, so it starts with Mimi).
 
 ## Changing things
 Edit `config.json` only:
 - **Topics**: `briefing`, `knowledge`, `wrapUp` (order = calendar order). `imageLabels` = shorter text for the image only.
-- **Coaches / colours**: `coaches`. Adding or removing a coach changes the rotation from the anchor month on; set `rotationAnchor` to the current month when you do.
+- **Coaches / colours**: `coaches` (`"main": true` = main coach). Adding or removing a coach changes the rotation from the anchor month on; when you do, set `rotationAnchor` to the current month and who should start.
 - **Dates**: `briefingStartDay`, `day1`, `runDays`.
 
 ## Run locally

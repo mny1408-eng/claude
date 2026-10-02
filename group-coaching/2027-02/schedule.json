@@ -1,8 +1,8 @@
 {
-  "month": "2026-11",
-  "year": 2026,
-  "monthIndex": 11,
-  "title": "KALENDAR TOPIK NOVEMBER 2026",
+  "month": "2027-02",
+  "year": 2027,
+  "monthIndex": 2,
+  "title": "KALENDAR TOPIK FEBRUARI 2027",
   "team": "Misi Fight Obesiti",
   "programme": "Group Coaching",
   "hashtag": "#misifightobesiti",
@@ -42,235 +42,238 @@
   ],
   "entries": [
     {
-      "date": "2026-11-03",
-      "dow": 1,
+      "date": "2027-02-03",
+      "dow": 2,
       "kind": "briefing",
       "topic": "Perkenalan Coach, Briefing Timbangan & Ukur Lilit Awal",
-      "coach": "Normy",
+      "coach": "Husna",
       "bell": false,
       "scale": false,
       "label": "Perkenalan Coach + Timbang & Ukur Lilit"
     },
     {
-      "date": "2026-11-04",
-      "dow": 2,
+      "date": "2027-02-04",
+      "dow": 3,
       "kind": "briefing",
       "topic": "Perkenalan SC & NC + Meal Plan",
-      "coach": "Nasri",
+      "coach": "Normy",
       "bell": false,
       "scale": false
     },
     {
-      "date": "2026-11-05",
-      "dow": 3,
+      "date": "2027-02-05",
+      "dow": 4,
       "kind": "briefing",
       "topic": "Rules & Regulations + Timbang Sebelum Intake",
-      "coach": "Nieda",
-      "bell": false,
+      "coach": "Nasri",
+      "bell": true,
       "scale": false,
       "label": "Rules & Regulations + Timbang Awal"
     },
     {
-      "date": "2026-11-06",
-      "dow": 4,
-      "kind": "topic",
+      "date": "2027-02-06",
+      "dow": 5,
+      "kind": "timbang",
       "day": 1,
+      "scale": true
+    },
+    {
+      "date": "2027-02-07",
+      "dow": 6,
+      "kind": "rest",
+      "day": 2
+    },
+    {
+      "date": "2027-02-08",
+      "dow": 0,
+      "kind": "topic",
+      "day": 3,
       "topic": "The Power of 21 Days",
-      "coach": "Husna",
-      "bell": true
-    },
-    {
-      "date": "2026-11-07",
-      "dow": 5,
-      "kind": "timbang",
-      "day": 2,
-      "scale": true
-    },
-    {
-      "date": "2026-11-08",
-      "dow": 6,
-      "kind": "rest",
-      "day": 3
-    },
-    {
-      "date": "2026-11-09",
-      "dow": 0,
-      "kind": "topic",
-      "day": 4,
-      "topic": "Jenis-Jenis Diet",
-      "coach": "Normy",
-      "bell": false
-    },
-    {
-      "date": "2026-11-10",
-      "dow": 1,
-      "kind": "topic",
-      "day": 5,
-      "topic": "PCE & Water Intake",
-      "coach": "Husna",
-      "bell": false
-    },
-    {
-      "date": "2026-11-11",
-      "dow": 2,
-      "kind": "topic",
-      "day": 6,
-      "topic": "Cellular Nutrition",
-      "coach": "Nasri",
-      "bell": false
-    },
-    {
-      "date": "2026-11-12",
-      "dow": 3,
-      "kind": "topic",
-      "day": 7,
-      "topic": "Healthy Breakfast",
-      "coach": "Adeline",
-      "bell": false
-    },
-    {
-      "date": "2026-11-13",
-      "dow": 4,
-      "kind": "topic",
-      "day": 8,
-      "topic": "Kepentingan Protein",
-      "coach": "Arif",
-      "bell": true
-    },
-    {
-      "date": "2026-11-14",
-      "dow": 5,
-      "kind": "timbang",
-      "day": 9,
-      "scale": true
-    },
-    {
-      "date": "2026-11-15",
-      "dow": 6,
-      "kind": "rest",
-      "day": 10
-    },
-    {
-      "date": "2026-11-16",
-      "dow": 0,
-      "kind": "topic",
-      "day": 11,
-      "topic": "Magic Number",
-      "coach": "Mimi",
-      "bell": false
-    },
-    {
-      "date": "2026-11-17",
-      "dow": 1,
-      "kind": "topic",
-      "day": 12,
-      "topic": "Body Fat",
       "coach": "Nieda",
       "bell": false
     },
     {
-      "date": "2026-11-18",
-      "dow": 2,
+      "date": "2027-02-09",
+      "dow": 1,
       "kind": "topic",
-      "day": 13,
-      "topic": "Kepentingan Fiber",
+      "day": 4,
+      "topic": "Jenis-Jenis Diet",
       "coach": "Husna",
       "bell": false
     },
     {
-      "date": "2026-11-19",
+      "date": "2027-02-10",
+      "dow": 2,
+      "kind": "topic",
+      "day": 5,
+      "topic": "PCE & Water Intake",
+      "coach": "Nieda",
+      "bell": false
+    },
+    {
+      "date": "2027-02-11",
       "dow": 3,
       "kind": "topic",
-      "day": 14,
-      "topic": "IBC",
+      "day": 6,
+      "topic": "Cellular Nutrition",
       "coach": "Normy",
       "bell": false
     },
     {
-      "date": "2026-11-20",
+      "date": "2027-02-12",
       "dow": 4,
-      "kind": "reminder",
-      "topic": "Reminder Timbang Akhir",
-      "day": 15,
+      "kind": "topic",
+      "day": 7,
+      "topic": "Healthy Breakfast",
+      "coach": "Nasri",
       "bell": true
     },
     {
-      "date": "2026-11-21",
+      "date": "2027-02-13",
       "dow": 5,
-      "kind": "timbangAkhir",
-      "day": 16,
+      "kind": "timbang",
+      "day": 8,
       "scale": true
     },
     {
-      "date": "2026-11-22",
+      "date": "2027-02-14",
       "dow": 6,
       "kind": "rest",
-      "day": 17
+      "day": 9
     },
     {
-      "date": "2026-11-23",
+      "date": "2027-02-15",
       "dow": 0,
       "kind": "topic",
-      "day": 18,
-      "topic": "Glycemic Index",
-      "coach": "Nasri",
-      "bell": false
-    },
-    {
-      "date": "2026-11-24",
-      "dow": 1,
-      "kind": "topic",
-      "day": 19,
-      "topic": "Visceral Fat",
+      "day": 10,
+      "topic": "Kepentingan Protein",
       "coach": "Adeline",
       "bell": false
     },
     {
-      "date": "2026-11-25",
-      "dow": 2,
+      "date": "2027-02-16",
+      "dow": 1,
       "kind": "topic",
-      "day": 20,
-      "topic": "Macro & Micro",
+      "day": 11,
+      "topic": "Magic Number",
       "coach": "Arif",
       "bell": false
     },
     {
-      "date": "2026-11-26",
-      "dow": 3,
+      "date": "2027-02-17",
+      "dow": 2,
       "kind": "topic",
-      "day": 21,
-      "topic": "Food Label",
+      "day": 12,
+      "topic": "Body Fat",
       "coach": "Mimi",
       "bell": false
     },
     {
-      "date": "2026-11-27",
+      "date": "2027-02-18",
+      "dow": 3,
+      "kind": "topic",
+      "day": 13,
+      "topic": "Kepentingan Fiber",
+      "coach": "Nieda",
+      "bell": false
+    },
+    {
+      "date": "2027-02-19",
       "dow": 4,
+      "kind": "topic",
+      "day": 14,
+      "topic": "IBC",
+      "coach": "Husna",
+      "bell": true
+    },
+    {
+      "date": "2027-02-20",
+      "dow": 5,
+      "kind": "timbangAkhir",
+      "day": 15,
+      "scale": true
+    },
+    {
+      "date": "2027-02-21",
+      "dow": 6,
+      "kind": "rest",
+      "day": 16
+    },
+    {
+      "date": "2027-02-22",
+      "dow": 0,
+      "kind": "topic",
+      "day": 17,
+      "topic": "Glycemic Index",
+      "coach": "Normy",
+      "bell": false
+    },
+    {
+      "date": "2027-02-23",
+      "dow": 1,
+      "kind": "topic",
+      "day": 18,
+      "topic": "Visceral Fat",
+      "coach": "Nasri",
+      "bell": false
+    },
+    {
+      "date": "2027-02-24",
+      "dow": 2,
+      "kind": "topic",
+      "day": 19,
+      "topic": "Macro & Micro",
+      "coach": "Adeline",
+      "bell": false
+    },
+    {
+      "date": "2027-02-25",
+      "dow": 3,
+      "kind": "topic",
+      "day": 20,
+      "topic": "Food Label",
+      "coach": "Arif",
+      "bell": false
+    },
+    {
+      "date": "2027-02-26",
+      "dow": 4,
+      "kind": "reminder",
+      "topic": "Reminder Timbang Akhir",
+      "day": 21,
+      "bell": true
+    },
+    {
+      "date": "2027-02-27",
+      "dow": 5,
       "kind": "wrapup",
       "topic": "Rejoin",
+      "coach": "Mimi"
+    },
+    {
+      "date": "2027-02-28",
+      "dow": 6,
+      "kind": "wrapup",
+      "topic": "Misteri Lemak",
       "coach": "Nieda"
     },
     {
-      "date": "2026-11-28",
-      "dow": 5,
+      "date": "2027-03-01",
+      "dow": 0,
       "kind": "wrapup",
-      "topic": "Misteri Lemak",
+      "topic": "Ambassador Program + Treat Meal",
       "coach": "Husna"
     },
     {
-      "date": "2026-11-29",
-      "dow": 6,
-      "kind": "wrapup",
-      "topic": "Ambassador Program + Treat Meal",
-      "coach": "Normy"
-    },
-    {
-      "date": "2026-12-01",
+      "date": "2027-03-02",
       "dow": 1,
       "kind": "close",
       "topic": "Close Group",
       "coach": "Semua Coach"
     }
   ],
-  "warnings": []
+  "warnings": [
+    "Wrap-up runs into 2027-03-01, so Close Group moves to 2027-03-02.",
+    "2027-03-01 (Ambassador Program + Treat Meal) falls outside Februari."
+  ]
 }
