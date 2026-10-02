@@ -37,11 +37,27 @@ function parseMonth(s) {
   return [Number(m[1]), Number(m[2])];
 }
 
-// One month's schedule, starting the coach rotation at index `coachStart`.
-function buildMonth(y, m, coachStart) {
+// Opening slots (briefing + Day 1) go to the main coaches, one each, shifting by one every month.
+// Every other slot is round-robin over all coaches, carried over from the month before
+// (rot = { p, pending }). A coach is never given two content slots in a row: if it's their turn
+// again straight away, the next coach goes first and they take the following slot.
+function buildMonth(y, m, rot, openShift) {
   const coaches = config.coaches;
-  let next = coachStart;
-  const takeCoach = () => coaches[next++ % coaches.length].name;
+  const mains = coaches.filter((c) => c.main).map((c) => c.name);
+  let p = rot.p;
+  let pending = rot.pending;
+  let last = null;
+  const general = () => {
+    let pick;
+    if (pending && pending !== last) [pick, pending] = [pending, null];
+    else {
+      pick = coaches[p++ % coaches.length].name;
+      if (pick === last && !pending) [pending, pick] = [pick, coaches[p++ % coaches.length].name];
+    }
+    return (last = pick);
+  };
+  let opened = 0;
+  const opening = () => (last = mains[(openShift + opened++) % mains.length]);
   const entries = [];
   const warnings = [];
   const add = (dt, e) => entries.push({ date: iso(dt), dow: dow(dt), ...e, ...(config.imageLabels?.[e.topic] && { label: config.imageLabels[e.topic] }) });
@@ -49,7 +65,7 @@ function buildMonth(y, m, coachStart) {
   // Briefing: fixed dates, fixed order.
   config.briefing.forEach((topic, i) => {
     const dt = mkDate(y, m, config.briefingStartDay + i);
-    add(dt, { kind: "briefing", topic, coach: takeCoach(), bell: dow(dt) === FRI, scale: dow(dt) === SAT });
+    add(dt, { kind: "briefing", topic, coach: opening(), bell: dow(dt) === FRI, scale: dow(dt) === SAT });
   });
 
   // Day 1 → Day 21. Topics Mon–Fri; last Friday is reminder only, last Saturday is Timbang Akhir.
@@ -64,7 +80,10 @@ function buildMonth(y, m, coachStart) {
     if (wd === SUN) add(dt, { kind: "rest", day });
     else if (wd === SAT) add(dt, { kind: iso(dt) === lastSat ? "timbangAkhir" : "timbang", day, scale: true });
     else if (iso(dt) === lastFri) add(dt, { kind: "reminder", topic: "Reminder Timbang Akhir", day, bell: true });
-    else if (topics.length) add(dt, { kind: "topic", day, topic: topics.shift(), coach: takeCoach(), bell: wd === FRI });
+    else if (topics.length) {
+      const first = topics.length === config.knowledge.length; // Day 1 topic opens the run
+      add(dt, { kind: "topic", day, topic: topics.shift(), coach: first ? opening() : general(), bell: wd === FRI });
+    }
     else {
       add(dt, { kind: "free", day, bell: wd === FRI });
       warnings.push(`${iso(dt)} (Day ${day}) has no topic left to fill it.`);
@@ -74,7 +93,7 @@ function buildMonth(y, m, coachStart) {
 
   // Wrap-up: the days right after Day 21.
   const runEnd = run.at(-1);
-  config.wrapUp.forEach((topic, i) => add(addDays(runEnd, i + 1), { kind: "wrapup", topic, coach: takeCoach() }));
+  config.wrapUp.forEach((topic, i) => add(addDays(runEnd, i + 1), { kind: "wrapup", topic, coach: general() }));
 
   // Close Group: 1st of next month, pushed back if the wrap-up already uses that date.
   const lastUsed = mkDate(...entries.at(-1).date.split("-").map(Number));
@@ -93,17 +112,23 @@ function buildMonth(y, m, coachStart) {
   for (let i = 1; i < coached.length; i++)
     if (coached[i].coach === coached[i - 1].coach) warnings.push(`Coach ${coached[i].coach} has two content days in a row (${coached[i].date}).`);
 
-  return { entries, warnings, nextCoach: next % coaches.length };
+  return { entries, warnings, rot: { p: p % coaches.length, pending } };
 }
 
 // Rotation continues month to month from the anchor, so every month is reproducible.
 export function schedule(y, m) {
   const [ay, am] = config.rotationAnchor.month.split("-").map(Number);
-  let coach = config.coaches.findIndex((c) => c.name === config.rotationAnchor.coach);
-  if (coach < 0) throw new Error(`rotationAnchor.coach "${config.rotationAnchor.coach}" is not in coaches`);
-  if (y * 12 + m < ay * 12 + am) throw new Error(`${y}-${m} is before the rotation anchor ${config.rotationAnchor.month}`);
-  for (let k = ay * 12 + am - 1; k < y * 12 + m - 1; k++) coach = buildMonth(Math.floor(k / 12), (k % 12) + 1, coach).nextCoach;
-  const { entries, warnings } = buildMonth(y, m, coach);
+  const { openingStart, generalStart } = config.rotationAnchor;
+  const mains = config.coaches.filter((c) => c.main).map((c) => c.name);
+  const openShift = mains.indexOf(openingStart);
+  let rot = { p: config.coaches.findIndex((c) => c.name === generalStart), pending: null };
+  if (mains.length < config.briefing.length + 1) throw new Error("Need at least 4 coaches marked main (3 briefing + Day 1)");
+  if (openShift < 0) throw new Error(`rotationAnchor.openingStart "${openingStart}" is not a main coach`);
+  if (rot.p < 0) throw new Error(`rotationAnchor.generalStart "${generalStart}" is not in coaches`);
+  const start = ay * 12 + am - 1;
+  if (y * 12 + m - 1 < start) throw new Error(`${y}-${m} is before the rotation anchor ${config.rotationAnchor.month}`);
+  for (let k = start; k < y * 12 + m - 1; k++) rot = buildMonth(Math.floor(k / 12), (k % 12) + 1, rot, openShift + k - start).rot;
+  const { entries, warnings } = buildMonth(y, m, rot, openShift + y * 12 + m - 1 - start);
   return {
     month: `${y}-${String(m).padStart(2, "0")}`,
     year: y,
