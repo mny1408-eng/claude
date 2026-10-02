@@ -48,3 +48,6 @@ Regenerate the sound effects with `node scripts/gen-sfx.mjs` if `public/sfx/` is
 - `src/kit.tsx` – Vox building blocks (highlighter, hand circle, stamp, tape)
 - `src/theme.ts` – brand colours / fonts
 - `scripts/gen-images.mjs` – Gemini collage images (needs billing enabled on the Gemini key)
+
+## Group coaching calendar
+Monthly team topic calendar (Misi Fight Obesiti): see `group-coaching/README.md`.

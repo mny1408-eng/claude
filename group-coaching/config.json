@@ -1,0 +1,55 @@
+{
+  "team": "Misi Fight Obesiti",
+  "programme": "Group Coaching",
+  "hashtag": "#misifightobesiti",
+
+  "briefingStartDay": 3,
+  "day1": 6,
+  "runDays": 21,
+
+  "rotationAnchor": { "month": "2026-10", "coach": "Nieda" },
+
+  "coaches": [
+    { "name": "Nieda", "colour": "#7E3FC1" },
+    { "name": "Husna", "colour": "#E0408F" },
+    { "name": "Normy", "colour": "#E8730C" },
+    { "name": "Nasri", "colour": "#2160D8" },
+    { "name": "Adeline", "colour": "#0B9AA6" },
+    { "name": "Arif", "colour": "#8C1D3B" },
+    { "name": "Mimi", "colour": "#3A9B3F" }
+  ],
+
+  "briefing": [
+    "Perkenalan Coach, Briefing Timbangan & Ukur Lilit Awal",
+    "Perkenalan SC & NC + Meal Plan",
+    "Rules & Regulations + Timbang Sebelum Intake"
+  ],
+
+  "knowledge": [
+    "The Power of 21 Days",
+    "Jenis-Jenis Diet",
+    "PCE & Water Intake",
+    "Cellular Nutrition",
+    "Healthy Breakfast",
+    "Kepentingan Protein",
+    "Magic Number",
+    "Body Fat",
+    "IBC",
+    "Kepentingan Fiber",
+    "Glycemic Index",
+    "Visceral Fat",
+    "Macro & Micro",
+    "Food Label"
+  ],
+
+  "imageLabels": {
+    "Perkenalan Coach, Briefing Timbangan & Ukur Lilit Awal": "Perkenalan Coach + Timbang & Ukur Lilit",
+    "Rules & Regulations + Timbang Sebelum Intake": "Rules & Regulations + Timbang Awal"
+  },
+
+  "wrapUp": [
+    "Rejoin",
+    "Misteri Lemak",
+    "Ambassador Program + Treat Meal"
+  ]
+}

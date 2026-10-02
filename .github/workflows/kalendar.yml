@@ -1,0 +1,64 @@
+# Every 20th: build next month's group-coaching calendar and open a draft PR to review.
+# Needs repo setting: Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: Kalendar Topik (monthly)
+
+on:
+  schedule:
+    - cron: "17 1 20 * *" # 20th, 09:17 Malaysia time
+  workflow_dispatch:
+    inputs:
+      month:
+        description: "Month to build (YYYY-MM). Blank = next month."
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx remotion browser ensure
+      - name: Build schedule + image
+        id: build
+        run: |
+          MONTH="${{ inputs.month }}"
+          [ -z "$MONTH" ] && MONTH=next
+          set -o pipefail
+          node scripts/kalendar.mjs "$MONTH" --render | tee build.log
+      - name: Open draft PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIR: ${{ steps.build.outputs.dir }}
+          MONTH: ${{ steps.build.outputs.month }}
+        run: |
+          BRANCH="kalendar/$MONTH"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add "$DIR"
+          git commit -m "Kalendar topik $MONTH"
+          git push -f origin "$BRANCH"
+          {
+            echo "Auto-generated group-coaching calendar for **$MONTH**. Check it, then merge to approve."
+            echo
+            if grep -q "CHECK BEFORE POSTING" build.log; then
+              echo "### ⚠️ Check before posting"
+              sed -n '/CHECK BEFORE POSTING/,$p' build.log | tail -n +2
+              echo
+            fi
+            echo "### WhatsApp text"
+            echo '```'
+            cat "$DIR/whatsapp.txt"
+            echo '```'
+          } > body.md
+          gh pr view "$BRANCH" >/dev/null 2>&1 \
+            && gh pr edit "$BRANCH" --body-file body.md \
+            || gh pr create --draft --head "$BRANCH" --title "Kalendar topik $MONTH" --body-file body.md
