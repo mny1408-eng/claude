@@ -6,6 +6,7 @@
 //   node scripts/kalendar.mjs next --render      → next calendar month (used by the GitHub Action)
 // Anything after "--" is passed to `remotion still` (e.g. -- --browser-executable=/path/chrome).
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -148,26 +149,30 @@ const short = (date) => {
   return `${dd}/${mm}`;
 };
 
-export function whatsapp(s) {
+// coachee: true → same list without coach names (for participants).
+export function whatsapp(s, { coachee = false } = {}) {
   const line = (e) => `${HARI[e.dow]} ${short(e.date)}`;
-  const coach = (e) => (e.coach === "Semua Coach" ? "Semua Coach" : `Coach ${e.coach}`);
+  const coach = (e) => (coachee ? "" : e.coach === "Semua Coach" ? " · Semua Coach" : ` · Coach ${e.coach}`);
   const out = [`*${s.title}*`, `_${s.programme} · ${s.team}_`, ""];
   out.push("*BRIEFING*");
-  for (const e of s.entries.filter((e) => e.kind === "briefing")) out.push(`${line(e)} · ${e.topic} · ${coach(e)}`);
+  for (const e of s.entries.filter((e) => e.kind === "briefing")) out.push(`${line(e)} · ${e.topic}${coach(e)}`);
   out.push("", "*DAY 1 – 21*");
   for (const e of s.entries.filter((e) => e.day)) {
     if (e.kind === "rest") continue;
     const what =
       e.kind === "timbang" ? "⚖️ Timbang" : e.kind === "timbangAkhir" ? "⚖️ *Timbang Akhir*" : e.kind === "reminder" ? `🔔 ${e.topic}` : e.topic ?? "–";
-    out.push(`${line(e)} · D${e.day} · ${what}${e.coach ? ` · ${coach(e)}` : ""}${e.kind === "topic" && e.bell ? " · 🔔 Reminder Timbang" : ""}`);
+    out.push(`${line(e)} · D${e.day} · ${what}${e.coach ? coach(e) : ""}${e.kind === "topic" && e.bell ? " · 🔔 Reminder Timbang" : ""}`);
   }
   out.push("", "*WRAP-UP*");
-  for (const e of s.entries.filter((e) => e.kind === "wrapup")) out.push(`${line(e)} · ${e.topic} · ${coach(e)}`);
+  for (const e of s.entries.filter((e) => e.kind === "wrapup")) out.push(`${line(e)} · ${e.topic}${coach(e)}`);
   const close = s.entries.find((e) => e.kind === "close");
-  out.push("", `*CLOSE GROUP* · ${line(close)} · Semua Coach`, "", "*Giliran coach*");
-  for (const c of s.coaches) {
-    const dates = s.entries.filter((e) => e.coach === c.name).map((e) => short(e.date));
-    out.push(`Coach ${c.name}: ${dates.join(", ") || "–"}`);
+  out.push("", `*CLOSE GROUP* · ${line(close)}${coach(close)}`);
+  if (!coachee) {
+    out.push("", "*Giliran coach*");
+    for (const c of s.coaches) {
+      const dates = s.entries.filter((e) => e.coach === c.name).map((e) => short(e.date));
+      out.push(`Coach ${c.name}: ${dates.join(", ") || "–"}`);
+    }
   }
   out.push("", s.hashtag);
   return out.join("\n") + "\n";
@@ -185,12 +190,18 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const jsonPath = path.join(outDir, "schedule.json");
   fs.writeFileSync(jsonPath, JSON.stringify(s, null, 2) + "\n");
   fs.writeFileSync(path.join(outDir, "whatsapp.txt"), whatsapp(s));
-  console.log(`Wrote ${path.relative(ROOT, outDir)}/schedule.json + whatsapp.txt`);
+  fs.writeFileSync(path.join(outDir, "whatsapp-coachee.txt"), whatsapp(s, { coachee: true }));
+  console.log(`Wrote ${path.relative(ROOT, outDir)}/schedule.json + whatsapp.txt + whatsapp-coachee.txt`);
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `month=${s.month}\ndir=group-coaching/${s.month}\n`);
 
   if (args.includes("--render")) {
-    const png = path.join(outDir, "kalendar.png");
-    execFileSync("npx", ["remotion", "still", "src/kalendar/index.tsx", "Kalendar", png, `--props=${jsonPath}`, ...passthrough], { cwd: ROOT, stdio: "inherit" });
+    // Coach version (with names) + coachee version (no names).
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "kalendar-"));
+    const coacheeProps = path.join(tmp, "coachee.json");
+    fs.writeFileSync(coacheeProps, JSON.stringify({ ...s, coachee: true }));
+    for (const [png, props] of [["kalendar.png", jsonPath], ["kalendar-coachee.png", coacheeProps]])
+      execFileSync("npx", ["remotion", "still", "src/kalendar/index.tsx", "Kalendar", path.join(outDir, png), `--props=${props}`, ...passthrough], { cwd: ROOT, stdio: "inherit" });
+    fs.rmSync(tmp, { recursive: true, force: true });
   }
   if (s.warnings.length) {
     console.log("\nCHECK BEFORE POSTING:");

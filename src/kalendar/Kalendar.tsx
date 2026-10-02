@@ -34,6 +34,8 @@ export type KalendarProps = {
   year: number;
   monthIndex: number;
   coaches: { name: string; colour: string }[];
+  coachee?: boolean; // coachee version: no coach names
+
   entries: Entry[];
 };
 export const KALENDAR_SAMPLE = sample as KalendarProps;
@@ -98,12 +100,13 @@ const CoachTag: React.FC<{ name: string; colour: string }> = ({ name, colour }) 
   </div>
 );
 
-const Cell: React.FC<{ date: Date; inMonth: boolean; e?: Entry; colourOf: (n: string) => string; height: number }> = ({
+const Cell: React.FC<{ date: Date; inMonth: boolean; e?: Entry; colourOf: (n: string) => string; height: number; names: boolean }> = ({
   date,
   inMonth,
   e,
   colourOf,
   height,
+  names,
 }) => {
   const rest = e?.kind === "rest" || (!e && date.getUTCDay() === 0 && inMonth);
   const akhir = e?.kind === "timbangAkhir";
@@ -157,7 +160,7 @@ const Cell: React.FC<{ date: Date; inMonth: boolean; e?: Entry; colourOf: (n: st
         </div>
       )}
       <div style={{ flex: 1, minHeight: 0 }} />
-      {e?.coach && (close ? <CoachTag name="Semua Coach" colour={K.ink} /> : <CoachTag name={e.coach} colour={colourOf(e.coach)} />)}
+      {names && e?.coach && (close ? <CoachTag name="Semua Coach" colour={K.ink} /> : <CoachTag name={e.coach} colour={colourOf(e.coach)} />)}
     </div>
   );
 };
@@ -230,18 +233,20 @@ export const Kalendar: React.FC<KalendarProps> = (p) => {
         }}
       >
         {days.map((d) => (
-          <Cell key={isoOf(d)} date={d} inMonth={d.getUTCMonth() === p.monthIndex - 1} e={byDate.get(isoOf(d))} colourOf={colourOf} height={cellH} />
+          <Cell key={isoOf(d)} date={d} inMonth={d.getUTCMonth() === p.monthIndex - 1} e={byDate.get(isoOf(d))} colourOf={colourOf} height={cellH} names={!p.coachee} />
         ))}
       </div>
 
-      {/* Coach key + footer */}
+      {/* Coach key (coach version only) + footer */}
       <div style={{ position: "absolute", bottom: 34, left: PAD, right: PAD }}>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
-          {p.coaches.map((c) => (
-            <CoachTag key={c.name} name={`Coach ${c.name}`} colour={c.colour} />
-          ))}
-        </div>
-        <div style={{ textAlign: "center", marginTop: 16, fontSize: 22, fontWeight: 700, color: K.accent, letterSpacing: 0.5 }}>{p.hashtag}</div>
+        {!p.coachee && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 16 }}>
+            {p.coaches.map((c) => (
+              <CoachTag key={c.name} name={`Coach ${c.name}`} colour={c.colour} />
+            ))}
+          </div>
+        )}
+        <div style={{ textAlign: "center", fontSize: 22, fontWeight: 700, color: K.accent, letterSpacing: 0.5 }}>{p.hashtag}</div>
       </div>
     </AbsoluteFill>
   );
