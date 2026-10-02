@@ -26,6 +26,22 @@ npx remotion render src/index.ts T3-CoffeeDay-Clip "..\OneDrive\WeDo x KFOC\land
 
 Only the first 5 s of the clip are used.
 
+### Animated version (`T3-CoffeeDay-Anim`)
+
+No footage needed: opens on a drawn scoop → shake → pour over ice with "1 OKTOBER · Hari Kopi Sedunia".
+
+```
+npx remotion render src/index.ts T3-CoffeeDay-Anim "..\OneDrive\WeDo x KFOC\landing page\renders\T3-CoffeeDay-Anim.mp4"
+```
+
+### HPPC pack shot (both `-Clip` and `-Anim`)
+
+The swap scene shows the HPPC Café Latte pack under the receipt. Save the cut-out PNG as `public/img/hppc-pack.png` (not in git). The current file was cut from a low-resolution reference poster, so it is slightly soft; a phone photo of your own pack against a plain background (or Herbalife's official pack shot, if distributor rules allow) will look sharper.
+
+### Stock footage instead of your own clip
+
+Free licence clips (Pexels / Pixabay) of iced coffee being poured work as the opening for `T3-CoffeeDay-Clip`: save as `public/clips/coffee-bancuh.mp4`. They show generic coffee, not HPPC, so keep them as mood B-roll.
+
 ## Scenes
 
 1. **1 OKTOBER** → Hari Kopi Sedunia · *tahun ni, pertama kali diiktiraf PBB*

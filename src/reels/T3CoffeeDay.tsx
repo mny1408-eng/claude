@@ -8,10 +8,11 @@
 // - HPPC per serving: 15 g protein, 80 kcal, < 1/4 tsp sugar (Herbalife Malaysia launch, Aug 2022).
 //   Check against the current tub label before posting.
 import React from "react";
-import { AbsoluteFill, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Img, OffthreadVideo, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, HAND } from "../theme";
 import { Card, Highlight, Line, Mark, Note, Pop, Stamp, Strike, Underline } from "../kit";
 import { SceneDef } from "../Reel";
+import { Cue } from "../sound";
 
 const CTA_WORD = "KOPI";
 
@@ -258,8 +259,10 @@ const SWAPS = [
   { item: "Protein coffee*", value: "< ¼" },
 ];
 
-const ResitSwap: React.FC = () => {
+// pack: product photo in public/img/ (not in git). Without it the scene is text only.
+const ResitSwap: React.FC<{ pack?: string }> = ({ pack }) => {
   const f = useCurrentFrame();
+  const textTop = pack ? 1290 : 900;
   return (
     <AbsoluteFill>
       <SeriesTag text="RESIT #01" />
@@ -277,7 +280,14 @@ const ResitSwap: React.FC = () => {
           </div>
         ) : null,
       )}
-      <Stack top={900} gap={8}>
+      {pack && (
+        <div style={{ position: "absolute", top: 790, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+          <Pop delay={96} rotate={-4}>
+            <Img src={staticFile(`img/${pack}`)} style={{ height: 460, filter: "drop-shadow(0 16px 24px rgba(40,40,20,0.28))" }} />
+          </Pop>
+        </div>
+      )}
+      <Stack top={textTop} gap={8}>
         <Line delay={140} size={64} weight={800}>
           Masih dapat <Highlight delay={152}>kopi</Highlight>.
         </Line>
@@ -285,7 +295,7 @@ const ResitSwap: React.FC = () => {
           Gula jauh lebih sikit.
         </Line>
       </Stack>
-      <Note delay={175} size={44} rotate={0} color={C.inkSoft} style={{ position: "absolute", top: 1130, left: 0, right: 0, textAlign: "center" }}>
+      <Note delay={175} size={44} rotate={0} color={C.inkSoft} style={{ position: "absolute", top: textTop + 230, left: 0, right: 0, textAlign: "center" }}>
         sokongan nutrisi, bukan ubat · ada kafein
       </Note>
     </AbsoluteFill>
@@ -355,8 +365,8 @@ const CTA: React.FC = () => (
   </AbsoluteFill>
 );
 
-export const T3_SCENES: SceneDef[] = [
-  { id: "hook", dur: 120, el: <Hook />, cues: [[4, "stamp", 0.85], [22, "whoosh", 0.4], [34, "swipe", 0.45], [40, "pop", 0.45], [60, "scribble", 0.35]] },
+const t3Scenes = (hook: SceneDef, pack?: string): SceneDef[] => [
+  hook,
   { id: "theme", dur: 150, el: <Theme />, cues: [[4, "whoosh", 0.45], [40, "scribble", 0.4], [60, "pop", 0.5], [76, "swipe", 0.45]] },
   { id: "turn", dur: 110, el: <Turn />, cues: [[4, "whoosh", 0.4], [28, "swipe", 0.45], [50, "stamp", 0.85]] },
   {
@@ -368,12 +378,19 @@ export const T3_SCENES: SceneDef[] = [
   {
     id: "swap",
     dur: 220,
-    el: <ResitSwap />,
-    cues: [[2, "whoosh", 0.5], [28, "tick", 0.6], [78, "tick", 0.6], [140, "pop", 0.45], [152, "swipe", 0.45]],
+    el: <ResitSwap pack={pack} />,
+    cues: [[2, "whoosh", 0.5], [28, "tick", 0.6], [78, "tick", 0.6], ...(pack ? ([[96, "pop", 0.5]] as Cue[]) : []), [140, "pop", 0.45], [152, "swipe", 0.45]],
   },
   { id: "tips", dur: 200, el: <Tips />, cues: [[10, "swipe", 0.45], [20, "pop", 0.5], [70, "pop", 0.5], [120, "pop", 0.5]] },
   { id: "cta", dur: 150, el: <CTA />, cues: [[2, "pop", 0.45], [28, "swipe", 0.45], [50, "pop", 0.55], [54, "chime", 0.45], [64, "scribble", 0.35]] },
 ];
+
+const TEXT_HOOK: SceneDef = { id: "hook", dur: 120, el: <Hook />, cues: [[4, "stamp", 0.85], [22, "whoosh", 0.4], [34, "swipe", 0.45], [40, "pop", 0.45], [60, "scribble", 0.35]] };
+
+export const T3_SCENES = t3Scenes(TEXT_HOOK);
+
+// HPPC pack shot, cut out from the reference poster. Lives in public/img/ (not in git).
+export const T3_PACK_FILE = "hppc-pack.png";
 
 // ---------- Clip version: Coach Nas making coffee opens the reel ----------
 // Real footage as the hook, with the day stamped over it, then the same reel from scene 2.
@@ -409,7 +426,90 @@ const ClipHook: React.FC<{ file: string }> = ({ file }) => {
   );
 };
 
-export const t3ClipScenes = (file: string = T3_CLIP_FILE): SceneDef[] => [
-  { id: "clip-hook", dur: CLIP_DUR, el: <ClipHook file={file} />, cues: [[10, "stamp", 0.85], [28, "pop", 0.45], [40, "swipe", 0.45]] },
-  ...T3_SCENES.slice(1),
-];
+// Stock footage works here too (e.g. a Pexels/Pixabay pour shot): save it under the same name.
+export const t3ClipScenes = (file: string = T3_CLIP_FILE, pack: string = T3_PACK_FILE): SceneDef[] =>
+  t3Scenes({ id: "clip-hook", dur: CLIP_DUR, el: <ClipHook file={file} />, cues: [[10, "stamp", 0.85], [28, "pop", 0.45], [40, "swipe", 0.45]] }, pack);
+
+// ---------- Animated version: drawn scoop → shake → pour, no footage needed ----------
+const LATTE = "#C9A27E";
+const ANIM_DUR = 150;
+
+const AnimHook: React.FC = () => {
+  const f = useCurrentFrame();
+  const c = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
+  // 0–34 scoop drops in · 34–74 shake · 74–92 tilt over the glass · 92–135 pour
+  const scoopY = interpolate(f, [4, 24], [-260, 0], c);
+  const scoopTip = interpolate(f, [24, 32], [0, 70], c);
+  const powder = interpolate(f, [26, 40], [0, 1], c);
+  const shaking = f >= 34 && f < 74;
+  const shakeRot = shaking ? Math.sin((f - 34) * 0.9) * 9 : 0;
+  const shakeY = shaking ? Math.sin((f - 34) * 1.8) * 12 : 0;
+  const tilt = interpolate(f, [74, 92], [0, 1], c);
+  const pour = interpolate(f, [92, 135], [0, 1], c);
+  const streamOn = f >= 90 && f < 138;
+  const fill = 300 * pour; // liquid height in the glass
+  const level = 130 * (pour > 0 ? 1 - pour : powder); // liquid height in the shaker
+  return (
+    <AbsoluteFill>
+      <Stack top={250} gap={14}>
+        <BoxStamp delay={6} rotate={-4} size={92}>
+          1 OKTOBER
+        </BoxStamp>
+        <div style={{ height: 6 }} />
+        <Line delay={20} size={76} weight={800}>
+          <Highlight delay={32}>Hari Kopi</Highlight> Sedunia
+        </Line>
+      </Stack>
+      <svg viewBox="0 0 800 820" width={1000} height={1025} style={{ position: "absolute", top: 560, left: 40, overflow: "visible" }}>
+        {/* glass with ice */}
+        <g transform="translate(470 360)">
+          <clipPath id="glass">
+            <path d="M 0 0 H 220 L 200 380 Q 198 400 178 400 H 42 Q 22 400 20 380 Z" />
+          </clipPath>
+          <g clipPath="url(#glass)">
+            <rect x={0} y={400 - fill} width={220} height={fill} fill={LATTE} />
+            {[[34, 322], [104, 330], [64, 258], [134, 266], [90, 196]].map(([x, y], i) => (
+              <rect key={i} x={x} y={y} width={58} height={58} rx={10} fill="#FFFFFF" opacity={0.8} stroke={C.ink} strokeWidth={3} transform={`rotate(${(i % 2 ? 8 : -6)} ${x + 29} ${y + 29})`} />
+            ))}
+          </g>
+          <path d="M 0 0 H 220 L 200 380 Q 198 400 178 400 H 42 Q 22 400 20 380 Z" fill="none" stroke={C.ink} strokeWidth={8} />
+        </g>
+        {/* pour stream */}
+        {/* from the tilted shaker mouth (≈ 651, 315) down to the liquid */}
+        {streamOn && <rect x={630} y={315} width={22} height={interpolate(f, [90, 96], [0, 445 - fill], c)} rx={11} fill={LATTE} />}
+        {/* shaker: shakes, then tilts over the glass */}
+        <g transform={`translate(${170 + tilt * 300} ${400 - tilt * 170 + shakeY}) rotate(${shakeRot + tilt * 115})`}>
+          <rect x={-90} y={-170} width={180} height={340} rx={24} fill={C.card} stroke={C.ink} strokeWidth={8} />
+          <rect x={-100} y={-200} width={200} height={44} rx={12} fill={C.ink} />
+          {/* liquid sits at the base, then runs to the mouth once the shaker tips */}
+          <rect x={-82} y={tilt > 0.5 ? -156 : 162 - level} width={164} height={level} rx={18} fill={LATTE} />
+          <text x={0} y={30} textAnchor="middle" fontSize={34} fontWeight={800} fill={C.ink} opacity={0.5}>
+            SHAKE
+          </text>
+        </g>
+        {/* scoop */}
+        {f < 40 && (
+          <g transform={`translate(170 ${120 + scoopY}) rotate(${scoopTip})`} opacity={interpolate(f, [32, 40], [1, 0], c)}>
+            <rect x={-10} y={-150} width={20} height={130} rx={10} fill={C.ink} />
+            <path d="M -50 -30 H 50 Q 50 30 0 30 Q -50 30 -50 -30 Z" fill={C.ink} />
+            <ellipse cx={0} cy={-30} rx={46} ry={12} fill={LATTE} opacity={1 - powder} />
+          </g>
+        )}
+      </svg>
+      <Note delay={36} size={60} rotate={-3} style={{ position: "absolute", top: 1540, left: 0, right: 0, textAlign: "center" }}>
+        {f < 80 ? "2 scoop · air · shake" : "tuang atas ais"}
+      </Note>
+    </AbsoluteFill>
+  );
+};
+
+export const t3AnimScenes = (pack: string = T3_PACK_FILE): SceneDef[] =>
+  t3Scenes(
+    {
+      id: "anim-hook",
+      dur: ANIM_DUR,
+      el: <AnimHook />,
+      cues: [[6, "stamp", 0.85], [24, "pop", 0.45], [36, "swipe", 0.4], [50, "swipe", 0.4], [62, "swipe", 0.4], [76, "whoosh", 0.45], [92, "scribble", 0.35]],
+    },
+    pack,
+  );
