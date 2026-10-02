@@ -34,6 +34,20 @@ No footage needed: opens on a drawn scoop → shake → pour over ice with "1 OK
 npx remotion render src/index.ts T3-CoffeeDay-Anim "..\OneDrive\WeDo x KFOC\landing page\renders\T3-CoffeeDay-Anim.mp4"
 ```
 
+### Coach Nas voice version (`T3-CoffeeDay-CoachNasVoice`, ~51 s)
+
+Animated hook + the reel without the ICO scene, cut to Coach Nas's own recording of the talking-head script (TeleCue, 02/10). Scene changes sit on the sentence starts (Whisper transcription + pause detection, see `src/reels/T3Voice.tsx`). Music sits low under the voice.
+
+1. Save the voice as `public/voice/T3-real/source.mp3` (loudness-normalised copy of the TeleCue take; not in git).
+2. Also needs `public/img/hppc-pack.png` and `public/audio/music.mp3`.
+3. Render:
+
+```
+npx remotion render src/index.ts T3-CoffeeDay-CoachNasVoice "..\OneDrive\WeDo x KFOC\landing page\renders\T3-CoffeeDay-CoachNasVoice.mp4"
+```
+
+If you re-record, the sentence times in `SRC` (T3Voice.tsx) need updating.
+
 ### HPPC pack shot (both `-Clip` and `-Anim`)
 
 The swap scene shows the HPPC Café Latte pack under the receipt. Save the cut-out PNG as `public/img/hppc-pack.png` (not in git). The current file was cut from a low-resolution reference poster, so it is slightly soft; a phone photo of your own pack against a plain background (or Herbalife's official pack shot, if distributor rules allow) will look sharper.

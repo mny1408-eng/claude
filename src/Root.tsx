@@ -8,6 +8,7 @@ import { T1_VOICE_IS_PLACEHOLDER, T1_VOICE_SCENES } from "./reels/T1Voice";
 import { T1RealVoice, T1_REAL_SCENES } from "./reels/T1Real";
 import { T2_SCENES } from "./reels/T2DietRule";
 import { T3_SCENES, t3AnimScenes, t3ClipScenes } from "./reels/T3CoffeeDay";
+import { T3Voice, T3_VOICE_SCENES } from "./reels/T3Voice";
 import { P01_SCENES } from "./reels/P01ProgressReset";
 import { M01_SCENES } from "./reels/M01KopiGemuk";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
@@ -66,6 +67,14 @@ export const Root: React.FC = () => (
         />
       )}
       durationInFrames={reelLength(T1_VOICE_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="T3-CoffeeDay-CoachNasVoice"
+      component={() => <Reel scenes={T3_VOICE_SCENES} music="music.mp3" musicStartSec={100} musicLevel={0.22} overlay={<T3Voice />} />}
+      durationInFrames={reelLength(T3_VOICE_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}

@@ -140,7 +140,7 @@ const Theme: React.FC = () => (
 );
 
 // ---------- 3. Turn ----------
-const Turn: React.FC = () => (
+export const Turn: React.FC = () => (
   <AbsoluteFill>
     <Stack top={460} gap={14}>
       <Line size={60} weight={600} color={C.inkSoft}>
@@ -232,7 +232,7 @@ const Receipt: React.FC<{ title: string; rows: Row[]; total?: Row; rowEvery: num
 
 // ---------- 4. Resit: a normal kopi day ----------
 const RESIT_ROW = 40;
-const ResitBefore: React.FC = () => (
+export const ResitBefore: React.FC = () => (
   <AbsoluteFill>
     <SeriesTag text="RESIT #01" />
     <Receipt
@@ -260,7 +260,7 @@ const SWAPS = [
 ];
 
 // pack: product photo in public/img/ (not in git). Without it the scene is text only.
-const ResitSwap: React.FC<{ pack?: string }> = ({ pack }) => {
+export const ResitSwap: React.FC<{ pack?: string }> = ({ pack }) => {
   const f = useCurrentFrame();
   const textTop = pack ? 1290 : 900;
   return (
@@ -310,7 +310,8 @@ const TIPS = [
 ];
 const TIP_EVERY = 50;
 
-const Tips: React.FC = () => (
+// tipAt: frame each card pops in (defaults to an even rhythm).
+export const Tips: React.FC<{ tipAt?: number[] }> = ({ tipAt = TIPS.map((_, i) => 20 + i * TIP_EVERY) }) => (
   <AbsoluteFill>
     <Stack top={320}>
       <Line size={70} weight={800}>
@@ -319,7 +320,7 @@ const Tips: React.FC = () => (
     </Stack>
     {TIPS.map((tip, i) => (
       <div key={tip.t} style={{ position: "absolute", top: 560 + i * 250, left: 110, right: 110 }}>
-        <Pop delay={20 + i * TIP_EVERY} rotate={i % 2 ? 1 : -1}>
+        <Pop delay={tipAt[i]} rotate={i % 2 ? 1 : -1}>
           <Card style={{ padding: "28px 36px", display: "flex", alignItems: "center", gap: 28 }}>
             <div style={{ width: 84, height: 84, borderRadius: "50%", background: C.ink, color: C.paper, fontSize: 48, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
               {i + 1}
@@ -336,7 +337,8 @@ const Tips: React.FC = () => (
 );
 
 // ---------- 7. CTA ----------
-const CTA: React.FC = () => (
+// pillAt: frame the comment pill pops in.
+export const CTA: React.FC<{ pillAt?: number }> = ({ pillAt = 50 }) => (
   <AbsoluteFill>
     <div style={{ position: "absolute", top: 330, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
       <Cup delay={2} />
@@ -353,13 +355,13 @@ const CTA: React.FC = () => (
       </Line>
     </Stack>
     <div style={{ position: "absolute", top: 1090, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-      <Pop delay={50}>
+      <Pop delay={pillAt}>
         <div style={{ background: C.ink, color: C.paper, borderRadius: 999, padding: "26px 60px", fontSize: 56, fontWeight: 800 }}>
           Komen “{CTA_WORD}”
         </div>
       </Pop>
     </div>
-    <Note delay={64} size={56} rotate={-2} style={{ position: "absolute", top: 1260, left: 0, right: 0, textAlign: "center" }}>
+    <Note delay={pillAt + 14} size={56} rotate={-2} style={{ position: "absolute", top: 1260, left: 0, right: 0, textAlign: "center" }}>
       saya guide step by step
     </Note>
   </AbsoluteFill>
@@ -434,7 +436,7 @@ export const t3ClipScenes = (file: string = T3_CLIP_FILE, pack: string = T3_PACK
 const LATTE = "#C9A27E";
 const ANIM_DUR = 150;
 
-const AnimHook: React.FC = () => {
+export const AnimHook: React.FC = () => {
   const f = useCurrentFrame();
   const c = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   // 0–34 scoop drops in · 34–74 shake · 74–92 tilt over the glass · 92–135 pour
