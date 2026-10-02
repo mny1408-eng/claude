@@ -167,6 +167,7 @@ export const Strike: React.FC<DrawProps> = ({ delay = 0, dur = 10, color = C.mar
         pathLength={1}
         strokeDasharray={1}
         strokeDashoffset={1 - p}
+        opacity={p > 0 ? 1 : 0} // a round cap would otherwise show as a dot before the stroke starts
       />
     </svg>
   );
@@ -176,7 +177,7 @@ export const Underline: React.FC<DrawProps> = ({ delay = 0, dur = 10, color = C.
   const p = progress(useCurrentFrame(), delay, dur);
   return (
     <svg viewBox="0 0 100 10" preserveAspectRatio="none" style={{ position: "absolute", left: 0, bottom: -14, width: "100%", height: 16, overflow: "visible", ...style }}>
-      <path d="M 1 6 C 30 9, 70 2, 99 5" fill="none" stroke={color} strokeWidth={width} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} />
+      <path d="M 1 6 C 30 9, 70 2, 99 5" fill="none" stroke={color} strokeWidth={width} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - p} opacity={p > 0 ? 1 : 0} />
     </svg>
   );
 };
