@@ -16,6 +16,7 @@ import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
 import { C04WeeklyReview, C04_SLIDES } from "./carousel/C04WeeklyReview";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
+import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
 // PM carousels: each also becomes a 9:16 PM Reel (Reel-<id>).
 const CAROUSELS = [
@@ -40,6 +41,8 @@ const REELS = [
 
 export const Root: React.FC = () => (
   <>
+    {/* Monthly group-coaching calendar: data via --props from scripts/kalendar.mjs */}
+    <Composition id="Kalendar" component={Kalendar} durationInFrames={1} fps={1} width={KAL_W} height={KAL_H} defaultProps={KALENDAR_SAMPLE} />
     {hooks.map((h) => (
       <Composition
         key={h}

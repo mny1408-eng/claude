@@ -1,0 +1,272 @@
+{
+  "month": "2026-11",
+  "year": 2026,
+  "monthIndex": 11,
+  "title": "KALENDAR TOPIK NOVEMBER 2026",
+  "team": "Misi Fight Obesiti",
+  "programme": "Group Coaching",
+  "hashtag": "#misifightobesiti",
+  "coaches": [
+    {
+      "name": "Nieda",
+      "colour": "#7E3FC1"
+    },
+    {
+      "name": "Husna",
+      "colour": "#E0408F"
+    },
+    {
+      "name": "Normy",
+      "colour": "#E8730C"
+    },
+    {
+      "name": "Nasri",
+      "colour": "#2160D8"
+    },
+    {
+      "name": "Adeline",
+      "colour": "#0B9AA6"
+    },
+    {
+      "name": "Arif",
+      "colour": "#8C1D3B"
+    },
+    {
+      "name": "Mimi",
+      "colour": "#3A9B3F"
+    }
+  ],
+  "entries": [
+    {
+      "date": "2026-11-03",
+      "dow": 1,
+      "kind": "briefing",
+      "topic": "Perkenalan Coach, Briefing Timbangan & Ukur Lilit Awal",
+      "coach": "Mimi",
+      "bell": false,
+      "scale": false,
+      "label": "Perkenalan Coach + Timbang & Ukur Lilit"
+    },
+    {
+      "date": "2026-11-04",
+      "dow": 2,
+      "kind": "briefing",
+      "topic": "Perkenalan SC & NC + Meal Plan",
+      "coach": "Nieda",
+      "bell": false,
+      "scale": false
+    },
+    {
+      "date": "2026-11-05",
+      "dow": 3,
+      "kind": "briefing",
+      "topic": "Rules & Regulations + Timbang Sebelum Intake",
+      "coach": "Husna",
+      "bell": false,
+      "scale": false,
+      "label": "Rules & Regulations + Timbang Awal"
+    },
+    {
+      "date": "2026-11-06",
+      "dow": 4,
+      "kind": "topic",
+      "day": 1,
+      "topic": "The Power of 21 Days",
+      "coach": "Normy",
+      "bell": true
+    },
+    {
+      "date": "2026-11-07",
+      "dow": 5,
+      "kind": "timbang",
+      "day": 2,
+      "scale": true
+    },
+    {
+      "date": "2026-11-08",
+      "dow": 6,
+      "kind": "rest",
+      "day": 3
+    },
+    {
+      "date": "2026-11-09",
+      "dow": 0,
+      "kind": "topic",
+      "day": 4,
+      "topic": "Jenis-Jenis Diet",
+      "coach": "Nasri",
+      "bell": false
+    },
+    {
+      "date": "2026-11-10",
+      "dow": 1,
+      "kind": "topic",
+      "day": 5,
+      "topic": "PCE & Water Intake",
+      "coach": "Adeline",
+      "bell": false
+    },
+    {
+      "date": "2026-11-11",
+      "dow": 2,
+      "kind": "topic",
+      "day": 6,
+      "topic": "Cellular Nutrition",
+      "coach": "Arif",
+      "bell": false
+    },
+    {
+      "date": "2026-11-12",
+      "dow": 3,
+      "kind": "topic",
+      "day": 7,
+      "topic": "Healthy Breakfast",
+      "coach": "Mimi",
+      "bell": false
+    },
+    {
+      "date": "2026-11-13",
+      "dow": 4,
+      "kind": "topic",
+      "day": 8,
+      "topic": "Kepentingan Protein",
+      "coach": "Nieda",
+      "bell": true
+    },
+    {
+      "date": "2026-11-14",
+      "dow": 5,
+      "kind": "timbang",
+      "day": 9,
+      "scale": true
+    },
+    {
+      "date": "2026-11-15",
+      "dow": 6,
+      "kind": "rest",
+      "day": 10
+    },
+    {
+      "date": "2026-11-16",
+      "dow": 0,
+      "kind": "topic",
+      "day": 11,
+      "topic": "Magic Number",
+      "coach": "Husna",
+      "bell": false
+    },
+    {
+      "date": "2026-11-17",
+      "dow": 1,
+      "kind": "topic",
+      "day": 12,
+      "topic": "Body Fat",
+      "coach": "Normy",
+      "bell": false
+    },
+    {
+      "date": "2026-11-18",
+      "dow": 2,
+      "kind": "topic",
+      "day": 13,
+      "topic": "IBC",
+      "coach": "Nasri",
+      "bell": false
+    },
+    {
+      "date": "2026-11-19",
+      "dow": 3,
+      "kind": "topic",
+      "day": 14,
+      "topic": "Kepentingan Fiber",
+      "coach": "Adeline",
+      "bell": false
+    },
+    {
+      "date": "2026-11-20",
+      "dow": 4,
+      "kind": "reminder",
+      "topic": "Reminder Timbang Akhir",
+      "day": 15,
+      "bell": true
+    },
+    {
+      "date": "2026-11-21",
+      "dow": 5,
+      "kind": "timbangAkhir",
+      "day": 16,
+      "scale": true
+    },
+    {
+      "date": "2026-11-22",
+      "dow": 6,
+      "kind": "rest",
+      "day": 17
+    },
+    {
+      "date": "2026-11-23",
+      "dow": 0,
+      "kind": "topic",
+      "day": 18,
+      "topic": "Glycemic Index",
+      "coach": "Arif",
+      "bell": false
+    },
+    {
+      "date": "2026-11-24",
+      "dow": 1,
+      "kind": "topic",
+      "day": 19,
+      "topic": "Visceral Fat",
+      "coach": "Mimi",
+      "bell": false
+    },
+    {
+      "date": "2026-11-25",
+      "dow": 2,
+      "kind": "topic",
+      "day": 20,
+      "topic": "Macro & Micro",
+      "coach": "Nieda",
+      "bell": false
+    },
+    {
+      "date": "2026-11-26",
+      "dow": 3,
+      "kind": "topic",
+      "day": 21,
+      "topic": "Food Label",
+      "coach": "Husna",
+      "bell": false
+    },
+    {
+      "date": "2026-11-27",
+      "dow": 4,
+      "kind": "wrapup",
+      "topic": "Rejoin",
+      "coach": "Normy"
+    },
+    {
+      "date": "2026-11-28",
+      "dow": 5,
+      "kind": "wrapup",
+      "topic": "Misteri Lemak",
+      "coach": "Nasri"
+    },
+    {
+      "date": "2026-11-29",
+      "dow": 6,
+      "kind": "wrapup",
+      "topic": "Ambassador Program + Treat Meal",
+      "coach": "Adeline"
+    },
+    {
+      "date": "2026-12-01",
+      "dow": 1,
+      "kind": "close",
+      "topic": "Close Group",
+      "coach": "Semua Coach"
+    }
+  ],
+  "warnings": []
+}
