@@ -19,6 +19,7 @@ import { R0210CoachingVoice, R0210_COACHING_REAL_SCENES } from "./reels/R0210Coa
 import { R0310_BUFFET_SCENES } from "./reels/R0310Buffet";
 import { R0310BuffetVoice, R0310_BUFFET_REAL_SCENES } from "./reels/R0310BuffetReal";
 import { R0410_REVIEW_SCENES } from "./reels/R0410WeeklyReview";
+import { R0410ReviewVoice, R0410_REVIEW_REAL_SCENES } from "./reels/R0410WeeklyReviewReal";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
@@ -124,6 +125,14 @@ export const Root: React.FC = () => (
       id="R2-03-10-Buffet-CoachNas"
       component={() => <Reel scenes={R0310_BUFFET_REAL_SCENES} overlay={<R0310BuffetVoice />} />}
       durationInFrames={reelLength(R0310_BUFFET_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-04-10-WeeklyReview-CoachNas"
+      component={() => <Reel scenes={R0410_REVIEW_REAL_SCENES} overlay={<R0410ReviewVoice />} />}
+      durationInFrames={reelLength(R0410_REVIEW_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
