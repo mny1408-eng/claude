@@ -14,6 +14,7 @@ import { R0210_SCENES } from "./reels/R0210DietKeras";
 import { R0210RealVoice, R0210_REAL_SCENES } from "./reels/R0210Real";
 import { R0310_SCENES } from "./reels/R0310Weekend";
 import { R0410_SCENES } from "./reels/R0410Tebus";
+import { R0410TebusVoice, R0410_TEBUS_REAL_SCENES } from "./reels/R0410TebusReal";
 import { R0210_COACHING_SCENES } from "./reels/R0210Coaching";
 import { R0210CoachingVoice, R0210_COACHING_REAL_SCENES } from "./reels/R0210CoachingReal";
 import { R0310_BUFFET_SCENES } from "./reels/R0310Buffet";
@@ -133,6 +134,14 @@ export const Root: React.FC = () => (
       id="R2-04-10-WeeklyReview-CoachNas"
       component={() => <Reel scenes={R0410_REVIEW_REAL_SCENES} overlay={<R0410ReviewVoice />} />}
       durationInFrames={reelLength(R0410_REVIEW_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-04-10-Tebus-CoachNasVoice"
+      component={() => <Reel scenes={R0410_TEBUS_REAL_SCENES} overlay={<R0410TebusVoice />} />}
+      durationInFrames={reelLength(R0410_TEBUS_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
