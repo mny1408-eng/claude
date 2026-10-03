@@ -103,7 +103,7 @@
     {
       "start": 9.8,
       "end": 12.0,
-      "y": 300,
+      "y": 230,
       "lines": [
         {
           "text": "Read caption",
@@ -122,15 +122,16 @@
       ]
     }
   ],
-  "end_card": {
-    "duration": 3.2,
+  "music": "none",
+  "photo_overlay": {
     "image": "../media/transformation.jpg",
-    "title": "Perjalanan saya.",
+    "start": 9.8,
+    "y": 960,
+    "w": 800,
+    "rot": -2,
     "labels": [
       "DULU",
       "SEKARANG"
-    ],
-    "sub": "Bukan overnight. Langkah kecil yang diulang. #misifightobesiti"
-  },
-  "music": "none"
+    ]
+  }
 }

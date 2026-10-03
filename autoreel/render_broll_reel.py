@@ -95,6 +95,40 @@ def end_card(spec):
     return img
 
 
+def photo_sprite(po, base):
+    """Photo card with white border, drop shadow and optional DULU/SEKARANG-style labels."""
+    photo = Image.open(os.path.join(base, po["image"])).convert("RGB")
+    photo.thumbnail((po.get("w", 820), po.get("w", 820)), Image.LANCZOS)
+    b = 14
+    card = Image.new("RGBA", (photo.width + 2 * b, photo.height + 2 * b), (255, 255, 255, 255))
+    card.paste(photo, (b, b))
+    d = ImageDraw.Draw(card)
+    lf = font(HEAVY, 36)
+    for label, cx in zip(po.get("labels", []), (b + photo.width // 4, b + 3 * photo.width // 4)):
+        tw = d.textlength(label, font=lf)
+        y = b + photo.height - 70
+        d.rounded_rectangle([cx - tw / 2 - 20, y, cx + tw / 2 + 20, y + 52], radius=10, fill=BAR)
+        d.text((cx - tw / 2, y + 3), label, font=lf, fill=IVORY)
+    pad = 40
+    out = Image.new("RGBA", (card.width + 2 * pad, card.height + 2 * pad), (0, 0, 0, 0))
+    sh = Image.new("RGBA", card.size, (0, 0, 0, 120))
+    out.alpha_composite(sh, (pad + 8, pad + 14))
+    out = out.filter(ImageFilter.GaussianBlur(14))
+    out.alpha_composite(card, (pad, pad))
+    return out.rotate(po.get("rot", -2), expand=True, resample=Image.BICUBIC)
+
+
+def draw_photo(img, spr, po, t):
+    dt = t - po["start"]
+    if dt < 0 or t >= po.get("end", 1e9):
+        return
+    p = ease(dt / 0.35)
+    s = spr.resize((max(1, int(spr.width * (0.85 + 0.15 * p))), max(1, int(spr.height * (0.85 + 0.15 * p)))), Image.BILINEAR)
+    if p < 1:
+        s.putalpha(s.split()[3].point(lambda a: int(a * p)))
+    img.alpha_composite(s, (int(W / 2 - 45 - s.width / 2), int(po.get("y", 980) - s.height / 2 + (1 - p) * 40)))
+
+
 def watermark(spec):
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     if os.path.exists(LOGO):
@@ -114,7 +148,7 @@ def main(spec_path, out_path):
     import re
     hh, mm, ss = re.search(r"Duration: (\d+):(\d+):([\d.]+)", probe).groups()
     vdur = int(hh) * 3600 + int(mm) * 60 + float(ss)
-    end_dur = spec["end_card"]["duration"]
+    end_dur = spec["end_card"]["duration"] if spec.get("end_card") else 0.0
     total = vdur + end_dur
 
     dec = subprocess.Popen(
@@ -124,7 +158,11 @@ def main(spec_path, out_path):
         stdout=subprocess.PIPE,
     )
     fade = f"afade=t=out:st={total - 1.5:.2f}:d=1.5"
-    if spec.get("music", "auto") == "none":
+    if spec.get("music", "auto") == "none" and not end_dur:
+        bed = None
+        audio_inputs = ["-i", video]
+        filt = f"[1:a]aresample=44100,{fade}[aout]"
+    elif spec.get("music", "auto") == "none":
         # The clip already carries its own music: keep it at full level and, to cover
         # the end card, crossfade the clip's audio back into its own start.
         bed = None
@@ -149,6 +187,8 @@ def main(spec_path, out_path):
         stdin=subprocess.PIPE,
     )
     wm, cache, frame_bytes, f = watermark(spec), {}, W * H * 3, 0
+    po = spec.get("photo_overlay")
+    po_spr = photo_sprite(po, spec["_base"]) if po else None
     while True:
         raw = dec.stdout.read(frame_bytes)
         if len(raw) < frame_bytes:
@@ -165,11 +205,13 @@ def main(spec_path, out_path):
         for seg in spec["segments"]:
             if seg["start"] <= t < seg["end"]:
                 img.alpha_composite(overlay_for(seg, t, cache))
+        if po:
+            draw_photo(img, po_spr, po, t)
         img.alpha_composite(wm)
         enc.stdin.write(img.convert("RGB").tobytes())
         f += 1
     dec.wait()
-    card = end_card(spec)
+    card = end_card(spec) if end_dur else None
     last = img
     for k in range(int(end_dur * FPS)):
         p = ease(k / (0.4 * FPS))
