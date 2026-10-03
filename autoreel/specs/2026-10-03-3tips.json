@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-03",
+  "video": "../media/2026-10-03-walk.mov",
+  "footer": "@coachnas.pharmacist",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 2.6,
+      "y": 250,
+      "lines": [
+        {
+          "text": "3 TIPS",
+          "size": 120,
+          "color": [
+            228,
+            196,
+            110
+          ]
+        },
+        {
+          "text": "turun 1–3kg",
+          "size": 92
+        },
+        {
+          "text": "tanpa senaman",
+          "weight": "italic",
+          "size": 74
+        },
+        {
+          "text": "*hasil berbeza ikut individu",
+          "weight": "bold",
+          "size": 30,
+          "gap": 0
+        }
+      ]
+    },
+    {
+      "start": 2.6,
+      "end": 5.0,
+      "y": 250,
+      "number": 1,
+      "lines": [
+        {
+          "text": "Tukar minuman manis",
+          "size": 76
+        },
+        {
+          "text": "kepada air kosong",
+          "weight": "italic",
+          "size": 64,
+          "color": [
+            228,
+            196,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "start": 5.0,
+      "end": 7.4,
+      "y": 250,
+      "number": 2,
+      "lines": [
+        {
+          "text": "Protein dulu",
+          "size": 76
+        },
+        {
+          "text": "setiap kali makan",
+          "weight": "italic",
+          "size": 64,
+          "color": [
+            228,
+            196,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "start": 7.4,
+      "end": 9.8,
+      "y": 250,
+      "number": 3,
+      "lines": [
+        {
+          "text": "Nasi ¼ pinggan",
+          "size": 76
+        },
+        {
+          "text": "sayur ½ pinggan",
+          "weight": "italic",
+          "size": 64,
+          "color": [
+            228,
+            196,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "start": 9.8,
+      "end": 12.0,
+      "y": 300,
+      "lines": [
+        {
+          "text": "Read caption",
+          "size": 84
+        },
+        {
+          "text": "for more ↓",
+          "weight": "italic",
+          "size": 72,
+          "color": [
+            228,
+            196,
+            110
+          ]
+        }
+      ]
+    }
+  ],
+  "end_card": {
+    "duration": 3.2,
+    "image": "../media/transformation.jpg",
+    "title": "Perjalanan saya.",
+    "labels": [
+      "DULU",
+      "SEKARANG"
+    ],
+    "sub": "Bukan overnight. Langkah kecil yang diulang. #misifightobesiti"
+  }
+}
