@@ -123,17 +123,27 @@ def main(spec_path, out_path):
          "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
         stdout=subprocess.PIPE,
     )
-    bed = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
-    make_bed(total, bed, seed=sum(map(ord, spec.get("date", ""))))
-    filt = (
-        f"[1:a]volume={spec.get('clip_gain', 0.35)},aresample=44100,apad[c];"
-        f"[2:a]volume={spec.get('music_gain', 0.9)}[m];"
-        f"[c][m]amix=inputs=2:duration=shortest:normalize=0,afade=t=out:st={total - 1.5:.2f}:d=1.5[aout]"
-    )
+    fade = f"afade=t=out:st={total - 1.5:.2f}:d=1.5"
+    if spec.get("music", "auto") == "none":
+        # The clip already carries its own music: keep it at full level and, to cover
+        # the end card, crossfade the clip's audio back into its own start.
+        bed = None
+        audio_inputs = ["-i", video, "-i", video]
+        filt = (f"[1:a]aresample=44100[a1];[2:a]aresample=44100[a2];[a1][a2]acrossfade=d=1[x];"
+                f"[x]atrim=0:{total:.2f},{fade}[aout]")
+    else:
+        bed = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+        make_bed(total, bed, seed=sum(map(ord, spec.get("date", ""))))
+        audio_inputs = ["-i", video, "-i", bed]
+        filt = (
+            f"[1:a]volume={spec.get('clip_gain', 0.35)},aresample=44100,apad[c];"
+            f"[2:a]volume={spec.get('music_gain', 0.9)}[m];"
+            f"[c][m]amix=inputs=2:duration=shortest:normalize=0,{fade}[aout]"
+        )
     enc = subprocess.Popen(
         [FFMPEG, "-y", "-loglevel", "error",
          "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-         "-i", video, "-i", bed, "-filter_complex", filt, "-map", "0:v", "-map", "[aout]", "-t", f"{total:.2f}",
+         *audio_inputs, "-filter_complex", filt, "-map", "0:v", "-map", "[aout]", "-t", f"{total:.2f}",
          "-c:v", "libx264", "-pix_fmt", "yuv420p", "-preset", "medium", "-crf", "22",
          "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out_path],
         stdin=subprocess.PIPE,
@@ -167,7 +177,8 @@ def main(spec_path, out_path):
         enc.stdin.write(frame.convert("RGB").tobytes())
     enc.stdin.close()
     code = enc.wait()
-    os.unlink(bed)
+    if bed:
+        os.unlink(bed)
     if code != 0:
         sys.exit("ffmpeg failed")
     print(f"video {vdur:.2f}s + end card {end_dur}s = {total:.2f}s")
