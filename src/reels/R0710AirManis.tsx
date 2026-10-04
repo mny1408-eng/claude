@@ -11,7 +11,8 @@ import { BoxStamp, CtaPill, Stack, Tag } from "./formats/common";
 
 export type R0710Timing = {
   nasi: { strike: number; line2: number; minuman: number; hl: number; tag: number };
-  week: { meals: number[]; swaps: number[]; line2: number };
+  // intro: optional "Tengok minuman." title on top of this scene (voiced cut, where the nasi scene is folded in); header: when it appears
+  week: { meals: number[]; swaps: number[]; line2: number; intro?: number; header?: number };
   racun: { stamp: number; strike: number; tag: number; line2: number; hl: number };
   close: { hl: number; tag: number; pill: number };
 };
@@ -89,18 +90,28 @@ const Meal: React.FC<{ at: number; swapAt?: number; frame: number }> = ({ at, sw
 };
 
 const Week: React.FC<{ t: R0710Timing["week"] }> = ({ t }) => {
+  const intro = t.intro !== undefined;
+  const h = t.header ?? 0;
+  const shift = intro ? 150 : 0; // push the rest down when the title is shown
   return (
     <AbsoluteFill>
-      <Stack top={270} gap={8}>
-        <Line size={54} weight={700}>
+      {intro && (
+        <Stack top={250} gap={0}>
+          <Line delay={t.intro} size={84} weight={800}>
+            <Highlight delay={t.intro! + 8}>Tengok minuman.</Highlight>
+          </Line>
+        </Stack>
+      )}
+      <Stack top={270 + shift} gap={8}>
+        <Line delay={h} size={54} weight={700}>
           Kalau hampir setiap meal
         </Line>
-        <Line delay={6} size={64} weight={800}>
-          ada <Highlight delay={14}>minuman bergula,</Highlight>
+        <Line delay={h + 6} size={64} weight={800}>
+          ada <Highlight delay={h + 14}>minuman bergula,</Highlight>
         </Line>
       </Stack>
-      <WeekGrid t={t} />
-      <Stack top={1240} gap={8}>
+      <WeekGrid t={t} top={520 + shift} />
+      <Stack top={1240 + shift} gap={8}>
         <Line delay={t.line2} size={50} weight={700}>
           cuba tukar <Highlight delay={t.line2 + 12}>sebahagian occasion</Highlight>
         </Line>
@@ -114,10 +125,10 @@ const Week: React.FC<{ t: R0710Timing["week"] }> = ({ t }) => {
   );
 };
 
-const WeekGrid: React.FC<{ t: R0710Timing["week"] }> = ({ t }) => {
+const WeekGrid: React.FC<{ t: R0710Timing["week"]; top: number }> = ({ t, top }) => {
   const frame = useCurrentFrame();
   return (
-    <div style={{ position: "absolute", top: 520, left: 40, right: 40, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24 }}>
+    <div style={{ position: "absolute", top, left: 40, right: 40, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24 }}>
       {t.meals.map((at, i) => (
         <Meal key={i} at={at} swapAt={i === 1 ? t.swaps[0] : i === 3 ? t.swaps[1] : undefined} frame={frame} />
       ))}
@@ -177,7 +188,7 @@ const Close: React.FC<{ t: R0710Timing["close"] }> = ({ t }) => (
 
 export const r0710Scenes = (t: R0710Timing, dur: Record<string, number> = { nasi: 170, week: 200, racun: 170, close: 130 }): SceneDef[] => [
   { id: "nasi", dur: dur.nasi, el: <Nasi t={t.nasi} />, cues: [[t.nasi.strike, "scribble", 0.5], [t.nasi.hl, "swipe", 0.5], [t.nasi.tag, "pop", 0.4]] },
-  { id: "week", dur: dur.week, el: <Week t={t.week} />, cues: [[14, "swipe", 0.4], ...t.week.meals.map((f): Cue => [f, "pop", 0.35]), ...t.week.swaps.map((f): Cue => [f, "tick", 0.55]), [t.week.line2 + 12, "swipe", 0.4]] },
+  { id: "week", dur: dur.week, el: <Week t={t.week} />, cues: [...(t.week.intro !== undefined ? ([[t.week.intro + 8, "swipe", 0.45]] as Cue[]) : []), [(t.week.header ?? 0) + 14, "swipe", 0.4], ...t.week.meals.map((f): Cue => [f, "pop", 0.35]), ...t.week.swaps.map((f): Cue => [f, "tick", 0.55]), [t.week.line2 + 12, "swipe", 0.4]] },
   { id: "racun", dur: dur.racun, el: <Racun t={t.racun} />, cues: [[t.racun.stamp, "stamp", 0.8], [t.racun.strike, "scribble", 0.55], [t.racun.tag, "pop", 0.4], [t.racun.line2, "pop", 0.4], [t.racun.hl, "swipe", 0.4]] },
   { id: "close", dur: dur.close, el: <Close t={t.close} />, cues: [[t.close.hl, "swipe", 0.45], [t.close.tag, "pop", 0.4], [t.close.pill, "pop", 0.5], [t.close.pill + 4, "chime", 0.45]] },
 ];

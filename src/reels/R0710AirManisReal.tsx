@@ -19,13 +19,15 @@ const AUDIO = "voice/R0710-airmanis/source.mp3";
 const CLIP_LEN = 186;
 const tl = voiceTimeline({ clipLen: CLIP_LEN, clipFrom: 1.25, voiceFrom: 1.95 });
 
-const starts = { nasi: CLIP_LEN, week: tl.start(3.1), racun: tl.start(11.01), close: tl.start(18.66), end: tl.end(21.36) };
+// The 1-second "Tengok minuman awak." is folded into the week scene as its title instead of a scene of its own.
+const starts = { week: CLIP_LEN, racun: tl.start(11.01), close: tl.start(18.66), end: tl.end(21.36) };
 const w = tl.w;
 
 const T: R0710Timing = {
-  // the opener already said the nasi lines: they are on screen (and struck) from the start; "Tengok minuman" lands on its word
-  nasi: { strike: 0, line2: 0, minuman: w(starts.nasi, 2.08), hl: w(starts.nasi, 2.28), tag: w(starts.nasi, 2.6) },
+  nasi: { strike: 0, line2: 0, minuman: 0, hl: 0, tag: 0 }, // not used: folded into the opener and the week title
   week: {
+    intro: w(starts.week, 2.08), // "Tengok minuman awak."
+    header: w(starts.week, 3.1), // "Kalau hampir setiap meal ada minuman bergula"
     meals: [3.24, 3.6, 3.88, 4.26, 4.68].map((s) => w(starts.week, s)), // "hampir setiap meal ada minuman bergula"
     swaps: [7.5, 7.86].map((s) => w(starts.week, s)), // "air kosong"
     line2: w(starts.week, 5.34), // "cuba tukar sebahagian occasion…"
@@ -62,11 +64,9 @@ const soft = (cues: Cue[], k = 0.6): Cue[] => cues.map(([f, s, v]) => [f, s, v *
 
 export const R0710_REAL_SCENES: SceneDef[] = [
   { id: "opener", dur: CLIP_LEN, el: <Opener />, cues: soft([[LINE1_AT, "pop", 0.45], [STRIKE_AT, "scribble", 0.55], [LINE2_AT, "pop", 0.45]], 0.5) },
-  ...r0710Scenes(T, { nasi: starts.week - starts.nasi, week: starts.racun - starts.week, racun: starts.close - starts.racun, close: starts.end - starts.close }).map((s) => ({
-    ...s,
-    // the nasi strike already happened in the opener
-    cues: soft((s.cues ?? []).filter(([f, sfx]) => !(s.id === "nasi" && f === 0 && sfx === "scribble"))),
-  })),
+  ...r0710Scenes(T, { nasi: 0, week: starts.racun - starts.week, racun: starts.close - starts.racun, close: starts.end - starts.close })
+    .filter((s) => s.id !== "nasi")
+    .map((s) => ({ ...s, cues: soft(s.cues ?? []) })),
 ];
 
 export const R0710Voice: React.FC = () => (
