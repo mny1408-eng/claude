@@ -21,6 +21,11 @@ import { R0210CoachingVoice, R0210_COACHING_REAL_SCENES } from "./reels/R0210Coa
 import { R0310_BUFFET_SCENES } from "./reels/R0310Buffet";
 import { R0310BuffetVoice, R0310_BUFFET_REAL_SCENES } from "./reels/R0310BuffetReal";
 import { R0410_REVIEW_SCENES } from "./reels/R0410WeeklyReview";
+import { R0510_SCENES } from "./reels/R0510Lapar";
+import { R0610_SCENES } from "./reels/R0610Backup";
+import { R0710_SCENES } from "./reels/R0710AirManis";
+import { R0810_SCENES } from "./reels/R0810CarbsMalam";
+import { R0910_SCENES } from "./reels/R0910StartIsnin";
 import { R0410ReviewVoice, R0410_REVIEW_REAL_SCENES } from "./reels/R0410WeeklyReviewReal";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
@@ -51,6 +56,12 @@ const REELS = [
   { id: "R2-02-10-Coaching", scenes: R0210_COACHING_SCENES, musicStartSec: 50 },
   { id: "R2-03-10-Buffet", scenes: R0310_BUFFET_SCENES, musicStartSec: 80 },
   { id: "R2-04-10-WeeklyReview", scenes: R0410_REVIEW_SCENES, musicStartSec: 30 },
+  // Week 5–11 Oct: Reel B (hybrid) designed versions; the face-cam opener and voice are added when recorded.
+  { id: "R1-05-10-Lapar", scenes: R0510_SCENES, musicStartSec: 40 },
+  { id: "R2-06-10-Backup", scenes: R0610_SCENES, musicStartSec: 65 },
+  { id: "R2-07-10-AirManis", scenes: R0710_SCENES, musicStartSec: 90 },
+  { id: "R1-08-10-CarbsMalam", scenes: R0810_SCENES, musicStartSec: 25 },
+  { id: "R1-09-10-StartIsnin", scenes: R0910_SCENES, musicStartSec: 55 },
 ];
 
 export const Root: React.FC = () => (
