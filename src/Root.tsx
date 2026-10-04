@@ -26,6 +26,10 @@ import { R0610_SCENES } from "./reels/R0610Backup";
 import { R0710_SCENES } from "./reels/R0710AirManis";
 import { R0810_SCENES } from "./reels/R0810CarbsMalam";
 import { R0910_SCENES } from "./reels/R0910StartIsnin";
+import { R0510_BUSY_SCENES } from "./reels/R0510Busy";
+import { R0510BusyVoice, R0510_BUSY_REAL_SCENES } from "./reels/R0510BusyReal";
+import { R0610Voice, R0610_REAL_SCENES } from "./reels/R0610BackupReal";
+import { R0710Voice, R0710_REAL_SCENES } from "./reels/R0710AirManisReal";
 import { R0410ReviewVoice, R0410_REVIEW_REAL_SCENES } from "./reels/R0410WeeklyReviewReal";
 import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
@@ -62,6 +66,7 @@ const REELS = [
   { id: "R2-07-10-AirManis", scenes: R0710_SCENES, musicStartSec: 90 },
   { id: "R1-08-10-CarbsMalam", scenes: R0810_SCENES, musicStartSec: 25 },
   { id: "R1-09-10-StartIsnin", scenes: R0910_SCENES, musicStartSec: 55 },
+  { id: "R2-05-10-Busy", scenes: R0510_BUSY_SCENES, musicStartSec: 75 },
 ];
 
 export const Root: React.FC = () => (
@@ -162,6 +167,30 @@ export const Root: React.FC = () => (
       id="R1-03-10-Weekend-CoachNasVoice"
       component={() => <Reel scenes={R0310_WEEKEND_REAL_SCENES} overlay={<R0310WeekendVoice />} />}
       durationInFrames={reelLength(R0310_WEEKEND_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-05-10-Busy-CoachNas"
+      component={() => <Reel scenes={R0510_BUSY_REAL_SCENES} overlay={<R0510BusyVoice />} />}
+      durationInFrames={reelLength(R0510_BUSY_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-06-10-Backup-CoachNas"
+      component={() => <Reel scenes={R0610_REAL_SCENES} overlay={<R0610Voice />} />}
+      durationInFrames={reelLength(R0610_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-07-10-AirManis-CoachNas"
+      component={() => <Reel scenes={R0710_REAL_SCENES} overlay={<R0710Voice />} />}
+      durationInFrames={reelLength(R0710_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}

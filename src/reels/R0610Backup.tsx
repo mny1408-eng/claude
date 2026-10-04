@@ -50,7 +50,7 @@ const Hook: React.FC = () => (
 
 export const R0610_HOOK: SceneDef = { id: "hook", dur: 95, el: <Hook />, cues: [[2, "pop", 0.45], [30, "swipe", 0.5]] };
 
-const Meter: React.FC<{ from: number; to: number; label: number }> = ({ from, to, label }) => {
+export const Meter: React.FC<{ from: number; to: number; label: number }> = ({ from, to, label }) => {
   const f = useCurrentFrame();
   const p = interpolate(f, [from, to], [0.1, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
