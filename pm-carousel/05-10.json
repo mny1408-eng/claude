@@ -1,0 +1,45 @@
+{
+  "date": "05/10/2026",
+  "title": "KENAPA 10 PAGI DAH LAPAR?",
+  "checklist": ["Protein", "Fibre", "Portion"],
+  "slides": [
+    {
+      "top": 230,
+      "size": 156,
+      "headline": ["Kenapa", "**10 pagi**", "dah lapar?"],
+      "sub": "Breakfast dah makan… tapi **10 pagi** cari snack lagi?"
+    },
+    {
+      "top": 260,
+      "headline": ["Jangan terus", "salahkan", "**willpower.**"]
+    },
+    {
+      "kicker": "CHECK #1",
+      "ghost": "#1",
+      "headline": ["Ada sumber", "**protein**", "yang jelas?"],
+      "checklist": { "active": 0 }
+    },
+    {
+      "kicker": "CHECK #2",
+      "ghost": "#2",
+      "headline": ["Ada **fibre/**", "**whole-food**", "option yang", "sesuai?"],
+      "checklist": { "active": 1 }
+    },
+    {
+      "kicker": "CHECK #3",
+      "ghost": "#3",
+      "size": 120,
+      "headline": ["**Portion** cukup", "untuk keperluan", "dan rutin awak?"],
+      "checklist": { "active": 2 }
+    },
+    {
+      "headline": ["Tak perlu", "breakfast", "**‘perfect’.**"],
+      "sub": "Uji satu struktur yang **practical** selama beberapa hari."
+    },
+    {
+      "headline": ["**Save**", "checklist ni."],
+      "sub": "Kalau masalah sebenar awak ialah **execution bila busy**, Progress Scorecard ada dekat bio.",
+      "checklist": { "all": true }
+    }
+  ]
+}
