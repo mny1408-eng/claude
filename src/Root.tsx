@@ -27,6 +27,10 @@ import { R0710_SCENES } from "./reels/R0710AirManis";
 import { R0810_SCENES } from "./reels/R0810CarbsMalam";
 import { R0910_SCENES } from "./reels/R0910StartIsnin";
 import { R0510_BUSY_SCENES } from "./reels/R0510Busy";
+import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
+import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
+import { R1010_FAMILY_SCENES } from "./reels/R1010Family";
+import { R1110_PREP_SCENES } from "./reels/R1110PrepEnv";
 import { R0510BusyVoice, R0510_BUSY_REAL_SCENES } from "./reels/R0510BusyReal";
 import { R0610Voice, R0610_REAL_SCENES } from "./reels/R0610BackupReal";
 import { R0710Voice, R0710_REAL_SCENES } from "./reels/R0710AirManisReal";
@@ -67,6 +71,10 @@ const REELS = [
   { id: "R1-08-10-CarbsMalam", scenes: R0810_SCENES, musicStartSec: 25 },
   { id: "R1-09-10-StartIsnin", scenes: R0910_SCENES, musicStartSec: 55 },
   { id: "R2-05-10-Busy", scenes: R0510_BUSY_SCENES, musicStartSec: 75 },
+  { id: "R2-08-10-Protein", scenes: R0810_PROTEIN_SCENES, musicStartSec: 45 },
+  { id: "R2-09-10-TahuBuat", scenes: R0910_TAHU_SCENES, musicStartSec: 85 },
+  { id: "R2-10-10-Family", scenes: R1010_FAMILY_SCENES, musicStartSec: 20 },
+  { id: "R2-11-10-PrepEnv", scenes: R1110_PREP_SCENES, musicStartSec: 100 },
 ];
 
 export const Root: React.FC = () => (
