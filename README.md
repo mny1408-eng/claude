@@ -39,7 +39,7 @@ Regenerate the sound effects with `node scripts/gen-sfx.mjs` if `public/sfx/` is
 ## PM carousels (1080 × 1440)
 - Template: `src/carousel/template.tsx` (coded copy of Canva Master Template v2)
 - One file per day: `src/carousel/Cxx<Topic>.tsx`, copy taken word-for-word from the Notion daily page
-- Render: `npx remotion still src/index.ts Carousel-02-10-Coaching slide-1.png --frame=0` (frame = slide index)
+- Render: `node scripts/render-carousel.mjs <outFolder> 1 <id>=<folder>` writes `slide-N.jpg` (scale below 1 writes PNG previews for QA). Final slides are JPG at 1080 × 1440 because TikTok's posting API rejects PNG and caps images at 1080p.
 - `media/carousels/<date>/` holds slides published for Metricool to fetch (public links); remove after Metricool has its copy
 
 ## Where things live
