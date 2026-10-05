@@ -2,9 +2,10 @@
 // Media (local only, gitignored):
 //   public/clips/R0810-protein-opener.mp4   Teleprompter 05/10 18:03, src 0.00–6.55s: "Bila orang nak turun berat kan, fokus selalu
 //                                           pergi dekat apa yang nak kena buang: nasi lah, gula lah, minyak lah."
-//   public/voice/R0810-protein/source.mp3   TeleCue 05/10 18:05, src 0.45–19.56 + 20.62–29.55s (a repeated "ada kesihatan" cut out).
-//                                           Ends with Coach's own "Tanya coach dulu macam mana" and the recorded Follow CTA.
-// Voice times below are seconds in the original recording; words after the cut are shifted by CUT.
+//   public/voice/R0810-protein/source.mp3   TeleCue 05/10 18:05, src 0.45–19.56 + 20.62–25.40 + 27.02–29.55s: a repeated "ada kesihatan"
+//                                           and the ad-lib "Tanya coach dulu macam mana" are cut out (Coach Nas: individual medical
+//                                           advice is for the doctor). Ends with the recorded Follow CTA.
+// Voice times below are seconds in the original recording; words after each cut are shifted by its length.
 import React from "react";
 import { Audio, Sequence, staticFile } from "remotion";
 import { C } from "../theme";
@@ -20,8 +21,12 @@ const CLIP = "clips/R0810-protein-opener.mp4";
 const AUDIO = "voice/R0810-protein/source.mp3";
 const CLIP_LEN = 197;
 const tl = voiceTimeline({ clipLen: CLIP_LEN, clipFrom: 0, voiceFrom: 0.45 });
-const CUT = 20.62 - 19.56;
-const v = (src: number) => (src > 20.62 ? src - CUT : src); // original-recording time → edited-file time
+const CUTS = [
+  { at: 20.62, len: 20.62 - 19.56 },
+  { at: 27.02, len: 27.02 - 25.4 },
+];
+// original-recording time → edited-file time
+const v = (src: number) => CUTS.reduce((t, c) => (src >= c.at ? t - c.len : t), src);
 
 const starts = { buang: CLIP_LEN, protein: tl.start(5.6), close: tl.start(16.72), end: tl.end(v(29.44), 2.2) };
 const w = (scene: number, src: number) => tl.w(scene, v(src));
