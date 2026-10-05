@@ -221,3 +221,58 @@ export const WriteLine: React.FC<{ label?: string }> = ({ label }) => (
 );
 
 const SwipeOrFollow: React.FC = () => (React.useContext(ReelMode) ? <>FOLLOW</> : <>SWIPE</>);
+
+// Analogue clock for time-of-day cues.
+export const Clock: React.FC<{ size?: number; hour: number; minute?: number }> = ({ size = 230, hour, minute = 0 }) => {
+  const tip = (deg: number, len: number) => {
+    const r = ((deg - 90) * Math.PI) / 180;
+    return [50 + Math.cos(r) * len, 50 + Math.sin(r) * len];
+  };
+  const [hx, hy] = tip(((hour % 12) + minute / 60) * 30, 22);
+  const [mx, my] = tip(minute * 6, 32);
+  return (
+    <svg viewBox="0 0 100 100" width={size} height={size}>
+      <circle cx={50} cy={50} r={45} fill="#fff" stroke={T.sage} strokeWidth={5} />
+      {Array.from({ length: 12 }, (_, i) => {
+        const [x1, y1] = tip(i * 30, 36);
+        const [x2, y2] = tip(i * 30, 40);
+        return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={T.rule} strokeWidth={i % 3 === 0 ? 3 : 1.6} strokeLinecap="round" />;
+      })}
+      <line x1={50} y1={50} x2={hx} y2={hy} stroke={T.ring} strokeWidth={5} strokeLinecap="round" />
+      <line x1={50} y1={50} x2={mx} y2={my} stroke={T.ring} strokeWidth={3.5} strokeLinecap="round" />
+      <circle cx={50} cy={50} r={3.5} fill={T.ring} />
+    </svg>
+  );
+};
+
+// Numbered progress dots: earlier ones soft, current one solid.
+export const NumDots: React.FC<{ total: number; active: number }> = ({ total, active }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+    {Array.from({ length: total }, (_, i) => (
+      <div
+        key={i}
+        style={{
+          width: 64,
+          height: 64,
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 28,
+          fontWeight: 700,
+          background: i === active ? T.ring : i < active ? T.sageSoft : "#fff",
+          color: i === active ? T.page : i < active ? T.sage : "#9A9A9A",
+          border: `3px solid ${i === active ? T.ring : i < active ? T.sage : T.dot}`,
+        }}
+      >
+        {i + 1}
+      </div>
+    ))}
+  </div>
+);
+
+export const ArrowDown: React.FC<{ size?: number }> = ({ size = 64 }) => (
+  <svg viewBox="0 0 40 40" width={size} height={size}>
+    <path d="M 20 5 V 33 M 9 23 L 20 34 L 31 23" fill="none" stroke={T.sage} strokeWidth={4} strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);

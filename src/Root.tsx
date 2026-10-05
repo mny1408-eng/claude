@@ -15,6 +15,13 @@ import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
 import { C04WeeklyReview, C04_SLIDES } from "./carousel/C04WeeklyReview";
+import { C0510LaparPagi, C0510_SLIDES } from "./carousel/C0510LaparPagi";
+import { C0610ShiftBackup, C0610_SLIDES } from "./carousel/C0610ShiftBackup";
+import { C0710Mamak, C0710_SLIDES } from "./carousel/C0710Mamak";
+import { C0810SoalanRule, C0810_SLIDES } from "./carousel/C0810SoalanRule";
+import { C0910Motivation, C0910_SLIDES } from "./carousel/C0910Motivation";
+import { C1010Weekend, C1010_SLIDES } from "./carousel/C1010Weekend";
+import { C1110SundayReset, C1110_SLIDES } from "./carousel/C1110SundayReset";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
@@ -24,6 +31,13 @@ const CAROUSELS = [
   { id: "02-10-Coaching", Slides: C02Coaching, slides: C02_SLIDES, music: 50 },
   { id: "03-10-Buffet", Slides: C03Buffet, slides: C03_SLIDES, music: 80 },
   { id: "04-10-WeeklyReview", Slides: C04WeeklyReview, slides: C04_SLIDES, music: 110 },
+  { id: "05-10-LaparPagi", Slides: C0510LaparPagi, slides: C0510_SLIDES, music: 140 },
+  { id: "06-10-ShiftBackup", Slides: C0610ShiftBackup, slides: C0610_SLIDES, music: 28 },
+  { id: "07-10-Mamak", Slides: C0710Mamak, slides: C0710_SLIDES, music: 64 },
+  { id: "08-10-SoalanRule", Slides: C0810SoalanRule, slides: C0810_SLIDES, music: 98 },
+  { id: "09-10-Motivation", Slides: C0910Motivation, slides: C0910_SLIDES, music: 12 },
+  { id: "10-10-Weekend", Slides: C1010Weekend, slides: C1010_SLIDES, music: 125 },
+  { id: "11-10-SundayReset", Slides: C1110SundayReset, slides: C1110_SLIDES, music: 44 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
