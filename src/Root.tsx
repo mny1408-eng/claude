@@ -27,6 +27,7 @@ import { R0710_SCENES } from "./reels/R0710AirManis";
 import { R0810_SCENES } from "./reels/R0810CarbsMalam";
 import { R0910_SCENES } from "./reels/R0910StartIsnin";
 import { R0510_BUSY_SCENES } from "./reels/R0510Busy";
+import { R0510_LAPAR_REAL_SCENES } from "./reels/R0510LaparReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
 import { R1010_FAMILY_SCENES } from "./reels/R1010Family";
@@ -175,6 +176,14 @@ export const Root: React.FC = () => (
       id="R1-03-10-Weekend-CoachNasVoice"
       component={() => <Reel scenes={R0310_WEEKEND_REAL_SCENES} overlay={<R0310WeekendVoice />} />}
       durationInFrames={reelLength(R0310_WEEKEND_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-05-10-Lapar-CoachNas"
+      component={() => <Reel scenes={R0510_LAPAR_REAL_SCENES} />}
+      durationInFrames={reelLength(R0510_LAPAR_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
