@@ -24,6 +24,7 @@ import { C1010Weekend, C1010_SLIDES } from "./carousel/C1010Weekend";
 import { C1110SundayReset, C1110_SLIDES } from "./carousel/C1110SundayReset";
 import { CNhmsRealiti, CNHMS_SLIDES } from "./carousel/CNhmsRealiti";
 import { CHargaCoaching, CHARGA_SLIDES } from "./carousel/CHargaCoaching";
+import { CGoalSistem, CGOAL_SLIDES } from "./carousel/CGoalSistem";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
@@ -42,6 +43,7 @@ const CAROUSELS = [
   { id: "11-10-SundayReset", Slides: C1110SundayReset, slides: C1110_SLIDES, music: 44 },
   { id: "NHMS-Realiti", Slides: CNhmsRealiti, slides: CNHMS_SLIDES, music: 76 },
   { id: "Harga-Coaching", Slides: CHargaCoaching, slides: CHARGA_SLIDES, music: 102 },
+  { id: "Goal-Sistem", Slides: CGoalSistem, slides: CGOAL_SLIDES, music: 58 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
