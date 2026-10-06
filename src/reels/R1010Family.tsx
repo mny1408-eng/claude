@@ -11,13 +11,13 @@ import { CtaPill, NumCard, Stack, Tag } from "./formats/common";
 
 export type R1010FamilyTiming = {
   vs: { cards: number; strike: number; and: number; line2: number; tag: number };
-  pilih: { cards: number[]; tag: number };
+  pilih: { cards: number[] };
   close: { line1: number; strike: number; next: number; line3: number; tags: number; pill: number };
 };
 
 export const R1010_FAMILY_SILENT: R1010FamilyTiming = {
   vs: { cards: 10, strike: 50, and: 62, line2: 100, tag: 150 },
-  pilih: { cards: [20, 60, 100, 140], tag: 180 },
+  pilih: { cards: [20, 60, 100, 140] },
   close: { line1: 0, strike: 30, next: 60, line3: 100, tags: 140, pill: 160 },
 };
 
@@ -101,9 +101,6 @@ const Pilih: React.FC<{ t: R1010FamilyTiming["pilih"] }> = ({ t }) => (
         <NumCard key={d.tag} n={`${i + 1}`} tag={d.tag} text={d.text} delay={t.cards[i]} checkAt={t.cards[i] + 14} rotate={i % 2 ? 1 : -1} size={i === 0 ? 38 : 44} />
       ))}
     </Stack>
-    <div style={{ position: "absolute", top: 1420, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-      <Tag delay={t.tag}>Anchor, bukan perfect</Tag>
-    </div>
   </AbsoluteFill>
 );
 
@@ -150,7 +147,7 @@ const Close: React.FC<{ t: R1010FamilyTiming["close"] }> = ({ t }) => (
 
 export const r1010FamilyScenes = (t: R1010FamilyTiming, dur: Record<string, number> = { vs: 190, pilih: 230, close: 200 }): SceneDef[] => [
   { id: "vs", dur: dur.vs, el: <Vs t={t.vs} />, cues: [[t.vs.cards, "pop", 0.45], [t.vs.strike, "scribble", 0.5], [t.vs.and, "pop", 0.5], [t.vs.line2 + 16, "swipe", 0.4], [t.vs.tag, "pop", 0.4]] },
-  { id: "pilih", dur: dur.pilih, el: <Pilih t={t.pilih} />, cues: [[8, "swipe", 0.45], ...t.pilih.cards.map((f): Cue => [f, "pop", 0.45]), ...t.pilih.cards.map((f): Cue => [f + 14, "tick", 0.5]), [t.pilih.tag, "pop", 0.4]] },
+  { id: "pilih", dur: dur.pilih, el: <Pilih t={t.pilih} />, cues: [[8, "swipe", 0.45], ...t.pilih.cards.map((f): Cue => [f, "pop", 0.45]), ...t.pilih.cards.map((f): Cue => [f + 14, "tick", 0.5]) ] },
   { id: "close", dur: dur.close, el: <Close t={t.close} />, cues: [[t.close.strike, "scribble", 0.45], [t.close.strike + 8, "scribble", 0.45], [t.close.next + 10, "swipe", 0.45], [t.close.tags, "pop", 0.4], [t.close.pill, "pop", 0.5], [t.close.pill + 4, "chime", 0.45]] },
 ];
 

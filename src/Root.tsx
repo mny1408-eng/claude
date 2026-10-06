@@ -34,6 +34,7 @@ import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810Prote
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
 import { R0910TahuVoice, R0910_TAHU_REAL_SCENES } from "./reels/R0910TahuBuatReal";
 import { R1010_FAMILY_SCENES } from "./reels/R1010Family";
+import { R1010FamilyVoice, R1010_FAMILY_REAL_SCENES } from "./reels/R1010FamilyReal";
 import { R1110_PREP_SCENES } from "./reels/R1110PrepEnv";
 import { R0510BusyVoice, R0510_BUSY_REAL_SCENES } from "./reels/R0510BusyReal";
 import { R0610Voice, R0610_REAL_SCENES } from "./reels/R0610BackupReal";
@@ -211,6 +212,14 @@ export const Root: React.FC = () => (
       id="R1-06-10-Shift-CoachNas"
       component={() => <Reel scenes={R0610_SHIFT_REAL_SCENES} />}
       durationInFrames={reelLength(R0610_SHIFT_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-10-10-Family-CoachNas"
+      component={() => <Reel scenes={R1010_FAMILY_REAL_SCENES} overlay={<R1010FamilyVoice />} />}
+      durationInFrames={reelLength(R1010_FAMILY_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
