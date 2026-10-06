@@ -11,13 +11,13 @@ import { BoxStamp, Chip, CtaPill, NumCard, Stack, Tag } from "./formats/common";
 
 export type R1110PrepTiming = {
   fatigue: { stamp: number; line2: number; strike: number; tag: number };
-  prep: { cards: number[]; tag: number };
+  prep: { cards: number[] };
   close: { strike: number; line2: number; chips: number[]; pill: number; sub: number };
 };
 
 export const R1110_PREP_SILENT: R1110PrepTiming = {
   fatigue: { stamp: 50, line2: 90, strike: 120, tag: 150 },
-  prep: { cards: [20, 70, 120], tag: 170 },
+  prep: { cards: [20, 70, 120] },
   close: { strike: 20, line2: 50, chips: [80, 92, 104], pill: 140, sub: 150 },
 };
 
@@ -91,9 +91,6 @@ const Prep: React.FC<{ t: R1110PrepTiming["prep"] }> = ({ t }) => (
         <NumCard key={p.tag} n={`${i + 1}`} tag={p.tag} text={p.text} delay={t.cards[i]} checkAt={t.cards[i] + 16} rotate={i % 2 ? 1 : -1} size={42} />
       ))}
     </Stack>
-    <div style={{ position: "absolute", top: 1220, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-      <Tag delay={t.tag}>Pilih satu pun cukup</Tag>
-    </div>
   </AbsoluteFill>
 );
 
@@ -134,7 +131,7 @@ const Close: React.FC<{ t: R1110PrepTiming["close"] }> = ({ t }) => (
 
 export const r1110PrepScenes = (t: R1110PrepTiming, dur: Record<string, number> = { fatigue: 190, prep: 210, close: 190 }): SceneDef[] => [
   { id: "fatigue", dur: dur.fatigue, el: <Fatigue t={t.fatigue} />, cues: [[t.fatigue.stamp, "stamp", 0.7], [t.fatigue.line2 + 16, "swipe", 0.45], [t.fatigue.strike, "scribble", 0.5], [t.fatigue.tag, "pop", 0.4]] },
-  { id: "prep", dur: dur.prep, el: <Prep t={t.prep} />, cues: [[8, "swipe", 0.45], ...t.prep.cards.map((f): Cue => [f, "pop", 0.45]), ...t.prep.cards.map((f): Cue => [f + 16, "tick", 0.5]), [t.prep.tag, "pop", 0.4]] },
+  { id: "prep", dur: dur.prep, el: <Prep t={t.prep} />, cues: [[8, "swipe", 0.45], ...t.prep.cards.map((f): Cue => [f, "pop", 0.45]), ...t.prep.cards.map((f): Cue => [f + 16, "tick", 0.5]) ] },
   { id: "close", dur: dur.close, el: <Close t={t.close} />, cues: [[t.close.strike, "scribble", 0.5], [t.close.line2 + 12, "swipe", 0.45], ...t.close.chips.map((f): Cue => [f, "pop", 0.4]), [t.close.pill, "pop", 0.5], [t.close.pill + 4, "chime", 0.45]] },
 ];
 
