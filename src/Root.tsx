@@ -31,6 +31,7 @@ import { R0510_LAPAR_REAL_SCENES } from "./reels/R0510LaparReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
+import { R0910TahuVoice, R0910_TAHU_REAL_SCENES } from "./reels/R0910TahuBuatReal";
 import { R1010_FAMILY_SCENES } from "./reels/R1010Family";
 import { R1110_PREP_SCENES } from "./reels/R1110PrepEnv";
 import { R0510BusyVoice, R0510_BUSY_REAL_SCENES } from "./reels/R0510BusyReal";
@@ -193,6 +194,14 @@ export const Root: React.FC = () => (
       id="R2-08-10-Protein-CoachNas"
       component={() => <Reel scenes={R0810_PROTEIN_REAL_SCENES} overlay={<R0810ProteinVoice />} />}
       durationInFrames={reelLength(R0810_PROTEIN_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-09-10-TahuBuat-CoachNas"
+      component={() => <Reel scenes={R0910_TAHU_REAL_SCENES} overlay={<R0910TahuVoice />} />}
+      durationInFrames={reelLength(R0910_TAHU_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}

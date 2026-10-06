@@ -37,7 +37,7 @@ export const R0910_TAHU_HOOK: SceneDef = { id: "hook", dur: 90, el: <Hook />, cu
 const KNOWN = ["protein", "portion", "sayur", "exercise"];
 
 // Each known item: ticked when it pops, then drops and fades once the busy week hits.
-const Known: React.FC<{ label: string; at: number; busy: number; i: number }> = ({ label, at, busy, i }) => {
+export const Known: React.FC<{ label: string; at: number; busy: number; i: number }> = ({ label, at, busy, i }) => {
   const f = useCurrentFrame();
   const fall = interpolate(f, [busy + i * 4, busy + i * 4 + 16], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return (
