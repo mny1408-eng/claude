@@ -28,6 +28,7 @@ import { R0810_SCENES } from "./reels/R0810CarbsMalam";
 import { R0910_SCENES } from "./reels/R0910StartIsnin";
 import { R0510_BUSY_SCENES } from "./reels/R0510Busy";
 import { R0510_LAPAR_REAL_SCENES } from "./reels/R0510LaparReal";
+import { R0610_SHIFT_REAL_SCENES } from "./reels/R0610ShiftReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -202,6 +203,14 @@ export const Root: React.FC = () => (
       id="R2-09-10-TahuBuat-CoachNas"
       component={() => <Reel scenes={R0910_TAHU_REAL_SCENES} overlay={<R0910TahuVoice />} />}
       durationInFrames={reelLength(R0910_TAHU_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-06-10-Shift-CoachNas"
+      component={() => <Reel scenes={R0610_SHIFT_REAL_SCENES} />}
+      durationInFrames={reelLength(R0610_SHIFT_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
