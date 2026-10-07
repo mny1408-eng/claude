@@ -58,11 +58,19 @@ Draft from stated mission and Notion content. Coach Nas to edit.
 
 ## Proof I can use
 
-Empty on purpose. Skills never invent proof. Add real, consented items only:
+Skills never invent proof. Client testimonials: none verified yet (see below).
 
-- TODO: real client results with permission and the actual timeframe.
-- TODO: Coach Nas's own journey facts.
-- TODO: credentials wording for pharmacist role.
+**Usable now: Coach Nas's own story** (Notion "I Used to Be a Pharmacist" series, source of truth). Do not add employers, dates, salaries, colleagues, doctors or patient incidents.
+- Still a pharmacist. Not leaving pharmacy. Building something alongside it.
+- Was the go-to problem-solver; said yes too often; learned to protect time for meaningful clinical work.
+- Cares about pharmacy and haemato-oncology. PhD framed as learning, not a salary strategy.
+- Business framed as personal development, financial optionality and something for family. No income promises.
+
+**Client testimonials: none usable yet.** Checked Notion (Story & Idea Bank, Testimoni daily pages 09/09 and 05/10, archive 17/08, W4 plan). Findings:
+- 05/10 Testimoni slide 7 is an empty placeholder: "letak screenshot / cerita sebenar klien + consent".
+- 09/09 slide 7 ("Ramai klien Coach share...") and 17/08 "Ahli kami... baju longgar" are generic, with no name, no source and no consent note. Treat them as unverified drafts. Do not present them as real client stories.
+- W4 plan already says: do not invent numbers or names; if no real testimonial, switch to engagement.
+- A testimonial is usable only with: the client's own words or screenshot, written consent, the real timeframe, and no outcome beyond what they said. Add it here once supplied.
 
 ## The ask
 
