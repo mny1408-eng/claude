@@ -66,6 +66,17 @@ Skills never invent proof. Client testimonials: none verified yet (see below).
 - Cares about pharmacy and haemato-oncology. PhD framed as learning, not a salary strategy.
 - Business framed as personal development, financial optionality and something for family. No income promises.
 
+**Coach Nas's own transformation, supplied by him (Perkenalan Coach, 2026-10-07).** First-person only. Use as his story, never as a promise to others.
+- Age 37, clinical pharmacist and coach. Student of Coach Nieda. Joined because of about 10 years of yo-yo weight and self-directed diets that never lasted.
+- Numbers he stated: baseline 98kg; lost 14kg in 6 months on the programme; now 3 years maintained; total loss 23kg. CONFIRM before publishing: 14kg vs 23kg is not explained (e.g. extra loss after the 6 months?). Say which figure and period each number refers to.
+- Before: breathless on stairs, hangry from constant IF, chest and leg pain, felt hypocritical advising others while unwell.
+- After: ran 7km without stopping, climbs 8 floors daily, can sit for tahiyyat akhir, less angry, better at work, kids enjoy healthy food.
+- Why coach: sees many diabetes and hypertension patients at the hospital. Keep wording as personal motivation and hope for the trend. Do not claim nutrition cures or treats disease.
+- His advice to members: use the group coaching to learn, follow the coach, log meals in the group.
+- Tag used in the intro: `#misifightobesiti #firstpillar`. `#firstpillar` is not in the hashtag lock, so it is for the team intro only.
+- Handle in this intro: `@coachnasri_pharm` (IG), `@coachnasri_` (TikTok). Notion uses `@coachnas.pharmacist` for IG. CONFIRM which is current before the next poster or carousel footer.
+- Compliance: personal result, so frame as "my journey, results differ" and never as a guaranteed outcome.
+
 **Client testimonials: none usable yet.** Checked Notion (Story & Idea Bank, Testimoni daily pages 09/09 and 05/10, archive 17/08, W4 plan). Findings:
 - 05/10 Testimoni slide 7 is an empty placeholder: "letak screenshot / cerita sebenar klien + consent".
 - 09/09 slide 7 ("Ramai klien Coach share...") and 17/08 "Ahli kami... baju longgar" are generic, with no name, no source and no consent note. Treat them as unverified drafts. Do not present them as real client stories.
