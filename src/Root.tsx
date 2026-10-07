@@ -30,6 +30,7 @@ import { R0510_BUSY_SCENES } from "./reels/R0510Busy";
 import { R0510_LAPAR_REAL_SCENES } from "./reels/R0510LaparReal";
 import { R0610_SHIFT_REAL_SCENES } from "./reels/R0610ShiftReal";
 import { R0710_MAMAK_REAL_SCENES } from "./reels/R0710MamakReal";
+import { R0810_CARBS_REAL_SCENES } from "./reels/R0810CarbsReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -238,6 +239,14 @@ export const Root: React.FC = () => (
       id="R1-07-10-Mamak-CoachNas"
       component={() => <Reel scenes={R0710_MAMAK_REAL_SCENES} />}
       durationInFrames={reelLength(R0710_MAMAK_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-08-10-CarbsMalam-CoachNas"
+      component={() => <Reel scenes={R0810_CARBS_REAL_SCENES} />}
+      durationInFrames={reelLength(R0810_CARBS_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
