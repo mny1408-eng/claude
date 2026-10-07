@@ -1,0 +1,83 @@
+<title>Jadual Mindset Pagi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one column, phone first. Today's poster on top, caption below with one copy button, day chips as the schedule. */
+:root{
+  --bg:#f3f6f5; --surface:#ffffff; --fg:#13302f; --muted:#5b7371; --line:#d6e0de;
+  --teal:#14575a; --teal-fg:#ffffff; --gold:#b8832a; --chip:#e4ecea; --chip-fg:#13302f;
+  --font-display:'Bricolage Grotesque','Helvetica Neue',Arial,sans-serif;
+  --font-body:'Figtree','Helvetica Neue',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c1c1c; --surface:#122828; --fg:#e8f1ef; --muted:#93aca9; --line:#274140;
+  --teal:#2b9b97; --teal-fg:#04201f; --gold:#f0c878; --chip:#1a3433; --chip-fg:#e8f1ef; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c1c1c; --surface:#122828; --fg:#e8f1ef; --muted:#93aca9; --line:#274140;
+  --teal:#2b9b97; --teal-fg:#04201f; --gold:#f0c878; --chip:#1a3433; --chip-fg:#e8f1ef; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:560px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:4px}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1{font-family:var(--font-display);font-weight:800;font-size:30px;line-height:1.1;margin:0;text-wrap:balance}
+.when{color:var(--muted);font-size:15px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--chip);color:var(--chip-fg);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.2;min-width:64px}
+.chip small{font-size:11px;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--teal);color:var(--teal-fg);border-color:var(--teal)}
+.chip[aria-pressed="true"] small{color:inherit;opacity:.85}
+.chip:focus-visible,.copy:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.poster{display:block;width:100%;height:auto;aspect-ratio:4/5;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.hint{color:var(--muted);font-size:14px;margin:-8px 0 0}
+.cap{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.cap-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cap-head h2{font-family:var(--font-display);font-size:18px;margin:0}
+pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--font-body);font-size:15px;line-height:1.55;user-select:all}
+.copy{background:var(--teal);color:var(--teal-fg);border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
+.status{font-size:14px;color:var(--gold);min-height:1.2em;margin:0}
+footer{color:var(--muted);font-size:13px}
+</style>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">WDT · Group coaching</span>
+    <h1 id="title">Mindset pagi</h1>
+    <span class="when" id="when"></span>
+  </header>
+  <nav class="chips" id="chips" aria-label="Pilih hari"></nav>
+  <img class="poster" id="poster" alt="Poster mindset harian">
+  <p class="hint">Tekan lama pada poster untuk simpan ke galeri, lepas tu up di group.</p>
+  <section class="cap">
+    <div class="cap-head"><h2>Caption siap copy</h2><button class="copy" id="copy" type="button">Salin caption</button></div>
+    <p class="status" id="status" role="status"></p>
+    <pre id="cap"></pre>
+  </section>
+  <footer>Quote disemak di jamesclear.com. Jadual: Hari 2 = 7 Okt 2026, setiap hari 7.00 pagi (waktu Malaysia).</footer>
+</div>
+<script>
+const DAYS=/*DATA*/[];
+const $=id=>document.getElementById(id);
+const fmt=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kuala_Lumpur'});
+const today=fmt.format(new Date());
+const nice=iso=>new Date(iso+'T00:00:00').toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'long'});
+let idx=DAYS.findIndex(d=>d.date===today);
+const todayIdx=idx;
+if(idx<0) idx=today<DAYS[0].date?0:DAYS.length-1;
+function label(i){const d=DAYS[i].date;return d===today?'Hari ini':(i>0&&DAYS[i-1].date===today)?'Esok':d.slice(8)+'/'+d.slice(5,7)}
+function render(){
+  const d=DAYS[idx];
+  $('title').textContent='Hari '+d.day+' · '+d.tema;
+  $('when').textContent=nice(d.date)+', 7.00 pagi'+(todayIdx<0&&today>DAYS[DAYS.length-1].date?' (jadual dah habis, minta batch baru)':'');
+  $('poster').src=d.img;
+  $('cap').textContent=d.caption;
+  $('status').textContent='';
+  $('chips').innerHTML='';
+  DAYS.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed',i===idx);
+    b.innerHTML='Hari '+x.day+'<small>'+label(i)+'</small>';b.onclick=()=>{idx=i;render()};$('chips').appendChild(b)});
+}
+$('copy').onclick=async()=>{
+  const t=DAYS[idx].caption;
+  try{await navigator.clipboard.writeText(t);$('status').textContent='Caption disalin. Paste di WhatsApp.'}
+  catch(e){const r=document.createRange();r.selectNodeContents($('cap'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('status').textContent='Teks dipilih. Tekan Salin pada menu telefon.'}
+};
+render();
+</script>
