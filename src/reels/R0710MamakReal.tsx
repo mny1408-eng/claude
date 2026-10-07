@@ -4,7 +4,7 @@
 //     0.00–6.85   "Makan mamak masa nak turun berat… semata-mata."           (take 08:47, src 0.80–7.65)
 //     6.85–17.40  "Saya tengok decision… seluruh progress."                    (take 08:51:28, src 0.00–10.55)
 //    17.40–25.20  "Tapi tak kisah langsung… sambung rutin macam biasa."        (take 08:51:44, src 1.65–9.45; two broken CTA tries cut)
-//    25.20–28.25  "Save sebelum next sesi mamak awak."                         (take 08:52, src 0.00–3.05)
+//    25.20–27.45  "Save sebelum next sesi mamak awak."                         (take 08:52, src 0.80–3.05; hand on the record button cut)
 // Captions follow what was actually said (spelling fixed); word times are Whisper medium on the joined file.
 import React from "react";
 import { C, FPS } from "../theme";
@@ -14,7 +14,7 @@ import { Captions, Word } from "./formats/Captions";
 import { FaceCamOpener } from "./formats/FaceCamOpener";
 
 const CLIP = "clips/R0710-mamak-full.mp4";
-const CLIP_LEN = 849;
+const CLIP_LEN = 825;
 
 const WORDS: Word[] = [
   [0.0, 0.78, "Makan"], [0.78, 1.34, "mamak"], [1.4, 1.76, "masa"], [1.76, 1.9, "nak"], [1.9, 2.18, "turun"], [2.18, 2.42, "berat,"],
@@ -27,10 +27,10 @@ const WORDS: Word[] = [
   [17.55, 18.34, "Tapi"], [18.34, 18.64, "tak"], [18.64, 18.96, "kisah"], [18.96, 19.34, "langsung"], [19.34, 19.52, "pun"], [19.52, 20.08, "bukanlah"],
   [20.08, 20.3, "satu"], [20.3, 21.1, "strategy."], [21.26, 21.56, "Pilih"], [21.56, 21.88, "dengan"], [21.88, 22.46, "awareness,"],
   [22.8, 23.08, "enjoy"], [23.08, 23.3, "meal,"], [23.3, 23.7, "kemudian"], [23.7, 24.16, "sambung"], [24.16, 24.48, "rutin"], [24.48, 24.72, "macam"], [24.72, 25.1, "biasa."],
-  [25.9, 26.5, "Save"], [26.5, 26.98, "sebelum"], [26.98, 27.14, "next"], [27.14, 27.42, "sesi"], [27.42, 27.86, "mamak"], [27.86, 28.06, "awak."],
+  [25.3, 25.7, "Save"], [25.7, 26.16, "sebelum"], [26.16, 26.34, "next"], [26.34, 26.62, "sesi"], [26.62, 27.08, "mamak"], [27.08, 27.3, "awak."],
 ];
 
-const CTA_AT = Math.round(25.9 * FPS) - 3;
+const CTA_AT = Math.round(25.3 * FPS) - 3;
 
 const Talk: React.FC = () => (
   <FaceCamOpener clip={CLIP} hook={<>MAMAK MASA DIET: <span style={{ color: C.marker }}>JANGAN PANIC</span></>} hookSize={60} lowerTop={1520}>
