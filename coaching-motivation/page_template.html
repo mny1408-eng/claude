@@ -34,6 +34,10 @@ h1{font-family:var(--font-display);font-weight:800;font-size:30px;line-height:1.
 .cap-head h2{font-family:var(--font-display);font-size:18px;margin:0}
 pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--font-body);font-size:15px;line-height:1.55;user-select:all}
 .copy{background:var(--teal);color:var(--teal-fg);border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:600;cursor:pointer}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.big{flex:1 1 220px;padding:14px 18px;font-size:16px}
+.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font:inherit;cursor:pointer}
+.ghost:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .status{font-size:14px;color:var(--gold);min-height:1.2em;margin:0}
 footer{color:var(--muted);font-size:13px}
 </style>
@@ -45,7 +49,12 @@ footer{color:var(--muted);font-size:13px}
   </header>
   <nav class="chips" id="chips" aria-label="Pilih hari"></nav>
   <img class="poster" id="poster" alt="Poster mindset harian">
-  <p class="hint">Tekan lama pada poster untuk simpan ke galeri, lepas tu up di group.</p>
+  <div class="actions">
+    <button class="copy big" id="both" type="button">Simpan poster + salin caption</button>
+    <button class="ghost" id="save" type="button">Simpan poster je</button>
+  </div>
+  <p class="status" id="status2" role="status"></p>
+  <p class="hint" id="hint">Tekan butang hijau. Caption terus disalin, lepas tu pilih Save Image. Buka WhatsApp, hantar gambar dan paste caption.</p>
   <section class="cap">
     <div class="cap-head"><h2>Caption siap copy</h2><button class="copy" id="copy" type="button">Salin caption</button></div>
     <p class="status" id="status" role="status"></p>
@@ -69,11 +78,26 @@ function render(){
   $('when').textContent=nice(d.date)+', 7.00 pagi'+(todayIdx<0&&today>DAYS[DAYS.length-1].date?' (jadual dah habis, minta batch baru)':'');
   $('poster').src=d.img;
   $('cap').textContent=d.caption;
-  $('status').textContent='';
+  $('status').textContent='';$('status2').textContent='';
   $('chips').innerHTML='';
   DAYS.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed',i===idx);
     b.innerHTML='Hari '+x.day+'<small>'+label(i)+'</small>';b.onclick=()=>{idx=i;render()};$('chips').appendChild(b)});
 }
+let dl=null;
+(window.claude?.use?.("downloads")??Promise.resolve(null)).then(d=>{dl=d;if(!d){$('save').hidden=true;$('both').textContent='Salin caption';$('hint').textContent='Simpan poster tak disokong dalam paparan ni. Download poster dari chat Claude.'}}).catch(()=>{});
+function blobOf(d){const b=atob(d.img.split(',')[1]);const a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:'image/jpeg'})}
+async function copyCap(out){
+  try{await navigator.clipboard.writeText(DAYS[idx].caption);out.textContent='Caption disalin.';return true}
+  catch(e){const r=document.createRange();r.selectNodeContents($('cap'));const s=getSelection();s.removeAllRanges();s.addRange(r);out.textContent='Teks caption dipilih, tekan Salin pada menu.';return false}
+}
+async function savePoster(out,prefix){
+  if(!dl){return}
+  const d=DAYS[idx];
+  try{await dl.save({filename:'mindset-hari-'+d.day+'.jpg',data:blobOf(d)});out.textContent=prefix+'Poster Hari '+d.day+' dihantar untuk disimpan.'}
+  catch(e){const c=e&&e.code;out.textContent=prefix+(c==='declined'?'Simpan poster dibatalkan.':c==='rate_limited'?'Tunggu sekejap, lepas tu cuba lagi.':'Poster tak dapat disimpan di sini. Download dari chat Claude.')}
+}
+$('both').onclick=async()=>{const o=$('status2');await copyCap(o);await savePoster(o,o.textContent+' ')};
+$('save').onclick=()=>{const o=$('status2');o.textContent='';savePoster(o,'')};
 $('copy').onclick=async()=>{
   const t=DAYS[idx].caption;
   try{await navigator.clipboard.writeText(t);$('status').textContent='Caption disalin. Paste di WhatsApp.'}
