@@ -14,7 +14,7 @@ Sumber quotes: James Clear, *Atomic Habits* (jamesclear.com). Quote Hari 1 dan 2
 
 ## Template caption (copy paste)
 
-Morning team! ☀️
+Daily reminder 😃
 {Hook}
 
 {2 ayat penjelasan, santai}
@@ -26,7 +26,7 @@ Reply emoji 💪 kalau ko dah buat ea.
 
 ## Caption Hari 1 (siap guna)
 
-Morning team! ☀️
+Daily reminder 😃
 Bukan motivasi yang buat kita kurus. Sistem harian.
 
 Motivasi tu naik turun. Mood x best pun kita still boleh jalan kalau routine dah set. Jadi hari ini x payah fikir besar, cukup siapkan satu langkah kecil dulu.
@@ -38,7 +38,7 @@ Reply 💪 kalau dah buat ea.
 
 "You do not rise to the level of your goals. You fall to the level of your systems." (James Clear, Atomic Habits)
 
-#wedotransformations #kurusfitonlinecoaching #misifightobesiti #coachnas #tipskurus
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 (Hashtag untuk group tak wajib, boleh buang kalau x perlu.)
 
