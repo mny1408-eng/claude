@@ -6,7 +6,8 @@
 //   public/img/rct-epicor.jpg      Pinheiro et al. 2017, BMC Complement Altern Med, pilot RCT (PMID 28870194).
 // Evidence labels are kept to what those papers report: the review rates the evidence as uncertain; the RCT is a
 // pilot (n=80, 6 weeks, 500 mg/day) on GI symptoms and the gut microbiome; the cold/flu line refers to separate EpiCor
-// RCTs (Moyad 2008, 2010), not to the snapped trial. Product wording stays "nutrition", never treatment.
+// RCTs (Moyad 2008, 2010), not to the snapped trial. The label gives EpiCor 13.5% of a 3.7 g serving ≈ 500 mg, the
+// dose used in those trials. Product wording stays "nutrition", never treatment.
 import React from "react";
 import { AbsoluteFill, Img, OffthreadVideo, staticFile, useCurrentFrame } from "remotion";
 import { C, FPS } from "../theme";
@@ -224,14 +225,18 @@ const Rct: React.FC = () => (
       <Chip delay={f(55.3)} rotate={-2} size={46}>gut microbiome</Chip>
       <Chip delay={f(57.0)} rotate={2} size={46}>digestive comfort</Chip>
     </div>
-    <Stack top={1030} gap={8}>
+    <Stack top={1000} gap={8}>
       <Line delay={f(58.2)} size={40} weight={700} color={C.inkSoft}>
-        + simptom cold &amp; flu:
-      </Line>
-      <Line delay={f(58.6)} size={40} weight={700} color={C.inkSoft}>
-        RCT EpiCor lain (2008, 2010)
+        + simptom cold &amp; flu: RCT EpiCor lain (2008, 2010)
       </Line>
     </Stack>
+    <div style={{ position: "absolute", top: 1110, left: 60, right: 60, display: "flex", justifyContent: "center" }}>
+      <Pop delay={f(59.6)} rotate={-1}>
+        <div style={{ background: C.ink, color: C.paper, borderRadius: 18, padding: "16px 30px", fontSize: 38, fontWeight: 800, textAlign: "center" }}>
+          Kajian: 500 mg/hari · ImmuLift: <span style={{ color: C.gold }}>≈500 mg sehidang</span>
+        </div>
+      </Pop>
+    </div>
   </>
 );
 
@@ -268,11 +273,12 @@ const GutImmune: React.FC = () => (
   </>
 );
 
-const NUTRIENTS: [string, number][] = [
-  ["Vitamin C", 72.38],
-  ["Vitamin D", 73.26],
-  ["Zinc", 74.18],
-  ["Selenium", 74.86],
+// Amounts per 3.7 g serving, from the Malaysian box label (Nutrition Facts, ©2023 Herbalife Nutrition, SKU145K).
+const NUTRIENTS: [string, string, number][] = [
+  ["Vitamin C", "40 mg", 72.38],
+  ["Vitamin D", "2.9 µg", 73.26],
+  ["Zinc", "4.4 mg", 74.18],
+  ["Selenium", "17.4 µg", 74.86],
 ];
 
 const Nutrients: React.FC = () => (
@@ -281,9 +287,12 @@ const Nutrients: React.FC = () => (
       Turut ada
     </Title>
     <div style={{ position: "absolute", top: 470, left: 60, right: 60, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 26 }}>
-      {NUTRIENTS.map(([n, at], i) => (
+      {NUTRIENTS.map(([n, amt, at], i) => (
         <Pop key={n} delay={f(at)} rotate={i % 2 ? 2 : -2}>
-          <Card style={{ width: 420, padding: "30px 20px", textAlign: "center", fontSize: 54, fontWeight: 800 }}>{n}</Card>
+          <Card style={{ width: 420, padding: "24px 20px", textAlign: "center" }}>
+            <div style={{ fontSize: 52, fontWeight: 800 }}>{n}</div>
+            <div style={{ fontSize: 36, fontWeight: 700, color: C.marker, marginTop: 4 }}>{amt} / hidangan</div>
+          </Card>
         </Pop>
       ))}
     </div>
