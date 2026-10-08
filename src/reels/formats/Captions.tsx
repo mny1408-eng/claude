@@ -21,7 +21,8 @@ const chunk = (words: Word[], max: number, gap: number): Word[][] => {
   return out;
 };
 
-export const Captions: React.FC<{ words: Word[]; top?: number; size?: number; max?: number; gap?: number }> = ({ words, top = 1300, size = 66, max = 3, gap = 0.35 }) => {
+// plate: draw the line on a dark rounded plate (for use over light design backgrounds).
+export const Captions: React.FC<{ words: Word[]; top?: number; size?: number; max?: number; gap?: number; plate?: boolean }> = ({ words, top = 1300, size = 66, max = 3, gap = 0.35, plate = false }) => {
   const t = useCurrentFrame() / FPS;
   const chunks = chunk(words, max, gap);
   // a chunk stays up from its first word until the next chunk starts (or 0.4s after its last word)
@@ -31,7 +32,8 @@ export const Captions: React.FC<{ words: Word[]; top?: number; size?: number; ma
   const lit = chunks[i].reduce((a, w, k) => (t >= w[0] - 0.05 ? k : a), -1);
   const litOn = lit >= 0 && t < chunks[i][lit][1] + 0.25;
   return (
-    <div style={{ position: "absolute", top, left: 50, right: 50, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 16px" }}>
+    <div style={{ position: "absolute", top, left: 50, right: 50, display: "flex", justifyContent: "center" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "6px 16px", ...(plate ? { background: "rgba(23,60,48,0.92)", borderRadius: 22, padding: "10px 18px" } : {}) }}>
       {chunks[i].map(([, , text], k) => {
         const on = litOn && k === lit;
         return (
@@ -53,6 +55,7 @@ export const Captions: React.FC<{ words: Word[]; top?: number; size?: number; ma
           </span>
         );
       })}
+    </div>
     </div>
   );
 };
