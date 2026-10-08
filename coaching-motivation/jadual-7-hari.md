@@ -21,7 +21,7 @@ Daily reminder 😃
 
 👉 Satu tindakan kecil hari ini: {contoh: minum air 500ml sebelum sarapan / siapkan protein shake awal}
 
-Reply emoji 💪 kalau ko dah buat ea.
+Reply emoji 💪 kalau awak dah buat ea.
 - Coach Nas
 
 ## Caption Hari 1 (siap guna)
