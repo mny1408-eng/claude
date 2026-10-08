@@ -76,7 +76,7 @@ const Gut: React.FC<{ size?: number }> = ({ size = 170 }) => (
 
 // ---------- cutaway frame: paper, content, and a live face bubble ----------
 const Bubble: React.FC = () => (
-  <div style={{ position: "absolute", right: 50, top: 1300, width: 250, height: 250, borderRadius: "50%", overflow: "hidden", border: `8px solid ${C.card}`, boxShadow: "0 12px 30px rgba(20,30,20,0.3)" }}>
+  <div style={{ position: "absolute", right: 50, top: 1350, width: 240, height: 240, borderRadius: "50%", overflow: "hidden", border: `8px solid ${C.card}`, boxShadow: "0 12px 30px rgba(20,30,20,0.3)" }}>
     <OffthreadVideo src={staticFile(CLIP)} muted style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 22%" }} />
   </div>
 );
@@ -347,11 +347,13 @@ const Layers: React.FC = () => {
       </FaceCamOpener>
       {Cut && (
         <AbsoluteFill style={{ background: C.paper }}>
-          <Cut />
+          <div style={{ position: "absolute", inset: 0, transform: "translateY(90px) scale(1.05)", transformOrigin: "50% 0%" }}>
+            <Cut />
+          </div>
           <Bubble />
         </AbsoluteFill>
       )}
-      <Captions words={IMMUNE_WORDS} top={Cut ? 1600 : 1130} size={Cut ? 54 : 62} plate={!!Cut} />
+      <Captions words={IMMUNE_WORDS} top={Cut ? 1650 : 1130} size={Cut ? 54 : 62} plate={!!Cut} />
     </>
   );
 };
