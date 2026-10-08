@@ -19,8 +19,21 @@ import { FaceCamOpener } from "./formats/FaceCamOpener";
 import { IMMUNE_WORDS } from "./ImmuLiftWords";
 
 const CLIP = "clips/IMMUNE-full.mp4";
-const CLIP_LEN = 2899;
-const f = (sec: number) => Math.round(sec * FPS) - 3;
+const CLIP_LEN = 2873;
+// The timings below were first measured on an earlier cut of the clip; that cut was re-edited (a clipped "menarik"
+// restored, hesitation pauses removed). T maps an old-cut time to the new cut by interpolating between word anchors.
+const ANCHORS: [number, number][] = [
+  [0, 0], [37.2, 37.2], [39.94, 40.18], [50.26, 50.5], [58.66, 58.98], [59.84, 59.78], [61.4, 61.24], [70.54, 70.82],
+  [78.68, 78.3], [83.78, 83.66], [88.02, 87.88], [89.48, 89.06], [90.8, 89.38], [91.76, 90.04], [93.46, 92.6], [95.32, 94.44], [96.7, 95.8],
+];
+const T = (old: number) => {
+  const k = ANCHORS.findIndex(([o]) => o > old);
+  if (k <= 0) return k === 0 ? old : old - ANCHORS[ANCHORS.length - 1][0] + ANCHORS[ANCHORS.length - 1][1];
+  const [o0, n0] = ANCHORS[k - 1];
+  const [o1, n1] = ANCHORS[k];
+  return n0 + ((old - o0) * (n1 - n0)) / (o1 - o0);
+};
+const f = (sec: number) => Math.round(T(sec) * FPS) - 3;
 
 // Cutaway windows (seconds on the joined clip), chosen on phrase boundaries.
 const CUTS: Record<string, [number, number]> = {
@@ -128,10 +141,15 @@ const ElderberryScene: React.FC = () => (
         <Elderberry size={420} />
       </Pop>
     </div>
+    <div style={{ position: "absolute", top: 1070, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
+      <Line delay={f(20.2)} size={44} weight={700} color={C.inkSoft}>
+        (sejenis antioksidan)
+      </Line>
+    </div>
     <div style={{ position: "absolute", top: 930, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 20 }}>
       <Chip delay={f(17.4)} size={48}>sejenis buah berry</Chip>
       <Chip delay={f(18.6)} rotate={-2} size={48}>
-        kaya <span style={{ color: C.marker }}>antioksidan</span>
+        kaya <span style={{ color: C.marker }}>anthocyanins</span>
       </Chip>
     </div>
   </>
@@ -336,7 +354,7 @@ const SCENES: Record<string, React.FC> = { ingredients: Ingredients, elderberry:
 const Layers: React.FC = () => {
   const fr = useCurrentFrame();
   const t = fr / FPS;
-  const cut = Object.entries(CUTS).find(([, [a, b]]) => t >= a && t < b);
+  const cut = Object.entries(CUTS).find(([, [a, b]]) => t >= T(a) && t < T(b));
   const Cut = cut ? SCENES[cut[0]] : null;
   return (
     <>
@@ -364,7 +382,7 @@ export const IMMULIFT_SCENES: SceneDef[] = [
     dur: CLIP_LEN,
     el: <Layers />,
     cues: [
-      ...Object.values(CUTS).map(([a]): [number, "whoosh", number] => [Math.round(a * FPS), "whoosh", 0.25]),
+      ...Object.values(CUTS).map(([a]): [number, "whoosh", number] => [Math.round(T(a) * FPS), "whoosh", 0.25]),
       [f(32.6), "stamp", 0.35],
       [f(95.3), "pop", 0.3],
     ],
