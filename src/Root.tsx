@@ -32,6 +32,7 @@ import { R0610_SHIFT_REAL_SCENES } from "./reels/R0610ShiftReal";
 import { R0710_MAMAK_REAL_SCENES } from "./reels/R0710MamakReal";
 import { R0810_CARBS_REAL_SCENES } from "./reels/R0810CarbsReal";
 import { R0910_ISNIN_REAL_SCENES } from "./reels/R0910IsninReal";
+import { R1110_REVIEW_REAL_SCENES } from "./reels/R1110ReviewReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -256,6 +257,14 @@ export const Root: React.FC = () => (
       id="R1-09-10-StartIsnin-CoachNas"
       component={() => <Reel scenes={R0910_ISNIN_REAL_SCENES} />}
       durationInFrames={reelLength(R0910_ISNIN_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-11-10-Review-CoachNas"
+      component={() => <Reel scenes={R1110_REVIEW_REAL_SCENES} />}
+      durationInFrames={reelLength(R1110_REVIEW_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
