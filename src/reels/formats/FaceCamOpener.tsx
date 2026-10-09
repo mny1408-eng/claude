@@ -5,16 +5,17 @@ import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
 import { C } from "../../theme";
 import { Card } from "../../kit";
 
-export const FaceCamOpener: React.FC<{ clip: string; hook: React.ReactNode; hookSize?: number; children?: React.ReactNode; lowerTop?: number; muted?: boolean }> = ({
+export const FaceCamOpener: React.FC<{ clip: string; hook: React.ReactNode; hookSize?: number; children?: React.ReactNode; lowerTop?: number; muted?: boolean; zoom?: number }> = ({
   clip,
   hook,
   hookSize = 54,
   children,
   lowerTop = 1180,
   muted = false,
+  zoom = 1,
 }) => (
   <AbsoluteFill>
-    <OffthreadVideo src={staticFile(clip)} muted={muted} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+    <OffthreadVideo src={staticFile(clip)} muted={muted} style={{ width: "100%", height: "100%", objectFit: "cover", transform: zoom === 1 ? undefined : `scale(${zoom})`, transformOrigin: "50% 0%" }} />
     <AbsoluteFill style={{ background: "linear-gradient(180deg, rgba(247,245,237,0.9) 0%, rgba(247,245,237,0) 36%)" }} />
     <div style={{ position: "absolute", top: 220, left: 60, right: 60, display: "flex", justifyContent: "center" }}>
       <Card style={{ width: 960, padding: "34px 40px", textAlign: "center" }}>
