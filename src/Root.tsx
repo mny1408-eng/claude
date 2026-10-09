@@ -35,6 +35,7 @@ import { R0910_ISNIN_REAL_SCENES } from "./reels/R0910IsninReal";
 import { R1110_REVIEW_REAL_SCENES } from "./reels/R1110ReviewReal";
 import { R1010_WEEKEND_REAL_SCENES } from "./reels/R1010WeekendReal";
 import { IMMULIFT_SCENES } from "./reels/ImmuLiftReel";
+import { BLOODTYPE_SCENES } from "./reels/BloodTypeReel";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -275,6 +276,14 @@ export const Root: React.FC = () => (
       id="R1-10-10-Weekend-CoachNas"
       component={() => <Reel scenes={R1010_WEEKEND_REAL_SCENES} />}
       durationInFrames={reelLength(R1010_WEEKEND_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="X-BloodType-Myth"
+      component={() => <Reel scenes={BLOODTYPE_SCENES} />}
+      durationInFrames={reelLength(BLOODTYPE_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
