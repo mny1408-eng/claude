@@ -1,5 +1,5 @@
 // Talk reel: "Siapa layak ajar pemakanan? Dietitian je ke?" (recorded 10/09/2026 night, Teleprompter takes 22:47–22:52).
-// Hook take punched in close, then a whip-pan into the main talk (cropped from the top so the bottom of the frame, the
+// Hook, then a whip-pan into the main talk. Every take uses the same framing (cropped from the top so the bottom of the frame, the
 // sarong, is out of shot). Design cutaways with a face bubble carry the stats and the 100 × 30 example.
 // Media (local only, gitignored):
 //   public/clips/HCP-full.mp4   nine takes trimmed and joined, 81.15s. Take 1 loses its 4s of dead air before the hook;
@@ -21,23 +21,25 @@ const CLIP_LEN = 2434;
 const f = (sec: number) => Math.round(sec * FPS) - 3;
 
 const WHIP_AT = Math.round(5.4 * FPS) - 5; // just before "Okey, okey, okey"
-const ZOOM = 1.2; // crops ~320px off the bottom (sarong)
+const ZOOM = 1.15; // one framing for every take; crops ~250px off the bottom (sarong)
 const HOOK = <>SIAPA LAYAK AJAR <span style={{ color: C.marker }}>PEMAKANAN?</span></>;
 
 const CUTS: Record<string, [number, number]> = {
   stats: [14.25, 23.05],
   multiply: [23.05, 42.55],
-  refer: [56.5, 72.55],
+  refer: [57.4, 72.55],
 };
 
 // ---------- hook (punched in) ----------
 const HookLayer: React.FC<{ muted?: boolean }> = ({ muted = false }) => (
-  <FaceCamOpener clip={CLIP} muted={muted} zoom={1.38} hook={HOOK} hookSize={62} lowerTop={1420}>
-    <div style={{ background: "rgba(247,245,237,0.94)", borderRadius: 20, padding: "8px 14px" }}>
-      <BoxStamp delay={f(4.1)} rotate={-4} size={84}>
-        DIETITIAN JE KE?
-      </BoxStamp>
-    </div>
+  <FaceCamOpener clip={CLIP} muted={muted} zoom={ZOOM} hook={HOOK} hookSize={62} lowerTop={1420}>
+    {useCurrentFrame() >= f(4.1) && (
+      <div style={{ background: "rgba(247,245,237,0.94)", borderRadius: 20, padding: "8px 14px" }}>
+        <BoxStamp delay={f(4.1)} rotate={-4} size={84}>
+          DIETITIAN JE KE?
+        </BoxStamp>
+      </div>
+    )}
   </FaceCamOpener>
 );
 
@@ -70,7 +72,7 @@ const FaceLower: React.FC = () => {
         </Card>
       </Pop>
     );
-  if (t < 56.5)
+  if (t < 57.4)
     return (
       <>
         <Pop delay={f(43.2)} rotate={-1.5}>
@@ -120,7 +122,7 @@ const FaceLower: React.FC = () => {
 };
 
 const MainLayer: React.FC = () => (
-  <FaceCamOpener clip={CLIP} zoom={ZOOM} hook={HOOK} hookSize={62} lowerTop={1350}>
+  <FaceCamOpener clip={CLIP} zoom={ZOOM} hook={HOOK} hookSize={62} lowerTop={1400}>
     <FaceLower />
   </FaceCamOpener>
 );
@@ -290,7 +292,7 @@ const Layers: React.FC = () => {
           <Bubble />
         </AbsoluteFill>
       )}
-      <Captions words={HCP_WORDS} top={Cut ? 1650 : 1150} size={Cut ? 54 : 62} plate={!!Cut} />
+      <Captions words={HCP_WORDS} top={Cut ? 1650 : 1270} size={Cut ? 54 : 62} plate={!!Cut} />
     </>
   );
 };
