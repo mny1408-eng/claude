@@ -1,7 +1,8 @@
 // Carousel draft 10/10/2026 — "Stability is the foundation, not the whole building" (English, for pharmacists).
 // Prompted by the MPS press statement of 9 Oct 2026 (Budget 2027: contract pharmacists must not be left behind).
 // Angle agreed with Coach Nas: grateful for his permanent post, stands with MPS, speaks to every pharmacist
-// (contract or permanent). No product pitch on the carousel; CTA DM GROWTH. Never "just a job".
+// (contract or permanent). Pure thought leadership: no WDT logo, no product, engagement CTA only (the WDT/GROWTH
+// recruitment message goes in a separate follow-up reel with full disclosure). Never "just a job".
 import React from "react";
 import { useCurrentFrame } from "remotion";
 import { B, Body, CtaBox, Headline, Kicker, Pad, Portrait, Rule, Sage, Slide, T } from "./template";
@@ -9,7 +10,7 @@ import { B, Body, CtaBox, Headline, Kicker, Pad, Portrait, Rule, Sage, Slide, T 
 const TOTAL = 8;
 
 const S: React.FC<{ i: number; children: React.ReactNode; last?: boolean }> = ({ i, children, last }) => (
-  <Slide index={i} total={TOTAL} saveLabel="SAVE" last={last} lastLabel="DM GROWTH">
+  <Slide index={i} total={TOTAL} saveLabel="SAVE" last={last} lastLabel="SHARE WITH A PHARMACIST" logo={false}>
     {children}
   </Slide>
 );
@@ -208,7 +209,7 @@ const S8: React.FC = () => (
     </Pad>
     <Pad top={860}>
       <CtaBox>
-        Pharmacist ready to start building? DM <strong style={{ color: T.gold }}>GROWTH</strong>. We talk first, no pressure.
+        What are you building beyond your job title? <strong style={{ color: T.gold }}>Tell me in the comments.</strong>
       </CtaBox>
       <Body size={32} style={{ marginTop: 30, color: T.textSoft }}>
         Know a pharmacist who needs this today? Share it with them.

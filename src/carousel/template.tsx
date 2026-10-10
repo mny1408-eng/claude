@@ -41,13 +41,14 @@ export const Portrait: React.FC<{ size?: number }> = ({ size = 190 }) => (
   </div>
 );
 
-export const Slide: React.FC<{ index: number; total: number; children: React.ReactNode; last?: boolean; lastLabel?: string; saveLabel?: string }> = ({
+export const Slide: React.FC<{ index: number; total: number; children: React.ReactNode; last?: boolean; lastLabel?: string; saveLabel?: string; logo?: boolean }> = ({
   index,
   total,
   children,
   last,
   lastLabel = "SIMPAN POST NI",
   saveLabel = "SIMPAN",
+  logo = true,
 }) => (
   <AbsoluteFill style={{ background: T.page, fontFamily: BODY, color: T.text }}>
     {/* Header */}
@@ -95,7 +96,7 @@ export const Slide: React.FC<{ index: number; total: number; children: React.Rea
           />
         ))}
       </div>
-      <WdtLogo />
+      {logo ? <WdtLogo /> : <div style={{ width: 226 }} />}
     </div>
   </AbsoluteFill>
 );
