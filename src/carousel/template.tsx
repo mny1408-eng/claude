@@ -3,7 +3,7 @@
 // sage emphasis, round portrait, footer bar with SIMPAN · SWIPE, page dots and the WDT logo.
 // Size follows the Notion production lock: portrait 3:4, 1080 × 1440.
 import React from "react";
-import { AbsoluteFill, Img, getStaticFiles, staticFile } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { loadFont as loadBarlow } from "@remotion/google-fonts/BarlowCondensed";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 
@@ -32,17 +32,8 @@ export const W = 1080;
 export const H = 1440;
 const FOOTER = 162;
 
-// WDT logo, cropped from the exported master template (public/img/master-template-v2.png).
-// The PNG is local-only (gitignored); without it, fall back to a plain text mark so drafts still render.
-const HAS_MASTER = getStaticFiles().some((f) => f.name === "img/master-template-v2.png");
-const WdtLogo: React.FC = () =>
-  HAS_MASTER ? (
-    <div style={{ position: "relative", width: 226, height: 104, overflow: "hidden" }}>
-      <Img src={staticFile("img/master-template-v2.png")} style={{ position: "absolute", left: -836, top: -1216, width: 1080, height: 1350 }} />
-    </div>
-  ) : (
-    <div style={{ width: 226, textAlign: "right", fontFamily: HEAD, fontWeight: 700, fontSize: 44, letterSpacing: 2, color: T.text }}>WDT</div>
-  );
+// WDT logo (footer size 226 × 104), cropped from a rendered master-template slide kept in git history.
+const WdtLogo: React.FC = () => <Img src={staticFile("brand/wdt-logo.png")} style={{ width: 226, height: 104, display: "block" }} />;
 
 export const Portrait: React.FC<{ size?: number }> = ({ size = 190 }) => (
   <div style={{ width: size, height: size, borderRadius: "50%", border: `5px solid ${T.ring}`, overflow: "hidden", background: "#fff" }}>
