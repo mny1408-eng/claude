@@ -27,6 +27,7 @@ import { CHargaCoaching, CHARGA_SLIDES } from "./carousel/CHargaCoaching";
 import { CGoalSistem, CGOAL_SLIDES } from "./carousel/CGoalSistem";
 import { CPerluCoach, CPERLU_SLIDES } from "./carousel/CPerluCoach";
 import { CSabotaj, CSABOTAJ_SLIDES } from "./carousel/CSabotaj";
+import { CFormulaKonsisten, CFORMULA_SLIDES } from "./carousel/CFormulaKonsisten";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
@@ -48,6 +49,7 @@ const CAROUSELS = [
   { id: "Goal-Sistem", Slides: CGoalSistem, slides: CGOAL_SLIDES, music: 58 },
   { id: "Perlu-Coach", Slides: CPerluCoach, slides: CPERLU_SLIDES, music: 88 },
   { id: "Sabotaj-Diri", Slides: CSabotaj, slides: CSABOTAJ_SLIDES, music: 116 },
+  { id: "Formula-Konsisten", Slides: CFormulaKonsisten, slides: CFORMULA_SLIDES, music: 132 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
