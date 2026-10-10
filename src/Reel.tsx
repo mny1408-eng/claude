@@ -1,5 +1,5 @@
 // Generic Vox-style reel: a list of scenes (each with its own SFX cues) on WDT paper,
-// with the music bed and the @coachnasri_pharm tag. Each topic reel only defines SceneDefs.
+// with the music bed and the @coachnas.pharmacist tag. Each topic reel only defines SceneDefs.
 import React from "react";
 import { Sequence } from "remotion";
 import { BrandTag, Drift, Paper } from "./kit";

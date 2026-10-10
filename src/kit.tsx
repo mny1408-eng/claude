@@ -249,7 +249,7 @@ export const Card: React.FC<{ children: React.ReactNode; style?: React.CSSProper
   </div>
 );
 
-export const BrandTag: React.FC<{ text?: string }> = ({ text = "@coachnasri_pharm" }) => (
+export const BrandTag: React.FC<{ text?: string }> = ({ text = "@coachnas.pharmacist" }) => (
   <div style={{ position: "absolute", top: 150, left: 0, right: 0, textAlign: "center", fontSize: 30, fontWeight: 800, letterSpacing: 3, color: C.ink, opacity: 0.75 }}>
     {text}
   </div>
