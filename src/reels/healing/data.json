@@ -1,0 +1,300 @@
+[
+ {
+  "id": "h01",
+  "dur": 4.85,
+  "caps": [
+   {
+    "from": 0,
+    "to": 0.64,
+    "text": "Pelik kan?"
+   },
+   {
+    "from": 0.59,
+    "to": 2.88,
+    "text": "Bila cakap bab kesihatan je,"
+   },
+   {
+    "from": 2.83,
+    "to": 3.6,
+    "text": "tiba-tiba semua orang"
+   },
+   {
+    "from": 3.55,
+    "to": 4.85,
+    "text": "jadi *accountant!*"
+   }
+  ],
+  "wordAt": [
+   0.02,
+   0.46,
+   0.64,
+   0.86,
+   1.28,
+   1.5,
+   2.12,
+   2.32,
+   2.88,
+   2.94,
+   3.14,
+   3.38,
+   3.6,
+   3.76,
+   4.06
+  ]
+ },
+ {
+  "id": "h02",
+  "dur": 8.88,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.08,
+    "text": "Nak breakfast lebih berkhasiat,"
+   },
+   {
+    "from": 2.03,
+    "to": 3.26,
+    "text": "*RM12* sehari,"
+   },
+   {
+    "from": 3.21,
+    "to": 5.26,
+    "text": "sebulan dah *RM360!*"
+   },
+   {
+    "from": 5.21,
+    "to": 7.56,
+    "text": "Nak join wellness coaching,"
+   },
+   {
+    "from": 7.51,
+    "to": 8.88,
+    "text": "“Mahal la…”"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.22,
+   0.6,
+   0.8,
+   1.04,
+   2.08,
+   2.42,
+   3.26,
+   3.62,
+   3.78,
+   5.26,
+   6.0,
+   6.28,
+   6.66,
+   7.56,
+   7.82,
+   8.42
+  ]
+ },
+ {
+  "id": "h03",
+  "dur": 8.35,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.22,
+    "text": "Tapi bila bab *healing*…"
+   },
+   {
+    "from": 2.17,
+    "to": 3.98,
+    "text": "kopi? *On!*"
+   },
+   {
+    "from": 3.93,
+    "to": 6.26,
+    "text": "food delivery RM30? *Checkout!*"
+   },
+   {
+    "from": 6.21,
+    "to": 7.24,
+    "text": "weekend healing RM200?"
+   },
+   {
+    "from": 7.19,
+    "to": 8.35,
+    "text": "“I *deserve* this.”"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.28,
+   0.58,
+   0.76,
+   1.16,
+   2.22,
+   2.5,
+   2.58,
+   2.76,
+   3.08,
+   3.98,
+   4.1,
+   4.46,
+   4.76,
+   5.2,
+   5.56,
+   6.26,
+   6.46,
+   6.7,
+   7.24,
+   7.5,
+   7.86
+  ]
+ },
+ {
+  "id": "h04",
+  "dur": 6.95,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.32,
+    "text": "Eh, tiba-tiba"
+   },
+   {
+    "from": 1.27,
+    "to": 3.32,
+    "text": "*kalkulator* hilang ke mana?"
+   },
+   {
+    "from": 3.27,
+    "to": 4.74,
+    "text": "Bukan salah nak healing."
+   },
+   {
+    "from": 4.69,
+    "to": 6.95,
+    "text": "Kita semua perlukan *reward* diri sendiri."
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.86,
+   1.02,
+   1.32,
+   1.84,
+   1.98,
+   2.28,
+   2.42,
+   3.32,
+   3.54,
+   3.86,
+   4.08,
+   4.74,
+   4.84,
+   5.08,
+   5.6,
+   5.9,
+   6.08,
+   6.46,
+   6.68
+  ]
+ },
+ {
+  "id": "h05",
+  "dur": 5.15,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.64,
+    "text": "Tapi pernah tak kita fikir,"
+   },
+   {
+    "from": 1.59,
+    "to": 3.5,
+    "text": "kenapa bila nak jaga kesihatan,"
+   },
+   {
+    "from": 3.45,
+    "to": 5.15,
+    "text": "setiap *ringgit* kita persoalkan?"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.4,
+   0.7,
+   0.94,
+   1.14,
+   1.64,
+   1.88,
+   2.12,
+   2.34,
+   2.44,
+   2.82,
+   3.5,
+   3.64,
+   4.02,
+   4.26,
+   4.48,
+   5.78,
+   5.94,
+   6.2,
+   6.46,
+   6.72,
+   7.04,
+   7.28,
+   7.58,
+   7.94,
+   8.18,
+   8.46,
+   8.68,
+   9.12
+  ]
+ },
+ {
+  "id": "h06",
+  "dur": 7.05,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.82,
+    "text": "Mungkin bukan soal harga semata-mata,"
+   },
+   {
+    "from": 1.77,
+    "to": 4.24,
+    "text": "tapi apa yang kita dah biasa *prioritise*"
+   },
+   {
+    "from": 4.19,
+    "to": 6.42,
+    "text": "and we put the *value* first."
+   },
+   {
+    "from": 6.37,
+    "to": 7.05,
+    "text": "*Setuju tak?*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.48,
+   0.76,
+   1.02,
+   1.28,
+   1.54,
+   1.82,
+   2.26,
+   2.64,
+   2.82,
+   3.08,
+   3.26,
+   3.54,
+   4.24,
+   4.68,
+   4.92,
+   5.06,
+   5.32,
+   5.56,
+   6.42,
+   6.7,
+   6.88
+  ]
+ }
+]
