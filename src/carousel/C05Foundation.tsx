@@ -4,7 +4,7 @@
 // (contract or permanent). No product pitch on the carousel; CTA DM GROWTH. Never "just a job".
 import React from "react";
 import { useCurrentFrame } from "remotion";
-import { B, Body, Chip, CtaBox, Headline, Kicker, Pad, Portrait, Rule, Sage, Slide, T } from "./template";
+import { B, Body, CtaBox, Headline, Kicker, Pad, Portrait, Rule, Sage, Slide, T } from "./template";
 
 const TOTAL = 8;
 
@@ -130,27 +130,40 @@ const S5: React.FC = () => (
   </S>
 );
 
-const SKILLS = ["Medication safety", "Counselling", "Health education", "Behaviour change", "Preventive health"];
+const SKILLS = [
+  "Medicines expertise",
+  "Clinical skills",
+  "Trusted access to the community",
+  "Evidence appraisal",
+  "Counselling & communication",
+  "Behaviour change & MI",
+  "Drug–supplement interactions",
+  "Chronic disease support",
+  "Preventive health & screening",
+];
 
 const S6: React.FC = () => (
   <S i={5}>
-    <Pad top={220}>
+    <Pad top={200}>
       <Kicker>Our real asset</Kicker>
-      <Headline size={112}>
+      <Headline size={104}>
         We hold what
         <br />
         most people <Sage>don’t</Sage>
       </Headline>
-      <Rule style={{ margin: "48px 0 40px" }} />
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 18 }}>
-        {SKILLS.map((s) => (
-          <Chip key={s} on>
+      <Rule style={{ margin: "36px 0 32px" }} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px 18px" }}>
+        {SKILLS.map((s, k) => (
+          <div key={s} style={{ gridColumn: k === SKILLS.length - 1 && SKILLS.length % 2 ? "1 / -1" : undefined, display: "flex", alignItems: "center", gap: 14, background: T.sageSoft, border: `2px solid ${T.sage}`, borderRadius: 18, padding: "16px 20px", fontSize: 29, fontWeight: 600, lineHeight: 1.2 }}>
+            <svg viewBox="0 0 20 20" width={28} height={28} style={{ flex: "none" }}>
+              <path d="M4 10.5 L8.5 15 L16 5.5" fill="none" stroke={T.sage} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             {s}
-          </Chip>
+          </div>
         ))}
       </div>
-      <Body size={44} style={{ marginTop: 48 }}>
-        Many people need this knowledge and don’t know who to ask. <B>It can reach further than one job title.</B>
+      <Body size={36} style={{ marginTop: 34 }}>
+        People need this and don’t know who to ask. <B>It can reach further than one job title.</B>
       </Body>
     </Pad>
   </S>
