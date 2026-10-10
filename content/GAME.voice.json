@@ -1,0 +1,11 @@
+{
+  "reel": "GAME",
+  "source": "Coach Nas script 11/10/2026: 'Healthy, unhealthy… atau nampak je healthy?' game. AI host lines only; Coach's answers are his own recording.",
+  "lines": [
+    { "id": "intro", "scene": "game", "text": "Jom main satu game. Healthy, unhealthy… atau nampak je healthy?" },
+    { "id": "q1", "scene": "game", "text": "Nasi lemak?" },
+    { "id": "q2", "scene": "game", "text": "Granola bar?" },
+    { "id": "q3", "scene": "game", "text": "Fruit juice?" },
+    { "id": "q4", "scene": "game", "text": "Overnight oats?" }
+  ]
+}
