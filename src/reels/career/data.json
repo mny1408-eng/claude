@@ -1,0 +1,391 @@
+[
+ {
+  "id": "p01",
+  "dur": 7.6,
+  "caps": [
+   {
+    "from": 0.03,
+    "to": 1.18,
+    "text": "Alhamdulillah,"
+   },
+   {
+    "from": 1.13,
+    "to": 3.26,
+    "text": "I don't take that *stability* for granted,"
+   },
+   {
+    "from": 3.21,
+    "to": 5.26,
+    "text": "especially when so many pharmacists"
+   },
+   {
+    "from": 5.21,
+    "to": 7.6,
+    "text": "are still waiting for *clarity* in the future."
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.08,
+   1.18,
+   1.28,
+   1.68,
+   1.86,
+   2.2,
+   2.62,
+   2.92,
+   3.26,
+   3.76,
+   4.08,
+   4.32,
+   4.5,
+   5.26,
+   5.6,
+   5.78,
+   6.02,
+   6.36,
+   6.7,
+   6.94,
+   7.16
+  ]
+ },
+ {
+  "id": "p02",
+  "dur": 9.05,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.85,
+    "text": "But as a *clinical pharmacist,*"
+   },
+   {
+    "from": 1.8,
+    "to": 3.93,
+    "text": "I feel some *responsibility.*"
+   },
+   {
+    "from": 3.88,
+    "to": 4.91,
+    "text": "Too often we meet people"
+   },
+   {
+    "from": 4.86,
+    "to": 6.67,
+    "text": "only *after* they're already sick:"
+   },
+   {
+    "from": 6.62,
+    "to": 9.05,
+    "text": "diabetes, hypertension, complications."
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.57,
+   0.83,
+   0.93,
+   1.19,
+   1.85,
+   2.05,
+   2.29,
+   2.65,
+   3.93,
+   4.01,
+   4.31,
+   4.49,
+   4.59,
+   4.91,
+   5.19,
+   5.51,
+   5.75,
+   6.11,
+   6.67,
+   6.67,
+   6.95,
+   7.57,
+   8.35
+  ]
+ },
+ {
+  "id": "p03",
+  "dur": 4.85,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.77,
+    "text": "And I keep asking myself,"
+   },
+   {
+    "from": 1.72,
+    "to": 3.37,
+    "text": "what if we reach them *earlier,*"
+   },
+   {
+    "from": 3.32,
+    "to": 4.85,
+    "text": "before they need *more medicine?*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.27,
+   0.49,
+   0.71,
+   1.13,
+   1.77,
+   1.83,
+   2.01,
+   2.25,
+   2.63,
+   2.93,
+   3.37,
+   3.69,
+   3.95,
+   4.13,
+   4.39
+  ]
+ },
+ {
+  "id": "p04",
+  "dur": 8.62,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.52,
+    "text": "Our strength isn't only about medicine."
+   },
+   {
+    "from": 2.47,
+    "to": 5.36,
+    "text": "It's counselling, motivational interviewing,"
+   },
+   {
+    "from": 5.31,
+    "to": 7.56,
+    "text": "helping people *change their habits.*"
+   },
+   {
+    "from": 7.51,
+    "to": 8.62,
+    "text": "That's *preventive health.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.3,
+   0.48,
+   0.66,
+   0.96,
+   1.2,
+   1.54,
+   1.74,
+   2.52,
+   2.9,
+   3.64,
+   4.06,
+   5.36,
+   5.48,
+   5.86,
+   6.22,
+   6.56,
+   6.82,
+   7.56,
+   8.08,
+   8.4
+  ]
+ },
+ {
+  "id": "p05",
+  "dur": 13.35,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.55,
+    "text": "So, in my own time,"
+   },
+   {
+    "from": 1.5,
+    "to": 3.55,
+    "text": "I chose a platform to do that"
+   },
+   {
+    "from": 3.5,
+    "to": 4.91,
+    "text": "at a *bigger scale:*"
+   },
+   {
+    "from": 4.86,
+    "to": 8.03,
+    "text": "wellness coaching with *WeDo Transformations.*"
+   },
+   {
+    "from": 7.98,
+    "to": 9.49,
+    "text": "The products are just a tool."
+   },
+   {
+    "from": 9.44,
+    "to": 12.09,
+    "text": "The coaching, the follow-up, the community,"
+   },
+   {
+    "from": 12.04,
+    "to": 13.35,
+    "text": "that's the *real work.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.57,
+   0.73,
+   0.91,
+   1.19,
+   1.55,
+   1.65,
+   1.91,
+   2.15,
+   2.49,
+   2.79,
+   3.15,
+   3.55,
+   3.83,
+   3.97,
+   4.27,
+   4.91,
+   4.91,
+   5.15,
+   5.47,
+   5.83,
+   6.69,
+   6.99,
+   8.03,
+   8.21,
+   8.41,
+   8.79,
+   9.03,
+   9.17,
+   9.49,
+   9.63,
+   9.95,
+   10.37,
+   10.63,
+   11.19,
+   11.39,
+   12.09,
+   12.51,
+   12.65,
+   12.91
+  ]
+ },
+ {
+  "id": "p06",
+  "dur": 15.57,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.52,
+    "text": "What I'm really building right now"
+   },
+   {
+    "from": 1.47,
+    "to": 3.62,
+    "text": "is a *healthier culture,*"
+   },
+   {
+    "from": 3.57,
+    "to": 5.16,
+    "text": "which means more people are aware"
+   },
+   {
+    "from": 5.11,
+    "to": 5.96,
+    "text": "of their health *earlier,*"
+   },
+   {
+    "from": 5.91,
+    "to": 8.6,
+    "text": "before it turns into a *disease.*"
+   },
+   {
+    "from": 8.55,
+    "to": 9.98,
+    "text": "If you're a *healthcare professional*"
+   },
+   {
+    "from": 9.93,
+    "to": 11.42,
+    "text": "who wants to make more impact"
+   },
+   {
+    "from": 11.37,
+    "to": 13.14,
+    "text": "beyond your *job title,*"
+   },
+   {
+    "from": 13.09,
+    "to": 14.02,
+    "text": "DM me *“GROW”.*"
+   },
+   {
+    "from": 13.97,
+    "to": 15.57,
+    "text": "Let's talk. No pressure."
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.22,
+   0.5,
+   0.84,
+   1.08,
+   1.38,
+   1.52,
+   1.8,
+   1.98,
+   2.36,
+   3.62,
+   3.74,
+   3.96,
+   4.14,
+   4.42,
+   4.7,
+   4.94,
+   5.16,
+   5.38,
+   5.6,
+   5.96,
+   6.28,
+   6.5,
+   6.7,
+   7.1,
+   7.24,
+   8.6,
+   8.68,
+   8.84,
+   9.06,
+   9.06,
+   9.42,
+   9.98,
+   10.2,
+   10.42,
+   10.66,
+   10.78,
+   11.04,
+   11.42,
+   11.76,
+   11.98,
+   12.14,
+   13.14,
+   13.18,
+   13.58,
+   14.02,
+   14.28,
+   14.52,
+   14.94,
+   15.16
+  ]
+ }
+]

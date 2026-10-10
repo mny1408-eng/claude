@@ -28,9 +28,12 @@ import { CGoalSistem, CGOAL_SLIDES } from "./carousel/CGoalSistem";
 import { CPerluCoach, CPERLU_SLIDES } from "./carousel/CPerluCoach";
 import { CSabotaj, CSABOTAJ_SLIDES } from "./carousel/CSabotaj";
 import { CFormulaKonsisten, CFORMULA_SLIDES } from "./carousel/CFormulaKonsisten";
+import { CBuatApaJaga, CBUATAPA_SLIDES } from "./carousel/CBuatApaJaga";
+import { CBerkira, CBERKIRA_SLIDES } from "./carousel/CBerkira";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { ReelKanser, KANSER_TOTAL } from "./reels/kanser/ReelKanser";
 import { ReelHealing, HEALING_TOTAL } from "./reels/healing/ReelHealing";
+import { ReelCareer, CAREER_TOTAL } from "./reels/career/ReelCareer";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
 // PM carousels: each also becomes a 9:16 PM Reel (Reel-<id>).
@@ -52,6 +55,8 @@ const CAROUSELS = [
   { id: "Perlu-Coach", Slides: CPerluCoach, slides: CPERLU_SLIDES, music: 88 },
   { id: "Sabotaj-Diri", Slides: CSabotaj, slides: CSABOTAJ_SLIDES, music: 116 },
   { id: "Formula-Konsisten", Slides: CFormulaKonsisten, slides: CFORMULA_SLIDES, music: 132 },
+  { id: "Buat-Apa-Jaga", Slides: CBuatApaJaga, slides: CBUATAPA_SLIDES, music: 24 },
+  { id: "Berkira-Kesihatan", Slides: CBerkira, slides: CBERKIRA_SLIDES, music: 70 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
@@ -73,6 +78,7 @@ export const Root: React.FC = () => (
     {/* Talking-head reel: clips in public/clips/kanser/ (local only) */}
     <Composition id="Reel-Kanser" component={ReelKanser} durationInFrames={KANSER_TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="Reel-Healing" component={ReelHealing} durationInFrames={HEALING_TOTAL} fps={30} width={1080} height={1920} />
+    <Composition id="Reel-Career" component={ReelCareer} durationInFrames={CAREER_TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="Kalendar" component={Kalendar} durationInFrames={1} fps={1} width={KAL_W} height={KAL_H} defaultProps={KALENDAR_SAMPLE} />
     {hooks.map((h) => (
       <Composition

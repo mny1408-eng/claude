@@ -1,6 +1,6 @@
 // Reel: "Jaga kesihatan pun boleh kena kanser, jadi buat apa jaga?" — Coach Nas talking head, 11 teleprompter takes.
 // Clips: public/clips/kanser/cNN.mp4 (local only). data.json: durations, word times, captions.
-// WHO figure: WHO Cancer fact sheet — "between 30 and 50% of cancers can currently be prevented by avoiding risk factors".
+// Sticky notes only on the side-by-side comparison (c09: jaga vs tak jaga), per Coach Nas.
 import React from "react";
 import { G, Clip, Ov, TalkingReel, TopCard, reelLength } from "../talking/TalkingReel";
 import { C } from "../../theme";
@@ -16,30 +16,15 @@ const OVERLAYS: Record<string, Ov[]> = {
     { kind: "title", at: 13, text: <>Pernah dengar ayat ni?</> },
   ],
   c03: [{ kind: "name", at: 6 }],
-  c04: [
-    { kind: "sticky", at: 0, side: "left", y: 420, text: "Jaga makan ✓" },
-    { kind: "sticky", at: 3, side: "left", y: 600, text: "Aktif ✓" },
-    { kind: "sticky", at: 5, side: "left", y: 780, text: "Tak merokok ✓" },
-    { kind: "sticky", at: 10, side: "right", y: 560, tone: "red", text: "Tetap didiagnos kanser" },
-  ],
+  c04: [{ kind: "title", at: 7, text: <>Jaga makan, aktif, tak merokok… <G>tetap kena.</G></> }],
   c05: [{ kind: "title", at: 10, text: <>Jadi, buat apa <G>bersusah payah?</G></> }],
   c06: [
     { kind: "title", at: 4, text: <>Risiko <G>≠</G> jaminan</> },
-    { kind: "sticky", at: 24, side: "left", y: 420, text: "Umur" },
-    { kind: "sticky", at: 25, side: "right", y: 420, text: "Genetik" },
-    { kind: "sticky", at: 26, side: "left", y: 600, text: "Persekitaran" },
-    { kind: "sticky", at: 28, side: "right", y: 600, text: "Jangkitan" },
-    { kind: "sticky", at: 31, side: "left", y: 780, tone: "green", text: "Lifestyle", small: "← boleh ubah" },
   ],
   c07: [
-    { kind: "sticky", at: 0, side: "left", y: 440, tone: "green", text: "Boleh ubah", small: "makan, aktiviti, rokok" },
-    { kind: "sticky", at: 5, side: "right", y: 440, text: "Luar kawalan", small: "umur, genetik" },
     { kind: "title", at: 12, text: <>Bukan jaminan <G>100%</G></> },
   ],
-  c08: [
-    { kind: "sticky", at: 5, side: "right", y: 440, tone: "green", text: "↓ Risiko", small: "beberapa jenis kanser & penyakit kronik" },
-    { kind: "sticky", at: 7, side: "left", y: 520, text: "30–50%", small: "kanser boleh dicegah dengan elak faktor risiko (WHO)" },
-  ],
+  c08: [{ kind: "title", at: 0, text: <>Tapi boleh <G>kurangkan risiko.</G></> }],
   c09: [
     { kind: "sticky", at: 7, side: "left", y: 440, text: "Jaga, kena kanser?", small: "✓ Betul" },
     { kind: "sticky", at: 19, side: "right", y: 440, text: "Tak jaga, hidup 90?", small: "✓ Pun betul" },
@@ -47,9 +32,6 @@ const OVERLAYS: Record<string, Ov[]> = {
   ],
   c10: [
     { kind: "title", at: 1, text: <>Tujuan jaga kesihatan?</> },
-    { kind: "sticky", at: 20, side: "left", y: 440, tone: "green", text: "Lebih sihat" },
-    { kind: "sticky", at: 22, side: "right", y: 440, tone: "green", text: "Lebih lama" },
-    { kind: "sticky", at: 25, side: "left", y: 640, tone: "green", text: "Kualiti hidup ↑" },
   ],
   c11: [
     { kind: "title", at: 14, until: 23, text: <>Jangan tunggu <G>diagnosis.</G></> },

@@ -1,6 +1,6 @@
 // Reel: "Tiba-tiba semua jadi accountant" — healthy spending vs healing spending (Notion REEL IDEA, 10/10/2026).
 // Clips: public/clips/healing/hNN.mp4 (local only). data.json: durations, word times, captions.
-// RM12 / RM18 follow the Notion plan (RM12 × 30 = RM360); Whisper could not make out those two amounts.
+// No sticky notes. RM12 follows the Notion plan (RM12 × 30 = RM360); Whisper could not make out the amount.
 import React from "react";
 import { G, Clip, Ov, TalkingReel, TopCard, reelLength, usePop } from "../talking/TalkingReel";
 import { C, POPPINS } from "../../theme";
@@ -35,13 +35,9 @@ const OVERLAYS: Record<string, Ov[]> = {
   h01: [{ kind: "title", at: 8, text: <>Tiba-tiba semua jadi <G>accountant!</G> 🧮</> }],
   h02: [
     { kind: "card", at: 5, until: 10, el: <Calc />, sfx: "tick" },
-    { kind: "sticky", at: 14, side: "right", y: 460, tone: "red", text: "Coaching?", small: "“Mahal la…”" },
   ],
   h03: [
     { kind: "title", at: 0, text: <>Mod <G>healing</G> 💸</> },
-    { kind: "sticky", at: 5, side: "left", y: 440, text: "Kopi RM18?", small: "ON! ☕" },
-    { kind: "sticky", at: 10, side: "right", y: 440, text: "Delivery RM30?", small: "CHECKOUT!" },
-    { kind: "sticky", at: 16, side: "left", y: 660, text: "Healing RM200?", small: "DESERVE!" },
   ],
   h04: [
     { kind: "title", at: 0, until: 8, text: <>Eh, kalkulator <G>hilang</G> ke mana? 🤔</> },
