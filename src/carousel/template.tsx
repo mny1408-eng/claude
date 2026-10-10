@@ -3,7 +3,7 @@
 // sage emphasis, round portrait, footer bar with SIMPAN · SWIPE, page dots and the WDT logo.
 // Size follows the Notion production lock: portrait 3:4, 1080 × 1440.
 import React from "react";
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import { AbsoluteFill, Img, getStaticFiles, staticFile } from "remotion";
 import { loadFont as loadBarlow } from "@remotion/google-fonts/BarlowCondensed";
 import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
 
@@ -33,11 +33,16 @@ export const H = 1440;
 const FOOTER = 162;
 
 // WDT logo, cropped from the exported master template (public/img/master-template-v2.png).
-const WdtLogo: React.FC = () => (
-  <div style={{ position: "relative", width: 226, height: 104, overflow: "hidden" }}>
-    <Img src={staticFile("img/master-template-v2.png")} style={{ position: "absolute", left: -836, top: -1216, width: 1080, height: 1350 }} />
-  </div>
-);
+// The PNG is local-only (gitignored); without it, fall back to a plain text mark so drafts still render.
+const HAS_MASTER = getStaticFiles().some((f) => f.name === "img/master-template-v2.png");
+const WdtLogo: React.FC = () =>
+  HAS_MASTER ? (
+    <div style={{ position: "relative", width: 226, height: 104, overflow: "hidden" }}>
+      <Img src={staticFile("img/master-template-v2.png")} style={{ position: "absolute", left: -836, top: -1216, width: 1080, height: 1350 }} />
+    </div>
+  ) : (
+    <div style={{ width: 226, textAlign: "right", fontFamily: HEAD, fontWeight: 700, fontSize: 44, letterSpacing: 2, color: T.text }}>WDT</div>
+  );
 
 export const Portrait: React.FC<{ size?: number }> = ({ size = 190 }) => (
   <div style={{ width: size, height: size, borderRadius: "50%", border: `5px solid ${T.ring}`, overflow: "hidden", background: "#fff" }}>
@@ -45,12 +50,13 @@ export const Portrait: React.FC<{ size?: number }> = ({ size = 190 }) => (
   </div>
 );
 
-export const Slide: React.FC<{ index: number; total: number; children: React.ReactNode; last?: boolean; lastLabel?: string }> = ({
+export const Slide: React.FC<{ index: number; total: number; children: React.ReactNode; last?: boolean; lastLabel?: string; saveLabel?: string }> = ({
   index,
   total,
   children,
   last,
   lastLabel = "SIMPAN POST NI",
+  saveLabel = "SIMPAN",
 }) => (
   <AbsoluteFill style={{ background: T.page, fontFamily: BODY, color: T.text }}>
     {/* Header */}
@@ -77,7 +83,7 @@ export const Slide: React.FC<{ index: number; total: number; children: React.Rea
           </>
         ) : (
           <>
-            SIMPAN <span style={{ color: T.dot }}>•</span> <SwipeOrFollow />
+            {saveLabel} <span style={{ color: T.dot }}>•</span> <SwipeOrFollow />
             <svg viewBox="0 0 40 20" width={38} height={20}>
               <path d="M 2 10 H 36 M 28 3 L 36 10 L 28 17" fill="none" stroke={T.sage} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
             </svg>

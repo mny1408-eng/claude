@@ -54,6 +54,7 @@ import { C01DietRule, C01_DIET_RULE_SLIDES } from "./carousel/C01DietRule";
 import { C02Coaching, C02_SLIDES } from "./carousel/C02Coaching";
 import { C03Buffet, C03_SLIDES } from "./carousel/C03Buffet";
 import { C04WeeklyReview, C04_SLIDES } from "./carousel/C04WeeklyReview";
+import { C05Foundation, C05_SLIDES } from "./carousel/C05Foundation";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 
 // PM carousels: each also becomes a 9:16 PM Reel (Reel-<id>).
@@ -62,6 +63,7 @@ const CAROUSELS = [
   { id: "02-10-Coaching", Slides: C02Coaching, slides: C02_SLIDES, music: 50 },
   { id: "03-10-Buffet", Slides: C03Buffet, slides: C03_SLIDES, music: 80 },
   { id: "04-10-WeeklyReview", Slides: C04WeeklyReview, slides: C04_SLIDES, music: 110 },
+  { id: "10-10-Foundation", Slides: C05Foundation, slides: C05_SLIDES, music: 140 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
