@@ -1,0 +1,686 @@
+[
+ {
+  "id": "c01",
+  "dur": 6.5,
+  "caps": [
+   {
+    "from": 0.07,
+    "to": 1.1,
+    "text": "Alah, buat apa nak"
+   },
+   {
+    "from": 1.05,
+    "to": 2.86,
+    "text": "jaga makan *sangat?*"
+   },
+   {
+    "from": 2.81,
+    "to": 4.08,
+    "text": "Orang yang makan sihat,"
+   },
+   {
+    "from": 4.03,
+    "to": 4.92,
+    "text": "exercise hari-hari"
+   },
+   {
+    "from": 4.87,
+    "to": 6.5,
+    "text": "pun boleh kena *kanser* juga."
+   }
+  ],
+  "wordAt": [
+   0.12,
+   0.68,
+   0.8,
+   0.96,
+   1.1,
+   1.44,
+   1.64,
+   2.86,
+   3.02,
+   3.14,
+   3.4,
+   4.08,
+   4.3,
+   4.62,
+   4.92,
+   5.12,
+   5.4,
+   5.68,
+   6.02
+  ]
+ },
+ {
+  "id": "c02",
+  "dur": 6.0,
+  "caps": [
+   {
+    "from": 0,
+    "to": 0.93,
+    "text": "Ada orang merokok"
+   },
+   {
+    "from": 0.88,
+    "to": 1.75,
+    "text": "berpuluh-puluh tahun,"
+   },
+   {
+    "from": 1.7,
+    "to": 3.33,
+    "text": "hidup sampai *90 tahun,*"
+   },
+   {
+    "from": 3.28,
+    "to": 4.59,
+    "text": "okay je."
+   },
+   {
+    "from": 4.54,
+    "to": 6.0,
+    "text": "Pernah dengar tak ayat macam ni?"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.27,
+   0.47,
+   0.93,
+   1.27,
+   1.45,
+   1.75,
+   2.09,
+   2.33,
+   2.65,
+   2.85,
+   3.33,
+   3.55,
+   4.59,
+   4.73,
+   5.03,
+   5.17,
+   5.49,
+   5.73
+  ]
+ },
+ {
+  "id": "c03",
+  "dur": 13.05,
+  "caps": [
+   {
+    "from": 0.17,
+    "to": 1.9,
+    "text": "Saya nak share something."
+   },
+   {
+    "from": 1.85,
+    "to": 3.9,
+    "text": "Saya seorang *farmasis klinikal*"
+   },
+   {
+    "from": 3.85,
+    "to": 6.26,
+    "text": "bidang *onkologi & hematologi.*"
+   },
+   {
+    "from": 6.21,
+    "to": 8.32,
+    "text": "Sepanjang kerja dengan pesakit kanser,"
+   },
+   {
+    "from": 8.27,
+    "to": 10.24,
+    "text": "saya memang pernah jumpa"
+   },
+   {
+    "from": 10.19,
+    "to": 13.05,
+    "text": "pesakit yang amalkan *healthy lifestyle.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.22,
+   0.42,
+   0.64,
+   0.84,
+   1.26,
+   1.9,
+   2.08,
+   2.58,
+   2.9,
+   3.14,
+   3.5,
+   3.9,
+   4.16,
+   4.48,
+   5.12,
+   5.24,
+   6.26,
+   6.54,
+   6.9,
+   7.32,
+   7.52,
+   7.92,
+   8.32,
+   8.72,
+   9.1,
+   9.34,
+   10.24,
+   10.84,
+   11.08,
+   11.8,
+   12.2,
+   12.7
+  ]
+ },
+ {
+  "id": "c04",
+  "dur": 5.33,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.04,
+    "text": "Mereka jaga makan,"
+   },
+   {
+    "from": 0.99,
+    "to": 1.82,
+    "text": "aktif bergerak,"
+   },
+   {
+    "from": 1.77,
+    "to": 2.48,
+    "text": "tak merokok,"
+   },
+   {
+    "from": 2.43,
+    "to": 3.84,
+    "text": "tapi akhirnya tetap"
+   },
+   {
+    "from": 3.79,
+    "to": 5.33,
+    "text": "didiagnos dengan *kanser.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.26,
+   0.58,
+   1.04,
+   1.22,
+   1.82,
+   1.96,
+   2.48,
+   3.1,
+   3.52,
+   3.84,
+   4.06,
+   4.42,
+   4.64
+  ]
+ },
+ {
+  "id": "c05",
+  "dur": 9.4,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.53,
+    "text": "Saya jumpa juga"
+   },
+   {
+    "from": 1.48,
+    "to": 4.41,
+    "text": "pesakit dengan pelbagai *faktor risiko.*"
+   },
+   {
+    "from": 4.36,
+    "to": 6.53,
+    "text": "Jadi, kalau jaga kesihatan"
+   },
+   {
+    "from": 6.48,
+    "to": 7.79,
+    "text": "masih boleh kena kanser,"
+   },
+   {
+    "from": 7.74,
+    "to": 9.4,
+    "text": "buat apa kita *bersusah payah?*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.27,
+   0.47,
+   0.81,
+   1.53,
+   2.09,
+   2.29,
+   2.67,
+   3.27,
+   3.63,
+   4.41,
+   4.81,
+   5.29,
+   5.45,
+   5.71,
+   6.05,
+   6.53,
+   6.69,
+   7.01,
+   7.23,
+   7.47,
+   7.79,
+   8.01,
+   8.19,
+   8.43,
+   8.87
+  ]
+ },
+ {
+  "id": "c06",
+  "dur": 14.15,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.18,
+    "text": "Sebab ramai orang keliru"
+   },
+   {
+    "from": 2.13,
+    "to": 4.78,
+    "text": "antara *risiko* dan *jaminan.*"
+   },
+   {
+    "from": 4.73,
+    "to": 6.18,
+    "text": "Kanser bukan disebabkan"
+   },
+   {
+    "from": 6.13,
+    "to": 7.96,
+    "text": "oleh *satu faktor* sahaja."
+   },
+   {
+    "from": 7.91,
+    "to": 9.82,
+    "text": "Ada banyak faktor lain:"
+   },
+   {
+    "from": 9.77,
+    "to": 11.42,
+    "text": "umur, genetik,"
+   },
+   {
+    "from": 11.37,
+    "to": 13.1,
+    "text": "persekitaran, jangkitan"
+   },
+   {
+    "from": 13.05,
+    "to": 14.15,
+    "text": "dan juga *lifestyle.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.92,
+   1.36,
+   1.64,
+   2.18,
+   2.78,
+   3.18,
+   3.52,
+   3.8,
+   4.78,
+   5.0,
+   5.32,
+   5.48,
+   5.68,
+   6.18,
+   6.38,
+   6.66,
+   7.04,
+   7.96,
+   8.18,
+   8.56,
+   8.76,
+   9.12,
+   9.28,
+   9.82,
+   10.62,
+   11.42,
+   11.78,
+   12.6,
+   13.1,
+   13.28,
+   13.46
+  ]
+ },
+ {
+  "id": "c07",
+  "dur": 8.38,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.06,
+    "text": "Sesetengah faktor *boleh diubah,*"
+   },
+   {
+    "from": 2.01,
+    "to": 4.22,
+    "text": "sesetengah memang *di luar kawalan.*"
+   },
+   {
+    "from": 4.17,
+    "to": 5.92,
+    "text": "Healthy lifestyle bukan"
+   },
+   {
+    "from": 5.87,
+    "to": 8.38,
+    "text": "*jaminan* bebas daripada kanser,"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.4,
+   0.74,
+   0.96,
+   1.12,
+   2.06,
+   2.38,
+   2.46,
+   2.8,
+   3.02,
+   3.28,
+   3.74,
+   4.22,
+   4.7,
+   5.0,
+   5.32,
+   5.52,
+   5.92,
+   6.04,
+   6.52,
+   6.86,
+   7.22,
+   7.54,
+   7.78
+  ]
+ },
+ {
+  "id": "c08",
+  "dur": 5.62,
+  "caps": [
+   {
+    "from": 0,
+    "to": 2.76,
+    "text": "tapi boleh bantu *kurangkan risiko*"
+   },
+   {
+    "from": 2.71,
+    "to": 3.82,
+    "text": "beberapa jenis kanser"
+   },
+   {
+    "from": 3.77,
+    "to": 5.62,
+    "text": "dan penyakit kronik lain."
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.38,
+   0.56,
+   0.72,
+   1.1,
+   1.4,
+   2.16,
+   2.76,
+   3.24,
+   3.52,
+   3.82,
+   4.06,
+   4.4,
+   4.84,
+   5.04
+  ]
+ },
+ {
+  "id": "c09",
+  "dur": 12.35,
+  "caps": [
+   {
+    "from": 0.09,
+    "to": 2.62,
+    "text": "Jaga kesihatan, boleh kena kanser?"
+   },
+   {
+    "from": 2.57,
+    "to": 3.5,
+    "text": "*Ya, betul.*"
+   },
+   {
+    "from": 3.45,
+    "to": 4.94,
+    "text": "Tak jaga kesihatan,"
+   },
+   {
+    "from": 4.89,
+    "to": 7.34,
+    "text": "boleh hidup sampai 90?"
+   },
+   {
+    "from": 7.29,
+    "to": 8.92,
+    "text": "*Ya, pun betul.*"
+   },
+   {
+    "from": 8.87,
+    "to": 10.2,
+    "text": "Tapi adakah itu bermaksud"
+   },
+   {
+    "from": 10.15,
+    "to": 12.35,
+    "text": "jaga kesihatan *tak penting?*"
+   }
+  ],
+  "wordAt": [
+   0.14,
+   0.8,
+   0.86,
+   1.1,
+   1.42,
+   1.68,
+   1.92,
+   2.62,
+   2.84,
+   3.5,
+   3.7,
+   3.84,
+   3.98,
+   4.32,
+   4.94,
+   5.26,
+   5.58,
+   5.94,
+   6.46,
+   7.34,
+   7.76,
+   8.08,
+   8.92,
+   9.12,
+   9.48,
+   9.76,
+   10.2,
+   10.6,
+   11.42,
+   11.66,
+   11.82
+  ]
+ },
+ {
+  "id": "c10",
+  "dur": 11.97,
+  "caps": [
+   {
+    "from": 0.93,
+    "to": 2.58,
+    "text": "Sebab tujuan jaga kesihatan"
+   },
+   {
+    "from": 2.53,
+    "to": 4.98,
+    "text": "*bukan* untuk hidup selama-lamanya."
+   },
+   {
+    "from": 4.93,
+    "to": 6.58,
+    "text": "Kita cuma nak *tambah peluang*"
+   },
+   {
+    "from": 6.53,
+    "to": 8.7,
+    "text": "untuk hidup lebih sihat,"
+   },
+   {
+    "from": 8.65,
+    "to": 9.32,
+    "text": "lebih lama,"
+   },
+   {
+    "from": 9.27,
+    "to": 11.97,
+    "text": "dengan *kualiti hidup* lebih baik."
+   }
+  ],
+  "wordAt": [
+   0.04,
+   0.98,
+   1.16,
+   1.52,
+   1.8,
+   2.12,
+   2.58,
+   2.9,
+   3.28,
+   3.64,
+   3.94,
+   4.98,
+   5.06,
+   5.3,
+   5.5,
+   6.06,
+   6.58,
+   6.9,
+   7.5,
+   7.74,
+   7.98,
+   8.22,
+   8.7,
+   8.88,
+   9.32,
+   10.06,
+   10.6,
+   10.88,
+   10.98,
+   11.16,
+   11.4
+  ]
+ },
+ {
+  "id": "c11",
+  "dur": 14.48,
+  "caps": [
+   {
+    "from": 0,
+    "to": 1.38,
+    "text": "Kalau hari ni awak masih"
+   },
+   {
+    "from": 1.33,
+    "to": 2.44,
+    "text": "struggle dengan berat badan"
+   },
+   {
+    "from": 2.39,
+    "to": 4.84,
+    "text": "dan eating habits,"
+   },
+   {
+    "from": 4.79,
+    "to": 5.86,
+    "text": "*jangan tunggu* sampai"
+   },
+   {
+    "from": 5.81,
+    "to": 8.86,
+    "text": "ada *diagnosis* baru nak berubah."
+   },
+   {
+    "from": 8.81,
+    "to": 9.64,
+    "text": "Follow *Coach Nas,*"
+   },
+   {
+    "from": 9.59,
+    "to": 11.1,
+    "text": "kita belajar bina"
+   },
+   {
+    "from": 11.05,
+    "to": 13.0,
+    "text": "healthy lifestyle yang *sustainable,*"
+   },
+   {
+    "from": 12.95,
+    "to": 14.48,
+    "text": "tanpa *extreme diet.*"
+   }
+  ],
+  "wordAt": [
+   0.0,
+   0.4,
+   0.64,
+   0.86,
+   0.96,
+   1.08,
+   1.38,
+   1.66,
+   1.84,
+   2.06,
+   2.44,
+   2.9,
+   3.26,
+   3.66,
+   4.84,
+   5.02,
+   5.36,
+   5.86,
+   6.32,
+   6.8,
+   7.22,
+   7.46,
+   7.72,
+   8.86,
+   9.22,
+   9.44,
+   9.64,
+   9.98,
+   10.36,
+   10.74,
+   11.1,
+   11.48,
+   11.92,
+   12.28,
+   13.0,
+   13.68,
+   14.08
+  ]
+ }
+]

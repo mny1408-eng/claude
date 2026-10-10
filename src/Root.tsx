@@ -29,6 +29,7 @@ import { CPerluCoach, CPERLU_SLIDES } from "./carousel/CPerluCoach";
 import { CSabotaj, CSABOTAJ_SLIDES } from "./carousel/CSabotaj";
 import { CFormulaKonsisten, CFORMULA_SLIDES } from "./carousel/CFormulaKonsisten";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
+import { ReelKanser, KANSER_TOTAL } from "./reels/kanser/ReelKanser";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
 // PM carousels: each also becomes a 9:16 PM Reel (Reel-<id>).
@@ -68,6 +69,8 @@ const REELS = [
 export const Root: React.FC = () => (
   <>
     {/* Monthly group-coaching calendar: data via --props from scripts/kalendar.mjs */}
+    {/* Talking-head reel: clips in public/clips/kanser/ (local only) */}
+    <Composition id="Reel-Kanser" component={ReelKanser} durationInFrames={KANSER_TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="Kalendar" component={Kalendar} durationInFrames={1} fps={1} width={KAL_W} height={KAL_H} defaultProps={KALENDAR_SAMPLE} />
     {hooks.map((h) => (
       <Composition
