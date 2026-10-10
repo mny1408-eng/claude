@@ -74,7 +74,7 @@ Skills never invent proof. Client testimonials: none verified yet (see below).
 - Why coach: sees many diabetes and hypertension patients at the hospital. Keep wording as personal motivation and hope for the trend. Do not claim nutrition cures or treats disease.
 - His advice to members: use the group coaching to learn, follow the coach, log meals in the group.
 - Tag used in the intro: `#misifightobesiti #firstpillar`. `#firstpillar` is not in the hashtag lock, so it is for the team intro only.
-- Handle in this intro: `@coachnasri_pharm` (IG), `@coachnasri_` (TikTok). Notion uses `@coachnas.pharmacist` for IG. CONFIRM which is current before the next poster or carousel footer.
+- Handle: this intro used the old `@coachnasri_pharm`. Confirmed by Coach Nas on 10 Oct 2026: the current IG handle and footer is `@coachnas.pharmacist`. TikTok stays `@coachnasri_`. Do not use `@coachnasri_pharm` anywhere.
 - Compliance: personal result, so frame as "my journey, results differ" and never as a guaranteed outcome.
 
 **Client testimonials: none usable yet.** Checked Notion (Story & Idea Bank, Testimoni daily pages 09/09 and 05/10, archive 17/08, W4 plan). Findings:
