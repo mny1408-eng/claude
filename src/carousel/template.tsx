@@ -59,7 +59,7 @@ export const Slide: React.FC<{ index: number; total: number; children: React.Rea
         <span style={{ color: T.sage, fontWeight: 700 }}>COACH NAS</span>
         <span style={{ color: T.text, fontWeight: 500 }}> | CLINICAL PHARMACIST</span>
       </div>
-      <div style={{ fontSize: 24, color: "#9A9A9A" }}>@coachnas.pharmacist</div>
+      <div style={{ fontSize: 24, color: "#9A9A9A" }}>@coachnasri_pharm</div>
     </div>
     <div style={{ position: "absolute", top: 112, left: 52, right: 52, height: 2, background: "#E6E5E0" }} />
 
