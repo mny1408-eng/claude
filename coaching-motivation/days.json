@@ -1,9 +1,156 @@
 [
-{"day":1,"date":"2026-10-06","tema":"Sistem > Motivasi","head":"Bukan *motivasi* yang buat kita kurus.","sub":"Sistem harian yang kita buat, itulah yang tentukan hasil. Mula kecil, buat konsisten.","quote":"You do not rise to the level of your goals. You fall to the level of your systems.","action":"Tentukan masa sarapan dan siapkan awal, malam tadi atau pagi ni.","intro":"Bukan motivasi yang buat kita kurus. Sistem harian.","body":"Motivasi tu naik turun. Mood x best pun kita still boleh jalan kalau routine dah set. Jadi hari ni x payah fikir besar, cukup siapkan satu langkah kecil dulu."},
-{"day":2,"date":"2026-10-07","tema":"Identiti","head":"Setiap pilihan makanan = satu *undi*.","sub":"Satu pilihan x ubah semua. Tapi bila undi dah banyak, kita mula jadi orang yang berbeza.","quote":"Every action you take is a vote for the type of person you wish to become.","action":"Pilih satu makanan atau minuman hari ni yang awak rasa \"ini pilihan orang yang jaga badan\".","intro":"Setiap pilihan makanan = satu undi.","body":"Satu pilihan x ubah semua. Tapi bila undi tu makin banyak, kita mula jadi orang yang lain. Bukan sebab dipaksa, tapi sebab itu dah jadi diri kita."},
-{"day":3,"date":"2026-10-08","tema":"Mula kecil","head":"Tak payah perfect. Cukup *mula kecil*.","sub":"Satu habit kecil yang diulang tiap hari, lama-lama kesannya terkumpul.","quote":"Habits are the compound interest of self-improvement.","action":"Pilih SATU habit yang paling senang: segelas air kosong sebelum sarapan, atau siapkan shake awal.","intro":"Tak payah perfect. Cukup mula kecil.","body":"Ramai gagal sebab nk ubah semua serentak. Pilih satu habit yang paling senang, buat setiap hari. Yang kecil tu la yang kita boleh kekalkan."},
-{"day":4,"date":"2026-10-09","tema":"Jangan miss dua kali","head":"Terlajak makan semalam? *Reset* hari ni.","sub":"Satu hari terlajak bukan masalah. Yang bahaya bila terlajak jadi tabiat.","quote":"Missing once is an accident. Missing twice is the start of a new habit.","action":"Makan seterusnya terus balik ikut plan. X payah denda diri atau skip makan.","intro":"Terlajak makan semalam? Reset hari ni.","body":"Semalam dah lepas. Jangan tunggu Isnin atau bulan depan untuk mula balik. Makan seterusnya, terus ikut plan. Itu je."},
-{"day":5,"date":"2026-10-10","tema":"Environment","head":"Dapur kita, penentu *diet* kita.","sub":"Kalau makanan sihat nampak dan senang capai, kita x payah bergantung pada willpower.","quote":"Environment is the invisible hand that shapes human behavior.","action":"Letak buah atau air kosong di tempat paling nampak. Simpan snack manis di tempat susah capai.","intro":"Dapur kita, penentu diet kita.","body":"Willpower boleh habis lepas penat kerja. Jadi kita susun persekitaran supaya pilihan yang betul jadi pilihan yang paling senang."},
-{"day":6,"date":"2026-10-11","tema":"Progress","head":"Timbang naik sikit? *Jangan panik.*","sub":"Berat harian boleh turun naik. Tengok trend 2 hingga 4 minggu, bukan satu pagi.","quote":"The most effective form of motivation is progress.","action":"Catat berat dan ukuran pinggang, lepas tu bandingkan dengan 2 minggu lepas, bukan semalam.","intro":"Timbang naik sikit? Jangan panik.","body":"Berat badan boleh turun naik harian. Yang kita nilai ialah trend beberapa minggu. Progress kecil yang kita nampak, itu yang buat kita nk teruskan."},
-{"day":7,"date":"2026-10-12","tema":"Refleksi","head":"Seminggu dah lalu. Apa *satu habit* kita pegang?","sub":"Tak perlu sempurna. Tengok arah kita, bukan hasil satu hari.","quote":"You should be far more concerned with your current trajectory than with your current results.","action":"Share di group: satu habit yang awak berjaya buat minggu ni.","intro":"Seminggu dah lalu. Apa satu habit yang awak pegang?","body":"Sebelum minggu baru bermula, berhenti kejap dan tengok. Mana satu habit yang awak berjaya buat? Itu la asas minggu depan. Share kat sini, kita sama-sama celebrate."}
+{
+"day": 1,
+"date": "2026-10-06",
+"tema": "Sistem > Motivasi",
+"head": "Bukan *motivasi* yang buat kita kurus.",
+"sub": "Sistem harian yang kita buat, itulah yang tentukan hasil. Mula kecil, buat konsisten.",
+"quote": "You do not rise to the level of your goals. You fall to the level of your systems.",
+"action": "Tentukan masa sarapan dan siapkan awal, malam tadi atau pagi ni.",
+"intro": "Bukan motivasi yang buat kita kurus. Sistem harian.",
+"body": "Motivasi tu naik turun. Mood x best pun kita still boleh jalan kalau routine dah set. Jadi hari ni x payah fikir besar, cukup siapkan satu langkah kecil dulu."
+},
+{
+"day": 2,
+"date": "2026-10-07",
+"tema": "Identiti",
+"head": "Setiap pilihan makanan = satu *undi*.",
+"sub": "Satu pilihan x ubah semua. Tapi bila undi dah banyak, kita mula jadi orang yang berbeza.",
+"quote": "Every action you take is a vote for the type of person you wish to become.",
+"action": "Pilih satu makanan atau minuman hari ni yang awak rasa \"ini pilihan orang yang jaga badan\".",
+"intro": "Setiap pilihan makanan = satu undi.",
+"body": "Satu pilihan x ubah semua. Tapi bila undi tu makin banyak, kita mula jadi orang yang lain. Bukan sebab dipaksa, tapi sebab itu dah jadi diri kita."
+},
+{
+"day": 3,
+"date": "2026-10-08",
+"tema": "Mula kecil",
+"head": "Tak payah perfect. Cukup *mula kecil*.",
+"sub": "Satu habit kecil yang diulang tiap hari, lama-lama kesannya terkumpul.",
+"quote": "Habits are the compound interest of self-improvement.",
+"action": "Pilih SATU habit yang paling senang: segelas air kosong sebelum sarapan, atau siapkan shake awal.",
+"intro": "Tak payah perfect. Cukup mula kecil.",
+"body": "Ramai gagal sebab nk ubah semua serentak. Pilih satu habit yang paling senang, buat setiap hari. Yang kecil tu la yang kita boleh kekalkan."
+},
+{
+"day": 4,
+"date": "2026-10-09",
+"tema": "Jangan miss dua kali",
+"head": "Terlajak makan semalam? *Reset* hari ni.",
+"sub": "Satu hari terlajak bukan masalah. Yang bahaya bila terlajak jadi tabiat.",
+"quote": "Missing once is an accident. Missing twice is the start of a new habit.",
+"action": "Makan seterusnya terus balik ikut plan. X payah denda diri atau skip makan.",
+"intro": "Terlajak makan semalam? Reset hari ni.",
+"body": "Semalam dah lepas. Jangan tunggu Isnin atau bulan depan untuk mula balik. Makan seterusnya, terus ikut plan. Itu je."
+},
+{
+"day": 5,
+"date": "2026-10-10",
+"tema": "Environment",
+"head": "Dapur kita, penentu *diet* kita.",
+"sub": "Kalau makanan sihat nampak dan senang capai, kita x payah bergantung pada willpower.",
+"quote": "Environment is the invisible hand that shapes human behavior.",
+"action": "Letak buah atau air kosong di tempat paling nampak. Simpan snack manis di tempat susah capai.",
+"intro": "Dapur kita, penentu diet kita.",
+"body": "Willpower boleh habis lepas penat kerja. Jadi kita susun persekitaran supaya pilihan yang betul jadi pilihan yang paling senang."
+},
+{
+"day": 6,
+"date": "2026-10-11",
+"tema": "Progress",
+"head": "Timbang naik sikit? *Jangan panik.*",
+"sub": "Berat harian boleh turun naik. Tengok trend 2 hingga 4 minggu, bukan satu pagi.",
+"quote": "The most effective form of motivation is progress.",
+"action": "Catat berat dan ukuran pinggang, lepas tu bandingkan dengan 2 minggu lepas, bukan semalam.",
+"intro": "Timbang naik sikit? Jangan panik.",
+"body": "Berat badan boleh turun naik harian. Yang kita nilai ialah trend beberapa minggu. Progress kecil yang kita nampak, itu yang buat kita nk teruskan."
+},
+{
+"day": 7,
+"date": "2026-10-12",
+"tema": "Refleksi",
+"head": "Seminggu dah lalu. Apa *satu habit* kita pegang?",
+"sub": "Tak perlu sempurna. Tengok arah kita, bukan hasil satu hari.",
+"quote": "You should be far more concerned with your current trajectory than with your current results.",
+"action": "Share di group: satu habit yang awak berjaya buat minggu ni.",
+"intro": "Seminggu dah lalu. Apa satu habit yang awak pegang?",
+"body": "Sebelum minggu baru bermula, berhenti kejap dan tengok. Mana satu habit yang awak berjaya buat? Itu la asas minggu depan. Share kat sini, kita sama-sama celebrate."
+},
+{
+"day": 8,
+"date": "2026-10-13",
+"tema": "Ikut jadual",
+"head": "Mood x best? *Jadual* tetap jalan.",
+"sub": "Orang yang berjaya bukan sentiasa bersemangat. Mereka cuma ikut jadual yang dah ditetapkan.",
+"quote": "Professionals stick to the schedule, amateurs let life get in the way.",
+"action": "Tetapkan waktu makan utama untuk minggu ni dan simpan dalam reminder telefon.",
+"intro": "Mood x best? Jadual tetap jalan.",
+"body": "Minggu baru, kita mula balik dengan satu prinsip. Kita x tunggu rasa bersemangat baru nak buat. Bila jadual dah set, kita ikut je, walaupun hari tu penat."
+},
+{
+"day": 9,
+"date": "2026-10-14",
+"tema": "Identiti",
+"head": "Bukan \"saya nak kurus\". Tapi \"saya orang yang *jaga makan*\".",
+"sub": "Bila habit jadi sebahagian diri kita, kita x perlu paksa lagi.",
+"quote": "The ultimate form of intrinsic motivation is when a habit becomes part of your identity.",
+"action": "Tulis satu ayat \"Saya orang yang...\" dan baca setiap kali nak buat pilihan makanan hari ni.",
+"intro": "Bukan \"saya nak kurus\". Tapi \"saya orang yang jaga makan\".",
+"body": "Beza dia kecil tapi kesannya besar. \"Nak kurus\" tu matlamat. \"Orang yang jaga makan\" tu identiti. Bila kita nampak diri macam tu, pilihan yang betul jadi lebih mudah."
+},
+{
+"day": 10,
+"date": "2026-10-15",
+"tema": "Susun persekitaran",
+"head": "Pejabat penuh kuih? Kita yang *susun* pilihan.",
+"sub": "Kita x boleh kawal semua makanan di sekeliling. Tapi kita boleh sediakan pilihan sendiri.",
+"quote": "Be the designer of your world and not merely the consumer of it.",
+"action": "Bawa snack sihat atau shake ke tempat kerja, supaya bila lapar petang ada pilihan yang dah siap.",
+"intro": "Pejabat penuh kuih? Kita yang susun pilihan.",
+"body": "Kuih mesyuarat, makan-makan kawan, semua tu memang akan ada. Daripada lawan dengan willpower, lebih senang kalau kita dah bawa pilihan sendiri dari rumah."
+},
+{
+"day": 11,
+"date": "2026-10-16",
+"tema": "Keputusan kecil",
+"head": "Satu *keputusan kecil* hari ni.",
+"sub": "Setiap habit bermula dengan satu pilihan kecil. Bila diulang, dia jadi kuat.",
+"quote": "All big things come from small beginnings. The seed of every habit is a single, tiny decision.",
+"action": "Pilih satu keputusan kecil hari ni, contohnya tukar air manis kepada air kosong untuk satu waktu makan.",
+"intro": "Satu keputusan kecil hari ni.",
+"body": "X perlu ubah semua sekali gus. Satu keputusan kecil yang kita ulang setiap hari, lama-lama jadi habit yang susah nak dibuang."
+},
+{
+"day": 12,
+"date": "2026-10-17",
+"tema": "Bosan itu normal",
+"head": "Dah rasa *bosan*? Itu tanda awak konsisten.",
+"sub": "Bosan bukan tanda gagal. Ramai berhenti bukan sebab tak berjaya, tapi sebab bosan.",
+"quote": "The greatest threat to success is not failure but boredom.",
+"action": "Tukar variasi menu minggu ni, contohnya sayur atau sumber protein lain, tapi kekalkan struktur plan.",
+"intro": "Dah rasa bosan? Itu tanda awak konsisten.",
+"body": "Masuk minggu kedua, biasa la rasa bosan. Itu maksudnya rutin dah jadi biasa. Jangan berhenti, cuma tukar sikit variasi supaya awak masih seronok."
+},
+{
+"day": 13,
+"date": "2026-10-18",
+"tema": "1% setiap hari",
+"head": "Bukan berubah semalaman. Tapi *1%* setiap hari.",
+"sub": "Perubahan yang bertahan datang daripada habit harian, bukan satu usaha besar sekali sekala.",
+"quote": "Success is the product of daily habits—not once-in-a-lifetime transformations.",
+"action": "Pilih satu perkara untuk buat 1% lebih baik hari ni, contohnya jalan kaki 10 minit selepas makan.",
+"intro": "Bukan berubah semalaman. Tapi 1% setiap hari.",
+"body": "Kita x perlu tunggu Isnin, bulan depan atau tahun baru. Sedikit lebih baik dari semalam pun dah cukup. Yang penting kita ulang."
+},
+{
+"day": 14,
+"date": "2026-10-19",
+"tema": "Bangga dengan diri",
+"head": "Dua minggu dah lalu. Apa yang awak *bangga*?",
+"sub": "Rasa bangga dengan perubahan kecil buat kita lebih nak teruskan.",
+"quote": "The more pride you have in a particular aspect of your identity, the more motivated you will be to maintain the habits associated with it.",
+"action": "Share di group satu perubahan kecil yang awak bangga dalam dua minggu ni.",
+"intro": "Dua minggu dah lalu. Apa yang awak bangga?",
+"body": "Berhenti kejap dan tengok balik. Mungkin awak dah kurang minum manis, lebih awal tidur, atau lebih konsisten makan. Semua tu patut dibanggakan. Share kat sini, kita sama-sama celebrate."
+}
 ]
