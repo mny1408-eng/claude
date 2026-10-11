@@ -42,7 +42,8 @@ async function gemini(text) {
   for (let attempt = 0; attempt < 6; attempt++) {
     res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
+      // The key may come from GEMINI_API_KEY, or be injected by the environment's network secret for this host.
+      headers: { "Content-Type": "application/json", ...(process.env.GEMINI_API_KEY ? { "x-goog-api-key": process.env.GEMINI_API_KEY } : {}) },
       // Text only: this model reads any style instructions aloud.
       body: JSON.stringify({
         contents: [{ parts: [{ text }] }],
