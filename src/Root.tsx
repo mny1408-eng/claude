@@ -22,6 +22,11 @@ import { C0810SoalanRule, C0810_SLIDES } from "./carousel/C0810SoalanRule";
 import { C0910Motivation, C0910_SLIDES } from "./carousel/C0910Motivation";
 import { C1010Weekend, C1010_SLIDES } from "./carousel/C1010Weekend";
 import { C1110SundayReset, C1110_SLIDES } from "./carousel/C1110SundayReset";
+import { C1210Sarapan, C1210_SLIDES } from "./carousel/C1210Sarapan";
+import { C1310SoalanAI, C1310_SLIDES } from "./carousel/C1310SoalanAI";
+import { C1410BacaLabel, C1410_SLIDES } from "./carousel/C1410BacaLabel";
+import { C1510CoachKlinik, C1510_SLIDES } from "./carousel/C1510CoachKlinik";
+import { C1810Menopause, C1810_SLIDES } from "./carousel/C1810Menopause";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
 
@@ -38,6 +43,11 @@ const CAROUSELS = [
   { id: "09-10-Motivation", Slides: C0910Motivation, slides: C0910_SLIDES, music: 12 },
   { id: "10-10-Weekend", Slides: C1010Weekend, slides: C1010_SLIDES, music: 125 },
   { id: "11-10-SundayReset", Slides: C1110SundayReset, slides: C1110_SLIDES, music: 44 },
+  { id: "12-10-Sarapan", Slides: C1210Sarapan, slides: C1210_SLIDES, music: 72 },
+  { id: "13-10-SoalanAI", Slides: C1310SoalanAI, slides: C1310_SLIDES, music: 108 },
+  { id: "14-10-BacaLabel", Slides: C1410BacaLabel, slides: C1410_SLIDES, music: 18 },
+  { id: "15-10-CoachKlinik", Slides: C1510CoachKlinik, slides: C1510_SLIDES, music: 132 },
+  { id: "18-10-Menopause", Slides: C1810Menopause, slides: C1810_SLIDES, music: 56 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
