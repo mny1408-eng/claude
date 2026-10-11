@@ -26,6 +26,8 @@ import { C1210Sarapan, C1210_SLIDES } from "./carousel/C1210Sarapan";
 import { C1310SoalanAI, C1310_SLIDES } from "./carousel/C1310SoalanAI";
 import { C1410BacaLabel, C1410_SLIDES } from "./carousel/C1410BacaLabel";
 import { C1510CoachKlinik, C1510_SLIDES } from "./carousel/C1510CoachKlinik";
+import { C1610BajetMakan, C1610_SLIDES } from "./carousel/C1610BajetMakan";
+import { C1710NutritionClub, C1710_SLIDES } from "./carousel/C1710NutritionClub";
 import { C1810Menopause, C1810_SLIDES } from "./carousel/C1810Menopause";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { Kalendar, KALENDAR_SAMPLE, W as KAL_W, H as KAL_H } from "./kalendar/Kalendar";
@@ -47,6 +49,8 @@ const CAROUSELS = [
   { id: "13-10-SoalanAI", Slides: C1310SoalanAI, slides: C1310_SLIDES, music: 108 },
   { id: "14-10-BacaLabel", Slides: C1410BacaLabel, slides: C1410_SLIDES, music: 18 },
   { id: "15-10-CoachKlinik", Slides: C1510CoachKlinik, slides: C1510_SLIDES, music: 132 },
+  { id: "16-10-BajetMakan", Slides: C1610BajetMakan, slides: C1610_SLIDES, music: 90 },
+  { id: "17-10-NutritionClub", Slides: C1710NutritionClub, slides: C1710_SLIDES, music: 24 },
   { id: "18-10-Menopause", Slides: C1810Menopause, slides: C1810_SLIDES, music: 56 },
 ];
 
