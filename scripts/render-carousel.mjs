@@ -14,7 +14,7 @@ for (const spec of ids) {
   const composition = await selectComposition({ serveUrl, id: `Carousel-${id}` });
   for (let f = 0; f < composition.durationInFrames; f++) {
     const output = path.join(outRoot, folder, final ? `slide-${f + 1}.jpg` : `s${f + 1}.png`);
-    await renderStill({ composition, serveUrl, output, frame: f, scale: Number(scale), imageFormat: final ? "jpeg" : "png", jpegQuality: 95 });
+    await renderStill({ composition, serveUrl, output, frame: f, scale: Number(scale), imageFormat: final ? "jpeg" : "png", ...(final ? { jpegQuality: 95 } : {}) });
   }
   console.log("done", id);
 }

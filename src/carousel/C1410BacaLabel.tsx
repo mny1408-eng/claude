@@ -20,7 +20,7 @@ const LabelCard: React.FC<{ on: number[]; width?: number; tag?: string }> = ({ o
     {ROWS.map((r, i) => {
       const lit = on.includes(i);
       return (
-        <div key={r} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: tag ? "10px 12px" : "14px 14px", margin: "6px 0", borderRadius: 10, background: lit ? T.sageSoft : "transparent", border: lit ? `2px solid ${T.sage}` : "2px solid transparent" }}>
+        <div key={r} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: tag ? "6px 12px" : "9px 14px", margin: "4px 0", borderRadius: 10, background: lit ? T.sageSoft : "transparent", border: lit ? `2px solid ${T.sage}` : "2px solid transparent" }}>
           <div style={{ fontSize: tag ? 26 : 32, fontWeight: lit ? 700 : 500, color: lit ? T.text : "#9A9A9A" }}>{r}</div>
           <div style={{ width: tag ? 90 : 200 }}>
             <Bar w={100} on={lit} />
@@ -31,11 +31,11 @@ const LabelCard: React.FC<{ on: number[]; width?: number; tag?: string }> = ({ o
   </div>
 );
 
-const Step: React.FC<{ i: number; kicker: string; head: React.ReactNode; line?: React.ReactNode; on: number[] }> = ({ i, kicker, head, line, on }) => (
+const Step: React.FC<{ i: number; kicker: string; head: React.ReactNode; line?: React.ReactNode; on: number[]; size?: number; cardTop?: number }> = ({ i, kicker, head, line, on, size = 116, cardTop }) => (
   <Slide index={i} total={TOTAL}>
     <Pad top={190}>
       <Kicker>{kicker}</Kicker>
-      <Headline size={116}>{head}</Headline>
+      <Headline size={size}>{head}</Headline>
       {line && (
         <>
           <Rule style={{ margin: "30px 0 26px" }} />
@@ -43,7 +43,7 @@ const Step: React.FC<{ i: number; kicker: string; head: React.ReactNode; line?: 
         </>
       )}
     </Pad>
-    <Pad top={line ? 800 : 700}>
+    <Pad top={cardTop ?? (line ? 800 : 700)}>
       <LabelCard on={on} />
     </Pad>
   </Slide>
@@ -53,17 +53,17 @@ const S1: React.FC = () => (
   <Slide index={0} total={TOTAL}>
     <Pad top={200}>
       <Kicker>Baca label</Kicker>
-      <Headline size={124}>
+      <Headline size={110}>
         5 minit baca label
         <br />
         tanpa jadi
         <br />
         <Sage>food police.</Sage>
       </Headline>
-      <Rule style={{ margin: "44px 0 36px" }} />
-      <Body size={46}>Claim depan bungkus bukan cerita penuh.</Body>
+      <Rule style={{ margin: "32px 0 26px" }} />
+      <Body size={42}>Claim depan bungkus bukan cerita penuh.</Body>
     </Pad>
-    <div style={{ position: "absolute", top: 860, left: 104, right: 104, display: "flex", gap: 30, alignItems: "stretch" }}>
+    <div style={{ position: "absolute", top: 880, left: 104, right: 104, display: "flex", gap: 30, alignItems: "stretch" }}>
       <div style={{ flex: 1, background: "#fff", border: `4px solid ${T.text}`, borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, fontWeight: 700, color: T.sage, padding: 24, textAlign: "center" }}>Depan bungkus</div>
       <div style={{ flex: 1.3 }}>
         <LabelCard on={[]} width={460} tag="Belakang" />
@@ -75,9 +75,9 @@ const S1: React.FC = () => (
 const S2: React.FC = () => (
   <Step i={1} kicker="Semak 1" head={<><Sage>Serving size</Sage> dulu.</>} line="Nombor di belakang ikut hidangan, bukan satu bungkus." on={[0]} />
 );
-const S3: React.FC = () => <Step i={2} kicker="Semak 2" head={<><Sage>Ingredients:</Sage> tengok apa yang disenaraikan awal.</>} on={[1]} />;
-const S4: React.FC = () => <Step i={3} kicker="Semak 3" head={<><Sage>Serat:</Sage> satu bahagian daripada gambaran, bukan satu-satunya.</>} on={[2]} />;
-const S5: React.FC = () => <Step i={4} kicker="Semak 4" head={<><Sage>Gula dan protein:</Sage> lihat bersama serat dan konteks meal.</>} on={[2, 3, 4]} />;
+const S3: React.FC = () => <Step i={2} kicker="Semak 2" head={<><Sage>Ingredients:</Sage> tengok apa yang disenaraikan awal.</>} on={[1]} size={100} cardTop={740} />;
+const S4: React.FC = () => <Step i={3} kicker="Semak 3" head={<><Sage>Serat:</Sage> satu bahagian daripada gambaran, bukan satu-satunya.</>} on={[2]} size={100} cardTop={780} />;
+const S5: React.FC = () => <Step i={4} kicker="Semak 4" head={<><Sage>Gula dan protein:</Sage> lihat bersama serat dan konteks meal.</>} on={[2, 3, 4]} size={96} cardTop={800} />;
 
 const S6: React.FC = () => (
   <Slide index={5} total={TOTAL}>
