@@ -39,6 +39,7 @@ import { BLOODTYPE_SCENES } from "./reels/BloodTypeReel";
 import { HCP_SCENES } from "./reels/HcpReel";
 import { RECRUIT_SCENES } from "./reels/RecruitReel";
 import { GAME_SCENES } from "./reels/GameReel";
+import { R1210_SARAPAN_REAL_SCENES } from "./reels/R1210SarapanReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -281,6 +282,14 @@ export const Root: React.FC = () => (
       id="R1-10-10-Weekend-CoachNas"
       component={() => <Reel scenes={R1010_WEEKEND_REAL_SCENES} />}
       durationInFrames={reelLength(R1010_WEEKEND_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-12-10-Sarapan-CoachNas"
+      component={() => <Reel scenes={R1210_SARAPAN_REAL_SCENES} />}
+      durationInFrames={reelLength(R1210_SARAPAN_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
