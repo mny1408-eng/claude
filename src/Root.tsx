@@ -30,6 +30,8 @@ import { CSabotaj, CSABOTAJ_SLIDES } from "./carousel/CSabotaj";
 import { CFormulaKonsisten, CFORMULA_SLIDES } from "./carousel/CFormulaKonsisten";
 import { CBuatApaJaga, CBUATAPA_SLIDES } from "./carousel/CBuatApaJaga";
 import { CBerkira, CBERKIRA_SLIDES } from "./carousel/CBerkira";
+import { CMalasMasak, CMALAS_SLIDES } from "./carousel/CMalasMasak";
+import { CPerapanAyam, CPERAPAN_SLIDES } from "./carousel/CPerapanAyam";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { ReelKanser, KANSER_TOTAL } from "./reels/kanser/ReelKanser";
 import { ReelHealing, HEALING_TOTAL } from "./reels/healing/ReelHealing";
@@ -57,6 +59,8 @@ const CAROUSELS = [
   { id: "Formula-Konsisten", Slides: CFormulaKonsisten, slides: CFORMULA_SLIDES, music: 132 },
   { id: "Buat-Apa-Jaga", Slides: CBuatApaJaga, slides: CBUATAPA_SLIDES, music: 24 },
   { id: "Berkira-Kesihatan", Slides: CBerkira, slides: CBERKIRA_SLIDES, music: 70 },
+  { id: "Malas-Masak", Slides: CMalasMasak, slides: CMALAS_SLIDES, music: 36 },
+  { id: "Perapan-Ayam", Slides: CPerapanAyam, slides: CPERAPAN_SLIDES, music: 92 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
