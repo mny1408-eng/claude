@@ -4,6 +4,7 @@ import React from "react";
 import { useCurrentFrame } from "remotion";
 import { B, Body, CtaBox, HEAD, Headline, Kicker, Pad, Portrait, Sage, Slide, T } from "./template";
 import { Chip, RecipeSlide, TipBox } from "./recipe";
+import { Meal, MealBox } from "./foodart";
 
 const TOTAL = 8;
 
@@ -18,9 +19,12 @@ const S1: React.FC = () => (
         Siap dalam <B>10–15 minit</B>. Ada protein, karbo & sayur.
       </Body>
     </Pad>
-    <div style={{ position: "absolute", top: 880, left: 104, right: 104, display: "flex", alignItems: "center", gap: 40 }}>
+    <div style={{ position: "absolute", top: 690, left: 0, right: 0, display: "flex", justifyContent: "center", transform: "rotate(-3deg)" }}>
+      <MealBox meal={{ carb: "rice", protein: "chicken", veg: "mixed" }} width={580} labels={false} />
+    </div>
+    <div style={{ position: "absolute", top: 1080, left: 104, right: 104, display: "flex", alignItems: "center", gap: 36 }}>
       <div style={{ flex: "none" }}>
-        <Portrait size={190} />
+        <Portrait size={150} />
       </div>
       <Body size={36}>
         Tak rajin masak <B sage>tak bermaksud</B> tak boleh jaga makan.
@@ -30,30 +34,31 @@ const S1: React.FC = () => (
 );
 
 const MENUS = [
-  { n: "01", title: <>Sandwich <Sage>telur</Sage></>, sub: "Roti wholemeal + telur rebus + sayur", p: "2 biji telur", k: "2 keping roti wholemeal", s: "Lettuce + timun", tip: <>Rebus telur <B>4–6 biji sekali gus</B> hujung minggu. Simpan dalam peti sejuk, tinggal ambil.</>, when: "Sarapan · Bekal" },
-  { n: "02", title: <>Wrap <Sage>tuna</Sage></>, sub: "Tuna + tortilla wholemeal + sayur", p: "Tuna dalam air", k: "1 tortilla wholemeal", s: "Lettuce + tomato + timun", tip: <>Pilih tuna <B>dalam air</B>, bukan dalam minyak. Ganti mayo dengan yogurt tanpa gula.</>, when: "Bekal · Lunch · Dinner" },
-  { n: "03", title: <>Nasi ayam <Sage>panggang</Sage></>, sub: "Nasi + ayam panggang siap beli + sayur frozen", p: "Ayam panggang (buang kulit)", k: "Nasi ikut portion", s: "Mixed vegetables frozen", tip: <>Guna konsep <B>suku-suku-separuh</B>: ¼ nasi, ¼ ayam, ½ sayur. Sayur frozen tinggal panaskan.</>, when: "Lunch · Dinner" },
-  { n: "04", title: <>Kentang <Sage>microwave</Sage></>, sub: "Kentang + telur + salad", p: "2 biji telur", k: "1 kentang sederhana", s: "Salad + timun + tomato", tip: <>Cucuk kentang dengan garpu, microwave <B>5–8 minit</B> ikut saiz. Makan dengan kulit untuk serat.</>, when: "Lunch · Dinner" },
-  { n: "05", title: <>Rice bowl <Sage>sardin</Sage></>, sub: "Nasi + sardin + timun + tomato", p: "Sardin dalam tin", k: "Nasi ikut portion", s: "Timun + tomato", tip: <>Sardin dimakan <B>dengan tulang</B> ada kalsium. Kuah tin agak masin, jadi ambil sikit je kuahnya.</>, when: "Lunch · Dinner · Menu cepat" },
+  { meal: { carb: "bread", protein: "egg", veg: "cuke" } as Meal, n: "01", title: <>Sandwich <Sage>telur</Sage></>, sub: "Roti wholemeal + telur rebus + sayur", p: "2 biji telur", k: "2 keping roti wholemeal", s: "Lettuce + timun", tip: <>Rebus telur <B>4–6 biji sekali gus</B> hujung minggu. Simpan dalam peti sejuk, tinggal ambil.</>, when: "Sarapan · Bekal" },
+  { meal: { carb: "wrap", protein: "tuna", veg: "salad" } as Meal, n: "02", title: <>Wrap <Sage>tuna</Sage></>, sub: "Tuna + tortilla wholemeal + sayur", p: "Tuna dalam air", k: "1 tortilla wholemeal", s: "Lettuce + tomato + timun", tip: <>Pilih tuna <B>dalam air</B>, bukan dalam minyak. Ganti mayo dengan yogurt tanpa gula.</>, when: "Bekal · Lunch · Dinner" },
+  { meal: { carb: "rice", protein: "chicken", veg: "mixed" } as Meal, n: "03", title: <>Nasi ayam <Sage>panggang</Sage></>, sub: "Nasi + ayam panggang siap beli + sayur frozen", p: "Ayam panggang (buang kulit)", k: "Nasi ikut portion", s: "Mixed vegetables frozen", tip: <>Guna konsep <B>suku-suku-separuh</B>: ¼ nasi, ¼ ayam, ½ sayur. Sayur frozen tinggal panaskan.</>, when: "Lunch · Dinner" },
+  { meal: { carb: "potato", protein: "egg", veg: "salad" } as Meal, n: "04", title: <>Kentang <Sage>microwave</Sage></>, sub: "Kentang + telur + salad", p: "2 biji telur", k: "1 kentang sederhana", s: "Salad + timun + tomato", tip: <>Cucuk kentang dengan garpu, microwave <B>5–8 minit</B> ikut saiz. Makan dengan kulit untuk serat.</>, when: "Lunch · Dinner" },
+  { meal: { carb: "rice", protein: "sardine", veg: "cuke" } as Meal, n: "05", title: <>Rice bowl <Sage>sardin</Sage></>, sub: "Nasi + sardin + timun + tomato", p: "Sardin dalam tin", k: "Nasi ikut portion", s: "Timun + tomato", tip: <>Sardin dimakan <B>dengan tulang</B> ada kalsium. Kuah tin agak masin, jadi ambil sikit je kuahnya.</>, when: "Lunch · Dinner · Menu cepat" },
 ];
 
 const MenuSlides = MENUS.map((m, i) => {
   const M: React.FC = () => (
     <RecipeSlide index={i + 1} total={TOTAL} n={m.n} kicker={`Menu ${m.n} / 05 · ${m.when}`} title={m.title} sub={m.sub}>
-      <div style={{ display: "flex", gap: 14 }}>
-        <Chip label="PROTEIN" value={m.p} />
+      <div style={{ display: "flex", justifyContent: "center", marginTop: -10 }}>
+        <MealBox meal={m.meal} width={760} />
+      </div>
+      <div style={{ display: "flex", gap: 12 }}>
+        <Chip label="SAYUR" value={m.s} />
         <Chip label="KARBO" value={m.k} />
+        <Chip label="PROTEIN" value={m.p} />
       </div>
-      <Chip label="SAYUR" value={m.s} />
-      <div style={{ marginTop: 18 }}>
-        <TipBox>{m.tip}</TipBox>
-      </div>
+      <TipBox>{m.tip}</TipBox>
     </RecipeSlide>
   );
   return M;
 });
 
-const STOCK = ["Telur", "Tuna / sardin tin", "Roti wholemeal / oats", "Sayur frozen", "Yogurt / susu", "Buah + kekacang"];
+const STOCK = ["🥚 Telur", "🐟 Tuna / sardin tin", "🍞 Roti wholemeal / oats", "🥦 Sayur frozen", "🥛 Yogurt / susu", "🍎 Buah + kekacang"];
 
 const S7: React.FC = () => (
   <Slide index={6} total={TOTAL}>
@@ -65,8 +70,8 @@ const S7: React.FC = () => (
     </Pad>
     <div style={{ position: "absolute", top: 450, left: 84, right: 84, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
       {STOCK.map((s) => (
-        <div key={s} style={{ background: "#fff", border: `3px solid ${T.rule}`, borderRadius: 16, padding: "20px 22px", fontSize: 30, fontWeight: 600 }}>
-          ✓ {s}
+        <div key={s} style={{ background: "#fff", border: `3px solid ${T.rule}`, borderRadius: 16, padding: "20px 22px", fontSize: 32, fontWeight: 600 }}>
+          {s}
         </div>
       ))}
     </div>

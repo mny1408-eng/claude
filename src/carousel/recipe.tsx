@@ -3,16 +3,16 @@ import React from "react";
 import { HEAD, Headline, Kicker, Pad, Sage, Slide, T } from "./template";
 
 export const Chip: React.FC<{ label: string; value: string }> = ({ label, value }) => (
-  <div style={{ flex: 1, background: "#fff", border: "3px solid #E6E5E0", borderRadius: 18, padding: "16px 18px" }}>
+  <div style={{ flex: 1, background: "#fff", border: "3px solid #E6E5E0", borderRadius: 18, padding: "14px 16px" }}>
     <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: 3, color: T.sage }}>{label}</div>
-    <div style={{ fontSize: 28, fontWeight: 600, marginTop: 6, lineHeight: 1.25 }}>{value}</div>
+    <div style={{ fontSize: 25, fontWeight: 600, marginTop: 4, lineHeight: 1.25 }}>{value}</div>
   </div>
 );
 
 export const TipBox: React.FC<{ children: React.ReactNode; title?: string }> = ({ children, title = "TIP COACH NAS" }) => (
   <div style={{ background: T.sageSoft, borderLeft: `8px solid ${T.sage}`, borderRadius: 14, padding: "22px 30px" }}>
     <div style={{ fontSize: 22, fontWeight: 700, letterSpacing: 4, color: T.sage, marginBottom: 8 }}>{title}</div>
-    <div style={{ fontSize: 31, lineHeight: 1.38, fontWeight: 600 }}>{children}</div>
+    <div style={{ fontSize: 29, lineHeight: 1.36, fontWeight: 600 }}>{children}</div>
   </div>
 );
 
