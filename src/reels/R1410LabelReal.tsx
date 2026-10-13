@@ -170,7 +170,6 @@ const Breads: React.FC = () => {
     <>
       <BreadAt src="img/bread-white.jpg" x={330} y={860} at={0.56} rot={-5} />
       <BreadAt src="img/bread-seeded.jpg" x={700} y={840} at={0.75} rot={5} />
-      
     </>
   );
 };
@@ -447,6 +446,15 @@ const Lower: React.FC = () => {
   );
 };
 
+const Window: React.FC<{
+  from: number;
+  to: number;
+  children: React.ReactNode;
+}> = ({ from, to, children }) => {
+  const t = useCurrentFrame() / FPS;
+  return t >= from && t < to ? <>{children}</> : null;
+};
+
 const LABEL_FROM = 4.5;
 const LABEL_TO = 29.3;
 
@@ -468,7 +476,7 @@ const Talk: React.FC = () => (
     <div
       style={{
         position: "absolute",
-        top: 1290,
+        top: 1340,
         left: SAFE.left,
         right: SAFE.right,
         display: "flex",
@@ -487,22 +495,36 @@ export const R1410_LABEL_REAL_SCENES: SceneDef[] = [
     el: (
       <>
         <Talk />
-        {/* captions: full width outside the label section, right-hand column beside the label during it */}
-        <Captions
-          words={WORDS.filter((w) => w[0] < LABEL_FROM || w[0] >= LABEL_TO)}
-          top={1150}
-          size={60}
-          left={SAFE.left}
-          right={SAFE.right}
-        />
-        <Captions
-          words={WORDS.filter((w) => w[0] >= LABEL_FROM && w[0] < LABEL_TO)}
-          top={1200}
-          size={44}
-          max={2}
-          left={COL_X}
-          right={SAFE.right - 120}
-        />
+        {/* captions: full width outside the label section, right-hand column beside the label during it; each set is
+            cut off at the section boundary so the two never show together */}
+        <Window from={0} to={LABEL_FROM}>
+          <Captions
+            words={WORDS.filter((w) => w[0] < LABEL_FROM)}
+            top={1150}
+            size={60}
+            left={SAFE.left}
+            right={SAFE.right}
+          />
+        </Window>
+        <Window from={LABEL_FROM} to={LABEL_TO}>
+          <Captions
+            words={WORDS.filter((w) => w[0] >= LABEL_FROM && w[0] < LABEL_TO)}
+            top={1290}
+            size={44}
+            max={2}
+            left={COL_X}
+            right={SAFE.right - 120}
+          />
+        </Window>
+        <Window from={LABEL_TO} to={99}>
+          <Captions
+            words={WORDS.filter((w) => w[0] >= LABEL_TO)}
+            top={1130}
+            size={56}
+            left={SAFE.left}
+            right={SAFE.right}
+          />
+        </Window>
       </>
     ),
     cues: [
