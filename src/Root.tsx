@@ -45,6 +45,8 @@ import { R1310_AIUBAT_REAL_SCENES } from "./reels/R1310AiUbatReal";
 import { R1310BinaOverlay, R1310_BINA_REAL_SCENES } from "./reels/R1310BinaReal";
 import { R1410_LABEL_REAL_SCENES } from "./reels/R1410LabelReal";
 import { R1410_FAV_REAL_SCENES } from "./reels/R1410FavReal";
+import { R1510_BP_REAL_SCENES } from "./reels/R1510BpReal";
+import { R1510_MOVE_REAL_SCENES } from "./reels/R1510MoveReal";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
 import { R0810ProteinVoice, R0810_PROTEIN_REAL_SCENES } from "./reels/R0810ProteinReal";
 import { R0910_TAHU_SCENES } from "./reels/R0910TahuBuat";
@@ -287,6 +289,22 @@ export const Root: React.FC = () => (
       id="R1-10-10-Weekend-CoachNas"
       component={() => <Reel scenes={R1010_WEEKEND_REAL_SCENES} />}
       durationInFrames={reelLength(R1010_WEEKEND_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-15-10-BP-CoachNas"
+      component={() => <Reel scenes={R1510_BP_REAL_SCENES} />}
+      durationInFrames={reelLength(R1510_BP_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R2-15-10-Movement-CoachNas"
+      component={() => <Reel scenes={R1510_MOVE_REAL_SCENES} />}
+      durationInFrames={reelLength(R1510_MOVE_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
