@@ -107,6 +107,11 @@ export const NumCard: React.FC<{ n: string; tag: string; text: React.ReactNode; 
   </Pop>
 );
 
+// Platform safe zone for 1080×1920 reels, measured from an IG Reels screenshot (13/10/2026): the username, caption and
+// location block covers y > ~1500, and the like/comment/share/save column covers x > ~900 from y ~950 down. Keep
+// overlays and captions inside these bounds.
+export const SAFE = { bottom: 1480, right: 190, left: 60 };
+
 // Rounded word chip.
 export const Chip: React.FC<{ children: React.ReactNode; delay?: number; rotate?: number; size?: number }> = ({ children, delay = 0, rotate = 0, size = 52 }) => (
   <Pop delay={delay} rotate={rotate}>
