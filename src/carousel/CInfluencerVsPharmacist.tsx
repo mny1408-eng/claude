@@ -1,0 +1,301 @@
+// PM Carousel — "Influencer 'detox' vs Pharmacist: kenapa yang pertama selalu menang online?"
+// Concept adapted from a doctor-communication carousel; own copy. The influencer side uses icons, not a real
+// or AI person. Bar lengths are illustrative (no data). Quotes are generic examples of common myths.
+import React from "react";
+import { Img, staticFile, useCurrentFrame } from "remotion";
+import { B, Body, CtaBox, HEAD, Headline, Kicker, Pad, Portrait, Sage, Slide, T } from "./template";
+
+const TOTAL = 6;
+const RED = "#A8452F";
+const RED_SOFT = "#F6E3DC";
+
+// Phone mockup: either an emoji "influencer" screen or Coach Nas's photo.
+const Phone: React.FC<{ w?: number; kind: "inf" | "nas"; badge?: string }> = ({ w = 300, kind, badge }) => {
+  const h = w * 1.78;
+  return (
+    <div style={{ width: w, height: h, borderRadius: w * 0.13, background: "#1E1E1E", padding: w * 0.035, boxShadow: "0 18px 40px rgba(0,0,0,0.18)", flex: "none" }}>
+      <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: w * 0.1, overflow: "hidden", background: kind === "inf" ? "linear-gradient(160deg,#F4D1C4,#E6A890)" : "#ddd" }}>
+        {kind === "nas" ? (
+          <Img src={staticFile("img/coach-nas.jpeg")} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 20%" }} />
+        ) : (
+          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: w * 0.04 }}>
+            <div style={{ fontSize: w * 0.34 }}>🥤</div>
+            <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: w * 0.13, color: "#fff", letterSpacing: 2, textShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>DETOX 7 HARI</div>
+            <div style={{ fontSize: w * 0.12 }}>🔥🔥🔥</div>
+          </div>
+        )}
+        <div style={{ position: "absolute", top: w * 0.06, left: w * 0.08, right: w * 0.08, height: 5, borderRadius: 3, background: "rgba(255,255,255,0.45)" }}>
+          <div style={{ width: "35%", height: "100%", borderRadius: 3, background: "#fff" }} />
+        </div>
+        {badge && (
+          <div style={{ position: "absolute", bottom: w * 0.07, left: w * 0.07, background: kind === "inf" ? RED : T.ring, color: "#fff", fontSize: w * 0.075, fontWeight: 700, padding: `${w * 0.02}px ${w * 0.05}px`, borderRadius: 999 }}>{badge}</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Quote: React.FC<{ children: React.ReactNode; red?: boolean; small?: boolean }> = ({ children, red, small }) => (
+  <div
+    style={{
+      background: red ? RED_SOFT : T.sageSoft,
+      borderRadius: 16,
+      padding: "16px 22px",
+      fontSize: small ? 27 : 30,
+      lineHeight: 1.28,
+      fontWeight: red ? 800 : 500,
+      fontFamily: red ? HEAD : undefined,
+      textTransform: red ? "uppercase" : undefined,
+      letterSpacing: red ? 0.5 : undefined,
+      color: red ? "#5A2418" : T.text,
+    }}
+  >
+    {children}
+  </div>
+);
+
+const Mark: React.FC<{ ok: boolean; children: React.ReactNode }> = ({ ok, children }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 29, padding: "5px 0" }}>
+    <div style={{ width: 38, height: 38, borderRadius: "50%", background: ok ? RED : "#B9B5AC", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, fontWeight: 800, flex: "none" }}>{ok ? "✓" : "✕"}</div>
+    {children}
+  </div>
+);
+
+const Label: React.FC<{ children: React.ReactNode; red?: boolean }> = ({ children, red }) => (
+  <div style={{ fontSize: 24, fontWeight: 800, letterSpacing: 3, color: red ? RED : T.sage, marginBottom: 14, textTransform: "uppercase" }}>{children}</div>
+);
+
+// 1 — Hook
+const S1: React.FC = () => (
+  <Slide index={0} total={TOTAL}>
+    <Pad top={170}>
+      <Headline size={100}>
+        <span style={{ color: RED }}>Influencer “detox”</span> <span style={{ fontSize: 60, color: "#9A9A9A" }}>vs</span> <Sage>Pharmacist</Sage>
+      </Headline>
+      <div style={{ display: "inline-block", marginTop: 24, background: RED_SOFT, borderRadius: 14, padding: "12px 24px", fontFamily: HEAD, fontWeight: 700, fontSize: 46, textTransform: "uppercase", color: "#5A2418" }}>
+        Kenapa yang pertama selalu menang online?
+      </div>
+    </Pad>
+    <div style={{ position: "absolute", top: 560, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 70 }}>
+      <div style={{ transform: "rotate(-4deg)" }}>
+        <Phone kind="inf" w={250} badge="1.2J views" />
+      </div>
+      <div style={{ transform: "rotate(4deg)" }}>
+        <Phone kind="nas" w={250} badge="312 views" />
+      </div>
+    </div>
+    <Pad top={1050}>
+      <Body size={32}>
+        Bukan sebab dia lebih tahu. <B>Sebab dia faham attention.</B>
+      </Body>
+      <Body size={30} style={{ color: T.textSoft, marginTop: 6 }}>
+        Dan attention datang sebelum trust.
+      </Body>
+    </Pad>
+  </Slide>
+);
+
+// 2 — What each one says
+const S2: React.FC = () => (
+  <Slide index={1} total={TOTAL}>
+    <div style={{ position: "absolute", top: 160, left: 70, right: 70, display: "flex", gap: 30 }}>
+      <div style={{ flex: 1 }}>
+        <Label red>Influencer cakap:</Label>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <Quote red>“Teh ni buang toksin dalam 7 hari!”</Quote>
+          <Quote red>“Stop makan nasi sekarang!”</Quote>
+          <Quote red>“Satu benda ni rosakkan hormon awak.”</Quote>
+        </div>
+        <div style={{ marginTop: 26 }}>
+          <Mark ok>Jelas.</Mark>
+          <Mark ok>Emosi.</Mark>
+          <Mark ok>Senang ulang.</Mark>
+          <Mark ok>Senang ingat.</Mark>
+        </div>
+      </div>
+      <div style={{ width: 3, background: "#E6E5E0" }} />
+      <div style={{ flex: 1 }}>
+        <Label>Pharmacist cakap:</Label>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <Quote>“Bergantung pada keadaan.”</Quote>
+          <Quote>“Ada banyak faktor.”</Quote>
+          <Quote>“Kajian lanjut masih diperlukan.”</Quote>
+        </div>
+        <div style={{ marginTop: 26 }}>
+          <Mark ok={false}>Kurang jelas.</Mark>
+          <Mark ok={false}>Kurang emosi.</Mark>
+          <Mark ok={false}>Susah ulang.</Mark>
+          <Mark ok={false}>Senang lupa.</Mark>
+        </div>
+      </div>
+    </div>
+    <div style={{ position: "absolute", top: 1010, left: 70, right: 70, background: RED_SOFT, borderRadius: 20, padding: "26px 34px" }}>
+      <Headline size={64} style={{ color: "#5A2418" }}>
+        Yang mana lagi orang nak klik?
+      </Headline>
+      <Body size={30} style={{ marginTop: 6 }}>
+        Itulah masalahnya.
+      </Body>
+    </div>
+  </Slide>
+);
+
+// 3 — The internet doesn't see credentials first
+const STEPS = [
+  ["🎣", "Nampak hook dulu."],
+  ["🙂", "Lepas tu muka."],
+  ["💬", "Lepas tu keyakinan."],
+  ["📄", "Baru penjelasan."],
+];
+const S3: React.FC = () => (
+  <Slide index={2} total={TOTAL}>
+    <Pad top={160}>
+      <Headline size={92}>
+        Internet tak nampak <Sage>sijil awak</Sage> dulu.
+      </Headline>
+    </Pad>
+    <div style={{ position: "absolute", top: 400, left: 104, right: 104, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      {STEPS.map(([e, t], i) => (
+        <div key={t} style={{ display: "flex", alignItems: "center", gap: 14, background: T.sageSoft, borderRadius: 14, padding: "14px 18px" }}>
+          <div style={{ width: 40, height: 40, borderRadius: "50%", background: T.ring, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 22, flex: "none" }}>{i + 1}</div>
+          <div style={{ fontSize: 28 }}>
+            {e} {t}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div style={{ position: "absolute", top: 600, left: 70, right: 70, display: "flex", gap: 30 }}>
+      <div style={{ flex: 1 }}>
+        <Label>Pharmacist buka dengan:</Label>
+        <Quote small>“Hari ni kita bincang farmakokinetik metformin…”</Quote>
+      </div>
+      <div style={{ width: 3, background: "#E6E5E0" }} />
+      <div style={{ flex: 1 }}>
+        <Label red>Influencer buka dengan:</Label>
+        <Quote red small>“Penat walaupun tidur 8 jam? Mungkin bukan pasal tidur.”</Quote>
+      </div>
+    </div>
+    <div style={{ position: "absolute", top: 860, left: 70, right: 70, background: RED_SOFT, borderRadius: 18, padding: "20px 30px", fontSize: 34, fontWeight: 700, color: "#5A2418" }}>
+      ⏱️ Teka siapa dapat 10 saat seterusnya?
+    </div>
+    <div style={{ position: "absolute", top: 990, left: 70, right: 70, background: T.ring, color: T.page, borderRadius: 18, padding: "22px 30px", fontSize: 34, lineHeight: 1.3 }}>
+      Tepat <span style={{ color: T.gold, fontWeight: 800 }}>tak semestinya</span> orang sanggup tengok.
+    </div>
+  </Slide>
+);
+
+// 4 — Bars
+const Bar: React.FC<{ icon: string; label: string; v: number; red?: boolean }> = ({ icon, label, v, red }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 16, background: red ? RED_SOFT : T.sageSoft, borderRadius: 16, padding: "16px 20px" }}>
+    <div style={{ fontSize: 40, flex: "none" }}>{icon}</div>
+    <div style={{ flex: 1 }}>
+      <div style={{ fontSize: 23, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: red ? "#5A2418" : T.ring }}>{label}</div>
+      <div style={{ marginTop: 8, height: 18, borderRadius: 9, background: "rgba(255,255,255,0.8)" }}>
+        <div style={{ width: `${v}%`, height: "100%", borderRadius: 9, background: red ? RED : T.ring }} />
+      </div>
+    </div>
+  </div>
+);
+const S4: React.FC = () => (
+  <Slide index={3} total={TOTAL}>
+    <div style={{ position: "absolute", top: 160, left: 70, right: 70, display: "flex", gap: 26 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Headline size={56} style={{ color: RED, minHeight: 120 }}>
+          Influencer selalu lebih kuat:
+        </Headline>
+        <Bar red icon="🎯" label="Yakin 100%" v={90} />
+        <Bar red icon="💬" label="Bahasa mudah" v={88} />
+        <Bar red icon="❤️" label="Emosi kuat" v={85} />
+        <Bar red icon="📣" label="Claim mudah ingat" v={92} />
+      </div>
+      <div style={{ width: 3, background: "#E6E5E0" }} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Headline size={56} style={{ minHeight: 120 }}>
+          Pharmacist selalu mula dengan:
+        </Headline>
+        <Bar icon="🤔" label="Nuansa" v={85} />
+        <Bar icon="📋" label="Konteks" v={85} />
+        <Bar icon="❓" label="“Bergantung…”" v={85} />
+        <Bar icon="⚙️" label="Istilah teknikal" v={85} />
+      </div>
+    </div>
+    <div style={{ position: "absolute", top: 870, left: 70, right: 70, background: T.sageSoft, borderLeft: `8px solid ${T.sage}`, borderRadius: 18, padding: "28px 34px" }}>
+      <Headline size={60}>
+        Jawapannya <Sage>bukan</Sage> kurangkan evidence.
+      </Headline>
+      <Body size={32} style={{ marginTop: 10 }}>
+        Tapi buat evidence <B>lebih mudah faham.</B>
+      </Body>
+    </div>
+    <div style={{ position: "absolute", top: 1200, left: 70, fontSize: 21, color: T.textSoft }}>*Bar ilustrasi, bukan data.</div>
+  </Slide>
+);
+
+// 5 — Copy communication, not bad medicine
+const TIPS = [
+  ["🚀", "Mula dengan hook yang kuat."],
+  ["🗣️", "Cakap macam manusia, bukan textbook."],
+  ["👥", "Guna bahasa pesakit."],
+  ["✅", "Bagi jawapan dulu, baru syarahan."],
+  ["💡", "Buat nuansa jadi menarik."],
+  ["🛡️", "Terangkan ketidakpastian tanpa nampak ragu."],
+];
+const S5: React.FC = () => (
+  <Slide index={4} total={TOTAL}>
+    <Pad top={160}>
+      <Headline size={84}>
+        Pharmacist tak perlu tiru <span style={{ color: RED }}>info salah.</span>
+      </Headline>
+      <div style={{ display: "inline-block", marginTop: 16, background: T.sageSoft, borderRadius: 12, padding: "10px 22px", fontFamily: HEAD, fontWeight: 700, fontSize: 40, textTransform: "uppercase", color: T.ring }}>
+        Tiru cara komunikasi yang lebih baik.
+      </div>
+    </Pad>
+    <div style={{ position: "absolute", top: 520, left: 84, right: 84, display: "flex", flexDirection: "column", gap: 12 }}>
+      {TIPS.map(([e, t], i) => (
+        <div key={t} style={{ display: "flex", alignItems: "center", gap: 18, background: "#fff", border: "3px solid #E6E5E0", borderRadius: 16, padding: "14px 22px" }}>
+          <div style={{ width: 44, height: 44, borderRadius: "50%", background: T.ring, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 24, flex: "none" }}>{i + 1}</div>
+          <div style={{ fontSize: 34 }}>{e}</div>
+          <div style={{ fontSize: 31, fontWeight: 600 }}>{t}</div>
+        </div>
+      ))}
+    </div>
+  </Slide>
+);
+
+// 6 — Why it matters + CTA
+const S6: React.FC = () => (
+  <Slide index={5} total={TOTAL} last lastLabel="KOMEN GROW">
+    <div style={{ position: "absolute", top: 180, left: 104, right: 104, display: "flex", alignItems: "center", gap: 36 }}>
+      <div style={{ flex: "none" }}>
+        <Portrait size={170} />
+      </div>
+      <Body size={30} style={{ color: T.textSoft }}>
+        Coach Nas · Clinical pharmacist yang belajar buat content dari kosong.
+      </Body>
+    </div>
+    <Pad top={440}>
+      <Headline size={92}>
+        Kalau pharmacist diam, <span style={{ color: RED }}>suara yang lebih kuat</span> akan isi ruang tu.
+      </Headline>
+      <Body size={34} style={{ marginTop: 26 }}>
+        Pesakit tak boleh dapat manfaat dari ilmu yang <B>mereka tak sempat dengar</B>.
+      </Body>
+    </Pad>
+    <Pad top={980}>
+      <CtaBox>
+        <span style={{ fontSize: 40, fontWeight: 700 }}>
+          Healthcare professional? Komen <span style={{ color: T.gold }}>GROW</span>
+        </span>
+        <br />
+        <span style={{ fontSize: 32 }}>Saya kongsi cara saya buat content yang evidence-based tapi orang nak tengok.</span>
+      </CtaBox>
+    </Pad>
+  </Slide>
+);
+
+const SLIDES = [S1, S2, S3, S4, S5, S6];
+export const CINFVSPHARM_SLIDES = SLIDES.length;
+export const CInfluencerVsPharmacist: React.FC = () => {
+  const S = SLIDES[Math.min(SLIDES.length - 1, useCurrentFrame())];
+  return <S />;
+};
