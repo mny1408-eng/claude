@@ -26,8 +26,9 @@ const chunk = (words: Word[], max: number, gap: number): Word[][] => {
 export const Captions: React.FC<{ words: Word[]; top?: number; size?: number; max?: number; gap?: number; plate?: boolean; left?: number; right?: number }> = ({ words, top = 1300, size = 66, max = 3, gap = 0.35, plate = false, left = 50, right = 50 }) => {
   const t = useCurrentFrame() / FPS;
   const chunks = chunk(words, max, gap);
-  // a chunk stays up from its first word until the next chunk starts (or 0.4s after its last word)
-  const i = chunks.findIndex((c, k) => t >= c[0][0] - 0.05 && t < (chunks[k + 1]?.[0][0] ?? c[c.length - 1][1] + 0.4) - 0.05);
+  // a chunk stays up from its first word until the next chunk starts
+  // (but never more than 1.2s past its last word, so a long gap — or a filtered word list — leaves the screen clear)
+  const i = chunks.findIndex((c, k) => t >= c[0][0] - 0.05 && t < Math.min(chunks[k + 1]?.[0][0] ?? Infinity, c[c.length - 1][1] + 1.2) - 0.05);
   if (i < 0) return null;
   // exactly one word lit: the latest one that has started, while it is still being said
   const lit = chunks[i].reduce((a, w, k) => (t >= w[0] - 0.05 ? k : a), -1);
