@@ -218,11 +218,11 @@ const People: React.FC = () => (
   </svg>
 );
 
-// Event photos Coach sent (cropped to him; slides with product claims, testimonial screen and product table left out).
+// Event photos Coach sent (Coach is fine showing the brand: slides, screen and product table kept in frame).
 const Photo: React.FC<{ src: string; w: number; h: number; delay: number; rot: number; label?: string }> = ({ src, w: pw, h, delay, rot, label }) => (
   <Pop delay={delay} rotate={rot}>
     <div style={{ background: "#fff", padding: "10px 10px 38px", boxShadow: "0 14px 30px rgba(20,30,20,0.25)", position: "relative" }}>
-      <Img src={staticFile(src)} style={{ width: pw, height: h, objectFit: "cover", objectPosition: "50% 20%", display: "block" }} />
+      <Img src={staticFile(src)} style={{ width: pw, height: h, objectFit: "cover", objectPosition: "50% 30%", display: "block" }} />
       {label && <div style={{ position: "absolute", bottom: 6, left: 0, right: 0, textAlign: "center", fontSize: 22, fontWeight: 800, color: C.ink }}>{label}</div>}
     </div>
   </Pop>
