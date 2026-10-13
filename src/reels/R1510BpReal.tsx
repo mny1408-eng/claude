@@ -216,7 +216,7 @@ const Dark: React.FC<{ at: number; children: React.ReactNode }> = ({
 
 const Lower: React.FC = () => {
   const t = useCurrentFrame() / FPS;
-  if (t < 3.8) return null;
+  if (t < 5.3) return null;
   if (t < 6.7)
     return (
       <div
