@@ -9,7 +9,7 @@
 //   public/voice/R1310-bina/source.mp3   TeleCue 13/10 21:50, full: "Jangan salah faham tau…" through "…kita boleh sembang."
 // Times below are seconds in the TeleCue source (Whisper medium, unprompted).
 import React from "react";
-import { AbsoluteFill, Audio, Easing, Freeze, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Easing, Img, Loop, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { C } from "../theme";
 import { Card, Highlight, Line, Pop } from "../kit";
 import { Cue } from "../sound";
@@ -218,6 +218,16 @@ const People: React.FC = () => (
   </svg>
 );
 
+// Event photos Coach sent (cropped to him; slides with product claims, testimonial screen and product table left out).
+const Photo: React.FC<{ src: string; w: number; h: number; delay: number; rot: number; label?: string }> = ({ src, w: pw, h, delay, rot, label }) => (
+  <Pop delay={delay} rotate={rot}>
+    <div style={{ background: "#fff", padding: "10px 10px 38px", boxShadow: "0 14px 30px rgba(20,30,20,0.25)", position: "relative" }}>
+      <Img src={staticFile(src)} style={{ width: pw, height: h, objectFit: "cover", objectPosition: "50% 20%", display: "block" }} />
+      {label && <div style={{ position: "absolute", bottom: 6, left: 0, right: 0, textAlign: "center", fontSize: 22, fontWeight: 800, color: C.ink }}>{label}</div>}
+    </div>
+  </Pop>
+);
+
 // ---------- scenes ----------
 const Center: React.FC<{ top: number; children: React.ReactNode }> = ({ top, children }) => (
   <div style={{ position: "absolute", top, left: SAFE.left, right: SAFE.left, display: "flex", justifyContent: "center", alignItems: "center", gap: 30 }}>{children}</div>
@@ -272,7 +282,7 @@ const Coaching: React.FC = () => {
           <Highlight delay={w(s, 8.5)}>coaching</Highlight>
         </Line>
       </Stack>
-      <Center top={560}>
+      <Center top={440}>
         <Pop delay={w(s, 8.98)} rotate={-3}>
           <div style={{ textAlign: "center" }}>
             <Plate />
@@ -287,12 +297,15 @@ const Coaching: React.FC = () => {
           </div>
         </Pop>
       </Center>
-      <Stack top={1060} gap={22}>
+      <Stack top={840} gap={18}>
         <Line delay={w(s, 10.5)} size={46} weight={700}>
           untuk orang yang <Highlight delay={w(s, 10.9)}>susah nak konsisten</Highlight>
         </Line>
         <Streak delay={w(s, 11.0)} />
       </Stack>
+      <Center top={1100}>
+        <Photo src="img/event-present.jpg" w={250} h={300} delay={w(s, 8.6)} rot={-4} label="sesi coaching" />
+      </Center>
     </AbsoluteFill>
   );
 };
@@ -406,10 +419,10 @@ const Kenapa: React.FC = () => {
           Kenapa saya buat?
         </Line>
       </Stack>
-      <div style={{ position: "absolute", top: 480, left: SAFE.left, right: SAFE.left, display: "flex", flexDirection: "column", gap: 40, alignItems: "center" }}>
+      <div style={{ position: "absolute", top: 480, left: SAFE.left, right: SAFE.left, display: "flex", flexDirection: "column", gap: 26, alignItems: "center" }}>
         {WHY.map(([Icon, label, at], i) => (
           <Pop key={label} delay={w(s, at)} rotate={i % 2 ? 1.5 : -1.5}>
-            <Card style={{ width: 860, padding: "22px 30px", display: "flex", alignItems: "center", gap: 26 }}>
+            <Card style={{ width: 860, padding: "14px 30px", display: "flex", alignItems: "center", gap: 26 }}>
               <div style={{ transform: "scale(0.7)", margin: "-20px -20px" }}>
                 <Icon />
               </div>
@@ -418,6 +431,10 @@ const Kenapa: React.FC = () => {
           </Pop>
         ))}
       </div>
+      <Center top={1060}>
+        <Photo src="img/event-stage.jpg" w={250} h={310} delay={w(s, 33.92)} rot={-4} />
+        <Photo src="img/event-help.jpg" w={300} h={310} delay={w(s, 34.58)} rot={3} />
+      </Center>
     </AbsoluteFill>
   );
 };
@@ -443,14 +460,14 @@ const Cta: React.FC = () => {
   );
 };
 
-// Polaroid pinned through the illustrated part (the opener's last frame), plus the voice track.
+// Polaroid pinned through the illustrated part (the opener clip looped, muted, so it keeps moving), plus the voice track.
 export const R1310BinaOverlay: React.FC = () => (
   <>
     <Sequence from={CLIP_LEN} layout="none">
       <PolaroidFrame>
-        <Freeze frame={CLIP_LEN - 1}>
+        <Loop durationInFrames={CLIP_LEN}>
           <OffthreadVideo src={staticFile(CLIP)} muted style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 22%" }} />
-        </Freeze>
+        </Loop>
       </PolaroidFrame>
     </Sequence>
     <Sequence from={tl.voiceFrame} layout="none">
