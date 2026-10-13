@@ -5,10 +5,10 @@
 //   public/clips/R1310-full.mp4   six Teleprompter takes (12/10 17:58–18:00) trimmed and joined, 46.44s, in spoken order:
 //     hook 17:58:07 · "Kenapa?…" 17:58:29 · "Biasanya… empat benda" 17:59:02 · privacy + "And lastly" 17:59:33 (a) ·
 //     "nak campur dengan supplement…" 17:59:33 (b) · CTA 18:00:02. The other 17:59:33 file is a retake of (b), unused.
-// The "kedua" point was cut off in the recording ("ubat ni bergantung…"); its card shows the script's content
-// (umur · penyakit lain · ubat lain). The spoken CTA is "Share…", not the Notion "Save", so the pill follows the voice.
+// The "kedua" point was cut off in the recording ("ubat ni bergantung…"): that phrase is muted and covered by a full
+// card for point 2 (script content: umur · penyakit lain · ubat lain), with a 0.8s hold so it can be read. The spoken CTA is "Share…", not the Notion "Save", so the pill follows the voice.
 import React from "react";
-import { useCurrentFrame } from "remotion";
+import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { C, FPS } from "../theme";
 import { Card, Mark, Pop } from "../kit";
 import { SceneDef } from "../Reel";
@@ -17,7 +17,7 @@ import { Captions, Word } from "./formats/Captions";
 import { FaceCamOpener, OVER_VIDEO } from "./formats/FaceCamOpener";
 
 const CLIP = "clips/R1310-full.mp4";
-const CLIP_LEN = 1395;
+const CLIP_LEN = 1419;
 const f = (sec: number) => Math.round(sec * FPS) - 3;
 
 const WORDS: Word[] = [
@@ -78,92 +78,86 @@ const WORDS: Word[] = [
   [20.71, 20.99, "ubat"],
   [20.99, 21.23, "daripada"],
   [21.23, 21.59, "mana."],
-  [22.01, 22.15, "Kan"],
-  [22.15, 22.53, "kedua"],
-  [22.53, 22.69, "ni"],
-  [22.69, 22.99, "ubat"],
-  [22.99, 23.17, "ni"],
-  [23.17, 23.37, "bergantung..."],
-  [23.87, 24.29, "taip"],
-  [24.29, 24.85, "nama"],
-  [24.85, 25.25, "IC"],
-  [25.25, 25.65, "ataupun"],
-  [25.65, 25.85, "rekod"],
-  [25.85, 26.41, "perubatan"],
-  [26.41, 26.69, "penuh"],
-  [26.69, 27.13, "awak,"],
-  [27.69, 27.81, "itu"],
-  [27.81, 28.33, "confidential"],
-  [28.33, 28.51, "itu"],
-  [28.51, 28.77, "And"],
-  [28.77, 29.03, "lastly"],
-  [29.03, 29.19, "kalau"],
-  [29.19, 29.37, "nak"],
-  [29.37, 30.43, "melibatkan"],
-  [30.43, 30.69, "ubat"],
-  [30.69, 30.89, "awak"],
-  [30.89, 31.53, "sendiri,"],
-  [31.97, 31.97, "nak"],
-  [31.97, 32.35, "ubah"],
-  [32.35, 32.65, "dos,"],
-  [32.93, 33.19, "nak"],
-  [33.19, 33.45, "stop"],
-  [33.45, 33.63, "ke"],
-  [33.73, 33.97, "nak"],
-  [33.97, 34.21, "campur"],
-  [34.21, 34.33, "dengan"],
-  [34.33, 34.89, "supplement,"],
-  [35.33, 35.45, "tanya"],
-  [35.45, 35.83, "pharmacist"],
-  [35.83, 36.13, "ataupun"],
-  [36.13, 36.45, "doktor"],
-  [36.45, 36.81, "dulu,"],
-  [37.37, 37.41, "AI"],
-  [37.41, 37.63, "boleh"],
-  [37.63, 37.89, "tolong"],
-  [37.89, 38.03, "awak"],
-  [38.03, 38.39, "faham"],
-  [38.39, 38.77, "tapi"],
-  [38.77, 39.57, "keputusan"],
-  [39.57, 40.43, "ubat,"],
-  [40.47, 40.95, "bawalah"],
-  [40.95, 41.33, "dekat"],
-  [41.33, 41.63, "orang"],
-  [41.63, 42.05, "yang"],
-  [42.05, 42.33, "tahu"],
-  [42.33, 42.65, "tentang"],
-  [42.65, 42.85, "kes"],
-  [42.85, 43.13, "awak."],
-  [43.31, 43.79, "Share"],
-  [43.79, 44.25, "dekat"],
-  [44.25, 44.55, "orang"],
-  [44.55, 44.73, "yang"],
-  [44.73, 44.83, "awak"],
-  [44.83, 45.19, "kenal"],
-  [45.19, 45.37, "yang"],
-  [45.37, 45.61, "tengah"],
-  [45.61, 45.75, "ambil"],
-  [45.75, 45.99, "ubat"],
-  [45.99, 46.31, "sekarang"],
+  [24.67, 25.09, "taip"],
+  [25.09, 25.65, "nama"],
+  [25.65, 26.05, "IC"],
+  [26.05, 26.45, "ataupun"],
+  [26.45, 26.65, "rekod"],
+  [26.65, 27.21, "perubatan"],
+  [27.21, 27.49, "penuh"],
+  [27.49, 27.93, "awak,"],
+  [28.49, 28.61, "itu"],
+  [28.61, 29.13, "confidential"],
+  [29.13, 29.31, "itu"],
+  [29.31, 29.57, "And"],
+  [29.57, 29.83, "lastly"],
+  [29.83, 29.99, "kalau"],
+  [29.99, 30.17, "nak"],
+  [30.17, 31.23, "melibatkan"],
+  [31.23, 31.49, "ubat"],
+  [31.49, 31.69, "awak"],
+  [31.69, 32.33, "sendiri,"],
+  [32.77, 32.77, "nak"],
+  [32.77, 33.15, "ubah"],
+  [33.15, 33.45, "dos,"],
+  [33.73, 33.99, "nak"],
+  [33.99, 34.25, "stop"],
+  [34.25, 34.43, "ke"],
+  [34.53, 34.77, "nak"],
+  [34.77, 35.01, "campur"],
+  [35.01, 35.13, "dengan"],
+  [35.13, 35.69, "supplement,"],
+  [36.13, 36.25, "tanya"],
+  [36.25, 36.63, "pharmacist"],
+  [36.63, 36.93, "ataupun"],
+  [36.93, 37.25, "doktor"],
+  [37.25, 37.61, "dulu,"],
+  [38.17, 38.21, "AI"],
+  [38.21, 38.43, "boleh"],
+  [38.43, 38.69, "tolong"],
+  [38.69, 38.83, "awak"],
+  [38.83, 39.19, "faham"],
+  [39.19, 39.57, "tapi"],
+  [39.57, 40.37, "keputusan"],
+  [40.37, 41.23, "ubat,"],
+  [41.27, 41.75, "bawalah"],
+  [41.75, 42.13, "dekat"],
+  [42.13, 42.43, "orang"],
+  [42.43, 42.85, "yang"],
+  [42.85, 43.13, "tahu"],
+  [43.13, 43.45, "tentang"],
+  [43.45, 43.65, "kes"],
+  [43.65, 43.93, "awak."],
+  [44.11, 44.59, "Share"],
+  [44.59, 45.05, "dekat"],
+  [45.05, 45.35, "orang"],
+  [45.35, 45.53, "yang"],
+  [45.53, 45.63, "awak"],
+  [45.63, 45.99, "kenal"],
+  [45.99, 46.17, "yang"],
+  [46.17, 46.41, "tengah"],
+  [46.41, 46.55, "ambil"],
+  [46.55, 46.79, "ubat"],
+  [46.79, 47.11, "sekarang"],
 ];
 WORDS.splice(
   WORDS.findIndex((w) => w[2] === "taip"),
   0,
-  [23.45, 23.85, "Jangan"],
+  [24.25, 24.65, "Jangan"],
 );
 
 const STEPS: [string, string, number][] = [
   ["SEMAK SUMBER", "dia ambil maklumat dari mana?", 18.43],
   ["KONTEKS INDIVIDU", "umur · penyakit lain · ubat lain", 22.15],
-  ["JAGA PRIVASI", "jangan taip nama, IC, rekod perubatan", 23.45],
-  ["TANYA PROFESIONAL", "ubah dos · berhenti · campur supplement", 28.77],
+  ["JAGA PRIVASI", "jangan taip nama, IC, rekod perubatan", 24.25],
+  ["TANYA PROFESIONAL", "ubah dos · berhenti · campur supplement", 29.57],
 ];
 
 const LOWER_TOP = 1290;
 
 const Strip: React.FC = () => {
   const t = useCurrentFrame() / FPS;
-  if (t < 17.4 || t >= 43.2) return null;
+  if (t < 17.4 || t >= 44.0) return null;
   return (
     <Pop delay={f(17.43)}>
       <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
@@ -281,11 +275,10 @@ const Lower: React.FC = () => {
         4 benda saya check
       </Chip>
     );
-  if (t < 37.3)
-    return <StepCard i={t < 22.1 ? 0 : t < 23.4 ? 1 : t < 28.7 ? 2 : 3} />;
-  if (t < 43.2)
+  if (t < 38.1) return <StepCard i={t < 24.2 ? 0 : t < 29.5 ? 2 : 3} />;
+  if (t < 44.0)
     return (
-      <Pop delay={f(37.37)} rotate={-1}>
+      <Pop delay={f(38.17)} rotate={-1}>
         <Card
           style={{
             width: 800,
@@ -304,11 +297,77 @@ const Lower: React.FC = () => {
       </Pop>
     );
   return (
-    <div style={{ position: "absolute", left: "50%", top: 0, transform: "translateX(-50%) scale(0.8)", transformOrigin: "top center" }}>
-      <CtaPill icon="share" delay={f(43.31)}>
+    <div
+      style={{
+        position: "absolute",
+        left: "50%",
+        top: 0,
+        transform: "translateX(-50%) scale(0.8)",
+        transformOrigin: "top center",
+      }}
+    >
+      <CtaPill icon="share" delay={f(44.11)}>
         Share kepada yang ambil ubat
       </CtaPill>
     </div>
+  );
+};
+
+// Point 2 was cut off mid-sentence in the recording; its words are muted and this card stands in (21.85–24.2s).
+const Kedua: React.FC = () => {
+  const t = useCurrentFrame() / FPS;
+  if (t < 21.85 || t >= 24.2) return null;
+  return (
+    <AbsoluteFill
+      style={{
+        background: C.paper,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Pop delay={f(21.95)}>
+        <Card style={{ width: 860, padding: "40px 44px", textAlign: "center" }}>
+          <div
+            style={{
+              width: 110,
+              height: 110,
+              margin: "0 auto 20px",
+              borderRadius: "50%",
+              background: C.ink,
+              color: C.paper,
+              fontSize: 64,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            2
+          </div>
+          <div
+            style={{
+              fontSize: 40,
+              fontWeight: 800,
+              letterSpacing: 4,
+              color: C.marker,
+            }}
+          >
+            KONTEKS INDIVIDU
+          </div>
+          <div
+            style={{
+              fontSize: 56,
+              fontWeight: 800,
+              lineHeight: 1.2,
+              marginTop: 14,
+            }}
+          >
+            umur · penyakit lain · ubat lain
+          </div>
+        </Card>
+      </Pop>
+    </AbsoluteFill>
   );
 };
 
@@ -365,13 +424,15 @@ export const R1310_AIUBAT_REAL_SCENES: SceneDef[] = [
           left={SAFE.left}
           right={SAFE.right}
         />
+        <Kedua />
       </>
     ),
     cues: [
       [f(5.83), "pop", 0.3],
       [f(14.03), "pop", 0.3],
       ...STEPS.map(([, , at]): [number, "pop", number] => [f(at), "pop", 0.3]),
-      [f(43.31), "pop", 0.3],
+      [f(44.11), "pop", 0.3],
+      [f(21.85), "whoosh", 0.3],
     ],
   },
 ];
