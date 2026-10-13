@@ -1,15 +1,25 @@
 // Reel 2 (13/10) "Masih Pharmacist, Tapi Saya Bina Sesuatu" — Reel B (hybrid: face-cam opener + voice + design).
 // Source: Notion 📅 13/10/2026 — AI, Ubat dan Pharmacist, IG REEL 2 (Story Series EP6; no financial claims).
 // Overlays follow the Notion list: MASIH PHARMACIST · KERJA UTAMA TETAP UTAMA · COACHING DALAM MASA YANG ADA · COMMENT CURIOUS.
-// Transition: in the opener's last frames the video shrinks into a polaroid that stays pinned top-right through the
-// illustrated scenes. Illustrations are drawn here (SVG), in the WDT palette.
+// Transition: in the opener's last frames the video shrinks into a polaroid, which then flies off-frame; the
+// illustrated scenes run full-frame. Illustrations are drawn here (SVG), in the WDT palette.
 // Media (local only, gitignored):
 //   public/clips/R1310-bina-opener.mp4   Teleprompter 13/10 21:49, src 0.00–5.30: "Saya masih lagi pharmacist, tapi saya
 //                                         sedang membina sesuatu di luar kerja hakiki."
 //   public/voice/R1310-bina/source.mp3   TeleCue 13/10 21:50, full: "Jangan salah faham tau…" through "…kita boleh sembang."
 // Times below are seconds in the TeleCue source (Whisper medium, unprompted).
 import React from "react";
-import { AbsoluteFill, Audio, Easing, Img, Loop, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import {
+  AbsoluteFill,
+  Audio,
+  Easing,
+  Img,
+  OffthreadVideo,
+  Sequence,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+} from "remotion";
 import { C } from "../theme";
 import { Card, Highlight, Line, Pop } from "../kit";
 import { Cue } from "../sound";
@@ -38,21 +48,71 @@ const starts = {
 const POL = { x: 1080 - SAFE.left - 250, y: 150, w: 250, h: 310, rot: 5 };
 const SHRINK = 18; // frames
 
-const PolaroidFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div style={{ position: "absolute", left: POL.x, top: POL.y, width: POL.w, transform: `rotate(${POL.rot}deg)`, background: "#fff", padding: "12px 12px 44px", boxShadow: "0 14px 30px rgba(20,30,20,0.28)" }}>
-    <div style={{ width: POL.w - 24, height: POL.h - 56, overflow: "hidden" }}>{children}</div>
-    <div style={{ position: "absolute", bottom: 10, left: 0, right: 0, textAlign: "center", fontSize: 22, fontWeight: 800, color: C.ink, letterSpacing: 1 }}>masih pharmacist ✓</div>
+const PolaroidFrame: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
+  <div
+    style={{
+      position: "absolute",
+      left: POL.x,
+      top: POL.y,
+      width: POL.w,
+      transform: `rotate(${POL.rot}deg)`,
+      background: "#fff",
+      padding: "12px 12px 44px",
+      boxShadow: "0 14px 30px rgba(20,30,20,0.28)",
+    }}
+  >
+    <div style={{ width: POL.w - 24, height: POL.h - 56, overflow: "hidden" }}>
+      {children}
+    </div>
+    <div
+      style={{
+        position: "absolute",
+        bottom: 10,
+        left: 0,
+        right: 0,
+        textAlign: "center",
+        fontSize: 22,
+        fontWeight: 800,
+        color: C.ink,
+        letterSpacing: 1,
+      }}
+    >
+      masih pharmacist ✓
+    </div>
   </div>
 );
 
 const Opener: React.FC = () => {
   const fr = useCurrentFrame();
-  const p = interpolate(fr, [CLIP_LEN - SHRINK, CLIP_LEN], [0, 1], { easing: Easing.inOut(Easing.cubic), extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const p = interpolate(fr, [CLIP_LEN - SHRINK, CLIP_LEN], [0, 1], {
+    easing: Easing.inOut(Easing.cubic),
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   const stamp = Math.max(0, Math.round(1.3 * 30) - 3);
   if (p === 0)
     return (
-      <FaceCamOpener clip={CLIP} hook={<>MASIH PHARMACIST. <span style={{ color: C.marker }}>TAPI SAYA BINA SESUATU.</span></>} hookSize={56} lowerTop={1280}>
-        <div style={{ background: "rgba(247,245,237,0.92)", borderRadius: 18, padding: "6px 10px", opacity: fr >= stamp ? 1 : 0 }}>
+      <FaceCamOpener
+        clip={CLIP}
+        hook={
+          <>
+            MASIH PHARMACIST.{" "}
+            <span style={{ color: C.marker }}>TAPI SAYA BINA SESUATU.</span>
+          </>
+        }
+        hookSize={56}
+        lowerTop={1280}
+      >
+        <div
+          style={{
+            background: "rgba(247,245,237,0.92)",
+            borderRadius: 18,
+            padding: "6px 10px",
+            opacity: fr >= stamp ? 1 : 0,
+          }}
+        >
           <BoxStamp delay={stamp} rotate={-4} size={70}>
             MASIH PHARMACIST
           </BoxStamp>
@@ -79,7 +139,16 @@ const Opener: React.FC = () => {
         }}
       >
         <div style={{ width: boxW, height: boxH, overflow: "hidden" }}>
-          <OffthreadVideo src={staticFile(CLIP)} muted style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 22%" }} />
+          <OffthreadVideo
+            src={staticFile(CLIP)}
+            muted
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "50% 22%",
+            }}
+          />
         </div>
       </div>
     </AbsoluteFill>
@@ -89,11 +158,33 @@ const Opener: React.FC = () => {
 // ---------- illustrations ----------
 const Hospital: React.FC = () => (
   <svg viewBox="0 0 200 200" width={300} height={300}>
-    <rect x={30} y={60} width={140} height={120} rx={10} fill="#fff" stroke={C.ink} strokeWidth={6} />
+    <rect
+      x={30}
+      y={60}
+      width={140}
+      height={120}
+      rx={10}
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={6}
+    />
     <rect x={80} y={30} width={40} height={40} rx={6} fill={C.marker} />
-    <path d="M 100 38 V 62 M 88 50 H 112" stroke="#fff" strokeWidth={7} strokeLinecap="round" />
+    <path
+      d="M 100 38 V 62 M 88 50 H 112"
+      stroke="#fff"
+      strokeWidth={7}
+      strokeLinecap="round"
+    />
     {[0, 1, 2].map((i) => (
-      <rect key={i} x={48 + i * 40} y={86} width={24} height={22} rx={3} fill={C.gold} />
+      <rect
+        key={i}
+        x={48 + i * 40}
+        y={86}
+        width={24}
+        height={22}
+        rx={3}
+        fill={C.gold}
+      />
     ))}
     <rect x={84} y={132} width={32} height={48} rx={4} fill={C.ink} />
   </svg>
@@ -101,25 +192,75 @@ const Hospital: React.FC = () => (
 
 const Research: React.FC = () => (
   <svg viewBox="0 0 200 200" width={300} height={300}>
-    <rect x={40} y={36} width={110} height={140} rx={8} fill="#fff" stroke={C.ink} strokeWidth={6} />
+    <rect
+      x={40}
+      y={36}
+      width={110}
+      height={140}
+      rx={8}
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={6}
+    />
     {[64, 84, 104].map((y) => (
-      <line key={y} x1={58} y1={y} x2={132} y2={y} stroke={C.inkSoft} strokeWidth={5} strokeLinecap="round" />
+      <line
+        key={y}
+        x1={58}
+        y1={y}
+        x2={132}
+        y2={y}
+        stroke={C.inkSoft}
+        strokeWidth={5}
+        strokeLinecap="round"
+      />
     ))}
-    <polyline points="58,150 80,132 98,142 130,116" fill="none" stroke={C.marker} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />
-    <circle cx={146} cy={140} r={22} fill="none" stroke={C.ink} strokeWidth={7} />
-    <line x1={162} y1={156} x2={182} y2={176} stroke={C.ink} strokeWidth={9} strokeLinecap="round" />
+    <polyline
+      points="58,150 80,132 98,142 130,116"
+      fill="none"
+      stroke={C.marker}
+      strokeWidth={6}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle
+      cx={146}
+      cy={140}
+      r={22}
+      fill="none"
+      stroke={C.ink}
+      strokeWidth={7}
+    />
+    <line
+      x1={162}
+      y1={156}
+      x2={182}
+      y2={176}
+      stroke={C.ink}
+      strokeWidth={9}
+      strokeLinecap="round"
+    />
   </svg>
 );
 
 const Heart: React.FC<{ size?: number }> = ({ size = 90 }) => (
   <svg viewBox="0 0 100 90" width={size} height={size * 0.9}>
-    <path d="M 50 86 C 20 64, 4 46, 4 28 C 4 12, 16 4, 28 4 C 38 4, 46 10, 50 18 C 54 10, 62 4, 72 4 C 84 4, 96 12, 96 28 C 96 46, 80 64, 50 86 Z" fill={C.marker} />
+    <path
+      d="M 50 86 C 20 64, 4 46, 4 28 C 4 12, 16 4, 28 4 C 38 4, 46 10, 50 18 C 54 10, 62 4, 72 4 C 84 4, 96 12, 96 28 C 96 46, 80 64, 50 86 Z"
+      fill={C.marker}
+    />
   </svg>
 );
 
 const Plate: React.FC = () => (
   <svg viewBox="0 0 200 200" width={280} height={280}>
-    <circle cx={100} cy={100} r={84} fill="#fff" stroke={C.ink} strokeWidth={6} />
+    <circle
+      cx={100}
+      cy={100}
+      r={84}
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={6}
+    />
     <path d="M 100 100 L 100 30 A 70 70 0 0 1 170 100 Z" fill="#7CB46B" />
     <path d="M 100 100 L 170 100 A 70 70 0 0 1 100 170 Z" fill={C.marker} />
     <path d="M 100 100 L 100 170 A 70 70 0 0 1 30 100 Z" fill={C.gold} />
@@ -129,10 +270,22 @@ const Plate: React.FC = () => (
 
 const Shoe: React.FC = () => (
   <svg viewBox="0 0 200 200" width={280} height={280}>
-    <path d="M 24 128 L 40 70 Q 70 84 92 80 L 120 104 Q 168 112 178 136 L 178 150 L 24 150 Z" fill={C.ink} />
+    <path
+      d="M 24 128 L 40 70 Q 70 84 92 80 L 120 104 Q 168 112 178 136 L 178 150 L 24 150 Z"
+      fill={C.ink}
+    />
     <path d="M 24 150 L 178 150 L 178 162 L 24 162 Z" fill={C.gold} />
     {[0, 1, 2].map((i) => (
-      <line key={i} x1={70 + i * 14} y1={88 + i * 6} x2={84 + i * 14} y2={98 + i * 6} stroke="#fff" strokeWidth={5} strokeLinecap="round" />
+      <line
+        key={i}
+        x1={70 + i * 14}
+        y1={88 + i * 6}
+        x2={84 + i * 14}
+        y2={98 + i * 6}
+        stroke="#fff"
+        strokeWidth={5}
+        strokeLinecap="round"
+      />
     ))}
   </svg>
 );
@@ -143,7 +296,23 @@ const Streak: React.FC<{ delay: number }> = ({ delay }) => {
     <div style={{ display: "flex", gap: 10 }}>
       {days.map((d, i) => (
         <Pop key={i} delay={delay + i * 3}>
-          <div style={{ width: 100, height: 100, borderRadius: 18, background: d ? C.ink : "#fff", border: `4px solid ${C.ink}`, color: d ? C.gold : C.marker, fontSize: 48, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{d ? "✓" : "✗"}</div>
+          <div
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 18,
+              background: d ? C.ink : "#fff",
+              border: `4px solid ${C.ink}`,
+              color: d ? C.gold : C.marker,
+              fontSize: 48,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {d ? "✓" : "✗"}
+          </div>
         </Pop>
       ))}
     </div>
@@ -156,13 +325,49 @@ const Clock: React.FC<{ fill: number }> = ({ fill }) => {
   const y = 100 - 80 * Math.cos(a);
   return (
     <svg viewBox="0 0 200 200" width={440} height={440}>
-      <circle cx={100} cy={100} r={88} fill="#fff" stroke={C.ink} strokeWidth={8} />
-      {fill > 0 && <path d={`M 100 100 L 100 20 A 80 80 0 ${fill > 0.5 ? 1 : 0} 1 ${x} ${y} Z`} fill={C.gold} />}
+      <circle
+        cx={100}
+        cy={100}
+        r={88}
+        fill="#fff"
+        stroke={C.ink}
+        strokeWidth={8}
+      />
+      {fill > 0 && (
+        <path
+          d={`M 100 100 L 100 20 A 80 80 0 ${fill > 0.5 ? 1 : 0} 1 ${x} ${y} Z`}
+          fill={C.gold}
+        />
+      )}
       {[...Array(12)].map((_, i) => (
-        <line key={i} x1={100 + 76 * Math.sin((i * Math.PI) / 6)} y1={100 - 76 * Math.cos((i * Math.PI) / 6)} x2={100 + 86 * Math.sin((i * Math.PI) / 6)} y2={100 - 86 * Math.cos((i * Math.PI) / 6)} stroke={C.ink} strokeWidth={4} />
+        <line
+          key={i}
+          x1={100 + 76 * Math.sin((i * Math.PI) / 6)}
+          y1={100 - 76 * Math.cos((i * Math.PI) / 6)}
+          x2={100 + 86 * Math.sin((i * Math.PI) / 6)}
+          y2={100 - 86 * Math.cos((i * Math.PI) / 6)}
+          stroke={C.ink}
+          strokeWidth={4}
+        />
       ))}
-      <line x1={100} y1={100} x2={100} y2={46} stroke={C.ink} strokeWidth={7} strokeLinecap="round" />
-      <line x1={100} y1={100} x2={140} y2={112} stroke={C.ink} strokeWidth={6} strokeLinecap="round" />
+      <line
+        x1={100}
+        y1={100}
+        x2={100}
+        y2={46}
+        stroke={C.ink}
+        strokeWidth={7}
+        strokeLinecap="round"
+      />
+      <line
+        x1={100}
+        y1={100}
+        x2={140}
+        y2={112}
+        stroke={C.ink}
+        strokeWidth={6}
+        strokeLinecap="round"
+      />
       <circle cx={100} cy={100} r={7} fill={C.ink} />
     </svg>
   );
@@ -170,37 +375,106 @@ const Clock: React.FC<{ fill: number }> = ({ fill }) => {
 
 const Battery: React.FC<{ level: number }> = ({ level }) => (
   <svg viewBox="0 0 200 100" width={380} height={190}>
-    <rect x={8} y={14} width={170} height={72} rx={12} fill="#fff" stroke={C.ink} strokeWidth={7} />
+    <rect
+      x={8}
+      y={14}
+      width={170}
+      height={72}
+      rx={12}
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={7}
+    />
     <rect x={180} y={36} width={14} height={28} rx={4} fill={C.ink} />
-    <rect x={18} y={24} width={150 * level} height={52} rx={6} fill={level < 0.3 ? C.marker : "#7CB46B"} />
+    <rect
+      x={18}
+      y={24}
+      width={150 * level}
+      height={52}
+      rx={6}
+      fill={level < 0.3 ? C.marker : "#7CB46B"}
+    />
   </svg>
 );
 
 const Fence: React.FC = () => (
   <svg viewBox="0 0 240 120" width={460} height={230}>
     {[0, 1, 2, 3, 4].map((i) => (
-      <path key={i} d={`M ${20 + i * 48} 110 V 34 L ${36 + i * 48} 14 L ${52 + i * 48} 34 V 110 Z`} fill="#fff" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+      <path
+        key={i}
+        d={`M ${20 + i * 48} 110 V 34 L ${36 + i * 48} 14 L ${52 + i * 48} 34 V 110 Z`}
+        fill="#fff"
+        stroke={C.ink}
+        strokeWidth={6}
+        strokeLinejoin="round"
+      />
     ))}
-    <rect x={10} y={52} width={220} height={14} fill={C.gold} stroke={C.ink} strokeWidth={4} />
-    <rect x={10} y={84} width={220} height={14} fill={C.gold} stroke={C.ink} strokeWidth={4} />
+    <rect
+      x={10}
+      y={52}
+      width={220}
+      height={14}
+      fill={C.gold}
+      stroke={C.ink}
+      strokeWidth={4}
+    />
+    <rect
+      x={10}
+      y={84}
+      width={220}
+      height={14}
+      fill={C.gold}
+      stroke={C.ink}
+      strokeWidth={4}
+    />
   </svg>
 );
 
 const Book: React.FC = () => (
   <svg viewBox="0 0 200 160" width={180} height={144}>
-    <path d="M 100 30 Q 60 10 16 22 V 140 Q 60 128 100 148 Z" fill="#fff" stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
-    <path d="M 100 30 Q 140 10 184 22 V 140 Q 140 128 100 148 Z" fill={C.gold} stroke={C.ink} strokeWidth={6} strokeLinejoin="round" />
+    <path
+      d="M 100 30 Q 60 10 16 22 V 140 Q 60 128 100 148 Z"
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={6}
+      strokeLinejoin="round"
+    />
+    <path
+      d="M 100 30 Q 140 10 184 22 V 140 Q 140 128 100 148 Z"
+      fill={C.gold}
+      stroke={C.ink}
+      strokeWidth={6}
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const House: React.FC = () => (
   <svg viewBox="0 0 200 160" width={180} height={144}>
-    <path d="M 20 76 L 100 14 L 180 76" fill="none" stroke={C.ink} strokeWidth={8} strokeLinecap="round" strokeLinejoin="round" />
-    <rect x={40} y={70} width={120} height={80} fill="#fff" stroke={C.ink} strokeWidth={6} />
+    <path
+      d="M 20 76 L 100 14 L 180 76"
+      fill="none"
+      stroke={C.ink}
+      strokeWidth={8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <rect
+      x={40}
+      y={70}
+      width={120}
+      height={80}
+      fill="#fff"
+      stroke={C.ink}
+      strokeWidth={6}
+    />
     <circle cx={80} cy={100} r={10} fill={C.marker} />
     <circle cx={110} cy={104} r={8} fill={C.marker} />
     <circle cx={132} cy={108} r={6} fill={C.marker} />
-    <path d="M 70 150 Q 80 118 90 150 M 102 150 Q 110 124 118 150 M 126 150 Q 132 130 138 150" fill={C.marker} />
+    <path
+      d="M 70 150 Q 80 118 90 150 M 102 150 Q 110 124 118 150 M 126 150 Q 132 130 138 150"
+      fill={C.marker}
+    />
   </svg>
 );
 
@@ -208,29 +482,94 @@ const People: React.FC = () => (
   <svg viewBox="0 0 200 160" width={180} height={144}>
     {[50, 100, 150].map((x, i) => (
       <g key={x}>
-        <circle cx={x} cy={56 - (i === 1 ? 10 : 0)} r={18} fill={i === 1 ? C.ink : C.inkSoft} />
-        <path d={`M ${x - 28} 140 Q ${x - 28} ${92 - (i === 1 ? 10 : 0)} ${x} ${88 - (i === 1 ? 10 : 0)} Q ${x + 28} ${92 - (i === 1 ? 10 : 0)} ${x + 28} 140 Z`} fill={i === 1 ? C.ink : C.inkSoft} />
+        <circle
+          cx={x}
+          cy={56 - (i === 1 ? 10 : 0)}
+          r={18}
+          fill={i === 1 ? C.ink : C.inkSoft}
+        />
+        <path
+          d={`M ${x - 28} 140 Q ${x - 28} ${92 - (i === 1 ? 10 : 0)} ${x} ${88 - (i === 1 ? 10 : 0)} Q ${x + 28} ${92 - (i === 1 ? 10 : 0)} ${x + 28} 140 Z`}
+          fill={i === 1 ? C.ink : C.inkSoft}
+        />
       </g>
     ))}
     <g transform="translate(130 6) scale(0.4)">
-      <path d="M 50 86 C 20 64, 4 46, 4 28 C 4 12, 16 4, 28 4 C 38 4, 46 10, 50 18 C 54 10, 62 4, 72 4 C 84 4, 96 12, 96 28 C 96 46, 80 64, 50 86 Z" fill={C.marker} />
+      <path
+        d="M 50 86 C 20 64, 4 46, 4 28 C 4 12, 16 4, 28 4 C 38 4, 46 10, 50 18 C 54 10, 62 4, 72 4 C 84 4, 96 12, 96 28 C 96 46, 80 64, 50 86 Z"
+        fill={C.marker}
+      />
     </g>
   </svg>
 );
 
 // Event photos Coach sent (Coach is fine showing the brand: slides, screen and product table kept in frame).
-const Photo: React.FC<{ src: string; w: number; h: number; delay: number; rot: number; label?: string }> = ({ src, w: pw, h, delay, rot, label }) => (
+const Photo: React.FC<{
+  src: string;
+  w: number;
+  h: number;
+  delay: number;
+  rot: number;
+  label?: string;
+}> = ({ src, w: pw, h, delay, rot, label }) => (
   <Pop delay={delay} rotate={rot}>
-    <div style={{ background: "#fff", padding: "10px 10px 38px", boxShadow: "0 14px 30px rgba(20,30,20,0.25)", position: "relative" }}>
-      <Img src={staticFile(src)} style={{ width: pw, height: h, objectFit: "cover", objectPosition: "50% 30%", display: "block" }} />
-      {label && <div style={{ position: "absolute", bottom: 6, left: 0, right: 0, textAlign: "center", fontSize: 22, fontWeight: 800, color: C.ink }}>{label}</div>}
+    <div
+      style={{
+        background: "#fff",
+        padding: "10px 10px 38px",
+        boxShadow: "0 14px 30px rgba(20,30,20,0.25)",
+        position: "relative",
+      }}
+    >
+      <Img
+        src={staticFile(src)}
+        style={{
+          width: pw,
+          height: h,
+          objectFit: "cover",
+          objectPosition: "50% 30%",
+          display: "block",
+        }}
+      />
+      {label && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 6,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontSize: 22,
+            fontWeight: 800,
+            color: C.ink,
+          }}
+        >
+          {label}
+        </div>
+      )}
     </div>
   </Pop>
 );
 
 // ---------- scenes ----------
-const Center: React.FC<{ top: number; children: React.ReactNode }> = ({ top, children }) => (
-  <div style={{ position: "absolute", top, left: SAFE.left, right: SAFE.left, display: "flex", justifyContent: "center", alignItems: "center", gap: 30 }}>{children}</div>
+const Center: React.FC<{ top: number; children: React.ReactNode }> = ({
+  top,
+  children,
+}) => (
+  <div
+    style={{
+      position: "absolute",
+      top,
+      left: SAFE.left,
+      right: SAFE.left,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 30,
+    }}
+  >
+    {children}
+  </div>
 );
 
 const Utama: React.FC = () => {
@@ -238,7 +577,7 @@ const Utama: React.FC = () => {
   return (
     <AbsoluteFill>
       <Stack top={260} gap={8}>
-        <Line delay={w(s, 0.3)} size={60} weight={800} style={{ marginRight: 280 }}>
+        <Line delay={w(s, 0.3)} size={60} weight={800}>
           Jangan salah faham…
         </Line>
       </Stack>
@@ -275,10 +614,10 @@ const Coaching: React.FC = () => {
   return (
     <AbsoluteFill>
       <Stack top={250} gap={8}>
-        <Line delay={w(s, 7.14)} size={46} weight={700} color={C.inkSoft} style={{ marginRight: 280 }}>
+        <Line delay={w(s, 7.14)} size={46} weight={700} color={C.inkSoft}>
           Apa yang saya bina:
         </Line>
-        <Line delay={w(s, 8.24)} size={72} weight={800} style={{ marginRight: 280 }}>
+        <Line delay={w(s, 8.24)} size={72} weight={800}>
           <Highlight delay={w(s, 8.5)}>coaching</Highlight>
         </Line>
       </Stack>
@@ -299,12 +638,20 @@ const Coaching: React.FC = () => {
       </Center>
       <Stack top={840} gap={18}>
         <Line delay={w(s, 10.5)} size={46} weight={700}>
-          untuk orang yang <Highlight delay={w(s, 10.9)}>susah nak konsisten</Highlight>
+          untuk orang yang{" "}
+          <Highlight delay={w(s, 10.9)}>susah nak konsisten</Highlight>
         </Line>
         <Streak delay={w(s, 11.0)} />
       </Stack>
       <Center top={1100}>
-        <Photo src="img/event-present.jpg" w={250} h={300} delay={w(s, 8.6)} rot={-4} label="sesi coaching" />
+        <Photo
+          src="img/event-present.jpg"
+          w={250}
+          h={300}
+          delay={w(s, 8.6)}
+          rot={-4}
+          label="sesi coaching"
+        />
       </Center>
     </AbsoluteFill>
   );
@@ -313,11 +660,14 @@ const Coaching: React.FC = () => {
 const Masa: React.FC = () => {
   const s = starts.masa;
   const fr = useCurrentFrame();
-  const fill = interpolate(fr, [w(s, 13.44), w(s, 14.4)], [0, 0.25], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const fill = interpolate(fr, [w(s, 13.44), w(s, 14.4)], [0, 0.25], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <AbsoluteFill>
       <Stack top={250} gap={8}>
-        <Line delay={w(s, 12.78)} size={50} weight={700} style={{ marginRight: 280 }}>
+        <Line delay={w(s, 12.78)} size={50} weight={700}>
           Dalam masa yang saya ada
         </Line>
       </Stack>
@@ -348,22 +698,48 @@ const Masa: React.FC = () => {
 const Dulu: React.FC = () => {
   const s = starts.dulu;
   const fr = useCurrentFrame();
-  const level = interpolate(fr, [w(s, 22.34), w(s, 24.9)], [1, 0.1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const level = interpolate(fr, [w(s, 22.34), w(s, 24.9)], [1, 0.1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   const now = fr >= w(s, 25.92);
   return (
     <AbsoluteFill>
       {!now ? (
         <>
           <Stack top={250} gap={8}>
-            <Line delay={w(s, 20.4)} size={46} weight={700} color={C.inkSoft} style={{ marginRight: 280 }}>
+            <Line delay={w(s, 20.4)} size={46} weight={700} color={C.inkSoft}>
               Dulu…
             </Line>
           </Stack>
           <Center top={500}>
             <Pop delay={w(s, 21.74)} rotate={-4}>
-              <div style={{ position: "relative", background: C.ink, color: C.paper, borderRadius: 30, padding: "26px 40px", fontSize: 56, fontWeight: 800, maxWidth: 860, textAlign: "center" }}>
+              <div
+                style={{
+                  position: "relative",
+                  background: C.ink,
+                  color: C.paper,
+                  borderRadius: 30,
+                  padding: "26px 40px",
+                  fontSize: 56,
+                  fontWeight: 800,
+                  maxWidth: 860,
+                  textAlign: "center",
+                }}
+              >
                 “Semua boleh! Yes boss!”
-                <div style={{ position: "absolute", bottom: -26, left: 70, width: 0, height: 0, borderLeft: "20px solid transparent", borderRight: "20px solid transparent", borderTop: `30px solid ${C.ink}` }} />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: -26,
+                    left: 70,
+                    width: 0,
+                    height: 0,
+                    borderLeft: "20px solid transparent",
+                    borderRight: "20px solid transparent",
+                    borderTop: `30px solid ${C.ink}`,
+                  }}
+                />
               </div>
             </Pop>
           </Center>
@@ -381,7 +757,7 @@ const Dulu: React.FC = () => {
       ) : (
         <>
           <Stack top={250} gap={8}>
-            <Line delay={w(s, 25.92)} size={50} weight={700} style={{ marginRight: 280 }}>
+            <Line delay={w(s, 25.92)} size={50} weight={700}>
               Sekarang saya belajar
             </Line>
           </Stack>
@@ -415,25 +791,58 @@ const Kenapa: React.FC = () => {
   return (
     <AbsoluteFill>
       <Stack top={250} gap={8}>
-        <Line delay={w(s, 28.72)} size={72} weight={800} style={{ marginRight: 280 }}>
+        <Line delay={w(s, 28.72)} size={72} weight={800}>
           Kenapa saya buat?
         </Line>
       </Stack>
-      <div style={{ position: "absolute", top: 480, left: SAFE.left, right: SAFE.left, display: "flex", flexDirection: "column", gap: 26, alignItems: "center" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: 480,
+          left: SAFE.left,
+          right: SAFE.left,
+          display: "flex",
+          flexDirection: "column",
+          gap: 26,
+          alignItems: "center",
+        }}
+      >
         {WHY.map(([Icon, label, at], i) => (
           <Pop key={label} delay={w(s, at)} rotate={i % 2 ? 1.5 : -1.5}>
-            <Card style={{ width: 860, padding: "14px 30px", display: "flex", alignItems: "center", gap: 26 }}>
+            <Card
+              style={{
+                width: 860,
+                padding: "14px 30px",
+                display: "flex",
+                alignItems: "center",
+                gap: 26,
+              }}
+            >
               <div style={{ transform: "scale(0.7)", margin: "-20px -20px" }}>
                 <Icon />
               </div>
-              <span style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.2 }}>{label}</span>
+              <span style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.2 }}>
+                {label}
+              </span>
             </Card>
           </Pop>
         ))}
       </div>
       <Center top={1060}>
-        <Photo src="img/event-stage.jpg" w={250} h={310} delay={w(s, 33.92)} rot={-4} />
-        <Photo src="img/event-help.jpg" w={300} h={310} delay={w(s, 34.58)} rot={3} />
+        <Photo
+          src="img/event-stage.jpg"
+          w={250}
+          h={310}
+          delay={w(s, 33.92)}
+          rot={-4}
+        />
+        <Photo
+          src="img/event-help.jpg"
+          w={300}
+          h={310}
+          delay={w(s, 34.58)}
+          rot={3}
+        />
       </Center>
     </AbsoluteFill>
   );
@@ -461,14 +870,45 @@ const Cta: React.FC = () => {
 };
 
 // Polaroid pinned through the illustrated part (the opener clip looped, muted, so it keeps moving), plus the voice track.
+// After the opener shrinks into a polaroid, the polaroid flies off (there is no more face footage: the rest is the
+// TeleCue voice), leaving the illustrated scenes full-frame. Plus the voice track.
+const FLY = 16;
+const PolaroidExit: React.FC = () => {
+  const fr = useCurrentFrame();
+  const p = interpolate(fr, [0, FLY], [0, 1], {
+    easing: Easing.in(Easing.cubic),
+    extrapolateRight: "clamp",
+  });
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        transform: `translate(${p * 420}px, ${-p * 520}px) rotate(${p * 25}deg)`,
+        opacity: 1 - p * 0.6,
+      }}
+    >
+      <PolaroidFrame>
+        <OffthreadVideo
+          src={staticFile(CLIP)}
+          muted
+          startFrom={CLIP_LEN - 1}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "50% 22%",
+          }}
+        />
+      </PolaroidFrame>
+    </div>
+  );
+};
+
 export const R1310BinaOverlay: React.FC = () => (
   <>
-    <Sequence from={CLIP_LEN} layout="none">
-      <PolaroidFrame>
-        <Loop durationInFrames={CLIP_LEN}>
-          <OffthreadVideo src={staticFile(CLIP)} muted style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 22%" }} />
-        </Loop>
-      </PolaroidFrame>
+    <Sequence from={CLIP_LEN} durationInFrames={FLY} layout="none">
+      <PolaroidExit />
     </Sequence>
     <Sequence from={tl.voiceFrame} layout="none">
       <Audio src={staticFile(AUDIO)} />
@@ -476,14 +916,72 @@ export const R1310BinaOverlay: React.FC = () => (
   </>
 );
 
-const soft = (cues: Cue[], k = 0.6): Cue[] => cues.map(([f, s, x]) => [f, s, x * k]);
+const soft = (cues: Cue[], k = 0.6): Cue[] =>
+  cues.map(([f, s, x]) => [f, s, x * k]);
 
 export const R1310_BINA_REAL_SCENES: SceneDef[] = [
-  { id: "opener", dur: CLIP_LEN, el: <Opener />, cues: soft([[Math.round(1.3 * 30) - 3, "stamp", 0.6], [CLIP_LEN - SHRINK, "whoosh", 0.7]], 0.6) },
-  { id: "utama", dur: starts.coaching - starts.utama, el: <Utama />, cues: soft([[w(starts.utama, 2.24), "pop", 0.4], [w(starts.utama, 3.02), "pop", 0.4], [w(starts.utama, 4.84), "stamp", 0.6]]) },
-  { id: "coaching", dur: starts.masa - starts.coaching, el: <Coaching />, cues: soft([[w(starts.coaching, 8.98), "pop", 0.4], [w(starts.coaching, 9.72), "pop", 0.4]]) },
-  { id: "masa", dur: starts.dulu - starts.masa, el: <Masa />, cues: soft([[w(starts.masa, 13.0), "tick", 0.5], [w(starts.masa, 15.44), "stamp", 0.6]]) },
-  { id: "dulu", dur: starts.kenapa - starts.dulu, el: <Dulu />, cues: soft([[w(starts.dulu, 21.74), "pop", 0.45], [w(starts.dulu, 25.92), "swipe", 0.45]]) },
-  { id: "kenapa", dur: starts.cta - starts.kenapa, el: <Kenapa />, cues: soft(WHY.map(([, , at]): Cue => [w(starts.kenapa, at), "pop", 0.45])) },
-  { id: "cta", dur: starts.end - starts.cta, el: <Cta />, cues: soft([[w(starts.cta, 37.6), "pop", 0.5], [w(starts.cta, 37.6) + 4, "chime", 0.45]]) },
+  {
+    id: "opener",
+    dur: CLIP_LEN,
+    el: <Opener />,
+    cues: soft(
+      [
+        [Math.round(1.3 * 30) - 3, "stamp", 0.6],
+        [CLIP_LEN - SHRINK, "whoosh", 0.7],
+      ],
+      0.6,
+    ),
+  },
+  {
+    id: "utama",
+    dur: starts.coaching - starts.utama,
+    el: <Utama />,
+    cues: soft([
+      [w(starts.utama, 2.24), "pop", 0.4],
+      [w(starts.utama, 3.02), "pop", 0.4],
+      [w(starts.utama, 4.84), "stamp", 0.6],
+    ]),
+  },
+  {
+    id: "coaching",
+    dur: starts.masa - starts.coaching,
+    el: <Coaching />,
+    cues: soft([
+      [w(starts.coaching, 8.98), "pop", 0.4],
+      [w(starts.coaching, 9.72), "pop", 0.4],
+    ]),
+  },
+  {
+    id: "masa",
+    dur: starts.dulu - starts.masa,
+    el: <Masa />,
+    cues: soft([
+      [w(starts.masa, 13.0), "tick", 0.5],
+      [w(starts.masa, 15.44), "stamp", 0.6],
+    ]),
+  },
+  {
+    id: "dulu",
+    dur: starts.kenapa - starts.dulu,
+    el: <Dulu />,
+    cues: soft([
+      [w(starts.dulu, 21.74), "pop", 0.45],
+      [w(starts.dulu, 25.92), "swipe", 0.45],
+    ]),
+  },
+  {
+    id: "kenapa",
+    dur: starts.cta - starts.kenapa,
+    el: <Kenapa />,
+    cues: soft(WHY.map(([, , at]): Cue => [w(starts.kenapa, at), "pop", 0.45])),
+  },
+  {
+    id: "cta",
+    dur: starts.end - starts.cta,
+    el: <Cta />,
+    cues: soft([
+      [w(starts.cta, 37.6), "pop", 0.5],
+      [w(starts.cta, 37.6) + 4, "chime", 0.45],
+    ]),
+  },
 ];
