@@ -66,16 +66,16 @@ const Row: React.FC<{ e: string; k: string; v?: React.ReactNode; warn?: boolean 
 const S1: React.FC = () => (
   <Slide index={0} total={TOTAL}>
     <Pad top={170}>
-      <Kicker>Old Chinese medicine saying</Kicker>
+      <Kicker>Jujur, saya pun baru tahu</Kicker>
       <Headline size={112}>
         Ada <Sage>3 level</Sage> doktor.
       </Headline>
       <Body size={36} style={{ marginTop: 20 }}>
-        Most of us jumpa <B>level 3</B> je.
+        Dah lama kerja as pharmacist, baru jumpa pepatah ni. Dan most of us cuma jumpa <B>level 3</B> je.
       </Body>
     </Pad>
-    <Photo top={560} size={420} />
-    <div style={{ position: "absolute", top: 760, left: 50 }}>
+    <Photo top={630} size={410} />
+    <div style={{ position: "absolute", top: 830, left: 50 }}>
       <Stairs hi={3} w={500} />
     </div>
   </Slide>
@@ -115,10 +115,10 @@ const S3: React.FC = () => (
         Bukan nak <Sage>shame.</Sage>
       </Headline>
       <Body size={38} style={{ marginTop: 26 }}>
-        Level 3 save lives. Saya nampak sendiri kat hospital, ubat memang <B>penting.</B>
+        Saya still kerja as pharmacist. Hari-hari saya nampak, level 3 save lives. Ubat memang <B>penting.</B>
       </Body>
       <Body size={38} style={{ marginTop: 26, color: T.ring, fontWeight: 700 }}>
-        But ada satu benda yang saya pegang.
+        Tapi pepatah ni buat saya fikir balik.
       </Body>
     </Pad>
     <Photo top={800} size={360} />
