@@ -66,12 +66,12 @@ const Row: React.FC<{ e: string; k: string; v?: React.ReactNode; warn?: boolean 
 const S1: React.FC = () => (
   <Slide index={0} total={TOTAL}>
     <Pad top={170}>
-      <Kicker>Pepatah lama perubatan Cina</Kicker>
+      <Kicker>Old Chinese medicine saying</Kicker>
       <Headline size={112}>
-        Ada <Sage>3 tahap</Sage> rawatan.
+        Ada <Sage>3 level</Sage> doktor.
       </Headline>
       <Body size={36} style={{ marginTop: 20 }}>
-        Kebanyakan orang mula di <B>tahap 3.</B>
+        Most of us jumpa <B>level 3</B> je.
       </Body>
     </Pad>
     <Photo top={560} size={420} />
@@ -87,14 +87,14 @@ const S2: React.FC = () => (
     <Pad top={160}>
       <div style={{ fontFamily: "WenQuanYi Zen Hei", fontWeight: 700, fontSize: 60, color: T.ring, lineHeight: 1.15 }}>上医治未病，<br />中医治欲病，<br />下医治已病</div>
       <Body size={26} style={{ color: T.textSoft, marginTop: 10 }}>
-        “Tabib terbaik rawat sebelum sakit, tabib pertengahan rawat ketika hampir sakit, tabib biasa rawat bila dah sakit.”
+        “Doktor terbaik treat sebelum sakit. Yang biasa, treat bila dah sakit.”
       </Body>
     </Pad>
     <div style={{ position: "absolute", top: 640, left: 84, right: 480, display: "flex", flexDirection: "column", gap: 26 }}>
       {[
-        ["Tahap 1", "Cegah dari awal."],
-        ["Tahap 2", "Kesan awal: gula atau tekanan darah dah mula naik."],
-        ["Tahap 3", "Rawat bila penyakit dah datang."],
+        ["Level 1", "Prevent dari awal."],
+        ["Level 2", "Catch awal: gula atau BP dah mula naik."],
+        ["Level 3", "Treat bila penyakit dah sampai."],
       ].map(([k, v]) => (
         <div key={k} style={{ fontSize: 33, lineHeight: 1.35 }}>
           <b>{k}</b> — {v}
@@ -115,10 +115,10 @@ const S3: React.FC = () => (
         Bukan nak <Sage>shame.</Sage>
       </Headline>
       <Body size={38} style={{ marginTop: 26 }}>
-        Tahap 3 selamatkan nyawa. Saya nampak sendiri setiap hari di hospital, ubat memang <B>penting.</B>
+        Level 3 save lives. Saya nampak sendiri kat hospital, ubat memang <B>penting.</B>
       </Body>
       <Body size={38} style={{ marginTop: 26, color: T.ring, fontWeight: 700 }}>
-        Tapi ada satu benda yang saya selalu pegang.
+        But ada satu benda yang saya pegang.
       </Body>
     </Pad>
     <Photo top={800} size={360} />
@@ -130,12 +130,12 @@ const S4: React.FC = () => (
   <Slide index={3} total={TOTAL}>
     <Pad top={240}>
       <Headline size={136}>
-        Ubat tak boleh ganti <Sage>asas yang rosak.</Sage>
+        You can’t out‑medicate a <Sage>bad foundation.</Sage>
       </Headline>
     </Pad>
     <Pad top={960}>
       <Body size={36}>
-        Ubat boleh <B>turunkan nombor.</B> Asas yang buat badan betul-betul berubah.
+        Ubat boleh <B>turunkan nombor.</B> Tapi foundation yang betul-betul ubah badan.
       </Body>
     </Pad>
   </Slide>
@@ -145,17 +145,17 @@ const S4: React.FC = () => (
 const S5: React.FC = () => (
   <Slide index={4} total={TOTAL}>
     <Pad top={160}>
-      <Kicker>Asas awak</Kicker>
+      <Kicker>Your foundation</Kicker>
       <Headline size={96}>
-        4 benda yang <Sage>ubat tak boleh bina.</Sage>
+        4 benda yang <Sage>ubat tak boleh build.</Sage>
       </Headline>
     </Pad>
     <div style={{ position: "absolute", top: 480, left: 84, right: 84, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
       {[
-        ["😴", "Tidur"],
-        ["💪", "Otot"],
-        ["🍽️", "Apa yang dimakan"],
-        ["📏", "Lilit pinggang"],
+        ["😴", "Sleep"],
+        ["💪", "Muscle"],
+        ["🍽️", "Apa yang awak makan"],
+        ["📏", "Waist awak"],
       ].map(([e, k]) => (
         <div key={k} style={{ background: T.sageSoft, borderRadius: 22, padding: "30px 26px", display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={{ fontSize: 72 }}>{e}</div>
@@ -164,7 +164,7 @@ const S5: React.FC = () => (
       ))}
     </div>
     <div style={{ position: "absolute", top: 1000, left: 84, right: 84, background: T.ring, color: T.page, borderRadius: 18, padding: "22px 28px", fontSize: 32, lineHeight: 1.3 }}>
-      Ubat jaga nombor. <span style={{ color: T.gold, fontWeight: 800 }}>Awak</span> yang bina asas.
+      Ubat jaga nombor. <span style={{ color: T.gold, fontWeight: 800 }}>You</span> build the foundation.
     </div>
   </Slide>
 );
@@ -174,10 +174,10 @@ const S6: React.FC = () => (
   <Slide index={5} total={TOTAL}>
     <Pad top={170}>
       <Headline size={96}>
-        Tahap 1 bukan untuk orang sihat <Sage>je.</Sage>
+        Level 1 bukan untuk orang sihat <Sage>je.</Sage>
       </Headline>
       <Body size={36} style={{ marginTop: 24 }}>
-        Dah makan ubat pun, awak masih boleh <B>bina balik asas</B> dan naik tangga semula.
+        Dah on ubat pun, awak still boleh <B>rebuild foundation</B> dan naik balik tangga ni.
       </Body>
     </Pad>
     <div style={{ position: "absolute", top: 720, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
@@ -190,12 +190,12 @@ const S6: React.FC = () => (
 const S7: React.FC = () => (
   <Slide index={6} total={TOTAL}>
     <Pad top={170}>
-      <Kicker>Yang pharmacist selalu nampak</Kicker>
+      <Kicker>What I keep seeing</Kicker>
       <Headline size={96}>
-        Berat dah turun. <Sage>Dos ubat masih sama.</Sage>
+        Berat dah turun. <Sage>Dos ubat still sama.</Sage>
       </Headline>
       <Body size={34} style={{ marginTop: 24 }}>
-        Badan dah berubah, tapi tak ada siapa semak semula ubat.
+        Lifestyle dah berubah, tapi nobody review balik ubat dia.
       </Body>
     </Pad>
     <div style={{ position: "absolute", top: 760, left: 84, right: 84, display: "flex", justifyContent: "space-around", fontSize: 120 }}>
@@ -210,15 +210,15 @@ const S7: React.FC = () => (
 const S8: React.FC = () => (
   <Slide index={7} total={TOTAL}>
     <Pad top={160}>
-      <Kicker>Tanda yang ramai abaikan</Kicker>
+      <Kicker>Signs yang ramai ignore</Kicker>
       <Headline size={92}>
-        Ingat badan lemah. <Sage>Rupanya dos dah lebih.</Sage>
+        Ingat badan lemah. <Sage>Rupanya dos dah over.</Sage>
       </Headline>
     </Pad>
     <div style={{ position: "absolute", top: 520, left: 84, right: 84, display: "flex", flexDirection: "column", gap: 14 }}>
-      <Row warn e="😵‍💫" k="Pening bila bangun berdiri" v="Boleh jadi tanda tekanan darah dah terlalu rendah dengan dos sekarang." />
-      <Row warn e="🥶" k="Menggeletar, berpeluh, lapar sangat" v="Boleh jadi tanda gula rendah, terutama ubat kencing manis tertentu." />
-      <Row warn e="🥱" k="Rasa lemah & letih luar biasa" v="Jangan terus anggap “biasalah diet”." />
+      <Row warn e="😵‍💫" k="Pening bila bangun berdiri" v="Mungkin BP dah drop terlalu rendah dengan dos sekarang." />
+      <Row warn e="🥶" k="Menggeletar, berpeluh, lapar sangat" v="Mungkin sugar low, terutama dengan ubat diabetes tertentu." />
+      <Row warn e="🥱" k="Letih & lemah luar biasa" v="Jangan terus assume “biasalah tengah diet”." />
     </div>
   </Slide>
 );
@@ -227,19 +227,19 @@ const S8: React.FC = () => (
 const S9: React.FC = () => (
   <Slide index={8} total={TOTAL}>
     <Pad top={160}>
-      <Kicker>Apa patut buat</Kicker>
+      <Kicker>So, what to do?</Kicker>
       <Headline size={96}>
-        Langkah <Sage>selamat.</Sage>
+        Step by <Sage>step.</Sage>
       </Headline>
     </Pad>
     <div style={{ position: "absolute", top: 440, left: 84, right: 84, display: "flex", flexDirection: "column", gap: 14 }}>
-      <Row e="📝" k="Rekod bacaan di rumah" v="Tekanan darah atau gula, berserta simptom & masa." />
-      <Row e="🩺" k="Bawa rekod jumpa doktor" v="Minta semak dos bila berat & gaya hidup dah berubah." />
-      <Row e="💬" k="Tanya pharmacist" v="Kami boleh bantu kenal pasti ubat mana yang perlu disemak." />
+      <Row e="📝" k="Track bacaan kat rumah" v="BP atau gula, plus simptom & masa." />
+      <Row e="🩺" k="Bawa jumpa doktor" v="Minta review dos bila berat & lifestyle dah berubah." />
+      <Row e="💬" k="Tanya pharmacist" v="Kami boleh tolong spot ubat mana yang perlu di-review." />
     </div>
     <div style={{ position: "absolute", top: 1010, left: 84, right: 84, display: "flex", alignItems: "center", gap: 20, border: `4px solid ${T.ring}`, background: T.sageSoft, borderRadius: 20, padding: "22px 28px" }}>
       <div style={{ width: 54, height: 54, borderRadius: "50%", background: T.ring, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 34, fontWeight: 800, flex: "none" }}>!</div>
-      <div style={{ fontSize: 31, fontWeight: 700, color: T.ring, lineHeight: 1.3 }}>Jangan sesekali berhenti atau ubah dos ubat sendiri.</div>
+      <div style={{ fontSize: 31, fontWeight: 700, color: T.ring, lineHeight: 1.3 }}>Please jangan stop atau ubah dos ubat sendiri.</div>
     </div>
   </Slide>
 );
@@ -249,10 +249,10 @@ const S10: React.FC = () => (
   <Slide index={9} total={TOTAL} last lastLabel="KOMEN 1, 2 ATAU 3">
     <Pad top={170}>
       <Headline size={104}>
-        Kurang ubat, <Sage>bukan tambah.</Sage>
+        Fewer pills, <Sage>not more.</Sage>
       </Headline>
       <Body size={34} style={{ marginTop: 20 }}>
-        Dengan asas yang kuat, dan doktor yang pantau.
+        Dengan foundation yang kuat, dan doktor yang monitor.
       </Body>
     </Pad>
     <div style={{ position: "absolute", top: 560, left: 40 }}>
@@ -262,7 +262,7 @@ const S10: React.FC = () => (
     <Pad top={1040}>
       <CtaBox>
         <span style={{ fontSize: 38, fontWeight: 700 }}>
-          Awak di tahap mana sekarang? Komen <span style={{ color: T.gold }}>1, 2 atau 3</span>
+          Awak kat level mana sekarang? Komen <span style={{ color: T.gold }}>1, 2 atau 3</span>
         </span>
       </CtaBox>
     </Pad>
