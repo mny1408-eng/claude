@@ -580,6 +580,9 @@ const Cta: React.FC = () => {
           Komen “PART 2”
         </CtaPill>
       </div>
+      <div style={{ position: "absolute", top: 1180, left: SAFE.left, width: 830, textAlign: "center", fontSize: 26, fontWeight: 600, color: C.inkSoft, opacity: 0.85 }}>
+        Sumber: Drucker 2018, Cell Metab · Wilding et al. 2021, N Engl J Med
+      </div>
     </AbsoluteFill>
   );
 };
