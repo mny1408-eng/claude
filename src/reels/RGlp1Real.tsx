@@ -83,7 +83,7 @@ const Perut: React.FC<{ size: number }> = ({ size }) => (
   </svg>
 );
 
-const Otak: React.FC<{ size: number }> = ({ size }) => (
+export const Otak: React.FC<{ size: number }> = ({ size }) => (
   <svg viewBox="0 0 200 200" width={size} height={size}>
     <path d="M 30 112 Q 18 70 56 56 Q 70 28 104 36 Q 140 26 160 56 Q 190 70 178 112 Q 182 150 140 152 Q 104 168 70 152 Q 32 152 30 112 Z" fill="#F2AEBB" stroke="#CF7F8F" strokeWidth={4} />
     <path d="M 104 40 Q 96 80 106 150 M 58 80 Q 80 74 84 96 M 150 76 Q 128 76 128 100 M 60 128 Q 78 118 92 132 M 142 130 Q 128 120 118 132" stroke="#CF7F8F" strokeWidth={4} fill="none" strokeLinecap="round" />
@@ -91,7 +91,7 @@ const Otak: React.FC<{ size: number }> = ({ size }) => (
   </svg>
 );
 
-const Envelope: React.FC<{ size: number }> = ({ size }) => (
+export const Envelope: React.FC<{ size: number }> = ({ size }) => (
   <svg viewBox="0 0 120 84" width={size} height={(size * 84) / 120}>
     <rect x={4} y={4} width={112} height={76} rx={10} fill={C.gold} stroke={C.ink} strokeWidth={5} />
     <path d="M 8 10 L 60 48 L 112 10" stroke={C.ink} strokeWidth={5} fill="none" strokeLinejoin="round" />
