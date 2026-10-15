@@ -7,20 +7,26 @@
 //   public/voice/R-glp2/source.mp3   TeleCue 15/10 08:36 (src 1.55–58.02) + 08:35 (src 0.95–33.90): one read the app split at
 //                                    60s; the repeated "Jangan berhenti ataupun tukar dos…" at the seam is taken from 08:35 only.
 // Times below are seconds in the joined voice file (Whisper medium, unprompted, per take).
-// HOOK: placeholder title card until the face-cam hook is recorded.
+//   public/clips/R-glp2-opener.mp4   Teleprompter 15/10 08:47, src 0.78–7.10 (lead-in and tail cut): "Apa yang akan jadi bila
+//                                    berhenti ubat GLP-1? Ramai ingat berat akan kekal turun, tapi kajian tunjuk lain."
 import React from "react";
-import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Easing, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { C } from "../theme";
 import { Card, Highlight, Line, Mark, Pop, Strike } from "../kit";
 import { Cue } from "../sound";
 import { SceneDef } from "../Reel";
 import { BoxStamp, Chip, CtaPill, SAFE, Stack } from "./formats/common";
 import { Captions, Word } from "./formats/Captions";
+import { FaceCamOpener } from "./formats/FaceCamOpener";
+import { PaperTear } from "./formats/PaperTear";
 import { voiceTimeline } from "./formats/voiceTimeline";
 import { Envelope, Otak } from "./RGlp1Real";
 
 const AUDIO = "voice/R-glp2/source.mp3";
-const OPEN = 105;
+const CLIP = "clips/R-glp2-opener.mp4";
+const OPEN = 192;
+const ZOOM = 1.1; // same framing as Part 1
+const TEAR = 16;
 const tl = voiceTimeline({ clipLen: OPEN, clipFrom: 0, voiceFrom: 0 });
 const w = tl.w;
 
@@ -41,24 +47,19 @@ const GREY = "#9CB8A9";
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const draw = (f: number, a: number, b: number) => interpolate(f, [a, b], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
 
-// ---------- opener (placeholder) ----------
+// ---------- opener ----------
 
 const Opener: React.FC = () => (
-  <AbsoluteFill>
-    <div style={{ position: "absolute", top: 300, left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-      <BoxStamp delay={4} rotate={-4} size={130}>
-        PART 2
-      </BoxStamp>
-    </div>
-    <Stack top={600} gap={12}>
-      <Line delay={14} size={58} weight={700} color={C.inkSoft}>
-        Apa jadi bila
-      </Line>
-      <Line delay={22} size={80} weight={800}>
-        <Highlight delay={30}>berhenti</Highlight> ubat GLP-1?
-      </Line>
-    </Stack>
-  </AbsoluteFill>
+  <FaceCamOpener clip={CLIP} zoom={ZOOM} hookSize={56} hook={<><span style={{ color: C.marker }}>PART 2:</span> apa jadi bila berhenti ubat GLP-1?</>} />
+);
+
+// frozen last frame of the clip, torn away to reveal the first chart
+const TearAway: React.FC = () => (
+  <PaperTear at={0} dur={TEAR}>
+    <AbsoluteFill style={{ background: C.paper }}>
+      <OffthreadVideo src={staticFile(CLIP)} muted startFrom={OPEN - 1} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${ZOOM})`, transformOrigin: "50% 0%" }} />
+    </AbsoluteFill>
+  </PaperTear>
 );
 
 // ---------- chart frame ----------
@@ -429,13 +430,24 @@ const VOICE_WORDS: [number, string][] = [
   [86.20, "and"], [86.44, "share"], [86.76, "kepada"], [87.08, "kawan"], [87.42, "yang"], [87.62, "tengah"], [87.84, "ambil"], [88.08, "ubat"], [88.38, "GLP-1."],
 ];
 
-const WORDS: Word[] = VOICE_WORDS.map(([t, text], i) => {
-  const next = VOICE_WORDS[i + 1]?.[0] ?? t + 0.6;
-  return [tl.reel(t), tl.reel(Math.min(next, t + 0.7)), text];
-});
+const CLIP_WORDS: [number, string][] = [
+  [0.05, "Apa"], [0.18, "yang"], [0.3, "akan"], [0.46, "jadi"], [0.72, "bila"], [1.02, "berhenti"], [1.38, "ubat"], [1.66, "GLP-1?"],
+  [2.82, "Ramai"], [2.98, "ingat"], [3.22, "berat"], [3.52, "akan"], [3.7, "kekal"], [4.02, "turun,"], [4.82, "tapi"], [5.18, "kajian"], [5.62, "tunjuk"], [5.86, "lain."],
+];
+
+const toWords = (list: [number, string][], map: (t: number) => number): Word[] =>
+  list.map(([t, text], i) => {
+    const next = list[i + 1]?.[0] ?? t + 0.6;
+    return [map(t), map(Math.min(next, t + 0.7)), text];
+  });
+
+const WORDS: Word[] = [...toWords(CLIP_WORDS, (t) => t), ...toWords(VOICE_WORDS, tl.reel)];
 
 export const RGlp2Overlay: React.FC = () => (
   <>
+    <Sequence from={OPEN} durationInFrames={TEAR} layout="none">
+      <TearAway />
+    </Sequence>
     <Sequence from={tl.voiceFrame} layout="none">
       <Audio src={staticFile(AUDIO)} />
     </Sequence>
@@ -447,7 +459,7 @@ const soft = (cues: Cue[], k = 0.6): Cue[] => cues.map(([f, s, x]) => [f, s, x *
 const at = (s: number, list: [number, Cue[1], number][]): Cue[] => list.map(([t, sfx, vol]) => [w(s, t), sfx, vol]);
 
 export const RGLP2_REAL_SCENES: SceneDef[] = [
-  { id: "opener", dur: OPEN, el: <Opener />, cues: soft([[4, "stamp", 0.6], [OPEN - 6, "whoosh", 0.6]]) },
+  { id: "opener", dur: OPEN, el: <Opener />, cues: soft([[OPEN - 4, "whoosh", 0.7]]) },
   { id: "kajian", dur: starts.bacaan - starts.kajian, el: <Kajian />, cues: soft(at(starts.kajian, [[8.97, "stamp", 0.5], [14.01, "pop", 0.45]])) },
   { id: "bacaan", dur: starts.kajian2 - starts.bacaan, el: <Bacaan />, cues: soft(at(starts.bacaan, [[18.9, "scribble", 0.45], [20.15, "pop", 0.4], [20.87, "pop", 0.4], [23.07, "stamp", 0.55]])) },
   { id: "kajian2", dur: starts.kenapa - starts.kajian2, el: <Kajian2 />, cues: soft(at(starts.kajian2, [[31.45, "pop", 0.4], [35.45, "swipe", 0.35], [37.67, "swipe", 0.35]])) },
