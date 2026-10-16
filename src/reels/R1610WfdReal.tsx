@@ -11,7 +11,7 @@ import { AbsoluteFill, OffthreadVideo, staticFile, useCurrentFrame } from "remot
 import { C, FPS } from "../theme";
 import { Card, Mark, Pop, Strike } from "../kit";
 import { SceneDef } from "../Reel";
-import { Chip, CtaPill, SAFE } from "./formats/common";
+import { CENTER, Chip, CtaPill } from "./formats/common";
 import { Captions, Word } from "./formats/Captions";
 import { FaceCamOpener, LowerBand, OVER_VIDEO } from "./formats/FaceCamOpener";
 
@@ -146,7 +146,7 @@ const End: React.FC = () => (
     <OffthreadVideo src={staticFile(CLIP)} muted startFrom={CLIP_LEN - 4} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${ZOOM})`, transformOrigin: "50% 0%" }} />
     <AbsoluteFill style={{ background: "rgba(23,60,48,0.35)" }} />
     <LowerBand />
-    <div style={{ position: "absolute", top: 1050, left: SAFE.left, right: SAFE.right, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+    <div style={{ position: "absolute", top: 1050, left: CENTER.left, right: CENTER.right, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
       <Pop delay={2} rotate={-1.5}>
         <div style={{ background: C.ink, color: C.paper, borderRadius: 18, padding: "12px 26px", fontSize: 44, fontWeight: 800, whiteSpace: "nowrap", ...OVER_VIDEO }}>KURANGKAN PEMBAZIRAN</div>
       </Pop>
@@ -170,10 +170,10 @@ export const R1610_WFD_REAL_SCENES: SceneDef[] = [
       <>
         <FaceCamOpener clip={CLIP} hook={Hook} hookSize={50} zoom={ZOOM} />
         <LowerBand />
-        <div style={{ position: "absolute", top: 1335, left: SAFE.left, right: SAFE.right, display: "flex", justifyContent: "center" }}>
+        <div style={{ position: "absolute", top: 1335, left: CENTER.left, right: CENTER.right, display: "flex", justifyContent: "center" }}>
           <Lower />
         </div>
-        <Captions words={WORDS} top={1100} size={58} left={SAFE.left} right={SAFE.right} />
+        <Captions words={WORDS} top={1100} size={58} left={CENTER.left} right={CENTER.right} />
       </>
     ),
     cues: [

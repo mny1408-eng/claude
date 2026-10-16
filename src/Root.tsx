@@ -49,6 +49,7 @@ import { R1510_BP_REAL_SCENES } from "./reels/R1510BpReal";
 import { R1510_MOVE_REAL_SCENES } from "./reels/R1510MoveReal";
 import { R1610_ACC_REAL_SCENES } from "./reels/R1610AccReal";
 import { R1610_WFD_REAL_SCENES } from "./reels/R1610WfdReal";
+import { R1710_LABEL_REAL_SCENES } from "./reels/R1710LabelReal";
 import { RGLP1_REAL_SCENES, RGlp1Overlay } from "./reels/RGlp1Real";
 import { RGLP2_REAL_SCENES, RGlp2Overlay } from "./reels/RGlp2Real";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
@@ -325,6 +326,14 @@ export const Root: React.FC = () => (
       id="R1-14-10-Label-CoachNas"
       component={() => <Reel scenes={R1410_LABEL_REAL_SCENES} />}
       durationInFrames={reelLength(R1410_LABEL_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R1-17-10-FakeHealthy-CoachNas"
+      component={() => <Reel scenes={R1710_LABEL_REAL_SCENES} />}
+      durationInFrames={reelLength(R1710_LABEL_REAL_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}

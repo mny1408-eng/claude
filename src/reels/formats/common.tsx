@@ -111,6 +111,9 @@ export const NumCard: React.FC<{ n: string; tag: string; text: React.ReactNode; 
 // location block covers y > ~1500, and the like/comment/share/save column covers x > ~900 from y ~950 down. Keep
 // overlays and captions inside these bounds.
 export const SAFE = { bottom: 1480, right: 190, left: 60 };
+// Symmetric side insets for centred captions and lower overlays on full-talk reels (Coach Nas, 17/10: SAFE.left/right
+// pushed them visibly off-centre). Wide enough for the text, still clear of the icon column for typical line lengths.
+export const CENTER = { left: 110, right: 110 };
 
 // Rounded word chip.
 export const Chip: React.FC<{ children: React.ReactNode; delay?: number; rotate?: number; size?: number }> = ({ children, delay = 0, rotate = 0, size = 52 }) => (

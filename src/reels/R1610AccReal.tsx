@@ -9,7 +9,7 @@ import { AbsoluteFill, OffthreadVideo, staticFile, useCurrentFrame } from "remot
 import { C, FPS } from "../theme";
 import { Card, Mark, Pop } from "../kit";
 import { SceneDef } from "../Reel";
-import { Chip, CtaPill, SAFE } from "./formats/common";
+import { CENTER, Chip, CtaPill } from "./formats/common";
 import { Captions, Word } from "./formats/Captions";
 import { FaceCamOpener, LowerBand, OVER_VIDEO } from "./formats/FaceCamOpener";
 
@@ -173,7 +173,7 @@ const End: React.FC = () => (
     <OffthreadVideo src={staticFile(CLIP)} muted startFrom={CLIP_LEN - 10} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${ZOOM})`, transformOrigin: "50% 0%" }} />
     <AbsoluteFill style={{ background: "rgba(23,60,48,0.35)" }} />
     <LowerBand />
-    <div style={{ position: "absolute", top: 1180, left: SAFE.left, right: SAFE.right, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
+    <div style={{ position: "absolute", top: 1180, left: CENTER.left, right: CENTER.right, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
       <div style={{ transform: "scale(0.85)" }}>
         <CtaPill icon="share" delay={2}>
           Share dengan kawan
@@ -194,10 +194,10 @@ export const R1610_ACC_REAL_SCENES: SceneDef[] = [
       <>
         <FaceCamOpener clip={CLIP} hook={Hook} hookSize={54} zoom={ZOOM} />
         <LowerBand />
-        <div style={{ position: "absolute", top: 1335, left: SAFE.left, right: SAFE.right, display: "flex", justifyContent: "center" }}>
+        <div style={{ position: "absolute", top: 1335, left: CENTER.left, right: CENTER.right, display: "flex", justifyContent: "center" }}>
           <Lower />
         </div>
-        <Captions words={WORDS} top={1100} size={58} left={SAFE.left} right={SAFE.right} />
+        <Captions words={WORDS} top={1100} size={58} left={CENTER.left} right={CENTER.right} />
       </>
     ),
     cues: [
