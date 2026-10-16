@@ -30,3 +30,9 @@ export const FaceCamOpener: React.FC<{ clip: string; hook: React.ReactNode; hook
 
 // Shadow for cards laid over video, so they separate from the footage.
 export const OVER_VIDEO: React.CSSProperties = { boxShadow: "0 8px 22px rgba(20,30,20,0.25)" };
+
+// Paper band over the bottom of a face-cam frame (crops out the lower chest). Sits under the IG caption area, so no
+// overlay content is lost; keep lower overlays above `from`.
+export const LowerBand: React.FC<{ from?: number; fade?: number }> = ({ from = 1500, fade = 80 }) => (
+  <div style={{ position: "absolute", left: 0, right: 0, top: from, bottom: 0, background: `linear-gradient(180deg, rgba(247,245,237,0) 0px, ${C.paper} ${fade}px)` }} />
+);
