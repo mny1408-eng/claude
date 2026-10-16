@@ -15,7 +15,7 @@ import { FaceCamOpener, LowerBand, OVER_VIDEO } from "./formats/FaceCamOpener";
 
 const CLIP = "clips/R1610-acc-full.mp4";
 const CLIP_LEN = 1083;
-const ZOOM = 1.12; // with LowerBand: crops the lower chest out of frame (Coach Nas, 16/10)
+const ZOOM = 1; // no zoom: keeps the head centred (Coach Nas, 17/10); LowerBand alone crops the chest
 const END = 75; // frozen last frame + share pill
 const f = (sec: number) => Math.round(sec * FPS) - 3;
 
@@ -172,7 +172,7 @@ const End: React.FC = () => (
   <AbsoluteFill>
     <OffthreadVideo src={staticFile(CLIP)} muted startFrom={CLIP_LEN - 10} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${ZOOM})`, transformOrigin: "50% 0%" }} />
     <AbsoluteFill style={{ background: "rgba(23,60,48,0.35)" }} />
-    <LowerBand />
+    <LowerBand from={1780} fade={40} />
     <div style={{ position: "absolute", top: 1180, left: CENTER.left, right: CENTER.right, display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
       <div style={{ transform: "scale(0.85)" }}>
         <CtaPill icon="share" delay={2}>
@@ -193,7 +193,7 @@ export const R1610_ACC_REAL_SCENES: SceneDef[] = [
     el: (
       <>
         <FaceCamOpener clip={CLIP} hook={Hook} hookSize={54} zoom={ZOOM} />
-        <LowerBand />
+        <LowerBand from={1780} fade={40} />
         <div style={{ position: "absolute", top: 1335, left: CENTER.left, right: CENTER.right, display: "flex", justifyContent: "center" }}>
           <Lower />
         </div>
