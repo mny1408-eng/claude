@@ -38,6 +38,7 @@ import { CPrinsipUbah, CPRINSIP_SLIDES } from "./carousel/CPrinsipUbah";
 import { CHidrasi, CHIDRASI_SLIDES } from "./carousel/CHidrasi";
 import { CTigaTahap, CTIGATAHAP_SLIDES } from "./carousel/CTigaTahap";
 import { CSayurKampung, CSAYUR_SLIDES } from "./carousel/CSayurKampung";
+import { CTauhu, CTAUHU_SLIDES } from "./carousel/CTauhu";
 import { CarouselReel, carouselReelLength } from "./carousel/CarouselReel";
 import { ReelKanser, KANSER_TOTAL } from "./reels/kanser/ReelKanser";
 import { ReelHealing, HEALING_TOTAL } from "./reels/healing/ReelHealing";
@@ -73,6 +74,7 @@ const CAROUSELS = [
   { id: "Hidrasi", Slides: CHidrasi, slides: CHIDRASI_SLIDES, music: 48 },
   { id: "Tiga-Tahap", Slides: CTigaTahap, slides: CTIGATAHAP_SLIDES, music: 48 },
   { id: "Sayur-Kampung", Slides: CSayurKampung, slides: CSAYUR_SLIDES, music: 48 },
+  { id: "Tauhu", Slides: CTauhu, slides: CTAUHU_SLIDES, music: 48 },
 ];
 
 const hooks: VoxAdProps["hook"][] = ["A", "B", "C"];
