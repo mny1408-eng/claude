@@ -1,10 +1,11 @@
 // "Do it anyway" trend remix: the uploaded trend audio (10.3s, "Do it sad, do it angry … do it anyway") over Coach Nas's own
-// footage, one cut per "do it". Captions re-made in house style; the original's profane end line is replaced with
+// footage, one cut per "do it", every shot from a different clip (Coach Nas, 17/10: no repeats; name tags fine). Captions re-made in house style; the original's profane end line is replaced with
 // "Ikut plan, bukan mood." No footage of the original creator is used.
 // Media (local only, gitignored):
 //   public/voice/remix/doit.mp3          audio from the uploaded trend video (2eb08f77…mp4), loudness-normalised
 //   public/clips/remix/i4561|i2869.mp4   IMG_4561 / IMG_2869 driving B-roll, rotated to portrait, 30fps
-//   public/clips/remix/i4106.mp4         IMG_4106 night walk; only src 0–2s used (later frames show a uniform name tag)
+//   public/clips/remix/i4106.mp4         IMG_4106 night walk at a petrol station
+//   public/clips/R0610-shift, R0710-mamak, R0810-carbs, GAME, R1510a-full   earlier talking-head takes (pause/gesture moments)
 //   public/clips/R1610-acc-full.mp4      smile at the end of the 16/10 reel; public/img/event-stage.jpg, event-help.jpg event photos
 import React from "react";
 import { AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
@@ -18,16 +19,16 @@ type Shot = { word: string; at: number; src: string; from?: number; img?: boolea
 // `at` = start of each "do it" (Whisper word times in the trend audio)
 const SHOTS: Shot[] = [
   { word: "SAD", at: 0.0, src: "clips/remix/i4561.mp4", from: 1.0 },
-  { word: "ANGRY", at: 1.0, src: "clips/remix/i2869.mp4", from: 3.8 },
-  { word: "HEARTBROKEN", at: 1.75, src: "clips/remix/i4561.mp4", from: 4.4 },
-  { word: "MISERABLE", at: 2.72, src: "clips/remix/i4106.mp4", from: 0.0 },
+  { word: "ANGRY", at: 1.0, src: "clips/R0610-shift-full.mp4", from: 9.0 },
+  { word: "HEARTBROKEN", at: 1.75, src: "clips/R0710-mamak-full.mp4", from: 17.3 },
+  { word: "MISERABLE", at: 2.72, src: "clips/remix/i4106.mp4", from: 4.0 },
   { word: "EXCITED", at: 3.56, src: "img/event-stage.jpg", img: true },
-  { word: "ENERGIZED", at: 4.48, src: "img/event-help.jpg", img: true, pos: "35% 50%" }, // event-present not used: its slide shows product claims
+  { word: "ENERGIZED", at: 4.48, src: "img/event-help.jpg", img: true, pos: "35% 50%" },
   { word: "HAPPY", at: 5.42, src: "clips/R1610-acc-full.mp4", from: 35.1 },
-  { word: "TIRED", at: 6.2, src: "clips/remix/i4106.mp4", from: 1.0 },
+  { word: "TIRED", at: 6.2, src: "clips/R0810-carbs-full.mp4", from: 24.75 },
   { word: "CONFIDENT", at: 7.05, src: "clips/remix/i2869.mp4", from: 0.3 },
-  { word: "DISCOURAGED", at: 7.9, src: "clips/remix/i4561.mp4", from: 6.0 },
-  { word: "ANYWAY", at: 9.4, src: "clips/remix/i2869.mp4", from: 5.2 },
+  { word: "DISCOURAGED", at: 7.9, src: "clips/GAME-full.mp4", from: 12.9 },
+  { word: "ANYWAY", at: 9.4, src: "clips/R1510a-full.mp4", from: 37.2 },
 ];
 const AUDIO_END = 10.28;
 const HOLD = 1.8; // end card after the audio
@@ -42,7 +43,7 @@ const ShotView: React.FC<{ shot: Shot; dur: number }> = ({ shot, dur }) => {
 };
 
 const Caption: React.FC<{ word: string; last: boolean }> = ({ word, last }) => (
-  <div style={{ position: "absolute", top: 760, left: 60, right: 60, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+  <div style={{ position: "absolute", top: 1170, left: 60, right: 60, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
     <Pop delay={0}>
       <div style={{ fontSize: 52, fontWeight: 800, color: "#fff", letterSpacing: 6, textShadow: "0 4px 18px rgba(0,0,0,0.6)" }}>DO IT</div>
     </Pop>
