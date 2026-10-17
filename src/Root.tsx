@@ -53,6 +53,7 @@ import { R1610_WFD_REAL_SCENES } from "./reels/R1610WfdReal";
 import { R1710_LABEL_REAL_SCENES } from "./reels/R1710LabelReal";
 import { R_DOIT_SCENES } from "./reels/RDoItAnyway";
 import { R1710B_NASI_REAL_SCENES } from "./reels/R1710bNasiReal";
+import { R1710C_KISAH_SCENES } from "./reels/R1710cKisah";
 import { RGLP1_REAL_SCENES, RGlp1Overlay } from "./reels/RGlp1Real";
 import { RGLP2_REAL_SCENES, RGlp2Overlay } from "./reels/RGlp2Real";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
@@ -340,6 +341,14 @@ export const Root: React.FC = () => (
       id="R1-14-10-Label-CoachNas"
       component={() => <Reel scenes={R1410_LABEL_REAL_SCENES} />}
       durationInFrames={reelLength(R1410_LABEL_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R-17-10-Kisah-CoachNas"
+      component={() => <Reel scenes={R1710C_KISAH_SCENES} />}
+      durationInFrames={reelLength(R1710C_KISAH_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
