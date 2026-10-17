@@ -1,6 +1,6 @@
 // Story reel (17/10) "10 tahun diet tak jadi" — Coach Nas's own fat-loss story, 11 Teleprompter takes (17/10 18:34–18:36)
 // joined (each trimmed to its first/last word), with pop-up word captions and his real photos as plain cutaways
-// (Gambar-Kisah.zip: st-* = story/before, pd-* = present). No decoration on photos: blurred fill + the photo, nothing else.
+// (Gambar-Kisah.zip) shown as plain cards over the playing video; no cutaways, no sound effects.
 // Captions: per-take Whisper (BM+EN style prompt), cross-checked against EN/MS runs. Words that could not be made out are
 // left uncaptioned; best guesses are listed in the chat review (lose it, Isnin, extreme, dalam cycle, The only change,
 // makan, parent, Malaysian). The before/after card is his own graphic and keeps its "hasil tidak tipikal" note.
@@ -52,21 +52,17 @@ const WORDS: Wd[] = [
   [79.44, 79.88, "Malaysian", 0], [79.88, 80.28, "family", 0], [80.28, 80.6, "life.", 0],
 ];
 
-// [start, end, image] in reel seconds — placed on the line each photo illustrates
-const PHOTOS: [number, number, string][] = [
-  [4.0, 6.6, "st-before.jpg"], // "Setiap tahun target sama…"
-  [6.6, 9.3, "st-yoyo.jpg"], // "…turun sikit, lepas tu naik balik"
-  [11.0, 13.9, "st-laptop.jpg"], // "Ada classes, deadlines…"
-  [13.9, 16.6, "st-office.jpg"], // "…stress"
-  [19.3, 22.4, "st-soup.jpg"], // "Malam-malam saya stress eating"
-  [30.2, 33.9, "st-side-before.jpg"], // "kena eat less, go extreme, avoid makanan spesifik"
-  [44.6, 48.4, "st-family.jpg"], // "posting jauh daripada family"
-  [52.4, 55.0, "pd-expo.jpg"], // "every weekend…"
-  [55.0, 57.9, "st-meekari.jpg"], // "every family dinner, every event"
-  [59.0, 62.6, "pd-office.jpg"], // "…repeat when life gets busy"
-  [64.4, 68.6, "st-ba.jpg"], // "20kg down from my baseline" (his card, with its disclaimer)
-  [68.6, 71.6, "st-side-after.jpg"], // "I maintain for 4 years"
-  [74.2, 77.6, "pd-stage.jpg"], // "follow me for a realistic fat loss…"
+// [start, end, image, side] in reel seconds — a photo card floats over the playing video (the video never cuts away).
+// Only the photos that match a line are used. family-day-makan.jpg: 10/10 family day (the banner photo with the hospital
+// name is deliberately not used).
+const PHOTOS: [number, number, string, "left" | "right" | "center"][] = [
+  [4.0, 7.0, "st-before.jpg", "right"], // "Setiap tahun target sama…"
+  [11.0, 14.2, "st-laptop.jpg", "left"], // "Ada classes, deadlines…"
+  [19.3, 22.4, "st-soup.jpg", "right"], // "Malam-malam saya stress eating"
+  [30.2, 33.9, "st-side-before.jpg", "left"], // "eat less, go extreme, avoid makanan spesifik"
+  [44.6, 48.4, "st-family.jpg", "right"], // "posting jauh daripada family"
+  [64.4, 68.4, "st-ba.jpg", "center"], // "20kg down from my baseline" (his card, with its disclaimer)
+  [68.8, 71.9, "family-day-makan.jpg", "left"], // "still can enjoy makan with my family"
 ];
 
 const chunks = (() => {
@@ -112,18 +108,17 @@ const PopCaptions: React.FC = () => {
   );
 };
 
-const Photo: React.FC<{ src: string; dur: number }> = ({ src, dur }) => {
+// Plain photo card (thin white edge + shadow) over the talking video; fades and drifts up slightly. No sound.
+const Photo: React.FC<{ src: string; dur: number; side: "left" | "right" | "center" }> = ({ src, dur, side }) => {
   const f = useCurrentFrame();
-  const o = interpolate(f, [0, 5, dur - 5, dur], [0, 1, 1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const z = interpolate(f, [0, dur], [1.0, 1.05]);
-  const img = staticFile(`img/kisah/${src}`);
+  const { fps } = useVideoConfig();
+  const p = spring({ frame: f, fps, config: { damping: 16, stiffness: 140 } });
+  const out = interpolate(f, [dur - 6, dur], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const box = side === "center" ? { left: 210, width: 660, maxH: 760 } : side === "left" ? { left: 50, width: 470, maxH: 640 } : { left: 560, width: 470, maxH: 640 };
   return (
-    <AbsoluteFill style={{ opacity: o }}>
-      <Img src={img} style={{ position: "absolute", inset: -60, width: "calc(100% + 120px)", height: "calc(100% + 120px)", objectFit: "cover", filter: "blur(36px) brightness(0.55)" }} />
-      <AbsoluteFill style={{ padding: "150px 40px 720px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <Img src={img} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", borderRadius: 18, transform: `scale(${z})`, boxShadow: "0 18px 44px rgba(0,0,0,0.45)" }} />
-      </AbsoluteFill>
-    </AbsoluteFill>
+    <div style={{ position: "absolute", top: 190, left: box.left, width: box.width, display: "flex", justifyContent: "center", opacity: Math.min(p * 1.5, 1) * out, transform: `translateY(${(1 - p) * 40}px)` }}>
+      <Img src={staticFile(`img/kisah/${src}`)} style={{ maxWidth: "100%", maxHeight: box.maxH, objectFit: "contain", border: "8px solid #fff", borderRadius: 10, boxShadow: "0 14px 34px rgba(0,0,0,0.4)" }} />
+    </div>
   );
 };
 
@@ -144,9 +139,9 @@ const HookCard: React.FC = () => {
 const Talk: React.FC = () => (
   <AbsoluteFill>
     <OffthreadVideo src={staticFile(CLIP)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-    {PHOTOS.map(([a, b, src]) => (
+    {PHOTOS.map(([a, b, src, side]) => (
       <Sequence key={src} from={Math.round(a * FPS)} durationInFrames={Math.round((b - a) * FPS)} layout="none">
-        <Photo src={src} dur={Math.round((b - a) * FPS)} />
+        <Photo src={src} dur={Math.round((b - a) * FPS)} side={side} />
       </Sequence>
     ))}
     <HookCard />
@@ -170,5 +165,5 @@ const End: React.FC = () => (
 
 export const R1710C_KISAH_SCENES: SceneDef[] = [
   { id: "talk", dur: CLIP_LEN, el: <Talk /> },
-  { id: "end", dur: END, el: <End />, cues: [[3, "pop", 0.3]] },
+  { id: "end", dur: END, el: <End /> },
 ];
