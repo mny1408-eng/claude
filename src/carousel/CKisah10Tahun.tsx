@@ -5,6 +5,7 @@
 import React from "react";
 import { AbsoluteFill, Img, staticFile, useCurrentFrame } from "remotion";
 import { BODY } from "./template";
+import { POPPINS } from "../theme";
 
 const INK = "#ECE8E1";
 const GOLD = "#EAD49C";
@@ -181,10 +182,13 @@ const S10: React.FC = () => (
   <AbsoluteFill style={{ background: "#141412", fontFamily: BODY, color: INK }}>
     <div style={{ position: "absolute", top: 70, left: 140, right: 140 }}>
       <Img src={staticFile("img/st-ba.jpg")} style={{ width: "100%", borderRadius: 24, display: "block" }} />
+      <div style={{ position: "absolute", left: 0, right: 0, top: 669, height: 96, background: "#FFE81A", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", color: "#111", fontFamily: POPPINS, fontWeight: 700, fontSize: 24, lineHeight: 1.2, padding: "0 30px" }}>
+        Nasri, 37 Tahun, Pharmacist, Turun lebih 20kg setelah 10 tahun diet tak jadi2
+      </div>
     </div>
     <div style={{ position: "absolute", top: 900, left: 104, right: 104 }}>
       <Big size={64}>
-        Hari ni, <G>lebih 20kg</G> dah turun. Dah maintain ±4 tahun.
+        Mula 2023. Hari ni, <G>lebih 20kg</G> dah turun & masih maintain.
       </Big>
       <div style={{ fontSize: 32, fontWeight: 600, lineHeight: 1.35, marginTop: 18 }}>Masih makan nasi. Masih enjoy dessert. Masih makan dengan family.</div>
       <div style={{ fontSize: 30, lineHeight: 1.35, marginTop: 18, opacity: 0.9 }}>
