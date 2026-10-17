@@ -25,3 +25,6 @@ public/autoreel/
 !autoreel/input/.gitkeep
 !autoreel/output/.gitkeep
 !autoreel/projects/.gitkeep
+
+# Python bytecode
+__pycache__/
