@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render"
+    "render": "remotion render",
+    "carousel": "node scripts/generate-carousel.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.529",

@@ -1,0 +1,17 @@
+{
+  "name": "Coach Nas",
+  "role": "Clinical Pharmacist · Habit Coach",
+  "handle": "@coachnas.pharmacist",
+  "colors": {
+    "ink": "#17211E",
+    "cream": "#F8F5EC",
+    "green": "#A8D672",
+    "orange": "#F3A45B",
+    "muted": "#5E6A64",
+    "line": "#E4DFD1"
+  },
+  "fonts": {
+    "heading": "Poppins",
+    "body": "Inter"
+  }
+}

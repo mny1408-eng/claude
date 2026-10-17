@@ -1,5 +1,6 @@
 import React from "react";
 import { Composition } from "remotion";
+import { CarouselGenerator, GENERATOR_DEFAULTS, calcGeneratorMetadata } from "./generator/Generator";
 import { FPS } from "./theme";
 import { TOTAL, VoxAd, VoxAdProps } from "./Video";
 import { Reel, reelLength } from "./Reel";
@@ -137,6 +138,16 @@ export const Root: React.FC = () => (
       height={1920}
     />
     {/* PM carousels: one frame per slide, render with remotion still --frame=N */}
+    <Composition
+      id="CarouselGen"
+      component={CarouselGenerator}
+      durationInFrames={GENERATOR_DEFAULTS.carousel.slides.length}
+      fps={1}
+      width={1080}
+      height={1350}
+      defaultProps={GENERATOR_DEFAULTS}
+      calculateMetadata={calcGeneratorMetadata}
+    />
     {CAROUSELS.map((c) => (
       <Composition key={c.id} id={`Carousel-${c.id}`} component={c.Slides} durationInFrames={c.slides} fps={1} width={1080} height={1440} />
     ))}

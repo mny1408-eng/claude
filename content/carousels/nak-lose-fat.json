@@ -1,0 +1,80 @@
+{
+  "id": "nak-lose-fat",
+  "title": "Nak Lose Fat, Tak Payah Stop Makan Nasi!",
+  "slides": [
+    {
+      "type": "cover",
+      "title": ["NAK LOSE", "FAT?"],
+      "sub": "Tak payah stop makan **nasi!** 🍚",
+      "small": "Here’s what to focus on instead.",
+      "visual": "rice-bowl"
+    },
+    {
+      "type": "problem",
+      "kicker": "The common mistake",
+      "title": "MOTIVATION **SAHAJA** TAK CUKUP.",
+      "body": ["Ramai orang start diet dengan semangat."],
+      "chips": ["Cut rice", "Cut favourite foods", "Follow extreme rules"],
+      "after": "Tapi bila kerja busy, Raya datang, routine terus lari.",
+      "takeaway": "You need habits that **survive real life.**"
+    },
+    {
+      "type": "step",
+      "number": "01",
+      "title": "FAHAM **CALORIES**",
+      "body": [
+        "Understand how much food your body needs.",
+        "You don’t need to blindly cut out all the foods you love.",
+        "**Awareness** helps you make better choices."
+      ],
+      "visual": "calorie-meter"
+    },
+    {
+      "type": "step",
+      "number": "02",
+      "title": "PROTEIN + **FIBER**",
+      "body": [
+        "You can still makan **nasi!**",
+        "Focus on balanced meals with enough protein and fiber.",
+        "This makes meals more satisfying."
+      ],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "step",
+      "number": "03",
+      "title": "BUILD **REALISTIC** HABITS",
+      "body": [
+        "Kerja busy? Family dinner? Makan luar?",
+        "Your eating habits need to fit your **actual life.**",
+        "Choose routines you can repeat."
+      ],
+      "visual": "lifestyle"
+    },
+    {
+      "type": "diagram",
+      "number": "04",
+      "title": "ADA **BACKUP** PLAN",
+      "body": [
+        "Motivation datang dan pergi.",
+        "Bila routine lari, you need simple habits to fall back on."
+      ],
+      "flow": [
+        { "label": "Plan A", "note": "Routine biasa", "tone": "green" },
+        { "label": "Routine lari", "note": "Busy, Raya, sakit, outstation", "tone": "orange" },
+        { "label": "Plan B", "note": "2–3 simple habits je", "tone": "green" },
+        { "label": "Sambung balik", "note": "Next meal, bukan next Monday", "tone": "ink" }
+      ],
+      "takeaway": "Don’t let one difficult day turn into **giving up completely.**"
+    },
+    {
+      "type": "cta",
+      "title": ["ENJOY YOUR FOOD.", "**BUILD CONSISTENCY.**"],
+      "body": [
+        "Sustainable fat loss works better with habits you can maintain.",
+        "You can enjoy your favourite foods while working towards your goals."
+      ],
+      "save": "SAVE THIS FOR LATER"
+    }
+  ]
+}

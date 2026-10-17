@@ -36,6 +36,9 @@ This repo is public, so these stay on the production PC only and must be added b
 
 Regenerate the sound effects with `node scripts/gen-sfx.mjs` if `public/sfx/` is missing.
 
+## Carousel generator (1080 × 1350, JSON-driven)
+- One JSON file per carousel in `content/carousels/`; run `npm run carousel -- <id>` → PNGs + PDF + preview in `output/carousels/<id>/`. See [docs/carousel-generator.md](docs/carousel-generator.md).
+
 ## PM carousels (1080 × 1440)
 - Template: `src/carousel/template.tsx` (coded copy of Canva Master Template v2)
 - One file per day: `src/carousel/Cxx<Topic>.tsx`, copy taken word-for-word from the Notion daily page
