@@ -1,5 +1,6 @@
 import React from "react";
 import { Composition } from "remotion";
+import { AUTO_REEL_DEFAULTS, AutoReel, calcAutoReel } from "./autoreel/AutoReel";
 import { FPS } from "./theme";
 import { TOTAL, VoxAd, VoxAdProps } from "./Video";
 import { Reel, reelLength } from "./Reel";
@@ -112,8 +113,19 @@ const REELS = [
 
 export const Root: React.FC = () => (
   <>
+    {/* AutoReel: data-driven template rendered by autoreel/autoreel.py with --props=<project>/props.json */}
+    <Composition
+      id="AutoReel"
+      component={AutoReel}
+      defaultProps={AUTO_REEL_DEFAULTS}
+      calculateMetadata={calcAutoReel}
+      durationInFrames={AUTO_REEL_DEFAULTS.durationInFrames}
+      fps={AUTO_REEL_DEFAULTS.fps}
+      width={1080}
+      height={1920}
+    />
     {hooks.map((h) => (
-      <Composition
+    <Composition
         key={h}
         id={`VoxAd-${h}`}
         component={VoxAd}

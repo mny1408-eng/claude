@@ -16,3 +16,12 @@ public/clips/
 # Local secrets (keys live in user env vars, never in files)
 .env
 .env.*
+
+# AutoReel working folders (raw footage, renders, per-reel projects stay local)
+autoreel/input/*
+autoreel/output/*
+autoreel/projects/*
+public/autoreel/
+!autoreel/input/.gitkeep
+!autoreel/output/.gitkeep
+!autoreel/projects/.gitkeep

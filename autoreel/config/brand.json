@@ -1,0 +1,89 @@
+{
+  "handle": "@coachnas.pharmacist",
+  "signoff": "— Coach Nas, Clinical Pharmacist & Wellness Coach",
+  "hashtags": [
+    "#wedotransformations",
+    "#kurusfitonlinecoaching",
+    "#misifightobesiti",
+    "#coachnas",
+    "#tipskurus"
+  ],
+  "colors": {
+    "paper": "#F7F5ED",
+    "ink": "#173C30",
+    "inkSoft": "#394A41",
+    "gold": "#EAD49C",
+    "marker": "#C0613E",
+    "card": "#FFFFFF"
+  },
+  "cta": {
+    "text": "Save reel ni",
+    "icon": "save"
+  },
+  "target_seconds": {
+    "min": 30,
+    "max": 60
+  },
+  "layout": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "safe_bottom": 1480,
+    "side_inset": 110,
+    "title_top": 220
+  },
+  "transcription": {
+    "model": "medium",
+    "language": "ms",
+    "low_confidence": 0.2,
+    "style_prompt": "Okay, hari ni saya nak share tips fat loss. First, kita kena faham calories. You still can makan nasi, tapi make sure meals kita balanced. Kerja busy, family dinner, semua tu normal. Consistency is the key, bukan motivation. Save video ni."
+  },
+  "fillers": [
+    "eh",
+    "erm",
+    "em",
+    "emm",
+    "um",
+    "umm",
+    "uh",
+    "uhh",
+    "ah",
+    "aa",
+    "aaa",
+    "hmm",
+    "mm"
+  ],
+  "highlight_words": [
+    "protein",
+    "fiber",
+    "fibre",
+    "kalori",
+    "calories",
+    "calorie",
+    "nasi",
+    "rice",
+    "habit",
+    "habits",
+    "lifestyle",
+    "routine",
+    "rutin",
+    "consistency",
+    "konsisten",
+    "motivation",
+    "motivasi",
+    "backup",
+    "plan",
+    "zero",
+    "satisfied",
+    "balanced",
+    "aware",
+    "save"
+  ],
+  "editing": {
+    "max_gap": 0.35,
+    "lead": 0.1,
+    "tail": 0.16,
+    "sentence_gap": 0.7,
+    "false_start_window": 4.0
+  }
+}

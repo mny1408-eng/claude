@@ -3,7 +3,10 @@
   "private": true,
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render"
+    "render": "remotion render",
+    "autoreel": "python3 autoreel/autoreel.py run",
+    "autoreel:ui": "python3 autoreel/server.py",
+    "autoreel:setup": "pip install faster-whisper \"opencv-python-headless<5\""
   },
   "dependencies": {
     "@remotion/cli": "^4.0.529",

@@ -1,0 +1,21 @@
+{
+  "id": "fat-loss-4-steps",
+  "topic": "How to lose fat without giving up your favourite foods",
+  "hook_override": null,
+  "steps": [
+    { "title": "UNDERSTAND YOUR CALORIES", "icon": "flame",
+      "markers": ["first", "firstly", "pertama", "step one", "step 1", "number one", "number 1", "nombor satu"],
+      "keywords": ["calorie", "calories", "kalori", "how much food", "aware"] },
+    { "title": "PROTEIN + FIBRE", "icon": "plate",
+      "markers": ["second", "secondly", "kedua", "step two", "step 2", "number two", "number 2", "nombor dua"],
+      "keywords": ["protein", "fiber", "fibre"] },
+    { "title": "HABITS IKUT LIFESTYLE", "icon": "calendar",
+      "markers": ["third", "thirdly", "ketiga", "step three", "step 3", "number three", "number 3", "nombor tiga"],
+      "keywords": ["habit", "habits", "lifestyle", "routine"] },
+    { "title": "BACKUP PLAN", "icon": "shield",
+      "markers": ["fourth", "keempat", "step four", "step 4", "number four", "number 4", "last", "lastly", "finally", "terakhir", "last sekali"],
+      "keywords": ["fall back", "fallback", "backup", "back up", "motivation won't", "important one", "starting from zero"] }
+  ],
+  "key_message": { "text": "CONSISTENCY > MOTIVATION", "triggers": ["consistency", "konsisten"] },
+  "caption_hook": "Lose fat tanpa give up makanan favourite? Boleh. 👇"
+}

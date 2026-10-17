@@ -1,0 +1,13 @@
+{
+  "id": "default",
+  "topic": "Value content",
+  "hook_override": null,
+  "steps": [
+    { "title": "STEP 1", "icon": "dot", "markers": ["first", "firstly", "pertama", "step one", "step 1", "number one", "number 1"], "keywords": [] },
+    { "title": "STEP 2", "icon": "dot", "markers": ["second", "secondly", "kedua", "step two", "step 2", "number two", "number 2"], "keywords": [] },
+    { "title": "STEP 3", "icon": "dot", "markers": ["third", "thirdly", "ketiga", "step three", "step 3", "number three", "number 3"], "keywords": [] },
+    { "title": "STEP 4", "icon": "dot", "markers": ["fourth", "keempat", "step four", "step 4", "last", "lastly", "finally", "terakhir"], "keywords": [] }
+  ],
+  "key_message": null,
+  "caption_hook": null
+}
