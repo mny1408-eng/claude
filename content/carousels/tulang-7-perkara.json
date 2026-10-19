@@ -1,0 +1,76 @@
+{
+  "id": "tulang-7-perkara",
+  "title": "Tue 20 Okt · 7 Perkara Tentang Tulang (World Osteoporosis Day)",
+  "brand": {
+    "colors": { "ink": "#1C4A3E", "cream": "#F9F6F0", "green": "#E3C770", "orange": "#C9A84C", "muted": "#5C6B64", "line": "#E6E0D2" }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "World Osteoporosis Day · 20 Okt",
+      "title": ["**TULANG:**", "7 PERKARA"],
+      "sub": "Bukan isu orang tua sahaja.",
+      "small": "1. Tulang dijaga sepanjang hidup, bukan selepas tua sahaja.",
+      "visual": "calcium-foods"
+    },
+    {
+      "type": "step",
+      "number": "2",
+      "title": "MAKAN **PELBAGAI**",
+      "body": [
+        "Makanan yang pelbagai membantu menyokong kesihatan tulang.",
+        "Bukan satu makanan ajaib. Pinggan yang **seimbang** setiap hari."
+      ],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "step",
+      "number": "3",
+      "title": "KALSIUM DARI **MAKANAN HARIAN**",
+      "body": [
+        "Susu, yogurt, ikan bilis.",
+        "Pilih yang awak **memang suka** dan boleh makan selalu."
+      ],
+      "visual": "calcium-foods"
+    },
+    {
+      "type": "step",
+      "number": "4",
+      "title": "GERAK YANG **TANGGUNG BERAT BADAN**",
+      "body": [
+        "Jalan laju. Naik tangga.",
+        "Tangga pejabat atau parking pun **kira**."
+      ],
+      "visual": "walk-stairs"
+    },
+    {
+      "type": "step",
+      "number": "5",
+      "title": "KEKUATAN + **IMBANGAN**",
+      "body": [
+        "Latihan kekuatan dan imbangan pun penting.",
+        "Badan lebih stabil, **risiko jatuh** lebih rendah."
+      ],
+      "visual": "strength-balance"
+    },
+    {
+      "type": "problem",
+      "kicker": "Perkara 6",
+      "title": "RISIKO SETIAP ORANG **BERBEZA**",
+      "body": [
+        "Pernah patah tulang dengan mudah?",
+        "Ada ahli keluarga dengan osteoporosis?"
+      ],
+      "takeaway": "Kalau ya, **tanya doktor** awak."
+    },
+    {
+      "type": "cta",
+      "title": ["7. MULA SATU", "**LANGKAH KECIL.**"],
+      "body": [
+        "Minggu ni: **satu** makanan kalsium, **satu** aktiviti.",
+        "Info umum, bukan nasihat perubatan."
+      ],
+      "save": "SAVE & SHARE DENGAN FAMILY"
+    }
+  ]
+}

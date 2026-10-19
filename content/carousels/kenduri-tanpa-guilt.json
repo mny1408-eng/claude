@@ -1,0 +1,65 @@
+{
+  "id": "kenduri-tanpa-guilt",
+  "title": "Sat 24 Okt · Kenduri Hujung Minggu: 7 Keputusan Tanpa Guilt",
+  "brand": {
+    "colors": { "ink": "#1C4A3E", "cream": "#F9F6F0", "green": "#E3C770", "orange": "#C9A84C", "muted": "#5C6B64", "line": "#E6E0D2" }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Kenduri hujung minggu",
+      "title": ["7 KEPUTUSAN", "**TANPA GUILT**"],
+      "small": "1. Kenduri acara bersama keluarga, bukan ujian.",
+      "photo": "img/st-family.jpg",
+      "photoPos": "50% 20%"
+    },
+    {
+      "type": "step",
+      "number": "2",
+      "title": "RANCANG **RINGKAS**",
+      "body": ["Bukan peraturan ketat.", "Cukup tahu apa yang awak **paling nak** makan hari tu."],
+      "visual": "notepad"
+    },
+    {
+      "type": "step",
+      "number": "3",
+      "title": "MAKAN **SEPERTI BIASA** SEBELUM",
+      "body": [
+        "Sengaja skip boleh buat kita **terlalu lapar** sampai sana.",
+        "Waktu makan berbeza untuk setiap orang."
+      ],
+      "visual": "pause"
+    },
+    {
+      "type": "step",
+      "number": "4",
+      "title": "TENGOK **PINGGAN UTAMA** DULU",
+      "body": ["Nasi sekadar. Lauk berprotein.", "Sayur **jika ada**."],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "step",
+      "number": "5",
+      "title": "PENCUCI MULUT: **YANG BETUL-BETUL NAK**",
+      "body": ["Tak perlu ambil semua.", "Pilih yang awak paling suka, **nikmati**."],
+      "visual": "dessert"
+    },
+    {
+      "type": "step",
+      "number": "6",
+      "title": "LEPAS KENDURI, **MAKAN BIASA**",
+      "body": ["Tak perlu denda diri.", "Next meal, sambung **macam biasa**."],
+      "photo": "img/st-meekari.jpg",
+      "photoPos": "50% 55%"
+    },
+    {
+      "type": "cta",
+      "title": ["7. SATU KENDURI", "TAK TENTUKAN", "**PERJALANAN AWAK.**"],
+      "body": [
+        "Corak jangka panjang yang penting.",
+        "Share dengan kawan yang selalu rasa bersalah lepas kenduri."
+      ],
+      "save": "SAVE UNTUK KENDURI NANTI"
+    }
+  ]
+}

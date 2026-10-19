@@ -11,11 +11,29 @@ export type Brand = {
   fonts: { heading: FontName; body: FontName };
 };
 
-export type Visual = "rice-bowl" | "calorie-meter" | "balanced-plate" | "lifestyle" | "save";
+export type Visual =
+  | "rice-bowl"
+  | "calorie-meter"
+  | "balanced-plate"
+  | "lifestyle"
+  | "save"
+  | "calcium-foods"
+  | "walk-stairs"
+  | "strength-balance"
+  | "moon"
+  | "pause"
+  | "snack-options"
+  | "tea"
+  | "notepad"
+  | "dessert";
 
-export type CoverSlide = { type: "cover"; kicker?: string; title: string[]; sub?: string; small?: string; visual?: Visual };
+// Photos live in public/ (gitignored for personal photos), e.g. "img/st-family.jpg".
+// photoPos is a CSS object-position, e.g. "50% 20%".
+export type Photo = { photo?: string; photoPos?: string };
+
+export type CoverSlide = { type: "cover"; kicker?: string; title: string[]; sub?: string; small?: string; visual?: Visual } & Photo;
 export type ProblemSlide = { type: "problem"; kicker?: string; title: string; body: string[]; chips?: string[]; after?: string; takeaway?: string };
-export type StepSlide = { type: "step"; number: string; title: string; body: string[]; visual?: Visual };
+export type StepSlide = { type: "step"; number: string; title: string; body: string[]; visual?: Visual } & Photo;
 export type FlowItem = { label: string; note?: string; tone?: "green" | "orange" | "ink" };
 export type DiagramSlide = { type: "diagram"; number?: string; title: string; body: string[]; flow: FlowItem[]; takeaway?: string };
 export type CtaSlide = { type: "cta"; title: string[]; body: string[]; save?: string };
@@ -35,3 +53,5 @@ export const SIZE = { width: 1080, height: 1350 };
 // Everything with data-fit must stay inside this safe area (checked at render time).
 export const SAFE = 64;
 export const MARGIN = 96;
+// Photo box on step slides (used by the resolution check in scripts/generate-carousel.mjs).
+export const STEP_PHOTO = { width: SIZE.width - MARGIN * 2, height: 500 };

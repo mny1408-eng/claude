@@ -1,7 +1,8 @@
 // Reusable slide components. Each is driven only by its SlideSpec + the brand.
 import React from "react";
+import { Img, staticFile } from "remotion";
 import type { Brand, CoverSlide, CtaSlide, DiagramSlide, ProblemSlide, StepSlide } from "./types";
-import { MARGIN, SIZE } from "./types";
+import { MARGIN, SIZE, STEP_PHOTO } from "./types";
 import { VisualArt } from "./visuals";
 
 export type Ctx = { brand: Brand; head: string; body: string; index: number; total: number };
@@ -36,7 +37,7 @@ const Frame: React.FC<{ ctx: Ctx; dark?: boolean; tint?: string; children: React
   const num = (n: number) => String(n).padStart(2, "0");
   return (
     <div style={{ position: "relative", width: SIZE.width, height: SIZE.height, overflow: "hidden", background: tint ?? (dark ? c.ink : c.cream), color: fg, fontFamily: ctx.body }}>
-      <div style={{ position: "absolute", top: 56, left: MARGIN, right: MARGIN, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, fontWeight: 600, letterSpacing: 1 }}>
+      <div style={{ position: "absolute", zIndex: 1, top: 56, left: MARGIN, right: MARGIN, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, fontWeight: 600, letterSpacing: 1 }}>
         <span>
           <span style={{ color: dark ? c.green : c.ink, fontFamily: ctx.head, fontWeight: 700 }}>{ctx.brand.name.toUpperCase()}</span>
           <span style={{ opacity: 0.6 }}> · {ctx.brand.role}</span>
@@ -86,16 +87,33 @@ const Body: React.FC<{ lines: string[]; hi: string; marker?: boolean; size?: num
   </div>
 );
 
+// Full-bleed photo, darkened towards the text so white type stays readable.
+const PhotoBg: React.FC<{ src: string; pos?: string; ink: string }> = ({ src, pos, ink }) => (
+  <>
+    <Img src={staticFile(src)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos ?? "50% 30%" }} />
+    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${ink}D9 0%, ${ink}33 14%, ${ink}14 22%, ${ink}0A 40%, ${ink}B3 62%, ${ink}F2 80%)` }} />
+  </>
+);
+
+// Cover titles shrink to fit the longest line (Poppins ExtraBold caps ≈ 0.66em per character).
+const coverSize = (lines: string[]) => Math.min(172, Math.floor((SIZE.width - MARGIN * 2) / (Math.max(...lines.map((l) => l.replace(/\*\*/g, "").length)) * 0.66)));
+
 // ── Cover ──────────────────────────────────────────────────────────────
 export const Cover: React.FC<{ ctx: Ctx; s: CoverSlide }> = ({ ctx, s }) => {
   const c = ctx.brand.colors;
+  const size = coverSize(s.title);
   return (
     <Frame ctx={ctx} dark>
-      <div style={{ position: "absolute", right: -160, top: 250, width: 640, height: 640, borderRadius: "50%", background: c.green, opacity: 0.12 }} />
-      <Abs top={190}>
+      {s.photo ? (
+        <PhotoBg src={s.photo} pos={s.photoPos} ink={c.ink} />
+      ) : (
+        <div style={{ position: "absolute", right: -160, top: 250, width: 640, height: 640, borderRadius: "50%", background: c.green, opacity: 0.12 }} />
+      )}
+      {/* With a photo the text sits low so faces in the upper half stay visible. */}
+      <Abs top={s.photo ? SIZE.height - 420 - s.title.length * size * 1.08 - (s.sub ? 110 : 0) : 190}>
         {s.kicker && <Kicker ctx={ctx} color={c.orange}>{s.kicker}</Kicker>}
         {s.title.map((t, i) => (
-          <Head key={i} ctx={ctx} size={172} hi={c.green} style={{ color: c.cream }}>
+          <Head key={i} ctx={ctx} size={size} hi={c.green} style={{ color: c.cream }}>
             {t}
           </Head>
         ))}
@@ -173,10 +191,16 @@ export const Step: React.FC<{ ctx: Ctx; s: StepSlide }> = ({ ctx, s }) => {
   const c = ctx.brand.colors;
   const visualTop = ctx.index % 2 === 1;
   const wide = s.visual === "lifestyle";
-  const art = s.visual && (
-    <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 0 }}>
-      <VisualArt v={s.visual} c={c} w={wide ? SIZE.width - MARGIN * 2 : 540} />
+  const art = s.photo ? (
+    <div style={{ flexShrink: 0, height: STEP_PHOTO.height, borderRadius: 32, overflow: "hidden" }}>
+      <Img src={staticFile(s.photo)} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: s.photoPos ?? "50% 30%" }} />
     </div>
+  ) : (
+    s.visual && (
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", minHeight: 0 }}>
+        <VisualArt v={s.visual} c={c} w={wide ? SIZE.width - MARGIN * 2 : 540} />
+      </div>
+    )
   );
   const text = (
     <div>

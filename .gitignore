@@ -16,3 +16,4 @@ public/clips/
 # Local secrets (keys live in user env vars, never in files)
 .env
 .env.*
+output/carousels/kenduri-tanpa-guilt/

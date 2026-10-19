@@ -1,0 +1,65 @@
+{
+  "id": "snack-malam",
+  "title": "Thu 22 Okt · Snack Lepas Anak Tidur: Lapar Betul atau Rutin?",
+  "brand": {
+    "colors": { "ink": "#1C4A3E", "cream": "#F9F6F0", "green": "#E3C770", "orange": "#C9A84C", "muted": "#5C6B64", "line": "#E6E0D2" }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Anak dah tidur. Rumah senyap.",
+      "title": ["LAPAR BETUL", "ATAU **RUTIN?**"],
+      "sub": "Panduan 10 minit untuk malam ni.",
+      "small": "1. Perasan apa tangan buat. Jangan label diri dulu.",
+      "visual": "moon"
+    },
+    {
+      "type": "step",
+      "number": "2",
+      "title": "BERHENTI **30 SAAT**",
+      "body": ["Tanya diri:", "Lapar betul? Rutin? Atau sebenarnya **penat?**"],
+      "visual": "pause"
+    },
+    {
+      "type": "step",
+      "number": "3",
+      "title": "SEMAK **MAKAN MALAM** TADI",
+      "body": ["Ada protein? Cukup untuk **awak?**"],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "step",
+      "number": "4",
+      "title": "KALAU MEMANG **LAPAR**",
+      "body": [
+        "Pilih **satu** makanan yang mengenyangkan dan sesuai dengan awak.",
+        "Contoh: telur, yogurt, atau buah dengan sedikit kacang jika sesuai."
+      ],
+      "visual": "snack-options"
+    },
+    {
+      "type": "step",
+      "number": "5",
+      "title": "KALAU **RUTIN** ATAU **PENAT**",
+      "body": ["Cuba air atau teh panas.", "Gosok gigi lebih awal.", "Atau **rehat** dulu."],
+      "visual": "tea"
+    },
+    {
+      "type": "step",
+      "number": "6",
+      "title": "TULIS **SATU AYAT**",
+      "body": ["“Malam esok, kalau tangan cari snack, saya akan **________**.”"],
+      "visual": "notepad"
+    },
+    {
+      "type": "cta",
+      "title": ["NAK VERSI", "**10 MINIT?**"],
+      "body": [
+        "Comment **MALAM**, saya hantar di WhatsApp.",
+        "Pilihan je, tiada paksaan.",
+        "Panduan umum. Keperluan setiap orang berbeza."
+      ],
+      "save": "SAVE UNTUK MALAM NI"
+    }
+  ]
+}

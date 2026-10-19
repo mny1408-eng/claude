@@ -31,7 +31,20 @@ const pad = (n) => String(n).padStart(2, "0");
 const errors = [];
 const warnings = [];
 const TYPES = { cover: ["title"], problem: ["title", "body"], step: ["number", "title", "body"], diagram: ["title", "body", "flow"], cta: ["title", "body"] };
-const VISUALS = ["rice-bowl", "calorie-meter", "balanced-plate", "lifestyle", "save"];
+const VISUALS = ["rice-bowl", "calorie-meter", "balanced-plate", "lifestyle", "save", "calcium-foods", "walk-stairs", "strength-balance", "moon", "pause", "snack-options", "tea", "notepad", "dessert"];
+// Box each photo fills (see src/generator/slides.tsx). Upscaling beyond ~1.15× looks soft; beyond 1.5× it looks blurry.
+const PHOTO_BOX = { cover: [1080, 1350], step: [888, 500] };
+const imageSize = (file) => {
+  const b = fs.readFileSync(file);
+  if (b.readUInt32BE(0) === 0x89504e47) return [b.readUInt32BE(16), b.readUInt32BE(20)];
+  for (let i = 2; i < b.length; ) {
+    const marker = b[i + 1];
+    if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) return [b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)];
+    i += 2 + b.readUInt16BE(i + 2);
+  }
+  return null;
+};
+const photoNotes = [];
 // Phrases that tend to become unsupported health / fat-loss promises. Warnings, not hard errors.
 const CLAIMS = [
   [/\b\d+(\.\d+)?\s?(kg|kilo)\b/i, "specific weight-loss number"],
@@ -48,10 +61,25 @@ carousel.slides.forEach((s, i) => {
   if (!req) return errors.push(`slide ${i + 1}: unknown type "${s.type}" (use ${Object.keys(TYPES).join(", ")})`);
   req.forEach((k) => (s[k] === undefined || (Array.isArray(s[k]) && !s[k].length)) && errors.push(`slide ${i + 1} (${s.type}): missing "${k}"`));
   if (s.visual && !VISUALS.includes(s.visual)) errors.push(`slide ${i + 1}: unknown visual "${s.visual}" (use ${VISUALS.join(", ")})`);
-  const text = JSON.stringify(s);
+  const { photo, photoPos, ...copy } = s;
+  const text = JSON.stringify(copy);
   CLAIMS.forEach(([re, why]) => re.test(text) && warnings.push(`slide ${i + 1}: possible ${why} → "${text.match(re)[0]}"`));
   if ((text.match(/\*\*/g) || []).length % 2) errors.push(`slide ${i + 1}: unbalanced ** highlight markers`);
+  if (s.photo) {
+    const file = path.join(ROOT, "public", s.photo);
+    if (!PHOTO_BOX[s.type]) return errors.push(`slide ${i + 1}: photos are supported on cover and step slides only`);
+    if (!fs.existsSync(file)) return errors.push(`slide ${i + 1}: photo not found: public/${s.photo}`);
+    const size = imageSize(file);
+    if (!size) return warnings.push(`slide ${i + 1}: couldn't read the size of ${s.photo}`);
+    const [bw, bh] = PHOTO_BOX[s.type];
+    const scale = Math.max(bw / size[0], bh / size[1]);
+    const note = `slide ${i + 1}: ${s.photo} is ${size[0]}×${size[1]}, shown at ${bw}×${bh} (${scale.toFixed(2)}× upscale)`;
+    if (scale > 1.5) warnings.push(`${note}: TOO LOW, will look blurry. Upload a larger photo.`);
+    else if (scale > 1.15) warnings.push(`${note}: borderline, slightly soft.`);
+    else photoNotes.push(`${note}: OK`);
+  }
 });
+photoNotes.forEach((n) => console.log("📷 " + n));
 warnings.forEach((w) => console.warn("⚠️  " + w));
 if (errors.length || (strict && warnings.length)) {
   errors.forEach((e) => console.error("✖ " + e));

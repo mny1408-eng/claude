@@ -44,7 +44,14 @@ You don't need to change any code. Slide numbering, the progress dots and the pa
 | `diagram` | `number`, `title`, `body`, `flow` (array of `{label, note, tone: green/orange/ink}`), `takeaway` |
 | `cta` | `title` (array of lines), `body`, `save` |
 
-`visual` options: `rice-bowl`, `calorie-meter`, `balanced-plate`, `lifestyle`, `save`.
+`visual` options: `rice-bowl`, `calorie-meter`, `balanced-plate`, `lifestyle`, `save`, `calcium-foods`,
+`walk-stairs`, `strength-balance`, `moon`, `pause`, `snack-options`, `tea`, `notepad`, `dessert`.
+
+`cover` and `step` slides also take `photo` (a path inside `public/`, e.g. `"img/st-family.jpg"`) and an optional
+`photoPos` (CSS object-position, e.g. `"50% 20%"`). A cover photo fills the slide with the text at the bottom;
+a step photo replaces the visual as an 888×500 card. Before rendering, the script compares each photo's pixels
+with the box it fills and warns at >1.15× upscale (soft) or >1.5× (too low, upload a larger photo).
+Personal photos stay out of git (`public/img/` is ignored); add the rendered output folder to `.gitignore` too.
 Add new illustrations in `src/generator/visuals.tsx` and list them in `VISUALS` in the script.
 
 Highlight words with `**double asterisks**`. On dark slides they turn green; on light slides they get an
