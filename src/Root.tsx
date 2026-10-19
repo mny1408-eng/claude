@@ -56,6 +56,7 @@ import { R1710B_NASI_REAL_SCENES } from "./reels/R1710bNasiReal";
 import { R1710C_KISAH_SCENES } from "./reels/R1710cKisah";
 import { R1810_KISAH_SCENES } from "./reels/R1810Kisah";
 import { R1910_PERFECT_SCENES } from "./reels/R1910Perfect";
+import { R_HERO_SCENES } from "./reels/RHeroKisah";
 import { RGLP1_REAL_SCENES, RGlp1Overlay } from "./reels/RGlp1Real";
 import { RGLP2_REAL_SCENES, RGlp2Overlay } from "./reels/RGlp2Real";
 import { R0810_PROTEIN_SCENES } from "./reels/R0810Protein";
@@ -343,6 +344,14 @@ export const Root: React.FC = () => (
       id="R1-14-10-Label-CoachNas"
       component={() => <Reel scenes={R1410_LABEL_REAL_SCENES} />}
       durationInFrames={reelLength(R1410_LABEL_REAL_SCENES)}
+      fps={FPS}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="R-Hero-Kisah-CoachNas"
+      component={() => <Reel scenes={R_HERO_SCENES} />}
+      durationInFrames={reelLength(R_HERO_SCENES)}
       fps={FPS}
       width={1080}
       height={1920}
