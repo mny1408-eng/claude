@@ -223,3 +223,115 @@ Reply 💪 kalau awak dah buat ea.
 "The more pride you have in a particular aspect of your identity, the more motivated you will be to maintain the habits associated with it." (James Clear)
 
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 15 (2026-10-20) · Tindakan
+
+Daily reminder 😃
+Dah tahu teori. Sekarang buat.
+
+Masuk minggu ketiga, kita semua dah tahu banyak benda. Tapi tahu je x cukup. Satu tindakan kecil hari ni lebih bernilai daripada sepuluh tips yang disimpan.
+
+👉 Tindakan hari ini: Pilih satu tip yang awak dah tahu tapi belum buat, dan buat hari ni.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"Life rewards action, not intelligence." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 16 (2026-10-21) · Jangka panjang
+
+Daily reminder 😃
+Diet bukan pertandingan 30 hari.
+
+Kalau cara kita terlalu ketat, susah nak kekal. Kita nak cara yang boleh dibawa sampai bila-bila, bukan yang berhenti bila program habis.
+
+👉 Tindakan hari ini: Tanya diri: habit mana yang awak boleh teruskan walaupun dah capai target? Fokus pada yang tu.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"The purpose of setting goals is to win the game. The purpose of building systems is to continue playing the game." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 17 (2026-10-22) · Benda kecil
+
+Daily reminder 😃
+Segelas air. 10 minit jalan. Kecil, tapi terkumpul.
+
+Jangan pandang rendah benda kecil yang awak buat setiap hari. Sorang-sorang memang nampak biasa, tapi bila dikumpul, itu la yang ubah keadaan.
+
+👉 Tindakan hari ini: Senaraikan 3 benda kecil yang awak dah buat konsisten sejak join group ni.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"Small things matter when they accumulate." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 18 (2026-10-23) · Tindakan tunjuk keutamaan
+
+Daily reminder 😃
+Kata nak sihat. Tindakan kita setuju tak?
+
+Kita semua ada matlamat. Cara paling jujur nak tengok sama ada kita serius ialah tengok apa yang kita buat, bukan apa yang kita cakap. Tak perlu sempurna, cukup selari sikit demi sikit.
+
+👉 Tindakan hari ini: Semak hari semalam: satu tindakan yang selari dengan matlamat, dan satu yang awak nak baiki hari ni.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"Your actions reveal how badly you want something." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 19 (2026-10-24) · Mula kecil, mimpi besar
+
+Daily reminder 😃
+Mula kecil. Tapi jangan mimpi kecil.
+
+Hujung minggu ni, cuba fikir semula kenapa awak mula. Matlamat besar tu boleh kekal besar, asalkan langkah hari-hari kita kecil dan boleh dibuat.
+
+👉 Tindakan hari ini: Tulis satu matlamat besar awak untuk 6 bulan, dan satu langkah kecil untuk hari ni.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"Start small, but never dream small." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 20 (2026-10-25) · Cuba sikit lagi
+
+Daily reminder 😃
+Rasa x mampu? Cuba sikit lagi.
+
+Bukan maksudnya paksa diri sampai penat. Cuma kadang-kadang kita boleh buat lebih sikit daripada yang kita sangka. Sikit je, setiap kali.
+
+👉 Tindakan hari ini: Tambah sedikit sahaja hari ni, contohnya 5 minit lagi berjalan. Ikut kemampuan badan, jangan paksa sampai sakit.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"People get so caught up in the fact that they have limits that they rarely exert the effort required to get close to them." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti
+
+## Hari 21 (2026-10-26) · Margin selamat
+
+Daily reminder 😃
+Dah lancar? Jangan longgar dulu.
+
+Tiga minggu dah lalu. Bila rutin dah jalan, senang nak rasa selesa dan mula longgar. Sediakan pelan sandaran supaya minggu sibuk x jatuhkan semua usaha awak.
+
+👉 Tindakan hari ini: Rancang menu dan stok makanan untuk minggu depan, termasuk pilihan bila awak sibuk atau ada majlis.
+
+Reply 💪 kalau awak dah buat ea.
+- Coach Nas
+
+"Maintain a margin of safety—even when it's going well." (James Clear)
+
+#wedotransformations #kurusfitonlinecoaching #misifightobesiti

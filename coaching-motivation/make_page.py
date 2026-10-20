@@ -1,7 +1,9 @@
 import json,base64,io
 from PIL import Image
 S='/tmp/claude-0/-home-user-claude/ef4d05e6-9bc0-537c-9bb9-b3f2e36eb7c0/scratchpad/'
-days=json.load(open('days.json'))
+import datetime
+cut=(datetime.datetime.utcnow()+datetime.timedelta(hours=8)-datetime.timedelta(days=7)).strftime('%Y-%m-%d')
+days=[d for d in json.load(open('days.json')) if d['date']>=cut]  # keep page light: last 7 days + upcoming
 HT="#wedotransformations #kurusfitonlinecoaching #misifightobesiti"
 for d in days:
     buf=io.BytesIO(); Image.open(f"posters/hari-{d['day']}.png").convert('RGB').save(buf,'JPEG',quality=92)
