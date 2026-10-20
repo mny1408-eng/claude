@@ -18,6 +18,7 @@ export const SERIES = {
   "PHARMACIST CHECK": { bg: C.ink, fg: C.paper, border: C.ink },
   "MAKAN REALISTIK": { bg: C.gold, fg: C.ink, border: C.gold },
   "KISAH COACH": { bg: C.marker, fg: "#fff", border: C.marker },
+  MINDSET: { bg: "rgba(255,255,255,0.92)", fg: C.marker, border: C.marker },
 } as const;
 
 export const SeriesTag: React.FC<{ series: keyof typeof SERIES; top?: number }> = ({ series, top = 225 }) => {
