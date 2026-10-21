@@ -7,7 +7,9 @@ version ("suara dalam kepala": chat-bubble hook, native captions, tighter pauses
 
 A project dir holds:
   clips/       the takes, in recording order (Teleprompter file names sort by time)
-  meta.json    {"type": "connection" | "value" | ..., "series": "MINDSET", "slug": "2010-beza"} (all optional)
+  meta.json    {"type": "connection" | "value" | ..., "series": "MINDSET", "slug": "2010-beza", "hook": "…", "hook_key": "…",
+                "cta_ig": "…", "cta_tt": "…", "emphasis": [words], "corrections": [{"from": "perak badan", "to": "berat badan"}]}
+               (all optional)
   script.txt   optional — the script Coach read; used to spell captions and to place [ON-SCREEN TEXT: …] cards
   photos/      optional — not placed automatically (say which photo goes with which line in edit.json "photos")
 
@@ -78,27 +80,36 @@ def merge_hyphens(ws: list[list]) -> list[list]:
 
 
 # ---------- 2. retakes ----------
-def drop_retakes(order: list[str], tr: dict, review: list[str]) -> list[str]:
-    """A take that the next take (or the one after) re-says is a retake; keep the later, cleaner one."""
+def take_score(ws: list[list], script_toks: list[str]) -> float:
+    """How good a take is: closeness to the script when there is one, else mean word confidence."""
+    toks = [norm(w[0]) for w in ws]
+    conf = sum(w[3] for w in ws) / max(1, len(ws))
+    if not script_toks or not toks:
+        return conf
+    sm = difflib.SequenceMatcher(None, toks, script_toks, autojunk=False)
+    matched = sum(b.size for b in sm.get_matching_blocks())
+    return matched / len(toks) + 0.2 * conf
+
+
+def drop_retakes(order: list[str], tr: dict, review: list[str], script_toks: list[str]) -> list[str]:
+    """Takes that say the same thing (same opening, or ≥55% alike) are retakes of each other; keep the better one."""
     toks = {n: [norm(w[0]) for w in tr[n]["styled"]] for n in order}
-    keep = []
+    dropped: set[str] = set()
     for i, n in enumerate(order):
-        later = order[i + 1 : i + 3]
-        dup = None
-        for m in later:
+        if n in dropped:
+            continue
+        for m in order[i + 1 : i + 3]:
             a, b = toks[n], toks[m]
-            if not a or not b:
+            if not a or not b or m in dropped:
                 continue
-            same_open = a[:3] == b[:3]
             sim = difflib.SequenceMatcher(None, a, b).ratio()
-            if same_open or sim >= 0.55:
-                dup = (m, sim)
+            if a[:4] == b[:4] or sim >= 0.55:
+                sa, sb = take_score(tr[n]["styled"], script_toks), take_score(tr[m]["styled"], script_toks)
+                worse, better = (n, m) if sb >= sa else (m, n)
+                dropped.add(worse)
+                review.append(f"- Retake: dropped **{worse}** (\"{' '.join(w[0] for w in tr[worse]['styled'])[:80]}…\"), kept **{better}** (similar {sim:.2f}; score {max(sa, sb):.2f} vs {min(sa, sb):.2f}).")
                 break
-        if dup:
-            review.append(f"- Retake: dropped **{n}** (\"{' '.join(w[0] for w in tr[n]['styled'])[:90]}…\"), kept **{dup[0]}** (similarity {dup[1]:.2f}).")
-        else:
-            keep.append(n)
-    return keep
+    return [n for n in order if n not in dropped]
 
 
 # ---------- 3. script spelling + on-screen texts ----------
@@ -129,12 +140,18 @@ def spell_from_script(words: list[dict], script_words: list[str], review: list[s
     b = [norm(t) for t in script_words]
     sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
     for op, i1, i2, j1, j2 in sm.get_opcodes():
-        if op != "replace" or (i2 - i1) != (j2 - j1):
+        if op != "replace":
             continue
-        for k in range(i2 - i1):
-            w, s = words[i1 + k], script_words[j1 + k]
-            r = difflib.SequenceMatcher(None, norm(w["w"]), norm(s)).ratio()
-            if r >= 0.6:
+        for k in range(i1, i2):
+            w = words[k]
+            spoken = norm(w["w"])
+            if len(spoken) < 4:
+                continue
+            cands = [(difflib.SequenceMatcher(None, spoken, norm(t)).ratio(), t) for t in script_words[j1:j2]]
+            if not cands:
+                continue
+            r, s = max(cands)
+            if 0.75 <= r < 1.0:
                 tail = re.findall(r"[.,?!…]+$", w["w"])
                 new = re.sub(r"[.,?!…]+$", "", s) + (tail[0] if tail else "")
                 review.append(f"- Spelling from script: \"{w['w']}\" → \"{new}\"")
@@ -237,7 +254,7 @@ def make_edit(proj: Path, review: list[str]) -> dict:
     work.mkdir(exist_ok=True)
     style = BRAND["transcription"]["style_prompt"] + (" " + " ".join(script_words[:30]) if script_words else "")
     tr = transcribe_all(clips, work, style[:600])
-    order = drop_retakes([c.name for c in clips], tr, review)
+    order = drop_retakes([c.name for c in clips], tr, review, [norm(t) for t in script_words])
 
     # a take whose last sentence is re-said at the start of the next take: cut that sentence (keep the cleaner retake)
     tails: dict[str, float] = {}
@@ -246,7 +263,9 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         starts = [i for i in range(1, len(ws)) if re.search(r"[.?!]$", ws[i - 1][0])]
         if starts and len(nxt) >= 3:
             i = starts[-1]
-            if [norm(w[0]) for w in ws[i : i + 3]] == nxt[:3]:
+            tail = [norm(w[0]) for w in ws[i:]]
+            head = nxt[: len(tail)]
+            if len(tail) >= 4 and difflib.SequenceMatcher(None, tail, head).ratio() >= 0.75:
                 tails[n] = ws[i - 1][2] + 0.25
                 review.append(f"- Partial retake: cut the end of **{n}** (\"{' '.join(w[0] for w in ws[i:])}\"), **{m}** says it again.")
 
@@ -264,10 +283,17 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         takes.append({"file": n, "in": round(a, 2), "out": round(b, 2), "words": words, "plain": plain})
         all_words += words
     spell_from_script(all_words, script_words, review)
+    if meta.get("corrections"):
+        sys.path.insert(0, str(REPO / "autoreel"))
+        from lib.analyze import apply_corrections  # phrase-level fixes, timing kept
+
+        done = apply_corrections(all_words, meta["corrections"])
+        review += [f"- Correction from meta.json applied: \"{c}\"" for c in done]
+        review += [f"- Correction NOT found in the takes: \"{c['from']}\"" for c in meta["corrections"] if c["from"] not in done]
     for t in takes:
         for w in t["words"]:
             w["emph"] = norm(w["w"]) in emph
-            if w["p"] < BRAND["transcription"]["low_confidence"]:
+            if w["p"] < BRAND["transcription"]["low_confidence"] and norm(w["w"]) not in {norm(x) for x in t["plain"].split()}:
                 review.append(f"- Unsure word in **{t['file']}** at {w['s']:.1f}s: \"{w['w']}\" (cross-check run heard: \"{t['plain'][:80]}…\")")
 
     # on-screen texts are placed on the IG timeline, then remapped for TikTok
