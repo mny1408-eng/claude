@@ -182,21 +182,40 @@ def place_onscreen(onscreen: list[tuple[str, str]], words: list[dict]) -> list[d
 
 
 # ---------- 4. joining ----------
-def trims(ws: list[list], dur: float) -> tuple[float, float]:
-    a = max(0.0, max(ws[0][1], ws[0][2] - 0.45) - 0.08)
-    b = min(dur, ws[-1][2] + 0.3)
-    return a, b
+def speech_edges(wav: Path) -> tuple[float | None, float | None]:
+    """Where the voice really starts and stops (silencedetect), to cut close without clipping words."""
+    err = subprocess.run(["ffmpeg", "-i", str(wav), "-af", "silencedetect=n=-32dB:d=0.12", "-f", "null", "-"], capture_output=True, text=True).stderr
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", err)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", err)]
+    onset = ends[0] if starts and starts[0] < 0.05 and ends else 0.0
+    offset = starts[-1] if starts and (len(ends) < len(starts)) else None
+    return onset, offset
 
 
-def join(pieces: list[tuple[Path, float, float]], out: Path) -> None:
+def trims(ws: list[list], dur: float, wav: Path | None = None) -> tuple[float, float]:
+    """Cut tight to the voice so the mic going up to the mouth / coming down (start-stop of the recording) is not seen."""
+    first_s = max(ws[0][1], ws[0][2] - 0.45)
+    last_e = ws[-1][2]
+    onset, offset = speech_edges(wav) if wav and wav.exists() else (None, None)
+    a = first_s - 0.06
+    if onset is not None and first_s - 0.6 <= onset <= ws[0][2]:
+        a = onset - 0.04
+    b = last_e + 0.06
+    if offset is not None and ws[-1][1] <= offset <= last_e + 0.5:
+        b = offset + 0.06
+    return max(0.0, a), min(dur, b)
+
+
+def join(pieces: list[tuple[Path, float, float, float]], out: Path) -> None:
     fc, cat = "", ""
-    for k, (_, a, b) in enumerate(pieces):
+    for k, (_, a, b, z) in enumerate(pieces):
         d = round(b - a - 0.05, 3)
-        fc += (f"[{k}:v]trim={a}:{b},setpts=PTS-STARTPTS,scale=1080:1920,fps=30,format=yuv420p,setsar=1[v{k}];"
+        zoom = f"scale={round(1080 * z / 2) * 2}:{round(1920 * z / 2) * 2},crop=1080:1920:(iw-1080)/2:(ih-1920)*0.4," if z > 1 else "scale=1080:1920,"
+        fc += (f"[{k}:v]trim={a}:{b},setpts=PTS-STARTPTS,{zoom}fps=30,format=yuv420p,setsar=1[v{k}];"
                f"[{k}:a]atrim={a}:{b},asetpts=PTS-STARTPTS,aresample=48000,afade=t=in:d=0.03,afade=t=out:st={max(0, d)}:d=0.05[a{k}];")
         cat += f"[v{k}][a{k}]"
     args = ["ffmpeg", "-y", "-loglevel", "error"]
-    for p, _, _ in pieces:
+    for p, *_ in pieces:
         args += ["-i", str(p)]
     args += ["-filter_complex", fc + cat + f"concat=n={len(pieces)}:v=1:a=1[v][ax];[ax]loudnorm=I=-16:TP=-1.5:LRA=11[a]",
              "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "18", "-preset", "fast", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", str(out)]
@@ -204,10 +223,11 @@ def join(pieces: list[tuple[Path, float, float]], out: Path) -> None:
     subprocess.run(args, check=True)
 
 
-def build_timeline(edit: dict, clipdir: Path, tight: bool) -> tuple[list[tuple[Path, float, float]], list[list]]:
+def build_timeline(edit: dict, clipdir: Path, tight: bool) -> tuple[list[tuple[Path, float, float, float]], list[list]]:
     """Cut list + caption words on the joined timeline. tight=True (TikTok) also cuts pauses longer than 0.45 s inside a take."""
     pieces, words, off = [], [], 0.0
-    for take in edit["takes"]:
+    for ti, take in enumerate(edit["takes"]):
+        z = 1.06 if ti % 2 else 1.0  # punch in on every other take
         a, b = take["in"], take["out"]
         spans = [(a, b)]
         if tight:
@@ -219,7 +239,7 @@ def build_timeline(edit: dict, clipdir: Path, tight: bool) -> tuple[list[tuple[P
                     cur = y["s"] - 0.12
             spans.append((cur, b))
         for sa, sb in spans:
-            pieces.append((clipdir / take["file"], round(sa, 3), round(sb, 3)))
+            pieces.append((clipdir / take["file"], round(sa, 3), round(sb, 3), z))
             for w in take["words"]:
                 if not w["w"] or w["e"] <= sa + 0.02 or w["s"] >= sb - 0.02:
                     continue
@@ -239,9 +259,9 @@ def remap(t: float, edit: dict, tight_pieces: list[tuple[Path, float, float]]) -
             break
         ig_off += take["out"] - take["in"]
     if src is None:
-        return sum(b - a for _, a, b in tight_pieces)
+        return sum(b - a for _, a, b, _ in tight_pieces)
     off = 0.0
-    for p, a, b in tight_pieces:
+    for p, a, b, _ in tight_pieces:
         if p.name == src[0] and a - 0.01 <= src[1] <= b + 0.01:
             return round(off + (src[1] - a), 2)
         if p.name == src[0] and src[1] < a:
@@ -285,7 +305,7 @@ def make_edit(proj: Path, review: list[str]) -> dict:
             review.append(f"- **{n}**: no speech found, skipped.")
             continue
         plain = " ".join(w[0] for w in tr[n]["plain"])
-        a, b = trims(ws, tr[n]["duration"])
+        a, b = trims(ws, tr[n]["duration"], work / (Path(n).stem + ".wav"))
         b = min(b, tails.get(n, b))
         words = [{"w": w, "s": s, "e": e, "p": p} for w, s, e, p in ws]
         takes.append({"file": n, "in": round(a, 2), "out": round(b, 2), "words": words, "plain": plain})
@@ -351,7 +371,7 @@ def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -
     for v in [x for x in versions if not only or x == only]:
         pieces, words = build_timeline(edit, clipdir, tight=(v == "tt"))
         join(pieces, pub / f"{v}.mp4")
-        talk = sum(b - a for _, a, b in pieces)
+        talk = sum(b - a for _, a, b, _ in pieces)
         cards = edit["cards"] if v == "ig" else [{**c, "from": remap(c["from"], edit, pieces), "to": remap(c["to"], edit, pieces)} for c in edit["cards"]]
         props = {
             "clip": f"dualreel/{slug}/{v}.mp4", "talk": round(talk, 2), "words": words, "series": edit["series"],
