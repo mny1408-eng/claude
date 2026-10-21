@@ -28,3 +28,8 @@ public/autoreel/
 
 # Python bytecode
 __pycache__/
+
+# DualReel projects (raw takes, renders) stay local
+dualreel/projects/*
+!dualreel/projects/.gitkeep
+public/dualreel/

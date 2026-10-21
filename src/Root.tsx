@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { AUTO_REEL_DEFAULTS, AutoReel, calcAutoReel } from "./autoreel/AutoReel";
+import { calcDualIG, calcDualTT, DUAL_DEFAULTS, DualIG, DualTT } from "./dualreel/Dual";
 import { FPS } from "./theme";
 import { TOTAL, VoxAd, VoxAdProps } from "./Video";
 import { Reel, reelLength } from "./Reel";
@@ -129,6 +130,8 @@ export const Root: React.FC = () => (
       width={1080}
       height={1920}
     />
+    <Composition id="DualIG" component={DualIG} defaultProps={DUAL_DEFAULTS} calculateMetadata={calcDualIG} durationInFrames={390} fps={FPS} width={1080} height={1920} />
+    <Composition id="DualTT" component={DualTT} defaultProps={DUAL_DEFAULTS} calculateMetadata={calcDualTT} durationInFrames={300} fps={FPS} width={1080} height={1920} />
     {hooks.map((h) => (
     <Composition
         key={h}
