@@ -105,7 +105,8 @@ def drop_retakes(order: list[str], tr: dict, review: list[str], script_toks: lis
             sim = difflib.SequenceMatcher(None, a, b).ratio()
             if a[:4] == b[:4] or sim >= 0.55:
                 sa, sb = take_score(tr[n]["styled"], script_toks), take_score(tr[m]["styled"], script_toks)
-                worse, better = (n, m) if sb >= sa else (m, n)
+                # Coach re-records when a take went wrong, so the later take wins unless the earlier one is clearly better
+                worse, better = (m, n) if sa > sb + 0.1 else (n, m)
                 dropped.add(worse)
                 review.append(f"- Retake: dropped **{worse}** (\"{' '.join(w[0] for w in tr[worse]['styled'])[:80]}…\"), kept **{better}** (similar {sim:.2f}; score {max(sa, sb):.2f} vs {min(sa, sb):.2f}).")
                 break
@@ -151,6 +152,9 @@ def spell_from_script(words: list[dict], script_words: list[str], review: list[s
             if not cands:
                 continue
             r, s = max(cands)
+            # "turunkan" vs "turun" is a different word form, not a spelling slip — keep what was said
+            if spoken.startswith(norm(s)) or norm(s).startswith(spoken):
+                continue
             if 0.75 <= r < 1.0:
                 tail = re.findall(r"[.,?!…]+$", w["w"])
                 new = re.sub(r"[.,?!…]+$", "", s) + (tail[0] if tail else "")
