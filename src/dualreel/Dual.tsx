@@ -61,7 +61,7 @@ const IGTalk: React.FC<DualProps> = (p) => {
     <AbsoluteFill>
       <OffthreadVideo src={staticFile(p.clip)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
       <Sequence {...seq(0, hookEnd)} layout="none">
-        <SeriesTag series={series} />
+        {p.series ? <SeriesTag series={series} /> : null}
         <HookTitle lines={hookLines(p.hook, p.hookKey)} tone="dark" hookSec={3.4} />
       </Sequence>
       {p.cards.map((c, i) => (
