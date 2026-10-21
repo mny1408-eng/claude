@@ -1,8 +1,8 @@
 // DualReel templates — the same talking-head edit in two designs (props come from dualreel/dualreel.py).
 //  * DualIG — Layout A: series tag, boxless hook title with the gold underline, pop captions under the chin, script
 //    on-screen texts as white cards, standard ivory end card.
-//  * DualTT — "suara dalam kepala" for TikTok: the hook arrives as a grey chat bubble, native-looking captions (white with a
-//    black outline, keyword in gold), on-screen texts as plain outlined text that moves between two spots, a small jump-zoom
+//  * DualTT — "suara dalam kepala" for TikTok: the hook arrives as a grey chat bubble, native-looking captions (TikTok's
+//    background text style: dark words on a white box, keyword on gold), on-screen texts as plain outlined text that moves between two spots, a small jump-zoom
 //    at every new sentence, CTA text over the last seconds and no end card (the video loops). Kept inside TikTok's safe area:
 //    clear of the top tabs (y < 200), the right-hand buttons (x > 900) and the caption block (y > 1450).
 import React from "react";
@@ -125,13 +125,16 @@ const TTCaptions: React.FC<{ words: Wd[] }> = ({ words }) => {
   if (!g) return null;
   const st = Math.round((g[0][0] - 0.03) * fps);
   const p = spring({ frame: f - st, fps, config: { damping: 10, stiffness: 260 } });
+  // TikTok "background" text style: dark words on a white rounded box, the keyword on gold
   return (
-    <div style={{ position: "absolute", top: 1180, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0 18px", transform: `scale(${0.8 + 0.2 * p})` }}>
-      {g.map(([, , text, emph], i) => (
-        <span key={i} style={{ fontFamily: POPPINS, fontSize: 76, fontWeight: 800, lineHeight: 1.1, color: emph ? C.gold : "#fff", textShadow: OUTLINE, textTransform: "lowercase" }}>
-          {text}
-        </span>
-      ))}
+    <div style={{ position: "absolute", top: 1180, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: "center", transform: `scale(${0.85 + 0.15 * p})` }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "0 14px", background: "#fff", borderRadius: 22, padding: "10px 26px 14px", boxShadow: "0 8px 22px rgba(0,0,0,0.3)" }}>
+        {g.map(([, , text, emph], i) => (
+          <span key={i} style={{ fontFamily: POPPINS, fontSize: 64, fontWeight: 800, lineHeight: 1.15, color: "#111", textTransform: "lowercase", ...(emph ? { background: C.gold, borderRadius: 12, padding: "0 12px", margin: "0 -6px" } : {}) }}>
+            {text}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };
