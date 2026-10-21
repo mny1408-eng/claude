@@ -4,11 +4,13 @@ version ("suara dalam kepala": chat-bubble hook, native captions, tighter pauses
 
   python3 dualreel/dualreel.py make <project-dir>         # transcribe, edit, render both versions
   python3 dualreel/dualreel.py rerender <project-dir>     # after editing <project-dir>/edit.json by hand
+  … add  --only ig  or  --only tt  to render one version
 
 A project dir holds:
   clips/       the takes, in recording order (Teleprompter file names sort by time)
   meta.json    {"type": "connection" | "value" | ..., "series": "MINDSET", "slug": "2010-beza", "hook": "…", "hook_key": "…",
-                "cta_ig": "…", "cta_tt": "…", "emphasis": [words], "corrections": [{"from": "perak badan", "to": "berat badan"}]}
+                "cta_ig": "…", "cta_tt": "…", "emphasis": [words], "corrections": [{"from": "perak badan", "to": "berat badan"}],
+                "cards": [{"text": "1. Main meal dulu", "at": "the spoken line it belongs to"}]}
                (all optional)
   script.txt   optional — the script Coach read; used to spell captions and to place [ON-SCREEN TEXT: …] cards
   photos/      optional — not placed automatically (say which photo goes with which line in edit.json "photos")
@@ -253,6 +255,8 @@ def make_edit(proj: Path, review: list[str]) -> dict:
     meta = json.loads((proj / "meta.json").read_text()) if (proj / "meta.json").exists() else {}
     script = (proj / "script.txt").read_text() if (proj / "script.txt").exists() else ""
     script_words, onscreen = parse_script(script)
+    # cards without a script: meta "cards": [{"text": "1. Main meal dulu", "at": "tentukan dulu apa yang nak jadi main meal"}]
+    onscreen += [(c["text"], c["at"]) for c in meta.get("cards", [])]
     clips = sorted(p for p in (proj / "clips").iterdir() if p.suffix.lower() in VIDEO_EXT)
     work = proj / "work"
     work.mkdir(exist_ok=True)
@@ -320,6 +324,7 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         "type": meta.get("type", "value"),
         "series": meta.get("series", "MINDSET"),
         "hook": hook,
+        "hook_tt": meta.get("hook_tt") or (f"“{hook}”" if script else hook),
         "hook_key": meta.get("hook_key", ""),
         "first_line": first,
         "cta_ig": meta.get("cta_ig", BRAND["cta"]["text"]),
@@ -333,7 +338,7 @@ def make_edit(proj: Path, review: list[str]) -> dict:
 
 
 # ---------- 6. render ----------
-def render(edit: dict, proj: Path, review: list[str]) -> list[Path]:
+def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -> list[Path]:
     slug = edit["slug"]
     pub = REPO / "public" / "dualreel" / slug
     out_dir = proj / "output"
@@ -343,15 +348,14 @@ def render(edit: dict, proj: Path, review: list[str]) -> list[Path]:
     versions = ["ig", "tt"] if edit["type"] in DUAL_TYPES else ["ig"]
     if "tt" not in versions:
         review.append(f"- Type \"{edit['type']}\" is not connection/value, so only the IG version was made.")
-    ig_pieces, _ = build_timeline(edit, clipdir, tight=False)
-    for v in versions:
+    for v in [x for x in versions if not only or x == only]:
         pieces, words = build_timeline(edit, clipdir, tight=(v == "tt"))
         join(pieces, pub / f"{v}.mp4")
         talk = sum(b - a for _, a, b in pieces)
         cards = edit["cards"] if v == "ig" else [{**c, "from": remap(c["from"], edit, pieces), "to": remap(c["to"], edit, pieces)} for c in edit["cards"]]
         props = {
             "clip": f"dualreel/{slug}/{v}.mp4", "talk": round(talk, 2), "words": words, "series": edit["series"],
-            "hook": edit["hook"], "hookKey": edit["hook_key"], "cards": cards, "photos": edit["photos"] if v == "ig" else [],
+            "hook": edit["hook"] if v == "ig" else edit.get("hook_tt", edit["hook"]), "hookKey": edit["hook_key"], "cards": cards, "photos": edit["photos"] if v == "ig" else [],
             "cta": edit["cta_ig"] if v == "ig" else edit["cta_tt"], "ctaIcon": edit["cta_ig_icon"], "handle": BRAND["handle"],
         }
         pf = proj / "work" / f"props-{v}.json"
@@ -393,7 +397,8 @@ def main() -> None:
     else:
         edit = json.loads(ef.read_text())
         review.append("- Rerendered from edit.json (hand edits kept).")
-    outs = render(edit, proj, review)
+    only = sys.argv[sys.argv.index("--only") + 1] if "--only" in sys.argv else None
+    outs = render(edit, proj, review, only)
     captions(edit, proj)
     (proj / "output" / "review.md").write_text(
         f"# {edit['slug']} — review\n\nTakes used: {', '.join(t['file'] for t in edit['takes'])}\n\n"

@@ -97,7 +97,7 @@ const ChatHook: React.FC<{ text: string }> = ({ text }) => {
   return (
     <div style={{ position: "absolute", top: 300, left: TT_SAFE.left, right: TT_SAFE.right, opacity: out }}>
       <div style={{ display: "inline-block", maxWidth: 720, background: "#E9E9EB", color: "#111", borderRadius: "38px 38px 38px 10px", padding: "26px 36px", fontSize: 54, fontWeight: 700, lineHeight: 1.2, transformOrigin: "0% 100%", transform: `scale(${0.6 + 0.4 * p})`, opacity: Math.min(1, p * 2), boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
-        {typing ? <span style={{ letterSpacing: 8 }}>• • •</span> : `“${text}”`}
+        {typing ? <span style={{ letterSpacing: 8 }}>• • •</span> : text}
       </div>
     </div>
   );
