@@ -146,7 +146,7 @@ export const Root: React.FC = () => (
       durationInFrames={GENERATOR_DEFAULTS.carousel.slides.length}
       fps={1}
       width={1080}
-      height={1350}
+      height={1440}
       defaultProps={GENERATOR_DEFAULTS}
       calculateMetadata={calcGeneratorMetadata}
     />

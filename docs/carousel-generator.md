@@ -1,6 +1,6 @@
 # Carousel generator
 
-Turns one JSON file into an Instagram/Facebook carousel: 1080×1350 PNGs, a combined PDF and a preview page.
+Turns one JSON file into an Instagram/Facebook carousel: 1080×1440 (3:4) PNGs, a combined PDF and a preview page.
 Slides are React components rendered by Remotion's headless Chromium (already used by this repo), so no extra
 dependencies are needed.
 
@@ -15,7 +15,7 @@ Output goes to `output/carousels/<id>/`:
 
 | File | What |
 |---|---|
-| `slide-01.png` … `slide-NN.png` | 1080×1350 PNG, one per slide |
+| `slide-01.png` … `slide-NN.png` | 1080×1440 (3:4) PNG, one per slide |
 | `<id>.pdf` | all slides in order, one page each |
 | `index.html` | preview grid (open in a browser) |
 
@@ -84,7 +84,7 @@ A carousel can override any of these with its own `"brand": { … }` block.
 - blocks don't overlap;
 - the brand fonts actually loaded.
 
-**After rendering**, it checks that every PNG is exactly 1080×1350, that the slide count matches the config, and that the PDF follows config order.
+**After rendering**, it checks that every PNG is exactly 1080×1440 (3:4), that the slide count matches the config, and that the PDF follows config order.
 
 Any layout problem prints the slide number and the text involved, and the script exits with code 1.
 

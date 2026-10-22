@@ -49,7 +49,7 @@ export type CarouselSpec = {
 
 export type GeneratorProps = { brand: Brand; carousel: CarouselSpec };
 
-export const SIZE = { width: 1080, height: 1350 };
+export const SIZE = { width: 1080, height: 1440 };
 // Everything with data-fit must stay inside this safe area (checked at render time).
 export const SAFE = 64;
 export const MARGIN = 96;

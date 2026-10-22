@@ -33,7 +33,7 @@ const warnings = [];
 const TYPES = { cover: ["title"], problem: ["title", "body"], step: ["number", "title", "body"], diagram: ["title", "body", "flow"], cta: ["title", "body"] };
 const VISUALS = ["rice-bowl", "calorie-meter", "balanced-plate", "lifestyle", "save", "calcium-foods", "walk-stairs", "strength-balance", "moon", "pause", "snack-options", "tea", "notepad", "dessert"];
 // Box each photo fills (see src/generator/slides.tsx). Upscaling beyond ~1.15× looks soft; beyond 1.5× it looks blurry.
-const PHOTO_BOX = { cover: [1080, 1350], step: [888, 500] };
+const PHOTO_BOX = { cover: [1080, 1440], step: [888, 500] };
 const imageSize = (file) => {
   const b = fs.readFileSync(file);
   if (b.readUInt32BE(0) === 0x89504e47) return [b.readUInt32BE(16), b.readUInt32BE(20)];
@@ -119,7 +119,7 @@ const pngSize = (file) => {
 };
 pngs.forEach((p, i) => {
   const [w, h] = pngSize(p);
-  if (w !== 1080 || h !== 1350) checks.push(`slide ${i + 1}: rendered ${w}×${h}, expected 1080×1350`);
+  if (w !== 1080 || h !== 1440) checks.push(`slide ${i + 1}: rendered ${w}×${h}, expected 1080×1440`);
 });
 if (pngs.length !== carousel.slides.length) checks.push(`rendered ${pngs.length} slides, config has ${carousel.slides.length}`);
 if (done.size !== carousel.slides.length) checks.push(`layout check ran on ${done.size}/${carousel.slides.length} slides`);
@@ -175,7 +175,7 @@ fs.writeFileSync(
   `<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(carousel.title)}</title>
 <style>body{margin:0;padding:24px 16px;background:${brand.colors.ink};color:${brand.colors.cream};font-family:system-ui,sans-serif}h1{font-size:22px;margin:0 0 4px}p{opacity:.7;margin:0 0 20px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}figure{margin:0}img{width:100%;border-radius:12px;display:block}figcaption{font-size:13px;opacity:.7;margin-top:6px}a{color:${brand.colors.green}}</style></head>
-<body><h1>${esc(carousel.title)}</h1><p>${carousel.slides.length} slides · 1080×1350 · <a href="${carousel.id}.pdf">PDF</a></p><div class="grid">
+<body><h1>${esc(carousel.title)}</h1><p>${carousel.slides.length} slides · 1080×1440 · <a href="${carousel.id}.pdf">PDF</a></p><div class="grid">
 ${pngs.map((p, i) => `<figure><img src="${path.basename(p)}" alt="Slide ${i + 1}"><figcaption>${path.basename(p)} · ${carousel.slides[i].type}</figcaption></figure>`).join("\n")}
 </div></body></html>`,
 );
