@@ -271,6 +271,21 @@ def remap(t: float, edit: dict, tight_pieces: list[tuple[Path, float, float]]) -
     return round(off, 2)
 
 
+def place_cards(takes: list[dict], onscreen: list, hook: str) -> list[dict]:
+    """On-screen texts placed on the IG timeline from the takes' current in/out points (TikTok remaps them later).
+    Re-run at render time, so hand edits to in/out in edit.json keep the cards on their lines."""
+    ig_words, off = [], 0.0
+    for t in takes:
+        for w in t["words"]:
+            if w["w"] and w["e"] > t["in"] and w["s"] < t["out"]:
+                ig_words.append({"w": w["w"], "s": off + max(w["s"], t["in"]) - t["in"], "e": off + min(w["e"], t["out"]) - t["in"]})
+        off += t["out"] - t["in"]
+    cards = sorted((c for c in place_onscreen([tuple(o) for o in onscreen], ig_words) if c["text"] != hook), key=lambda c: c["from"])
+    for c, nxt in zip(cards, cards[1:]):  # one card at a time: a card ends before the next one comes in
+        c["to"] = round(min(c["to"], nxt["from"] - 0.1), 2)
+    return cards
+
+
 # ---------- 5. edit plan ----------
 def make_edit(proj: Path, review: list[str]) -> dict:
     meta = json.loads((proj / "meta.json").read_text()) if (proj / "meta.json").exists() else {}
@@ -325,18 +340,10 @@ def make_edit(proj: Path, review: list[str]) -> dict:
             if w["p"] < BRAND["transcription"]["low_confidence"] and norm(w["w"]) not in {norm(x) for x in t["plain"].split()}:
                 review.append(f"- Unsure word in **{t['file']}** at {w['s']:.1f}s: \"{w['w']}\" (cross-check run heard: \"{t['plain'][:80]}…\")")
 
-    # on-screen texts are placed on the IG timeline, then remapped for TikTok
-    ig_words, off = [], 0.0
-    for t in takes:
-        for w in t["words"]:
-            if w["e"] > t["in"] and w["s"] < t["out"]:
-                ig_words.append({"w": w["w"], "s": off + max(w["s"], t["in"]) - t["in"], "e": off + min(w["e"], t["out"]) - t["in"]})
-        off += t["out"] - t["in"]
-    cards = sorted(place_onscreen(onscreen, ig_words), key=lambda c: c["from"])
-    for c, nxt in zip(cards, cards[1:]):  # one card at a time: a card ends before the next one comes in
-        c["to"] = round(min(c["to"], nxt["from"] - 0.1), 2)
+    hook0 = meta.get("hook", "")
+    cards = place_cards(takes, onscreen, hook0)
     for text, _ in onscreen:
-        if text not in [c["text"] for c in cards]:
+        if text not in [c["text"] for c in cards] and text != hook0:
             review.append(f"- On-screen text \"{text}\" could not be placed (its script line was not found in the takes).")
 
     first = " ".join(w["w"] for w in takes[0]["words"]) if takes else ""
@@ -354,7 +361,8 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         "cta_ig_icon": meta.get("cta_ig_icon", BRAND["cta"]["icon"]),
         "cta_tt": meta.get("cta_tt", "Tag kawan yang perlu dengar ni 👇"),
         "last_line": " ".join(w["w"] for w in last["words"]) if last else "",
-        "cards": [c for c in cards if c["text"] != hook],
+        "cards": cards,
+        "anchors": [list(o) for o in onscreen],
         "note": meta.get("note", ""),
         "photos": meta.get("photos", []),
         "takes": takes,
@@ -372,6 +380,8 @@ def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -
     versions = ["ig", "tt"] if edit["type"] in DUAL_TYPES else ["ig"]
     if "tt" not in versions:
         review.append(f"- Type \"{edit['type']}\" is not connection/value, so only the IG version was made.")
+    if edit.get("anchors"):
+        edit["cards"] = place_cards(edit["takes"], edit["anchors"], edit["hook"])
     for v in [x for x in versions if not only or x == only]:
         pieces, words = build_timeline(edit, clipdir, tight=(v == "tt"))
         join(pieces, pub / f"{v}.mp4")
