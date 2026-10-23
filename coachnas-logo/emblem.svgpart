@@ -1,0 +1,17 @@
+<defs>
+  <linearGradient id="gT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0F5C57"/><stop offset="1" stop-color="#083B38"/></linearGradient>
+  <linearGradient id="gG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3CC48A"/><stop offset="1" stop-color="#1E9A66"/></linearGradient>
+  <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9C77B"/><stop offset="1" stop-color="#B98A35"/></linearGradient>
+  <clipPath id="cap"><rect x="55" y="15" width="90" height="170" rx="45" transform="rotate(40 100 100)"/></clipPath>
+</defs>
+<g>
+  <circle cx="100" cy="100" r="96" fill="url(#gT)"/>
+  <circle cx="100" cy="100" r="88" fill="none" stroke="url(#gGold)" stroke-width="3"/>
+  <g clip-path="url(#cap)">
+    <rect x="0" y="0" width="200" height="200" fill="#F4F7F5"/>
+    <polygon points="-20,-20 220,-20 -20,220" transform="rotate(-5 100 100)" fill="url(#gG)"/>
+  </g>
+  <rect x="55" y="15" width="90" height="170" rx="45" transform="rotate(40 100 100)" fill="none" stroke="#fff" stroke-width="3"/>
+  <polyline points="22,112 60,112 76,64 118,148 134,100 178,100" fill="none" stroke="url(#gGold)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="22,112 60,112 76,64 118,148 134,100 178,100" fill="none" stroke="#0A4744" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
