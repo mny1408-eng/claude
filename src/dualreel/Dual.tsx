@@ -23,6 +23,7 @@ export type DualProps = {
   cta: string;
   ctaIcon: string;
   handle: string;
+  note?: string; // small line under the end-card CTA, e.g. the source of a claim
 };
 
 export const DUAL_DEFAULTS: DualProps = {
@@ -79,7 +80,7 @@ const IGTalk: React.FC<DualProps> = (p) => {
 export const DualIG: React.FC<DualProps> = (p) => {
   const scenes: SceneDef[] = [
     { id: "talk", dur: Math.round(p.talk * FPS), el: <IGTalk {...p} /> },
-    { id: "end", dur: IG_END, el: <EndCardStd cta={p.cta} icon={(["comment", "follow", "share", "save"].includes(p.ctaIcon) ? p.ctaIcon : "save") as "save"} /> },
+    { id: "end", dur: IG_END, el: <EndCardStd cta={p.cta} note={p.note} icon={(["comment", "follow", "share", "save"].includes(p.ctaIcon) ? p.ctaIcon : "save") as "save"} /> },
   ];
   return <Reel scenes={scenes} />;
 };

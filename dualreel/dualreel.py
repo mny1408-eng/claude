@@ -10,7 +10,8 @@ A project dir holds:
   clips/       the takes, in recording order (Teleprompter file names sort by time)
   meta.json    {"type": "connection" | "value" | ..., "series": "MINDSET", "slug": "2010-beza", "hook": "…", "hook_key": "…",
                 "cta_ig": "…", "cta_tt": "…", "emphasis": [words], "corrections": [{"from": "perak badan", "to": "berat badan"}],
-                "cards": [{"text": "1. Main meal dulu", "at": "the spoken line it belongs to"}]}
+                "cards": [{"text": "1. Main meal dulu", "at": "the spoken line it belongs to"}],
+                "note": "Sumber: …" (small line on the IG end card)}
                (all optional)
   script.txt   optional — the script Coach read; used to spell captions and to place [ON-SCREEN TEXT: …] cards
   photos/      optional — not placed automatically (say which photo goes with which line in edit.json "photos")
@@ -331,7 +332,9 @@ def make_edit(proj: Path, review: list[str]) -> dict:
             if w["e"] > t["in"] and w["s"] < t["out"]:
                 ig_words.append({"w": w["w"], "s": off + max(w["s"], t["in"]) - t["in"], "e": off + min(w["e"], t["out"]) - t["in"]})
         off += t["out"] - t["in"]
-    cards = place_onscreen(onscreen, ig_words)
+    cards = sorted(place_onscreen(onscreen, ig_words), key=lambda c: c["from"])
+    for c, nxt in zip(cards, cards[1:]):  # one card at a time: a card ends before the next one comes in
+        c["to"] = round(min(c["to"], nxt["from"] - 0.1), 2)
     for text, _ in onscreen:
         if text not in [c["text"] for c in cards]:
             review.append(f"- On-screen text \"{text}\" could not be placed (its script line was not found in the takes).")
@@ -352,6 +355,7 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         "cta_tt": meta.get("cta_tt", "Tag kawan yang perlu dengar ni 👇"),
         "last_line": " ".join(w["w"] for w in last["words"]) if last else "",
         "cards": [c for c in cards if c["text"] != hook],
+        "note": meta.get("note", ""),
         "photos": meta.get("photos", []),
         "takes": takes,
     }
@@ -376,7 +380,7 @@ def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -
         props = {
             "clip": f"dualreel/{slug}/{v}.mp4", "talk": round(talk, 2), "words": words, "series": edit["series"],
             "hook": edit["hook"] if v == "ig" else edit.get("hook_tt", edit["hook"]), "hookKey": edit["hook_key"], "cards": cards, "photos": edit["photos"] if v == "ig" else [],
-            "cta": edit["cta_ig"] if v == "ig" else edit["cta_tt"], "ctaIcon": edit["cta_ig_icon"], "handle": BRAND["handle"],
+            "cta": edit["cta_ig"] if v == "ig" else edit["cta_tt"], "ctaIcon": edit["cta_ig_icon"], "handle": BRAND["handle"], "note": edit.get("note", ""),
         }
         pf = proj / "work" / f"props-{v}.json"
         pf.write_text(json.dumps(props, ensure_ascii=False))
