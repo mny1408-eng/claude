@@ -1,6 +1,7 @@
 import React from "react";
 import { Composition } from "remotion";
 import { FbCover, FB_COVER } from "./banner/FbCover";
+import { SatuKosong, SATU_KOSONG } from "./poster/SatuKosong";
 import { CarouselGenerator, GENERATOR_DEFAULTS, calcGeneratorMetadata } from "./generator/Generator";
 import { FPS } from "./theme";
 import { TOTAL, VoxAd, VoxAdProps } from "./Video";
@@ -101,6 +102,7 @@ export const Root: React.FC = () => (
     <Composition id="Reel-Kanser" component={ReelKanser} durationInFrames={KANSER_TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="Reel-Healing" component={ReelHealing} durationInFrames={HEALING_TOTAL} fps={30} width={1080} height={1920} />
     <Composition id="Reel-Career" component={ReelCareer} durationInFrames={CAREER_TOTAL} fps={30} width={1080} height={1920} />
+    <Composition id="Poster-SatuKosong" component={SatuKosong} durationInFrames={1} fps={1} width={SATU_KOSONG.width} height={SATU_KOSONG.height} />
     <Composition id="FbCover" component={FbCover} durationInFrames={1} fps={1} width={FB_COVER.width} height={FB_COVER.height} />
     <Composition id="Kalendar" component={Kalendar} durationInFrames={1} fps={1} width={KAL_W} height={KAL_H} defaultProps={KALENDAR_SAMPLE} />
     {hooks.map((h) => (
