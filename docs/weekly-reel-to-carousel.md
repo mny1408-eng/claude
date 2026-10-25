@@ -1,4 +1,4 @@
-# Weekly routine: Reel days without a Reel → carousel → Metricool
+# Weekly routine: this week's Reels → carousels on the no-Reel days → Metricool
 
 Runs every Sunday morning (Malaysia time) as a scheduled task. It covers the week that starts the next day (Mon–Sun).
 Follow the steps in order. If a step can't be done, stop and report why. Never guess.
@@ -17,13 +17,20 @@ All work and commits go on `claude/nhms-realiti-carousel`. Never commit personal
 3. The **active week plan** for the target week. Search Notion for "WEEK PLAN" plus the dates, e.g. "26 OCT" or "26 OCT–1 NOV".
    Ignore pages marked ARCHIVED. If there is no plan for that week, stop and report "no week plan found". Do not invent topics.
 
-## 2. Find the Reel days that need a carousel
-- From the week plan, list every day whose format is **Reel**, with its hook, script/teleprompter, on-screen text, caption, CTA and truth/evidence notes.
-- Metricool brand `6970082` (timezone `Asia/Singapore`). Run `getScheduledPosts` for Mon 00:00 to Sun 23:59 of the target week.
-- For each Reel day:
-  - If Metricool already has **any** post scheduled that day, **skip** it. That covers a Reel uploaded by Coach Nas, or anything else. The rule is one feed post per day.
-  - Otherwise the day needs a carousel version of that Reel.
-- Do **not** touch the carousel/static days or any existing Metricool post.
+## 2. Pick the carousel days: days with NO Reel
+- From the week plan, list every Reel with its day, role (Connection / Broad Value / Niche Value / Transform), script, caption, CTA and truth notes.
+- The carousel days are the days of the target week that have **no Reel planned**. Nasri's instruction: "pilih hari yang tak ada reel".
+  The Reel days stay free for the Reels themselves.
+- Metricool brand `6970082` (timezone `Asia/Singapore`). Run `getScheduledPosts` for Mon 00:00 to Sun 23:59.
+  Skip any carousel day that already has a post (one feed post per day). Never touch existing posts.
+- Give each carousel day one Reel to repurpose, preferably one that airs **before** it in the same week.
+  Pair them in order: first free day ← first Reel, and so on.
+- Skip a Reel whose status is "Awaiting Coach Nas Facts" or that depends on unconfirmed consent or photos.
+  Leave its carousel day empty and report it.
+- Networks follow the Reel's role:
+  - Connection / Broad Value: facebook, instagram, tiktok, threads.
+  - Niche Value / Transform: facebook, instagram, threads. No TikTok, because the plan says TikTok never gets RESET/STRUCTURE/niche.
+- First run (25 Oct 2026): Tue 27 ← Mon Connection, Thu 29 ← Wed Broad Value, Sat 31 ← Fri Niche Value. Sun Transform was skipped (awaiting facts).
 
 ## 3. Turn each Reel into a carousel (content/carousels/<YYYY-MM-DD>-<slug>.json)
 - Keep 6–8 slides: `cover` (the Reel hook), `step`/`problem`/`diagram` slides for the script's points, and a `cta` slide with the plan's CTA keyword (NAK, MALAM, STRUCTURE…).
@@ -52,7 +59,7 @@ CAROUSEL_BROWSER=$PWD/scripts/chrome-proxy.sh npm run carousel -- <id>
 2. Media URLs: `https://raw.githubusercontent.com/mny1408-eng/claude/<commit-sha>/output/carousels/<id>/slide-NN.png`. Use the commit SHA, not the branch name.
 3. Pick the time with `getBestTimeToPostByNetwork` (instagram) for that day. Choose the best evening hour, unless the topic suits a specific time (e.g. late-night snacking → 9 PM).
 4. `createScheduledPost` with:
-   - providers: facebook, instagram, tiktok, threads (same set Coach Nas used on 20 Oct).
+   - providers: as listed in step 2 for the Reel's role.
    - `draft: true`, so Coach Nas approves in Metricool.
    - `instagramData {type: POST}`, `facebookData {type: POST}`, `threadsData {type: POST}`.
    - `tiktokData.title`: required, ≤ 90 characters, taken from the hook.
