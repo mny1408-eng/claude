@@ -18,6 +18,7 @@ export const SERIES = {
   "PHARMACIST CHECK": { bg: C.ink, fg: C.paper, border: C.ink },
   "MAKAN REALISTIK": { bg: C.gold, fg: C.ink, border: C.gold },
   "KISAH COACH": { bg: C.marker, fg: "#fff", border: C.marker },
+  "KISAH CLIENT": { bg: C.gold, fg: C.ink, border: C.ink },
   MINDSET: { bg: "rgba(255,255,255,0.92)", fg: C.marker, border: C.marker },
 } as const;
 

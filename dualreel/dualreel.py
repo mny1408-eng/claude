@@ -11,7 +11,8 @@ A project dir holds:
   meta.json    {"type": "connection" | "value" | ..., "series": "MINDSET", "slug": "2010-beza", "hook": "…", "hook_key": "…",
                 "cta_ig": "…", "cta_tt": "…", "emphasis": [words], "corrections": [{"from": "perak badan", "to": "berat badan"}],
                 "cards": [{"text": "1. Main meal dulu", "at": "the spoken line it belongs to"}],
-                "note": "Sumber: …" (small line on the IG end card)}
+                "note": "Sumber: …" (small line on the IG end card),
+                "grade": {"brightness": 0.05, "contrast": 1.08, "saturation": 1.05}, "tight_ig": true, "pause_gap": 0.3}
                (all optional)
   script.txt   optional — the script Coach read; used to spell captions and to place [ON-SCREEN TEXT: …] cards
   photos/      optional — not placed automatically (say which photo goes with which line in edit.json "photos")
@@ -207,12 +208,14 @@ def trims(ws: list[list], dur: float, wav: Path | None = None) -> tuple[float, f
     return max(0.0, a), min(dur, b)
 
 
-def join(pieces: list[tuple[Path, float, float, float]], out: Path) -> None:
+def join(pieces: list[tuple[Path, float, float, float]], out: Path, grade: dict | None = None) -> None:
+    """grade: {"brightness": 0.05, "contrast": 1.08, "saturation": 1.05} lifts a dark recording (ffmpeg eq)."""
     fc, cat = "", ""
+    eq = f"eq=brightness={grade.get('brightness', 0)}:contrast={grade.get('contrast', 1)}:saturation={grade.get('saturation', 1)}:gamma={grade.get('gamma', 1)}," if grade else ""
     for k, (_, a, b, z) in enumerate(pieces):
         d = round(b - a - 0.05, 3)
         zoom = f"scale={round(1080 * z / 2) * 2}:{round(1920 * z / 2) * 2},crop=1080:1920:(iw-1080)/2:(ih-1920)*0.4," if z > 1 else "scale=1080:1920,"
-        fc += (f"[{k}:v]trim={a}:{b},setpts=PTS-STARTPTS,{zoom}fps=30,format=yuv420p,setsar=1[v{k}];"
+        fc += (f"[{k}:v]trim={a}:{b},setpts=PTS-STARTPTS,{zoom}{eq}fps=30,format=yuv420p,setsar=1[v{k}];"
                f"[{k}:a]atrim={a}:{b},asetpts=PTS-STARTPTS,aresample=48000,afade=t=in:d=0.03,afade=t=out:st={max(0, d)}:d=0.05[a{k}];")
         cat += f"[v{k}][a{k}]"
     args = ["ffmpeg", "-y", "-loglevel", "error"]
@@ -224,7 +227,7 @@ def join(pieces: list[tuple[Path, float, float, float]], out: Path) -> None:
     subprocess.run(args, check=True)
 
 
-def build_timeline(edit: dict, clipdir: Path, tight: bool) -> tuple[list[tuple[Path, float, float, float]], list[list]]:
+def build_timeline(edit: dict, clipdir: Path, tight: bool, gap: float = 0.45) -> tuple[list[tuple[Path, float, float, float]], list[list]]:
     """Cut list + caption words on the joined timeline. tight=True (TikTok) also cuts pauses longer than 0.45 s inside a take."""
     pieces, words, off = [], [], 0.0
     for ti, take in enumerate(edit["takes"]):
@@ -235,7 +238,7 @@ def build_timeline(edit: dict, clipdir: Path, tight: bool) -> tuple[list[tuple[P
             spans, cur = [], a
             ws = [w for w in take["words"] if w["e"] > a and w["s"] < b]
             for x, y in zip(ws, ws[1:]):
-                if y["s"] - x["e"] > 0.45:
+                if y["s"] - x["e"] > gap:
                     spans.append((cur, x["e"] + 0.15))
                     cur = y["s"] - 0.12
             spans.append((cur, b))
@@ -363,7 +366,12 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         "last_line": " ".join(w["w"] for w in last["words"]) if last else "",
         "cards": cards,
         "anchors": [list(o) for o in onscreen],
+        # extra fields of meta cards (e.g. "stat", "sub") travel with the card text
+        "card_extras": {c["text"]: {k: v for k, v in c.items() if k not in ("text", "at")} for c in meta.get("cards", [])},
         "note": meta.get("note", ""),
+        "grade": meta.get("grade"),
+        "tight_ig": meta.get("tight_ig", False),
+        "pause_gap": meta.get("pause_gap", 0.45),
         "photos": meta.get("photos", []),
         "takes": takes,
     }
@@ -381,12 +389,14 @@ def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -
     if "tt" not in versions:
         review.append(f"- Type \"{edit['type']}\" is not connection/value, so only the IG version was made.")
     if edit.get("anchors"):
-        edit["cards"] = place_cards(edit["takes"], edit["anchors"], edit["hook"])
+        edit["cards"] = [{**c, **edit.get("card_extras", {}).get(c["text"], {})} for c in place_cards(edit["takes"], edit["anchors"], edit["hook"])]
     for v in [x for x in versions if not only or x == only]:
-        pieces, words = build_timeline(edit, clipdir, tight=(v == "tt"))
-        join(pieces, pub / f"{v}.mp4")
+        # IG keeps natural pauses unless edit "tight_ig" is set; TikTok is always tight
+        tight = v == "tt" or bool(edit.get("tight_ig"))
+        pieces, words = build_timeline(edit, clipdir, tight=tight, gap=edit.get("pause_gap", 0.45))
+        join(pieces, pub / f"{v}.mp4", edit.get("grade"))
         talk = sum(b - a for _, a, b, _ in pieces)
-        cards = edit["cards"] if v == "ig" else [{**c, "from": remap(c["from"], edit, pieces), "to": remap(c["to"], edit, pieces)} for c in edit["cards"]]
+        cards = edit["cards"] if not tight else [{**c, "from": remap(c["from"], edit, pieces), "to": remap(c["to"], edit, pieces)} for c in edit["cards"]]
         props = {
             "clip": f"dualreel/{slug}/{v}.mp4", "talk": round(talk, 2), "words": words, "series": edit["series"],
             "hook": edit["hook"] if v == "ig" else edit.get("hook_tt", edit["hook"]), "hookKey": edit["hook_key"], "cards": cards, "photos": edit["photos"] if v == "ig" else [],

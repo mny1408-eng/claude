@@ -11,6 +11,10 @@ import { C, FPS, POPPINS } from "../theme";
 import { Reel, SceneDef } from "../Reel";
 import { chunkWords, EndCardStd, HookTitle, Overlay, PopWords, SERIES, SeriesTag, Wd } from "../reels/formats/LayoutA";
 
+// A card is a line of text, or (with "stat") a row of numbers that count up, e.g. [{label: "Isteri", value: 11, unit: "kg", sign: "−"}].
+export type Stat = { label: string; value: number; unit?: string; sign?: string };
+export type Card = { text: string; from: number; to: number; stat?: Stat[]; sub?: string };
+
 export type DualProps = {
   clip: string;
   talk: number;
@@ -18,7 +22,7 @@ export type DualProps = {
   series: string;
   hook: string;
   hookKey: string;
-  cards: { text: string; from: number; to: number }[];
+  cards: Card[];
   photos: unknown[];
   cta: string;
   ctaIcon: string;
@@ -52,6 +56,32 @@ const hookLines = (hook: string, key: string): [string, boolean][] => {
 const seq = (a: number, b: number) => ({ from: Math.round(a * FPS), durationInFrames: Math.max(1, Math.round((b - a) * FPS)) });
 
 // ---------------- Instagram ----------------
+// Numbers that count up over ~0.8 s (results, steps). Plain white card for IG, outlined text for TikTok.
+const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean }> = ({ stat, sub, tt }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const k = interpolate(f, [4, 4 + 0.8 * fps], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const ease = 1 - Math.pow(1 - k, 3);
+  const num: React.CSSProperties = tt ? { color: "#fff", textShadow: OUTLINE } : { color: C.ink };
+  return (
+    <div style={tt ? { textAlign: "center" } : { ...igCard, padding: "20px 36px" }}>
+      <div style={{ display: "flex", gap: 46, justifyContent: "center" }}>
+        {stat.map((s, i) => (
+          <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ fontSize: tt ? 40 : 34, fontWeight: 700, ...(tt ? { color: "#fff", textShadow: OUTLINE } : { color: C.inkSoft }) }}>{s.label}</div>
+            <div style={{ fontSize: tt ? 104 : 92, fontWeight: 800, lineHeight: 1, ...num }}>
+              {s.sign ?? ""}{Math.round(s.value * ease)}
+              <span style={{ fontSize: tt ? 54 : 46 }}>{s.unit ?? ""}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      {sub && <div style={{ marginTop: 8, fontSize: tt ? 32 : 28, fontWeight: 600, ...(tt ? { color: "#fff", textShadow: OUTLINE } : { color: C.inkSoft }) }}>{sub}</div>}
+    </div>
+  );
+};
+
+
 const igCard: React.CSSProperties = { background: "#fff", color: C.ink, borderRadius: 18, padding: "16px 32px", fontSize: 50, fontWeight: 800, boxShadow: "0 10px 26px rgba(0,0,0,0.25)", textAlign: "center" };
 
 const IGTalk: React.FC<DualProps> = (p) => {
@@ -68,7 +98,7 @@ const IGTalk: React.FC<DualProps> = (p) => {
       {p.cards.map((c, i) => (
         <Sequence key={i} {...seq(Math.max(c.from, hookEnd + 0.1), c.to)} layout="none">
           <Overlay dur={Math.round((c.to - Math.max(c.from, hookEnd + 0.1)) * FPS)} top={240}>
-            <div style={igCard}>{c.text}</div>
+            {c.stat ? <StatCard stat={c.stat} sub={c.sub} /> : <div style={igCard}>{c.text}</div>}
           </Overlay>
         </Sequence>
       ))}
@@ -180,7 +210,13 @@ export const DualTT: React.FC<DualProps> = (p) => {
       </Sequence>
       {p.cards.map((c, i) => (
         <Sequence key={i} {...seq(Math.max(c.from, 3), Math.min(c.to, ctaFrom))} layout="none">
-          <TTText text={c.text} i={i} dur={Math.round((Math.min(c.to, ctaFrom) - Math.max(c.from, 3)) * FPS)} />
+          {c.stat ? (
+            <div style={{ position: "absolute", top: 320, left: TT_SAFE.left, right: TT_SAFE.right }}>
+              <StatCard stat={c.stat} sub={c.sub} tt />
+            </div>
+          ) : (
+            <TTText text={c.text} i={i} dur={Math.round((Math.min(c.to, ctaFrom) - Math.max(c.from, 3)) * FPS)} />
+          )}
         </Sequence>
       ))}
       <Sequence {...seq(ctaFrom, p.talk)} layout="none">
