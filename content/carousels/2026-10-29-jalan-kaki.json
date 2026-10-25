@@ -1,0 +1,89 @@
+{
+  "id": "2026-10-29-jalan-kaki",
+  "title": "Thu 29 Okt · Jalan Kaki Je, Ada Kesan Ke? (repurpose Reel Broad Value 28 Okt)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Tak sempat gym?",
+      "title": [
+        "JALAN KAKI",
+        "JE... ADA",
+        "**KESAN** KE?"
+      ],
+      "small": "Tak sempat gym bukan alasan langsung tak gerak.",
+      "visual": "walk-stairs"
+    },
+    {
+      "type": "problem",
+      "kicker": "Ramai fikir macam ni",
+      "title": "TAK SEMPAT GYM, **TERUS TAK GERAK.**",
+      "body": [
+        "Jalan kaki je? Ada kesan ke?"
+      ],
+      "takeaway": "Itu yang **rugi.**"
+    },
+    {
+      "type": "step",
+      "number": "01",
+      "title": "SIKIT > **TAK BUAT LANGSUNG**",
+      "body": [
+        "Jalan kaki tu tetap aktiviti fizikal.",
+        "WHO pun sebut, buat sikit lebih baik daripada tak buat langsung."
+      ],
+      "visual": "walk-stairs"
+    },
+    {
+      "type": "problem",
+      "kicker": "Saya nak jujur",
+      "title": "BUKAN **MAGIC** TURUN LEMAK",
+      "body": [
+        "Turun berat tetap bergantung pada keseluruhan: makan, tidur, rutin harian.",
+        "Tapi sebab dia senang nak ulang hari-hari, jalan kaki ni memang **underrated.**"
+      ]
+    },
+    {
+      "type": "diagram",
+      "number": "02",
+      "title": "SLOT **SENANG** NAK SELIT",
+      "body": [
+        "Contoh simple:"
+      ],
+      "flow": [
+        {
+          "label": "Lepas lunch",
+          "note": "Sepuluh minit. Turun office, pusing satu blok, naik balik.",
+          "tone": "green"
+        },
+        {
+          "label": "Parking jauh sikit",
+          "note": "Pergi balik dari pintu masuk, dah dapat beberapa minit.",
+          "tone": "orange"
+        }
+      ],
+      "takeaway": "Kuncinya bukan berapa jauh. Kuncinya, **esok boleh buat lagi tak?**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "SAVE.",
+        "**TRY ESOK**",
+        "LEPAS LUNCH."
+      ],
+      "body": [
+        "Kalau ada sakit dada, sesak nafas atau sakit sendi masa berjalan, jumpa doktor dulu ye.",
+        "Share dengan geng office yang selalu lunch sama-sama."
+      ],
+      "save": "SAVE UNTUK ESOK"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "id": "2026-10-27-sofa-kejar-anak",
+  "title": "Tue 27 Okt · Dulu Atas Sofa, Sekarang Kejar Anak (repurpose Reel Connection 26 Okt)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Cerita saya",
+      "title": [
+        "DULU:",
+        "ATAS SOFA.",
+        "SEKARANG:",
+        "**KEJAR ANAK.**"
+      ],
+      "small": "Ada satu gambar wife saya ambil dulu. Saya tengah terbongkang atas sofa."
+    },
+    {
+      "type": "problem",
+      "kicker": "Masa tu",
+      "title": "BALIK KERJA, **BADAN DAH HABIS.**",
+      "body": [
+        "Kepala pulak masih fikir pasal kerja.",
+        "Otak tak shutdown lagi."
+      ],
+      "takeaway": "Gambar tu masih ada. Saya teringat zaman **tenaga memang selalu tak cukup.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Sekarang",
+      "title": "ANAK BONGSU SAYA **AKTIF LAIN MACAM.**",
+      "body": [
+        "Lari kat luar rumah.",
+        "Panjat tangga tinggi.",
+        "Nak naik atas bahu masa jalan-jalan."
+      ],
+      "takeaway": "Kadang dia lari ke arah jalan besar. Memang kena **kejar betul-betul.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Alhamdulillah",
+      "title": "LARAT KEJAR. **LARAT ANGKAT.**",
+      "body": [
+        "Banyak benda berubah dalam rutin saya, bukan satu benda je.",
+        "Berat turun tu memang satu pencapaian. Tapi yang paling saya syukur, **tenaga untuk ada dengan anak.**"
+      ]
+    },
+    {
+      "type": "diagram",
+      "title": "PROGRESS BUKAN **NOMBOR TIMBANG** JE",
+      "body": [
+        "Tengok jugak:"
+      ],
+      "flow": [
+        {
+          "label": "Naik tangga",
+          "note": "Larat tak?",
+          "tone": "green"
+        },
+        {
+          "label": "Main dengan anak",
+          "note": "Larat tak?",
+          "tone": "orange"
+        },
+        {
+          "label": "Lepas kerja",
+          "note": "Terus terbaring, atau masih ada tenaga?",
+          "tone": "ink"
+        }
+      ]
+    },
+    {
+      "type": "cta",
+      "title": [
+        "SHARE DENGAN",
+        "**AYAH YANG**",
+        "**SELALU PENAT.**"
+      ],
+      "body": [
+        "Kalau ada kawan yang balik kerja terus terbaring macam saya dulu, share dengan dia.",
+        "Apa perubahan kecil yang korang perasan selain nombor timbang? Cerita kat komen."
+      ],
+      "save": "SHARE & FOLLOW"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "id": "2026-10-31-dinner-lambat",
+  "title": "Sat 31 Okt · Balik Pukul 9, Dinner Lambat = Salah? (repurpose Reel Niche Value 30 Okt)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Balik pukul 9 malam?",
+      "title": [
+        "DINNER",
+        "LAMBAT =",
+        "**SALAH?**"
+      ],
+      "small": "Jammed, penat, lapar gila. Sampai rumah pukul sembilan.",
+      "visual": "moon"
+    },
+    {
+      "type": "problem",
+      "kicker": "Ramai ingat",
+      "title": "MAKAN LEWAT = **TERUS JADI LEMAK?**",
+      "body": [
+        "Sebenarnya tak semudah tu.",
+        "Waktu makan memang boleh ada kesan, saya tak nafikan."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Yang selalu jadi masalah",
+      "title": "SAMPAI RUMAH **TERLALU LAPAR.**",
+      "body": [
+        "Bila terlalu lapar, susah nak kawal portion."
+      ],
+      "takeaway": "Apa ada depan mata, **semua masuk.**"
+    },
+    {
+      "type": "step",
+      "number": "01",
+      "title": "SEBELUM DRIVE: **SNACK RINGKAS**",
+      "body": [
+        "Kalau memang lapar je. Bukan wajib.",
+        "Contoh: sebiji pisang dengan sikit kacang, yogurt, atau telur rebus."
+      ],
+      "visual": "snack-options"
+    },
+    {
+      "type": "step",
+      "number": "02",
+      "title": "SAMPAI RUMAH: **MAKAN DENGAN FAMILY**",
+      "body": [
+        "Nasi sekadar, lauk protein, sayur kalau ada."
+      ],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "problem",
+      "kicker": "Paling penting",
+      "title": "TAK PERLU SKIP. **TAK PERLU DENDA DIRI.**",
+      "body": [
+        "Tak perlu skip dinner. Tak perlu denda diri esok pagi.",
+        "Kalau ada diabetes atau keadaan kesihatan lain, sesuaikan dengan nasihat doktor ye."
+      ]
+    },
+    {
+      "type": "cta",
+      "title": [
+        "SAVE UNTUK",
+        "**HARI BALIK**",
+        "**LEWAT NANTI.**"
+      ],
+      "body": [
+        "Korang biasa sampai rumah pukul berapa?",
+        "Apa snack paling senang simpan dalam beg atau laci office? Komen kat bawah."
+      ],
+      "save": "SAVE DULU"
+    }
+  ]
+}
