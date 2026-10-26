@@ -295,8 +295,8 @@ export const DualTT: React.FC<DualProps> = (p) => {
       {p.cards.map((c, i) => (
         <Sequence key={i} {...seq(Math.max(c.from, 3), Math.min(c.to, ctaFrom, c.vid && c.vidLen ? Math.max(c.from, 3) + c.vidLen : 1e9))} layout="none">
           {c.img || c.vid ? (
-            <div style={{ position: "absolute", top: 240, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: "center" }}>
-              <Media c={c} maxW={c.vid ? 460 : 640} maxH={c.vid ? 820 : 900} />
+            <div style={{ position: "absolute", top: 260, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: c.vid ? "flex-end" : "center" }}>
+              <Media c={c} maxW={c.vid ? 360 : 640} maxH={c.vid ? 620 : 900} tilt={c.vid ? 2 : 0} />
             </div>
           ) : c.stat ? (
             <div style={{ position: "absolute", top: 320, left: TT_SAFE.left, right: TT_SAFE.right }}>
