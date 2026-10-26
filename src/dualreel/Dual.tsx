@@ -14,7 +14,8 @@ import { CtaPill } from "../reels/formats/common";
 // A card is a line of text, or (with "stat") a row of numbers that count up, e.g. [{label: "Isteri", value: 11, unit: "kg", sign: "−"}].
 export type Stat = { label: string; value: number; unit?: string; sign?: string };
 // "img" shows a picture (path under public/, e.g. Coach's result graphic) as a plain framed card over the video.
-export type Card = { text: string; from: number; to: number; stat?: Stat[]; sub?: string; img?: string };
+// "vid" plays a short muted clip (e.g. b-roll with the kids) in the same framed card; "vidLen" caps the card to the clip length.
+export type Card = { text: string; from: number; to: number; stat?: Stat[]; sub?: string; img?: string; vid?: string; vidLen?: number };
 
 export type DualProps = {
   clip: string;
@@ -56,9 +57,11 @@ const hookLines = (hook: string, key: string): [string, boolean][] => {
 const seq = (a: number, b: number) => ({ from: Math.round(a * FPS), durationInFrames: Math.max(1, Math.round((b - a) * FPS)) });
 
 // ---------------- Instagram ----------------
-const ImgCard: React.FC<{ src: string; maxH?: number }> = ({ src, maxH = 1000 }) => (
-  <Img src={staticFile(src)} style={{ maxWidth: 640, maxHeight: maxH, objectFit: "contain", border: "8px solid #fff", borderRadius: 14, boxShadow: "0 16px 40px rgba(0,0,0,0.45)" }} />
-);
+// Framed picture or muted clip.
+const Media: React.FC<{ c: Card; maxW: number; maxH: number; tilt?: number }> = ({ c, maxW, maxH, tilt = 0 }) => {
+  const style: React.CSSProperties = { maxWidth: maxW, maxHeight: maxH, objectFit: "contain", border: "6px solid #fff", borderRadius: 12, boxShadow: "0 12px 30px rgba(0,0,0,0.45)", transform: `rotate(${tilt}deg)` };
+  return c.vid ? <OffthreadVideo src={staticFile(c.vid)} muted style={style} /> : <Img src={staticFile(c.img!)} style={style} />;
+};
 
 // Numbers that count up over ~0.8 s (results, steps). Plain white card for IG, outlined text for TikTok.
 const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean; compact?: boolean }> = ({ stat, sub, tt, compact }) => {
@@ -155,14 +158,14 @@ const IGTalk: React.FC<DualProps> = (p) => {
       )}
       {p.cards.map((c, i) => {
         const a = Math.max(c.from, HOOK + 0.1);
-        const b = Math.min(c.to, ctaFrom);
+        const b = Math.min(c.to, ctaFrom, c.vid && c.vidLen ? a + c.vidLen : 1e9);
         if (b - a < 0.4) return null;
         return (
           <Sequence key={i} {...seq(a, b)} layout="none">
-            {c.img ? (
+            {c.img || c.vid ? (
               <Overlay dur={Math.round((b - a) * FPS)} top={270}>
                 <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-                  <Img src={staticFile(c.img)} style={{ maxWidth: 560, maxHeight: 560, objectFit: "contain", border: "6px solid #fff", borderRadius: 12, boxShadow: "0 12px 30px rgba(0,0,0,0.45)", transform: "rotate(2deg)" }} />
+                  <Media c={c} maxW={c.vid ? 380 : 560} maxH={c.vid ? 640 : 560} tilt={2} />
                 </div>
               </Overlay>
             ) : (
@@ -290,10 +293,10 @@ export const DualTT: React.FC<DualProps> = (p) => {
         <ChatHook text={p.hook} />
       </Sequence>
       {p.cards.map((c, i) => (
-        <Sequence key={i} {...seq(Math.max(c.from, 3), Math.min(c.to, ctaFrom))} layout="none">
-          {c.img ? (
+        <Sequence key={i} {...seq(Math.max(c.from, 3), Math.min(c.to, ctaFrom, c.vid && c.vidLen ? Math.max(c.from, 3) + c.vidLen : 1e9))} layout="none">
+          {c.img || c.vid ? (
             <div style={{ position: "absolute", top: 240, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: "center" }}>
-              <ImgCard src={c.img} maxH={900} />
+              <Media c={c} maxW={c.vid ? 460 : 640} maxH={c.vid ? 820 : 900} />
             </div>
           ) : c.stat ? (
             <div style={{ position: "absolute", top: 320, left: TT_SAFE.left, right: TT_SAFE.right }}>
