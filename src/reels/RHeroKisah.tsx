@@ -95,6 +95,8 @@ const PHOTOS: [number, number, string, "left" | "right" | "center"][] = [
   [64.4, 67.1, "hero/p4.jpg", "right"], // "Anak-anak saya masih kecil lagi."
   [74.0, 77.0, "hero/p3.jpg", "left"], // "Isteri jaga anak seorang-seorang."
   [77.1, 80.0, "hero/p5.jpg", "right"], // "berat pun pasti turun naik turun naik"
+  [80.3, 89.9, "hero/umrah.jpg", "center"], // "Masa teman mak saya buat umrah, dalam Raudhah saya berdoa…"
+  [93.6, 98.9, "hero/bilik-sewa.jpg", "right"], // "satu hari dalam bilik sewa saya scrolling, terjumpa story coach saya"
   [115.3, 118.2, "kisah/st-ba.jpg", "center"], // "Alhamdulillah dua puluh kilo turun" (his card, with its hasil-tidak-tipikal note)
   [118.3, 122.4, "hero/p1.jpg", "left"], // "Dulu balik kerja mengantuk sangat."
 ];
