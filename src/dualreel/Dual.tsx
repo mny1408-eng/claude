@@ -6,14 +6,15 @@
 //    at every new sentence, CTA text over the last seconds and no end card (the video loops). Kept inside TikTok's safe area:
 //    clear of the top tabs (y < 200), the right-hand buttons (x > 900) and the caption block (y > 1450).
 import React from "react";
-import { AbsoluteFill, CalculateMetadataFunction, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, CalculateMetadataFunction, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FPS, POPPINS } from "../theme";
 import { Reel, SceneDef } from "../Reel";
 import { chunkWords, EndCardStd, HookTitle, Overlay, PopWords, SERIES, SeriesTag, Wd } from "../reels/formats/LayoutA";
 
 // A card is a line of text, or (with "stat") a row of numbers that count up, e.g. [{label: "Isteri", value: 11, unit: "kg", sign: "−"}].
 export type Stat = { label: string; value: number; unit?: string; sign?: string };
-export type Card = { text: string; from: number; to: number; stat?: Stat[]; sub?: string };
+// "img" shows a picture (path under public/, e.g. Coach's result graphic) as a plain framed card over the video.
+export type Card = { text: string; from: number; to: number; stat?: Stat[]; sub?: string; img?: string };
 
 export type DualProps = {
   clip: string;
@@ -56,6 +57,10 @@ const hookLines = (hook: string, key: string): [string, boolean][] => {
 const seq = (a: number, b: number) => ({ from: Math.round(a * FPS), durationInFrames: Math.max(1, Math.round((b - a) * FPS)) });
 
 // ---------------- Instagram ----------------
+const ImgCard: React.FC<{ src: string; maxH?: number }> = ({ src, maxH = 1000 }) => (
+  <Img src={staticFile(src)} style={{ maxWidth: 640, maxHeight: maxH, objectFit: "contain", border: "8px solid #fff", borderRadius: 14, boxShadow: "0 16px 40px rgba(0,0,0,0.45)" }} />
+);
+
 // Numbers that count up over ~0.8 s (results, steps). Plain white card for IG, outlined text for TikTok.
 const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean }> = ({ stat, sub, tt }) => {
   const f = useCurrentFrame();
@@ -98,7 +103,7 @@ const IGTalk: React.FC<DualProps> = (p) => {
       {p.cards.map((c, i) => (
         <Sequence key={i} {...seq(Math.max(c.from, hookEnd + 0.1), c.to)} layout="none">
           <Overlay dur={Math.round((c.to - Math.max(c.from, hookEnd + 0.1)) * FPS)} top={240}>
-            {c.stat ? <StatCard stat={c.stat} sub={c.sub} /> : <div style={igCard}>{c.text}</div>}
+            {c.img ? <ImgCard src={c.img} /> : c.stat ? <StatCard stat={c.stat} sub={c.sub} /> : <div style={igCard}>{c.text}</div>}
           </Overlay>
         </Sequence>
       ))}
@@ -210,7 +215,11 @@ export const DualTT: React.FC<DualProps> = (p) => {
       </Sequence>
       {p.cards.map((c, i) => (
         <Sequence key={i} {...seq(Math.max(c.from, 3), Math.min(c.to, ctaFrom))} layout="none">
-          {c.stat ? (
+          {c.img ? (
+            <div style={{ position: "absolute", top: 240, left: TT_SAFE.left, right: TT_SAFE.right, display: "flex", justifyContent: "center" }}>
+              <ImgCard src={c.img} maxH={900} />
+            </div>
+          ) : c.stat ? (
             <div style={{ position: "absolute", top: 320, left: TT_SAFE.left, right: TT_SAFE.right }}>
               <StatCard stat={c.stat} sub={c.sub} tt />
             </div>
