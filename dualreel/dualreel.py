@@ -17,7 +17,8 @@ A project dir holds:
   script.txt   optional — the script Coach read; used to spell captions and to place [ON-SCREEN TEXT: …] cards
   photos/      optional — not placed automatically (say which photo goes with which line in edit.json "photos")
 
-Only "connection" and "value" content gets both versions; anything else gets the IG version only.
+Only "connection" and "value" content gets both versions; anything else gets the IG version only —
+including "results" (personal or client results), "ads", "offer" and "niche".
 Nothing is posted or scheduled. Every guess (retake dropped, word taken from the script, unclear word) goes to review.md.
 """
 from __future__ import annotations
