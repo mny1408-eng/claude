@@ -228,6 +228,19 @@ def join(pieces: list[tuple[Path, float, float, float]], out: Path, grade: dict 
     subprocess.run(args, check=True)
 
 
+_SIL: dict[str, list[tuple[float, float]]] = {}
+
+
+def take_silences(wav: Path) -> list[tuple[float, float]]:
+    """Silent stretches (≥0.25 s under −32 dB) in a take's audio."""
+    if str(wav) not in _SIL:
+        err = subprocess.run(["ffmpeg", "-i", str(wav), "-af", "silencedetect=n=-32dB:d=0.25", "-f", "null", "-"], capture_output=True, text=True).stderr
+        st = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", err)]
+        en = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", err)]
+        _SIL[str(wav)] = list(zip(st, en))
+    return _SIL[str(wav)]
+
+
 def build_timeline(edit: dict, clipdir: Path, tight: bool, gap: float = 0.45) -> tuple[list[tuple[Path, float, float, float]], list[list]]:
     """Cut list + caption words on the joined timeline. tight=True (TikTok) also cuts pauses longer than 0.45 s inside a take."""
     pieces, words, off = [], [], 0.0
@@ -236,12 +249,13 @@ def build_timeline(edit: dict, clipdir: Path, tight: bool, gap: float = 0.45) ->
         a, b = take["in"], take["out"]
         spans = [(a, b)]
         if tight:
+            # cut the real silences heard in the audio (Whisper sometimes stretches a word over a pause), keeping a short
+            # breath either side so speech never sounds chopped
             spans, cur = [], a
-            ws = [w for w in take["words"] if w["e"] > a and w["s"] < b]
-            for x, y in zip(ws, ws[1:]):
-                if y["s"] - x["e"] > gap:
-                    spans.append((cur, x["e"] + 0.15))
-                    cur = y["s"] - 0.12
+            for sa, sb in take_silences(clipdir.parent / "work" / (Path(take["file"]).stem + ".wav")):
+                if sa > a + 0.1 and sb < b - 0.1 and sb - sa >= max(gap, 0.35) and sa + 0.1 > cur:
+                    spans.append((cur, sa + 0.1))
+                    cur = sb - 0.1
             spans.append((cur, b))
         for sa, sb in spans:
             pieces.append((clipdir / take["file"], round(sa, 3), round(sb, 3), z))
@@ -328,6 +342,8 @@ def make_edit(proj: Path, review: list[str]) -> dict:
         a, b = trims(ws, tr[n]["duration"], work / (Path(n).stem + ".wav"))
         b = min(b, tails.get(n, b))
         words = [{"w": w, "s": s, "e": e, "p": p} for w, s, e, p in ws]
+        if n == order[-1]:  # the reel's last word ("…DM STRUCTURE") must not lose its quiet ending
+            b = min(tr[n]["duration"], max(b, ws[-1][2] + 0.4))
         takes.append({"file": n, "in": round(a, 2), "out": round(b, 2), "words": words, "plain": plain})
         all_words += words
     spell_from_script(all_words, script_words, review)
