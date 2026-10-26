@@ -212,7 +212,7 @@ def trims(ws: list[list], dur: float, wav: Path | None = None) -> tuple[float, f
 def join(pieces: list[tuple[Path, float, float, float]], out: Path, grade: dict | None = None) -> None:
     """grade: {"brightness": 0.05, "contrast": 1.08, "saturation": 1.05} lifts a dark recording (ffmpeg eq)."""
     fc, cat = "", ""
-    eq = f"eq=brightness={grade.get('brightness', 0)}:contrast={grade.get('contrast', 1)}:saturation={grade.get('saturation', 1)}:gamma={grade.get('gamma', 1)}," if grade else ""
+    eq = f"hqdn3d=3:2:6:4,eq=brightness={grade.get('brightness', 0)}:contrast={grade.get('contrast', 1)}:saturation={grade.get('saturation', 1)}:gamma={grade.get('gamma', 1)}," if grade else ""
     for k, (_, a, b, z) in enumerate(pieces):
         d = round(b - a - 0.05, 3)
         zoom = f"scale={round(1080 * z / 2) * 2}:{round(1920 * z / 2) * 2},crop=1080:1920:(iw-1080)/2:(ih-1920)*0.4," if z > 1 else "scale=1080:1920,"
@@ -223,7 +223,7 @@ def join(pieces: list[tuple[Path, float, float, float]], out: Path, grade: dict 
     for p, *_ in pieces:
         args += ["-i", str(p)]
     args += ["-filter_complex", fc + cat + f"concat=n={len(pieces)}:v=1:a=1[v][ax];[ax]loudnorm=I=-16:TP=-1.5:LRA=11[a]",
-             "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "18", "-preset", "fast", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", str(out)]
+             "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", str(out)]
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(args, check=True)
 
@@ -408,10 +408,24 @@ def render(edit: dict, proj: Path, review: list[str], only: str | None = None) -
         comp = "DualIG" if v == "ig" else "DualTT"
         mp4 = out_dir / f"{slug}-{v}.mp4"
         print(f"  rendering {comp} ({talk:.1f}s talk)…", flush=True)
-        subprocess.run(["npx", "remotion", "render", "src/index.ts", comp, str(mp4), f"--props={pf}", f"--browser-executable={BROWSER}", "--concurrency=4", "--crf=25", "--log=error"], check=True, cwd=REPO)
+        subprocess.run(["npx", "remotion", "render", "src/index.ts", comp, str(mp4), f"--props={pf}", f"--browser-executable={BROWSER}", "--concurrency=4", "--crf=17", "--log=error"], check=True, cwd=REPO)
         subprocess.run(["npx", "remotion", "still", "src/index.ts", comp, str(out_dir / f"{slug}-{v}-cover.png"), f"--props={pf}", "--frame=45", f"--browser-executable={BROWSER}", "--log=error"], check=True, cwd=REPO)
-        outs.append(mp4)
+        outs.append(send_copy(mp4))
     return outs
+
+
+def send_copy(mp4: Path, max_mb: float = 28.0) -> Path:
+    """One 2-pass encode sized to fit the chat upload limit (~30 MiB) — best quality for that size, no double squeeze."""
+    dur = duration(mp4)
+    kbps = int(max(1500, min(8000, (max_mb * 8 * 1024 - 128 * dur) / dur)))
+    out = mp4.with_name(mp4.stem + "-send.mp4")
+    log = mp4.with_name(mp4.stem + "-2pass")
+    common = ["-c:v", "libx264", "-preset", "slow", "-b:v", f"{kbps}k", "-maxrate", f"{int(kbps * 1.3)}k", "-bufsize", f"{kbps * 2}k", "-passlogfile", str(log)]
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(mp4), *common, "-pass", "1", "-an", "-f", "null", "/dev/null"], check=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(mp4), *common, "-pass", "2", "-c:a", "aac", "-b:a", "128k", "-movflags", "+faststart", str(out)], check=True)
+    for f in mp4.parent.glob(log.name + "*"):
+        f.unlink()
+    return out
 
 
 # ---------- 7. captions + review ----------
