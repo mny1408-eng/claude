@@ -1,6 +1,6 @@
 // DualReel templates — the same talking-head edit in two designs (props come from dualreel/dualreel.py).
-//  * DualIG — Layout A: series tag, boxless hook title with the gold underline, pop captions under the chin, script
-//    on-screen texts as white cards, standard ivory end card.
+//  * DualIG — compact retention design (see IGTalk): progress bar, one-line hook → topic chip, slim pills, small picture
+//    cards, punch-in per sentence, CTA over the last seconds, no end card.
 //  * DualTT — "suara dalam kepala" for TikTok: the hook arrives as a grey chat bubble, native-looking captions (TikTok's
 //    background text style: dark words on a white box, keyword on gold), on-screen texts as plain outlined text that moves between two spots, a small jump-zoom
 //    at every new sentence, CTA text over the last seconds and no end card (the video loops). Kept inside TikTok's safe area:
@@ -8,8 +8,8 @@
 import React from "react";
 import { AbsoluteFill, CalculateMetadataFunction, Img, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { C, FPS, POPPINS } from "../theme";
-import { Reel, SceneDef } from "../Reel";
-import { chunkWords, EndCardStd, HookTitle, Overlay, PopWords, SERIES, SeriesTag, Wd } from "../reels/formats/LayoutA";
+import { chunkWords, Overlay, PopWords, Wd } from "../reels/formats/LayoutA";
+import { CtaPill } from "../reels/formats/common";
 
 // A card is a line of text, or (with "stat") a row of numbers that count up, e.g. [{label: "Isteri", value: 11, unit: "kg", sign: "−"}].
 export type Stat = { label: string; value: number; unit?: string; sign?: string };
@@ -36,8 +36,7 @@ export const DUAL_DEFAULTS: DualProps = {
   cards: [], photos: [], cta: "Save reel ni", ctaIcon: "save", handle: "@coachnas.pharmacist",
 };
 
-const IG_END = 90;
-export const calcDualIG: CalculateMetadataFunction<DualProps> = ({ props }) => ({ durationInFrames: Math.round(props.talk * FPS) + IG_END, fps: FPS });
+export const calcDualIG: CalculateMetadataFunction<DualProps> = ({ props }) => ({ durationInFrames: Math.round(props.talk * FPS), fps: FPS });
 export const calcDualTT: CalculateMetadataFunction<DualProps> = ({ props }) => ({ durationInFrames: Math.round(props.talk * FPS), fps: FPS });
 
 // "Tak ada beza pun?" → [["TAK ADA", false], ["BEZA PUN?", true]]; hookKey picks the underlined part when given.
@@ -62,12 +61,26 @@ const ImgCard: React.FC<{ src: string; maxH?: number }> = ({ src, maxH = 1000 })
 );
 
 // Numbers that count up over ~0.8 s (results, steps). Plain white card for IG, outlined text for TikTok.
-const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean }> = ({ stat, sub, tt }) => {
+const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean; compact?: boolean }> = ({ stat, sub, tt, compact }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const k = interpolate(f, [4, 4 + 0.8 * fps], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const ease = 1 - Math.pow(1 - k, 3);
   const num: React.CSSProperties = tt ? { color: "#fff", textShadow: OUTLINE } : { color: C.ink };
+  if (compact) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 34, alignItems: "baseline" }}>
+          {stat.map((s, i) => (
+            <div key={i} style={{ fontSize: 30, fontWeight: 700, color: C.inkSoft }}>
+              {s.label} <span style={{ fontSize: 58, fontWeight: 800, color: C.ink }}>{s.sign ?? ""}{Math.round(s.value * ease)}{s.unit ?? ""}</span>
+            </div>
+          ))}
+        </div>
+        {sub ? <div style={{ fontSize: 22, fontWeight: 600, color: C.inkSoft }}>{sub}</div> : null}
+      </div>
+    );
+  }
   return (
     <div style={tt ? { textAlign: "center" } : { ...igCard, padding: "20px 36px" }}>
       <div style={{ display: "flex", gap: 46, justifyContent: "center" }}>
@@ -89,36 +102,99 @@ const StatCard: React.FC<{ stat: Stat[]; sub?: string; tt?: boolean }> = ({ stat
 
 const igCard: React.CSSProperties = { background: "#fff", color: C.ink, borderRadius: 18, padding: "16px 32px", fontSize: 50, fontWeight: 800, boxShadow: "0 10px 26px rgba(0,0,0,0.25)", textAlign: "center" };
 
+// Compact retention design (26/10): everything small so the face and the video stay visible.
+//  * thin gold progress bar at the very top (people see how much is left)
+//  * hook as ONE line on a dark strip for the first ~2.8 s, then it shrinks into a small topic chip that stays
+//  * cards as slim pills at the top; pictures as a small framed card on the right; counting stats as a compact pill
+//  * a slight punch-in at every new sentence (pattern interrupt)
+//  * no end card: the CTA rides on the last seconds and the reel loops back to the hook
+const pill: React.CSSProperties = { background: "rgba(255,255,255,0.95)", color: C.ink, borderRadius: 999, padding: "10px 26px", fontSize: 40, fontWeight: 800, boxShadow: "0 6px 18px rgba(0,0,0,0.25)", textAlign: "center", maxWidth: 860 };
+
 const IGTalk: React.FC<DualProps> = (p) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = f / fps;
   const chunks = React.useMemo(() => chunkWords(p.words), [p.words]);
-  const series = (p.series in SERIES ? p.series : "MINDSET") as keyof typeof SERIES;
-  const hookEnd = Math.min(p.talk, Math.max(6, p.cards[0]?.from ?? 12) - 0.2);
+  const starts = React.useMemo(() => {
+    const s = [0];
+    p.words.forEach((w, i) => {
+      if (i > 0 && /[.?!]$/.test(p.words[i - 1][2])) s.push(w[0]);
+    });
+    return s;
+  }, [p.words]);
+  const k = starts.filter((x) => t >= x - 0.02).length - 1;
+  const zoom = k % 2 === 1 ? 1.04 : 1;
+  const HOOK = 2.8;
+  const hp = spring({ frame: f - 2, fps, config: { damping: 14, stiffness: 180 } });
+  const hookOut = interpolate(t, [HOOK - 0.3, HOOK], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const chipIn = interpolate(t, [HOOK, HOOK + 0.3], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const ctaFrom = Math.max(0, p.talk - 3);
+  const progress = Math.min(1, t / p.talk);
+  const icon = (["comment", "follow", "share", "save"].includes(p.ctaIcon) ? p.ctaIcon : "save") as "save";
   return (
-    <AbsoluteFill>
-      <OffthreadVideo src={staticFile(p.clip)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-      <Sequence {...seq(0, hookEnd)} layout="none">
-        {p.series ? <SeriesTag series={series} /> : null}
-        <HookTitle lines={hookLines(p.hook, p.hookKey)} tone="dark" hookSec={3.4} />
+    <AbsoluteFill style={{ background: "#000", fontFamily: POPPINS }}>
+      <AbsoluteFill style={{ transform: `scale(${zoom})`, transformOrigin: "50% 38%" }}>
+        <OffthreadVideo src={staticFile(p.clip)} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      </AbsoluteFill>
+      <div style={{ position: "absolute", top: 0, left: 0, height: 8, width: `${progress * 100}%`, background: C.gold }} />
+      {/* hook: one line, then a small topic chip */}
+      {t < HOOK && (
+        <div style={{ position: "absolute", top: 250, left: 60, right: 60, display: "flex", justifyContent: "center", opacity: hookOut }}>
+          <div style={{ background: "rgba(23,60,48,0.88)", color: "#fff", borderRadius: 20, padding: "16px 30px", fontSize: 58, fontWeight: 800, lineHeight: 1.12, textAlign: "center", transform: `scale(${0.85 + 0.15 * hp})`, opacity: Math.min(1, hp * 2) }}>
+            {p.hook}
+          </div>
+        </div>
+      )}
+      {t >= HOOK && (
+        <div style={{ position: "absolute", top: 196, left: 0, right: 0, display: "flex", justifyContent: "center", opacity: chipIn }}>
+          <div style={{ background: "rgba(23,60,48,0.8)", color: C.paper, borderRadius: 999, padding: "6px 20px", fontSize: 28, fontWeight: 700, letterSpacing: 0.5 }}>
+            {p.series ? <span style={{ color: C.gold, fontWeight: 800 }}>{p.series} · </span> : null}
+            {p.hook}
+          </div>
+        </div>
+      )}
+      {p.cards.map((c, i) => {
+        const a = Math.max(c.from, HOOK + 0.1);
+        const b = Math.min(c.to, ctaFrom);
+        if (b - a < 0.4) return null;
+        return (
+          <Sequence key={i} {...seq(a, b)} layout="none">
+            {c.img ? (
+              <Overlay dur={Math.round((b - a) * FPS)} top={270}>
+                <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
+                  <Img src={staticFile(c.img)} style={{ maxWidth: 400, maxHeight: 560, objectFit: "contain", border: "6px solid #fff", borderRadius: 12, boxShadow: "0 12px 30px rgba(0,0,0,0.45)", transform: "rotate(2deg)" }} />
+                </div>
+              </Overlay>
+            ) : (
+              <Overlay dur={Math.round((b - a) * FPS)} top={262}>
+                {c.stat ? (
+                  <div style={{ ...pill, borderRadius: 22, padding: "10px 30px", display: "flex", gap: 30, alignItems: "baseline" }}>
+                    <StatCard stat={c.stat} sub={c.sub} compact />
+                  </div>
+                ) : (
+                  <div style={pill}>{c.text}</div>
+                )}
+              </Overlay>
+            )}
+          </Sequence>
+        );
+      })}
+      <Sequence {...seq(ctaFrom, p.talk)} layout="none">
+        <Overlay dur={Math.round((p.talk - ctaFrom) * FPS)} top={262}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <div style={{ transform: "scale(0.78)" }}>
+              <CtaPill icon={icon}>{p.cta}</CtaPill>
+            </div>
+            {p.note ? <div style={{ fontSize: 24, color: "#fff", textShadow: "0 2px 6px rgba(0,0,0,0.8)", textAlign: "center", maxWidth: 820 }}>{p.note}</div> : null}
+          </div>
+        </Overlay>
       </Sequence>
-      {p.cards.map((c, i) => (
-        <Sequence key={i} {...seq(Math.max(c.from, hookEnd + 0.1), c.to)} layout="none">
-          <Overlay dur={Math.round((c.to - Math.max(c.from, hookEnd + 0.1)) * FPS)} top={240}>
-            {c.img ? <ImgCard src={c.img} /> : c.stat ? <StatCard stat={c.stat} sub={c.sub} /> : <div style={igCard}>{c.text}</div>}
-          </Overlay>
-        </Sequence>
-      ))}
-      <PopWords chunks={chunks} top={1290} />
+      <PopWords chunks={chunks} top={1290} size="sm" />
     </AbsoluteFill>
   );
 };
 
-export const DualIG: React.FC<DualProps> = (p) => {
-  const scenes: SceneDef[] = [
-    { id: "talk", dur: Math.round(p.talk * FPS), el: <IGTalk {...p} /> },
-    { id: "end", dur: IG_END, el: <EndCardStd cta={p.cta} note={p.note} icon={(["comment", "follow", "share", "save"].includes(p.ctaIcon) ? p.ctaIcon : "save") as "save"} /> },
-  ];
-  return <Reel scenes={scenes} />;
-};
+export const DualIG: React.FC<DualProps> = (p) => <IGTalk {...p} />;
 
 // ---------------- TikTok ----------------
 const OUTLINE = "-3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 6px 12px rgba(0,0,0,0.5)";

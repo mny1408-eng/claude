@@ -73,7 +73,9 @@ export const chunkWords = (words: Wd[]) => {
   return out;
 };
 
-export const PopWords: React.FC<{ chunks: Wd[][]; top: number }> = ({ chunks, top }) => {
+// size "sm" = smaller captions for the compact design (more of the video visible)
+export const PopWords: React.FC<{ chunks: Wd[][]; top: number; size?: "md" | "sm" }> = ({ chunks, top, size = "md" }) => {
+  const [EM, NO] = size === "sm" ? [66, 52] : [80, 60];
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = f / fps;
@@ -84,16 +86,16 @@ export const PopWords: React.FC<{ chunks: Wd[][]; top: number }> = ({ chunks, to
     <div style={{ position: "absolute", top, left: 90, right: 90, display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center", gap: "10px 16px" }}>
       {c.map(([s, , text, emph], i) => {
         const st = Math.round((s - 0.05) * fps);
-        if (f < st) return <span key={i} style={{ visibility: "hidden", fontSize: emph ? 80 : 60, fontWeight: 800 }}>{text}</span>;
+        if (f < st) return <span key={i} style={{ visibility: "hidden", fontSize: emph ? EM : NO, fontWeight: 800 }}>{text}</span>;
         const p = spring({ frame: f - st, fps, config: { damping: 11, stiffness: 220 } });
         const scale = interpolate(p, [0, 1], [0.35, 1]);
         const y = interpolate(p, [0, 1], [26, 0]);
         return emph ? (
-          <span key={i} style={{ display: "inline-block", transform: `translateY(${y}px) scale(${scale}) rotate(${i % 2 ? 3 : -3}deg)`, fontSize: 80, fontWeight: 800, lineHeight: 1.05, color: C.ink, background: C.gold, borderRadius: 14, padding: "4px 16px", boxShadow: "0 6px 18px rgba(0,0,0,0.3)" }}>
+          <span key={i} style={{ display: "inline-block", transform: `translateY(${y}px) scale(${scale}) rotate(${i % 2 ? 3 : -3}deg)`, fontSize: EM, fontWeight: 800, lineHeight: 1.05, color: C.ink, background: C.gold, borderRadius: 14, padding: "4px 16px", boxShadow: "0 6px 18px rgba(0,0,0,0.3)" }}>
             {text}
           </span>
         ) : (
-          <span key={i} style={{ display: "inline-block", transform: `translateY(${y}px) scale(${scale})`, fontSize: 60, fontWeight: 800, lineHeight: 1.1, color: "#fff", textShadow: "0 4px 0 rgba(0,0,0,0.55), 0 0 16px rgba(0,0,0,0.55)" }}>
+          <span key={i} style={{ display: "inline-block", transform: `translateY(${y}px) scale(${scale})`, fontSize: NO, fontWeight: 800, lineHeight: 1.1, color: "#fff", textShadow: "0 4px 0 rgba(0,0,0,0.55), 0 0 16px rgba(0,0,0,0.55)" }}>
             {text}
           </span>
         );
