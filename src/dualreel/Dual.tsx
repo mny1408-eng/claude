@@ -162,7 +162,7 @@ const IGTalk: React.FC<DualProps> = (p) => {
             {c.img ? (
               <Overlay dur={Math.round((b - a) * FPS)} top={270}>
                 <div style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}>
-                  <Img src={staticFile(c.img)} style={{ maxWidth: 400, maxHeight: 560, objectFit: "contain", border: "6px solid #fff", borderRadius: 12, boxShadow: "0 12px 30px rgba(0,0,0,0.45)", transform: "rotate(2deg)" }} />
+                  <Img src={staticFile(c.img)} style={{ maxWidth: 560, maxHeight: 560, objectFit: "contain", border: "6px solid #fff", borderRadius: 12, boxShadow: "0 12px 30px rgba(0,0,0,0.45)", transform: "rotate(2deg)" }} />
                 </div>
               </Overlay>
             ) : (
