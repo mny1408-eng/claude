@@ -96,7 +96,7 @@ CTA mix from Notion:
 
 ## Captions and hashtags
 
-- Hashtag lock (exactly these 4, per Notion, same on Reel, static and carousel): `#misifightobesiti #coachnas #kurufitonlinecoaching #wedotransformations`. Do not add `#tipskurus`. Spelling is `kurufit`, as written in Notion. Keep the tags on their own line at the bottom.
+- Hashtag lock (exactly these 4, per Notion, same on Reel, static and carousel): `#misifightobesiti #coachnas #kurusfitonlinecoaching #wedotransformations`. Do not add `#tipskurus`. Spelling is `kurusfit` (confirmed by Coach Nas 29 Oct 2026; Notion still has the `kurufit` typo). Keep the tags on their own line at the bottom.
 - Search layer: pick 1 primary and 2–4 supporting keywords per post. Put them naturally in the hook, on-screen text, script and opening caption. Do not stuff. Keywords do not replace the hashtag lock. Do not claim FYP or algorithm effects.
 - Prefer a specific searchable problem hook. Example: "Kenapa dah makan healthy tapi masih cepat lapar?" over "Ramai buat silap ni…".
 - Keyword bank (Notion): cara turun berat, susah turun berat, berat tak turun, diet untuk orang busy, sarapan tinggi protein, nasi masa diet, cepat lapar lepas makan, susah konsisten diet, selalu restart diet, emotional eating, craving malam, diet bila kerja shift, visceral fat, muscle loss, calorie deficit, diet yoyo.
