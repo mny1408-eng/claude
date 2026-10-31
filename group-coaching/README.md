@@ -25,10 +25,9 @@ One-time repo setting: Settings → Actions → General → tick **"Allow GitHub
 Every 21-day run has exactly 15 weekdays, so 14 topic slots after the reminder-only Friday: always enough for the 14 topics.
 
 **Coach rotation**
-- **Opening** (Briefing 1–3 + Day 1): the 4 main coaches (`"main": true`), one slot each. The order shifts by one every month, so each main coach takes each opening slot in turn.
-- **Everything else** (13 topics + 3 wrap-up): round-robin over all coaches, continuing from last month. If a coach comes up twice in a row, the next coach goes first.
-- Result: main coaches 3–4 slots a month, support coaches 2–3. No coach is ever on two content days in a row.
-- `rotationAnchor` = where the rotation started (Oct 2026: opening starts with Husna; the rest continues after Arif, who closed September, so it starts with Mimi).
+- Round-robin over the coaches in `coaches`, continuing from last month (`rotationAnchor` = month and coach it started from). No coach is ever on two content days in a row.
+- Optional: with 4+ coaches marked `"main": true`, Briefing 1–3 + Day 1 go to the main coaches, one each, shifting by one every month.
+- Current team (from Nov 2026): Nieda, Nasri, Nina, so about 7 slots each a month.
 
 ## Changing things
 Edit `config.json` only:

@@ -39,6 +39,7 @@ function parseMonth(s) {
 }
 
 // Opening slots (briefing + Day 1) go to the main coaches, one each, shifting by one every month.
+// With fewer than 4 main coaches (e.g. a 3-coach team) the opening is part of the plain rotation.
 // Every other slot is round-robin over all coaches, carried over from the month before
 // (rot = { p, pending }). A coach is never given two content slots in a row: if it's their turn
 // again straight away, the next coach goes first and they take the following slot.
@@ -58,7 +59,8 @@ function buildMonth(y, m, rot, openShift) {
     return (last = pick);
   };
   let opened = 0;
-  const opening = () => (last = mains[(openShift + opened++) % mains.length]);
+  const useMains = mains.length >= config.briefing.length + 1;
+  const opening = () => (useMains ? (last = mains[(openShift + opened++) % mains.length]) : general());
   const entries = [];
   const warnings = [];
   const add = (dt, e) => entries.push({ date: iso(dt), dow: dow(dt), ...e, ...(config.imageLabels?.[e.topic] && { label: config.imageLabels[e.topic] }) });
@@ -121,10 +123,10 @@ export function schedule(y, m) {
   const [ay, am] = config.rotationAnchor.month.split("-").map(Number);
   const { openingStart, generalStart } = config.rotationAnchor;
   const mains = config.coaches.filter((c) => c.main).map((c) => c.name);
-  const openShift = mains.indexOf(openingStart);
+  const useMains = mains.length >= config.briefing.length + 1;
+  const openShift = useMains ? mains.indexOf(openingStart) : 0;
   let rot = { p: config.coaches.findIndex((c) => c.name === generalStart), pending: null };
-  if (mains.length < config.briefing.length + 1) throw new Error("Need at least 4 coaches marked main (3 briefing + Day 1)");
-  if (openShift < 0) throw new Error(`rotationAnchor.openingStart "${openingStart}" is not a main coach`);
+  if (useMains && openShift < 0) throw new Error(`rotationAnchor.openingStart "${openingStart}" is not a main coach`);
   if (rot.p < 0) throw new Error(`rotationAnchor.generalStart "${generalStart}" is not in coaches`);
   const start = ay * 12 + am - 1;
   if (y * 12 + m - 1 < start) throw new Error(`${y}-${m} is before the rotation anchor ${config.rotationAnchor.month}`);

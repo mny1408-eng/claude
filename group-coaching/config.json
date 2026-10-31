@@ -7,16 +7,12 @@
   "day1": 6,
   "runDays": 21,
 
-  "rotationAnchor": { "month": "2026-10", "openingStart": "Husna", "generalStart": "Mimi" },
+  "rotationAnchor": { "month": "2026-11", "generalStart": "Nieda" },
 
   "coaches": [
-    { "name": "Nieda", "main": true, "colour": "#7E3FC1" },
-    { "name": "Husna", "main": true, "colour": "#E0408F" },
-    { "name": "Normy", "main": true, "colour": "#E8730C" },
-    { "name": "Nasri", "main": true, "colour": "#2160D8" },
-    { "name": "Adeline", "colour": "#0B9AA6" },
-    { "name": "Arif", "colour": "#8C1D3B" },
-    { "name": "Mimi", "colour": "#3A9B3F" }
+    { "name": "Nieda", "colour": "#7E3FC1" },
+    { "name": "Nasri", "colour": "#2160D8" },
+    { "name": "Nina", "colour": "#E8730C" }
   ],
 
   "briefing": [
