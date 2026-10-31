@@ -44,10 +44,17 @@ jobs:
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$BRANCH"
           git add "$DIR"
+          if git diff --cached --quiet; then
+            echo "Kalendar $MONTH is already in main and unchanged; nothing to open." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           git commit -m "Kalendar topik $MONTH"
           git push -f origin "$BRANCH"
           {
             echo "Auto-generated group-coaching calendar for **$MONTH**. Check it, then merge to approve."
+            echo
+            echo "- Coach group: \`$DIR/kalendar.png\` + \`whatsapp.txt\`"
+            echo "- Coachee group (no names): \`$DIR/kalendar-coachee.png\` + \`whatsapp-coachee.txt\`"
             echo
             if grep -q "CHECK BEFORE POSTING" build.log; then
               echo "### ⚠️ Check before posting"

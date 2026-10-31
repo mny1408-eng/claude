@@ -6,6 +6,7 @@
 //   node scripts/kalendar.mjs next --render      → next calendar month (used by the GitHub Action)
 // Anything after "--" is passed to `remotion still` (e.g. -- --browser-executable=/path/chrome).
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -37,11 +38,29 @@ function parseMonth(s) {
   return [Number(m[1]), Number(m[2])];
 }
 
-// One month's schedule, starting the coach rotation at index `coachStart`.
-function buildMonth(y, m, coachStart) {
+// Opening slots (briefing + Day 1) go to the main coaches, one each, shifting by one every month.
+// With fewer than 4 main coaches (e.g. a 3-coach team) the opening is part of the plain rotation.
+// Every other slot is round-robin over all coaches, carried over from the month before
+// (rot = { p, pending }). A coach is never given two content slots in a row: if it's their turn
+// again straight away, the next coach goes first and they take the following slot.
+function buildMonth(y, m, rot, openShift) {
   const coaches = config.coaches;
-  let next = coachStart;
-  const takeCoach = () => coaches[next++ % coaches.length].name;
+  const mains = coaches.filter((c) => c.main).map((c) => c.name);
+  let p = rot.p;
+  let pending = rot.pending;
+  let last = null;
+  const general = () => {
+    let pick;
+    if (pending && pending !== last) [pick, pending] = [pending, null];
+    else {
+      pick = coaches[p++ % coaches.length].name;
+      if (pick === last && !pending) [pending, pick] = [pick, coaches[p++ % coaches.length].name];
+    }
+    return (last = pick);
+  };
+  let opened = 0;
+  const useMains = mains.length >= config.briefing.length + 1;
+  const opening = () => (useMains ? (last = mains[(openShift + opened++) % mains.length]) : general());
   const entries = [];
   const warnings = [];
   const add = (dt, e) => entries.push({ date: iso(dt), dow: dow(dt), ...e, ...(config.imageLabels?.[e.topic] && { label: config.imageLabels[e.topic] }) });
@@ -49,7 +68,7 @@ function buildMonth(y, m, coachStart) {
   // Briefing: fixed dates, fixed order.
   config.briefing.forEach((topic, i) => {
     const dt = mkDate(y, m, config.briefingStartDay + i);
-    add(dt, { kind: "briefing", topic, coach: takeCoach(), bell: dow(dt) === FRI, scale: dow(dt) === SAT });
+    add(dt, { kind: "briefing", topic, coach: opening(), bell: dow(dt) === FRI, scale: dow(dt) === SAT });
   });
 
   // Day 1 → Day 21. Topics Mon–Fri; last Friday is reminder only, last Saturday is Timbang Akhir.
@@ -64,7 +83,10 @@ function buildMonth(y, m, coachStart) {
     if (wd === SUN) add(dt, { kind: "rest", day });
     else if (wd === SAT) add(dt, { kind: iso(dt) === lastSat ? "timbangAkhir" : "timbang", day, scale: true });
     else if (iso(dt) === lastFri) add(dt, { kind: "reminder", topic: "Reminder Timbang Akhir", day, bell: true });
-    else if (topics.length) add(dt, { kind: "topic", day, topic: topics.shift(), coach: takeCoach(), bell: wd === FRI });
+    else if (topics.length) {
+      const first = topics.length === config.knowledge.length; // Day 1 topic opens the run
+      add(dt, { kind: "topic", day, topic: topics.shift(), coach: first ? opening() : general(), bell: wd === FRI });
+    }
     else {
       add(dt, { kind: "free", day, bell: wd === FRI });
       warnings.push(`${iso(dt)} (Day ${day}) has no topic left to fill it.`);
@@ -74,7 +96,7 @@ function buildMonth(y, m, coachStart) {
 
   // Wrap-up: the days right after Day 21.
   const runEnd = run.at(-1);
-  config.wrapUp.forEach((topic, i) => add(addDays(runEnd, i + 1), { kind: "wrapup", topic, coach: takeCoach() }));
+  config.wrapUp.forEach((topic, i) => add(addDays(runEnd, i + 1), { kind: "wrapup", topic, coach: general() }));
 
   // Close Group: 1st of next month, pushed back if the wrap-up already uses that date.
   const lastUsed = mkDate(...entries.at(-1).date.split("-").map(Number));
@@ -93,17 +115,23 @@ function buildMonth(y, m, coachStart) {
   for (let i = 1; i < coached.length; i++)
     if (coached[i].coach === coached[i - 1].coach) warnings.push(`Coach ${coached[i].coach} has two content days in a row (${coached[i].date}).`);
 
-  return { entries, warnings, nextCoach: next % coaches.length };
+  return { entries, warnings, rot: { p: p % coaches.length, pending } };
 }
 
 // Rotation continues month to month from the anchor, so every month is reproducible.
 export function schedule(y, m) {
   const [ay, am] = config.rotationAnchor.month.split("-").map(Number);
-  let coach = config.coaches.findIndex((c) => c.name === config.rotationAnchor.coach);
-  if (coach < 0) throw new Error(`rotationAnchor.coach "${config.rotationAnchor.coach}" is not in coaches`);
-  if (y * 12 + m < ay * 12 + am) throw new Error(`${y}-${m} is before the rotation anchor ${config.rotationAnchor.month}`);
-  for (let k = ay * 12 + am - 1; k < y * 12 + m - 1; k++) coach = buildMonth(Math.floor(k / 12), (k % 12) + 1, coach).nextCoach;
-  const { entries, warnings } = buildMonth(y, m, coach);
+  const { openingStart, generalStart } = config.rotationAnchor;
+  const mains = config.coaches.filter((c) => c.main).map((c) => c.name);
+  const useMains = mains.length >= config.briefing.length + 1;
+  const openShift = useMains ? mains.indexOf(openingStart) : 0;
+  let rot = { p: config.coaches.findIndex((c) => c.name === generalStart), pending: null };
+  if (useMains && openShift < 0) throw new Error(`rotationAnchor.openingStart "${openingStart}" is not a main coach`);
+  if (rot.p < 0) throw new Error(`rotationAnchor.generalStart "${generalStart}" is not in coaches`);
+  const start = ay * 12 + am - 1;
+  if (y * 12 + m - 1 < start) throw new Error(`${y}-${m} is before the rotation anchor ${config.rotationAnchor.month}`);
+  for (let k = start; k < y * 12 + m - 1; k++) rot = buildMonth(Math.floor(k / 12), (k % 12) + 1, rot, openShift + k - start).rot;
+  const { entries, warnings } = buildMonth(y, m, rot, openShift + y * 12 + m - 1 - start);
   return {
     month: `${y}-${String(m).padStart(2, "0")}`,
     year: y,
@@ -123,26 +151,30 @@ const short = (date) => {
   return `${dd}/${mm}`;
 };
 
-export function whatsapp(s) {
+// coachee: true → same list without coach names (for participants).
+export function whatsapp(s, { coachee = false } = {}) {
   const line = (e) => `${HARI[e.dow]} ${short(e.date)}`;
-  const coach = (e) => (e.coach === "Semua Coach" ? "Semua Coach" : `Coach ${e.coach}`);
+  const coach = (e) => (coachee ? "" : e.coach === "Semua Coach" ? " · Semua Coach" : ` · Coach ${e.coach}`);
   const out = [`*${s.title}*`, `_${s.programme} · ${s.team}_`, ""];
   out.push("*BRIEFING*");
-  for (const e of s.entries.filter((e) => e.kind === "briefing")) out.push(`${line(e)} · ${e.topic} · ${coach(e)}`);
+  for (const e of s.entries.filter((e) => e.kind === "briefing")) out.push(`${line(e)} · ${e.topic}${coach(e)}`);
   out.push("", "*DAY 1 – 21*");
   for (const e of s.entries.filter((e) => e.day)) {
     if (e.kind === "rest") continue;
     const what =
       e.kind === "timbang" ? "⚖️ Timbang" : e.kind === "timbangAkhir" ? "⚖️ *Timbang Akhir*" : e.kind === "reminder" ? `🔔 ${e.topic}` : e.topic ?? "–";
-    out.push(`${line(e)} · D${e.day} · ${what}${e.coach ? ` · ${coach(e)}` : ""}${e.kind === "topic" && e.bell ? " · 🔔 Reminder Timbang" : ""}`);
+    out.push(`${line(e)} · D${e.day} · ${what}${e.coach ? coach(e) : ""}${e.kind === "topic" && e.bell ? " · 🔔 Reminder Timbang" : ""}`);
   }
   out.push("", "*WRAP-UP*");
-  for (const e of s.entries.filter((e) => e.kind === "wrapup")) out.push(`${line(e)} · ${e.topic} · ${coach(e)}`);
+  for (const e of s.entries.filter((e) => e.kind === "wrapup")) out.push(`${line(e)} · ${e.topic}${coach(e)}`);
   const close = s.entries.find((e) => e.kind === "close");
-  out.push("", `*CLOSE GROUP* · ${line(close)} · Semua Coach`, "", "*Giliran coach*");
-  for (const c of s.coaches) {
-    const dates = s.entries.filter((e) => e.coach === c.name).map((e) => short(e.date));
-    out.push(`Coach ${c.name}: ${dates.join(", ") || "–"}`);
+  out.push("", `*CLOSE GROUP* · ${line(close)}${coach(close)}`);
+  if (!coachee) {
+    out.push("", "*Giliran coach*");
+    for (const c of s.coaches) {
+      const dates = s.entries.filter((e) => e.coach === c.name).map((e) => short(e.date));
+      out.push(`Coach ${c.name}: ${dates.join(", ") || "–"}`);
+    }
   }
   out.push("", s.hashtag);
   return out.join("\n") + "\n";
@@ -160,12 +192,18 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const jsonPath = path.join(outDir, "schedule.json");
   fs.writeFileSync(jsonPath, JSON.stringify(s, null, 2) + "\n");
   fs.writeFileSync(path.join(outDir, "whatsapp.txt"), whatsapp(s));
-  console.log(`Wrote ${path.relative(ROOT, outDir)}/schedule.json + whatsapp.txt`);
+  fs.writeFileSync(path.join(outDir, "whatsapp-coachee.txt"), whatsapp(s, { coachee: true }));
+  console.log(`Wrote ${path.relative(ROOT, outDir)}/schedule.json + whatsapp.txt + whatsapp-coachee.txt`);
   if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT, `month=${s.month}\ndir=group-coaching/${s.month}\n`);
 
   if (args.includes("--render")) {
-    const png = path.join(outDir, "kalendar.png");
-    execFileSync("npx", ["remotion", "still", "src/kalendar/index.tsx", "Kalendar", png, `--props=${jsonPath}`, ...passthrough], { cwd: ROOT, stdio: "inherit" });
+    // Coach version (with names) + coachee version (no names).
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "kalendar-"));
+    const coacheeProps = path.join(tmp, "coachee.json");
+    fs.writeFileSync(coacheeProps, JSON.stringify({ ...s, coachee: true }));
+    for (const [png, props] of [["kalendar.png", jsonPath], ["kalendar-coachee.png", coacheeProps]])
+      execFileSync("npx", ["remotion", "still", "src/kalendar/index.tsx", "Kalendar", path.join(outDir, png), `--props=${props}`, ...passthrough], { cwd: ROOT, stdio: "inherit" });
+    fs.rmSync(tmp, { recursive: true, force: true });
   }
   if (s.warnings.length) {
     console.log("\nCHECK BEFORE POSTING:");

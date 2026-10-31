@@ -24,20 +24,21 @@ One-time repo setting: Settings → Actions → General → tick **"Allow GitHub
 
 Every 21-day run has exactly 15 weekdays, so 14 topic slots after the reminder-only Friday: always enough for the 14 topics.
 
-**Coach rotation:** round-robin in the order of `coaches`, 20 slots a month (3 briefing + 14 + 3 wrap-up).
-It continues from last month (anchor: `rotationAnchor`), so 6 coaches get 3 slots, 1 gets 2, and who gets 2 changes each month.
-No coach is ever on two content days in a row.
+**Coach rotation**
+- Round-robin over the coaches in `coaches`, continuing from last month (`rotationAnchor` = month and coach it started from). No coach is ever on two content days in a row.
+- Optional: with 4+ coaches marked `"main": true`, Briefing 1–3 + Day 1 go to the main coaches, one each, shifting by one every month.
+- Current team (from Nov 2026): Nieda, Nasri, Mimi, so about 7 slots each a month.
 
 ## Changing things
 Edit `config.json` only:
 - **Topics**: `briefing`, `knowledge`, `wrapUp` (order = calendar order). `imageLabels` = shorter text for the image only.
-- **Coaches / colours**: `coaches`. Adding or removing a coach changes the rotation from the anchor month on; set `rotationAnchor` to the current month when you do.
+- **Coaches / colours**: `coaches` (`"main": true` = main coach). Adding or removing a coach changes the rotation from the anchor month on; when you do, set `rotationAnchor` to the current month and who should start.
 - **Dates**: `briefingStartDay`, `day1`, `runDays`.
 
 ## Run locally
 ```
-node scripts/kalendar.mjs 2026-12            # schedule.json + whatsapp.txt
-node scripts/kalendar.mjs 2026-12 --render   # + kalendar.png (1080 × 1350, 4:5)
+node scripts/kalendar.mjs 2026-12            # schedule.json + whatsapp.txt + whatsapp-coachee.txt
+node scripts/kalendar.mjs 2026-12 --render   # + kalendar.png (coaches) + kalendar-coachee.png (no names), 1080 × 1350
 ```
 Output: `group-coaching/<YYYY-MM>/`. Preview/tweak the design live: `npx remotion studio src/kalendar/index.tsx`.
 

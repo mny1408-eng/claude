@@ -9,18 +9,22 @@
   "coaches": [
     {
       "name": "Nieda",
+      "main": true,
       "colour": "#7E3FC1"
     },
     {
       "name": "Husna",
+      "main": true,
       "colour": "#E0408F"
     },
     {
       "name": "Normy",
+      "main": true,
       "colour": "#E8730C"
     },
     {
       "name": "Nasri",
+      "main": true,
       "colour": "#2160D8"
     },
     {
@@ -42,7 +46,7 @@
       "dow": 5,
       "kind": "briefing",
       "topic": "Perkenalan Coach, Briefing Timbangan & Ukur Lilit Awal",
-      "coach": "Nieda",
+      "coach": "Husna",
       "bell": false,
       "scale": true,
       "label": "Perkenalan Coach + Timbang & Ukur Lilit"
@@ -52,7 +56,7 @@
       "dow": 6,
       "kind": "briefing",
       "topic": "Perkenalan SC & NC + Meal Plan",
-      "coach": "Husna",
+      "coach": "Normy",
       "bell": false,
       "scale": false
     },
@@ -61,7 +65,7 @@
       "dow": 0,
       "kind": "briefing",
       "topic": "Rules & Regulations + Timbang Sebelum Intake",
-      "coach": "Normy",
+      "coach": "Nasri",
       "bell": false,
       "scale": false,
       "label": "Rules & Regulations + Timbang Awal"
@@ -72,7 +76,7 @@
       "kind": "topic",
       "day": 1,
       "topic": "The Power of 21 Days",
-      "coach": "Nasri",
+      "coach": "Nieda",
       "bell": false
     },
     {
@@ -81,7 +85,7 @@
       "kind": "topic",
       "day": 2,
       "topic": "Jenis-Jenis Diet",
-      "coach": "Adeline",
+      "coach": "Mimi",
       "bell": false
     },
     {
@@ -90,7 +94,7 @@
       "kind": "topic",
       "day": 3,
       "topic": "PCE & Water Intake",
-      "coach": "Arif",
+      "coach": "Nieda",
       "bell": false
     },
     {
@@ -99,7 +103,7 @@
       "kind": "topic",
       "day": 4,
       "topic": "Cellular Nutrition",
-      "coach": "Mimi",
+      "coach": "Husna",
       "bell": true
     },
     {
@@ -121,7 +125,7 @@
       "kind": "topic",
       "day": 7,
       "topic": "Healthy Breakfast",
-      "coach": "Nieda",
+      "coach": "Normy",
       "bell": false
     },
     {
@@ -130,7 +134,7 @@
       "kind": "topic",
       "day": 8,
       "topic": "Kepentingan Protein",
-      "coach": "Husna",
+      "coach": "Nasri",
       "bell": false
     },
     {
@@ -139,7 +143,7 @@
       "kind": "topic",
       "day": 9,
       "topic": "Magic Number",
-      "coach": "Normy",
+      "coach": "Adeline",
       "bell": false
     },
     {
@@ -148,7 +152,7 @@
       "kind": "topic",
       "day": 10,
       "topic": "Body Fat",
-      "coach": "Nasri",
+      "coach": "Arif",
       "bell": false
     },
     {
@@ -156,8 +160,8 @@
       "dow": 4,
       "kind": "topic",
       "day": 11,
-      "topic": "IBC",
-      "coach": "Adeline",
+      "topic": "Kepentingan Fiber",
+      "coach": "Mimi",
       "bell": true
     },
     {
@@ -178,8 +182,8 @@
       "dow": 0,
       "kind": "topic",
       "day": 14,
-      "topic": "Kepentingan Fiber",
-      "coach": "Arif",
+      "topic": "IBC",
+      "coach": "Nieda",
       "bell": false
     },
     {
@@ -188,7 +192,7 @@
       "kind": "topic",
       "day": 15,
       "topic": "Glycemic Index",
-      "coach": "Mimi",
+      "coach": "Husna",
       "bell": false
     },
     {
@@ -197,7 +201,7 @@
       "kind": "topic",
       "day": 16,
       "topic": "Visceral Fat",
-      "coach": "Nieda",
+      "coach": "Normy",
       "bell": false
     },
     {
@@ -206,7 +210,7 @@
       "kind": "topic",
       "day": 17,
       "topic": "Macro & Micro",
-      "coach": "Husna",
+      "coach": "Nasri",
       "bell": false
     },
     {
@@ -236,7 +240,7 @@
       "kind": "topic",
       "day": 21,
       "topic": "Food Label",
-      "coach": "Normy",
+      "coach": "Adeline",
       "bell": false
     },
     {
@@ -244,21 +248,21 @@
       "dow": 1,
       "kind": "wrapup",
       "topic": "Rejoin",
-      "coach": "Nasri"
+      "coach": "Arif"
     },
     {
       "date": "2026-10-28",
       "dow": 2,
       "kind": "wrapup",
       "topic": "Misteri Lemak",
-      "coach": "Adeline"
+      "coach": "Mimi"
     },
     {
       "date": "2026-10-29",
       "dow": 3,
       "kind": "wrapup",
       "topic": "Ambassador Program + Treat Meal",
-      "coach": "Arif"
+      "coach": "Nieda"
     },
     {
       "date": "2026-11-01",

@@ -7,15 +7,11 @@
   "day1": 6,
   "runDays": 21,
 
-  "rotationAnchor": { "month": "2026-10", "coach": "Nieda" },
+  "rotationAnchor": { "month": "2026-11", "generalStart": "Nieda" },
 
   "coaches": [
     { "name": "Nieda", "colour": "#7E3FC1" },
-    { "name": "Husna", "colour": "#E0408F" },
-    { "name": "Normy", "colour": "#E8730C" },
     { "name": "Nasri", "colour": "#2160D8" },
-    { "name": "Adeline", "colour": "#0B9AA6" },
-    { "name": "Arif", "colour": "#8C1D3B" },
     { "name": "Mimi", "colour": "#3A9B3F" }
   ],
 
@@ -34,8 +30,8 @@
     "Kepentingan Protein",
     "Magic Number",
     "Body Fat",
-    "IBC",
     "Kepentingan Fiber",
+    "IBC",
     "Glycemic Index",
     "Visceral Fat",
     "Macro & Micro",
