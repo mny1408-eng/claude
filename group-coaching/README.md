@@ -27,7 +27,7 @@ Every 21-day run has exactly 15 weekdays, so 14 topic slots after the reminder-o
 **Coach rotation**
 - Round-robin over the coaches in `coaches`, continuing from last month (`rotationAnchor` = month and coach it started from). No coach is ever on two content days in a row.
 - Optional: with 4+ coaches marked `"main": true`, Briefing 1–3 + Day 1 go to the main coaches, one each, shifting by one every month.
-- Current team (from Nov 2026): Nieda, Nasri, Nina, so about 7 slots each a month.
+- Current team (from Nov 2026): Nieda, Nasri, Mimi, so about 7 slots each a month.
 
 ## Changing things
 Edit `config.json` only:

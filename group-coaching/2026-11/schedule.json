@@ -16,8 +16,8 @@
       "colour": "#2160D8"
     },
     {
-      "name": "Nina",
-      "colour": "#E8730C"
+      "name": "Mimi",
+      "colour": "#3A9B3F"
     }
   ],
   "entries": [
@@ -45,7 +45,7 @@
       "dow": 3,
       "kind": "briefing",
       "topic": "Rules & Regulations + Timbang Sebelum Intake",
-      "coach": "Nina",
+      "coach": "Mimi",
       "bell": false,
       "scale": false,
       "label": "Rules & Regulations + Timbang Awal"
@@ -87,7 +87,7 @@
       "kind": "topic",
       "day": 5,
       "topic": "PCE & Water Intake",
-      "coach": "Nina",
+      "coach": "Mimi",
       "bell": false
     },
     {
@@ -114,7 +114,7 @@
       "kind": "topic",
       "day": 8,
       "topic": "Kepentingan Protein",
-      "coach": "Nina",
+      "coach": "Mimi",
       "bell": true
     },
     {
@@ -154,7 +154,7 @@
       "kind": "topic",
       "day": 13,
       "topic": "Kepentingan Fiber",
-      "coach": "Nina",
+      "coach": "Mimi",
       "bell": false
     },
     {
@@ -202,7 +202,7 @@
       "kind": "topic",
       "day": 19,
       "topic": "Visceral Fat",
-      "coach": "Nina",
+      "coach": "Mimi",
       "bell": false
     },
     {
@@ -228,7 +228,7 @@
       "dow": 4,
       "kind": "wrapup",
       "topic": "Rejoin",
-      "coach": "Nina"
+      "coach": "Mimi"
     },
     {
       "date": "2026-11-28",
