@@ -1,0 +1,108 @@
+{
+  "id": "2026-11-05-cawan-badan-kira",
+  "title": "Thu 5 Nov · Cawan Pun Badan Kira (repurpose Reel Broad Value 4 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Teh tarik? Milo ais?",
+      "title": [
+        "CAWAN PUN",
+        "**BADAN KIRA.**"
+      ],
+      "small": "Dah jaga nasi, tapi lupa cawan sebelah pinggan.",
+      "visual": "tea"
+    },
+    {
+      "type": "diagram",
+      "title": "HARI-HARI, **TAK SEDAR**",
+      "body": [
+        "Kita tak kira tu makan. Tapi badan kira."
+      ],
+      "flow": [
+        {
+          "label": "10 pagi",
+          "note": "Teh tarik",
+          "tone": "green"
+        },
+        {
+          "label": "Lepas lunch",
+          "note": "Milo ais",
+          "tone": "orange"
+        },
+        {
+          "label": "Lepas Maghrib",
+          "note": "Kopi",
+          "tone": "ink"
+        }
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Masuk senyap-senyap",
+      "title": "TAK RASA **KENYANG** PUN",
+      "body": [
+        "Habis minum, perut tak rasa kenyang pun.",
+        "Lepas tu makan macam biasa."
+      ],
+      "takeaway": "Bukan suruh order air kosong je **seumur hidup.**"
+    },
+    {
+      "type": "step",
+      "number": "01",
+      "title": "PILIH **SATU** MINUMAN",
+      "body": [
+        "Yang korang paling kerap minum.",
+        "Satu je."
+      ],
+      "visual": "tea"
+    },
+    {
+      "type": "diagram",
+      "number": "02",
+      "title": "UBAH **SATU** BENDA",
+      "body": [
+        "Pilih satu:"
+      ],
+      "flow": [
+        {
+          "label": "Kurang manis",
+          "note": "Sebut masa order, sebelum air sampai.",
+          "tone": "green"
+        },
+        {
+          "label": "Cawan kecil",
+          "tone": "orange"
+        },
+        {
+          "label": "Kurang kerap",
+          "note": "Dari dua kali sehari, jadi sekali.",
+          "tone": "ink"
+        }
+      ],
+      "takeaway": "Itu je untuk minggu ni. **Tak payah ubah semua serentak.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "SAVE DULU.",
+        "**SHARE DENGAN**",
+        "**GENG NGETEH.**"
+      ],
+      "body": [
+        "Benda yang kita minum hari-hari, ubah sikit pun, lama-lama dia bertambah.",
+        "Air apa paling susah korang nak usik? Komen kat bawah."
+      ],
+      "save": "SAVE & SHARE"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "id": "2026-11-07-nasi-campur-terbalik",
+  "title": "Sat 7 Nov · Nasi Campur: Terbalikkan Susunan (repurpose Reel Niche Value 6 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Kedai nasi campur, 1 tengah hari",
+      "title": [
+        "NASI CAMPUR?",
+        "**TERBALIKKAN**",
+        "SUSUNAN."
+      ],
+      "small": "Tangan dah capai senduk nasi. Stop kejap.",
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "problem",
+      "kicker": "Biasanya",
+      "title": "NASI DULU, **PENUH.**",
+      "body": [
+        "Lepas tu lauk goreng.",
+        "Sayur? Kalau ada ruang."
+      ],
+      "takeaway": "Cuba **terbalikkan.**"
+    },
+    {
+      "type": "diagram",
+      "number": "01",
+      "title": "SUSUN **IKUT TURUTAN**",
+      "body": [
+        "Pinggan yang sama, susunan lain:"
+      ],
+      "flow": [
+        {
+          "label": "1 · Sayur",
+          "note": "Lebih kurang separuh pinggan.",
+          "tone": "green"
+        },
+        {
+          "label": "2 · Protein",
+          "note": "Ayam, ikan, telur. Lebih kurang suku pinggan.",
+          "tone": "orange"
+        },
+        {
+          "label": "3 · Nasi",
+          "note": "Suku pinggan. Nasi tetap ada, bukan kena buang.",
+          "tone": "ink"
+        },
+        {
+          "label": "Kuah",
+          "note": "Siram sikit je. Jangan sampai nasi berenang.",
+          "tone": "orange"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "number": "02",
+      "title": "PINGGAN SIHAT **MALAYSIA**",
+      "body": [
+        "KKM panggil ni Pinggan Sihat Malaysia.",
+        "Suku, suku, separuh."
+      ],
+      "visual": "balanced-plate"
+    },
+    {
+      "type": "problem",
+      "kicker": "Untuk ayah yang lunch kejap je",
+      "title": "TAK PAYAH KIRA KALORI. **TENGOK PINGGAN.**",
+      "body": [
+        "Bukan semua hari jadi cantik. Ada hari lauk sedap sangat, kita tewas. Biasa la.",
+        "Tapi kalau tiga, empat hari seminggu pinggan korang macam ni, **tu dah satu langkah.**"
+      ]
+    },
+    {
+      "type": "cta",
+      "title": [
+        "SAVE.",
+        "**ESOK MASA**",
+        "**BERATUR,**",
+        "BUKA BALIK."
+      ],
+      "body": [
+        "Lauk apa paling susah korang nak lepas? Komen kat bawah.",
+        "Kalau ada keadaan kesihatan tertentu, ikut nasihat doktor atau dietitian ye."
+      ],
+      "save": "SAVE DULU"
+    }
+  ]
+}

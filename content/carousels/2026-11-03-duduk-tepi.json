@@ -1,0 +1,80 @@
+{
+  "id": "2026-11-03-duduk-tepi",
+  "title": "Tue 3 Nov · Bertahun Duduk Tepi (repurpose Reel Connection 2 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Cerita saya",
+      "title": [
+        "BERTAHUN",
+        "**DUDUK TEPI.**",
+        "SEKALI",
+        "MASUK..."
+      ],
+      "small": "Dari zaman sekolah sampai dah kerja, kalau ada sukaneka, saya pilih duduk tepi."
+    },
+    {
+      "type": "problem",
+      "kicker": "Bukan sebab malas",
+      "title": "SAYA **MALU.**",
+      "body": [
+        "Malu dengan badan sendiri.",
+        "Takut jadi orang paling lambat.",
+        "Takut semua orang kena tunggu saya."
+      ],
+      "takeaway": "Family day pun, saya lebih selesa **jadi penonton.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Sampai satu family day",
+      "title": "ADA **VOLLEYBALL.**",
+      "body": [
+        "Masa tu berat saya dah banyak turun.",
+        "Team tak cukup orang. So saya masuk.",
+        "Bukan sebab yakin. **Nak tolong team je.**"
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Dalam kepala, masih rasa inferior",
+      "title": "TAPI BILA MAIN... **OKAY JE RUPANYA.**",
+      "body": [
+        "Boleh pukul bola. Boleh sambut.",
+        "Tak ada benda memalukan pun jadi."
+      ],
+      "takeaway": "“Oh, aku boleh rupanya **pam-pam bola tu.**”"
+    },
+    {
+      "type": "problem",
+      "kicker": "Yang saya belajar",
+      "title": "YAKIN DATANG **LEPAS CUBA.**",
+      "body": [
+        "Lama saya ingat badan saya yang halang.",
+        "Rupanya rasa takut tu pun sama besar."
+      ],
+      "takeaway": "Kadang-kadang yakin tu datang lepas kita cuba. **Bukan sebelum.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "KORANG PERNAH",
+        "**DUDUK TEPI?**"
+      ],
+      "body": [
+        "Sebab takut orang tengok?",
+        "Cerita sikit kat komen."
+      ],
+      "save": "KOMEN & SHARE"
+    }
+  ]
+}
