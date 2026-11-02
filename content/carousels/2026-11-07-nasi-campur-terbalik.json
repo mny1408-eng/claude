@@ -21,7 +21,8 @@
         "SUSUNAN."
       ],
       "small": "Tangan dah capai senduk nasi. Stop kejap.",
-      "visual": "balanced-plate"
+      "photo": "material/nasi-bungkus-campur.jpg",
+      "photoPos": "50% 45%"
     },
     {
       "type": "problem",

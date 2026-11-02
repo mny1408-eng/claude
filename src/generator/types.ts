@@ -32,7 +32,7 @@ export type Visual =
 export type Photo = { photo?: string; photoPos?: string };
 
 export type CoverSlide = { type: "cover"; kicker?: string; title: string[]; sub?: string; small?: string; visual?: Visual } & Photo;
-export type ProblemSlide = { type: "problem"; kicker?: string; title: string; body: string[]; chips?: string[]; after?: string; takeaway?: string };
+export type ProblemSlide = { type: "problem"; kicker?: string; title: string; body: string[]; chips?: string[]; after?: string; takeaway?: string } & Photo;
 export type StepSlide = { type: "step"; number: string; title: string; body: string[]; visual?: Visual } & Photo;
 export type FlowItem = { label: string; note?: string; tone?: "green" | "orange" | "ink" };
 export type DiagramSlide = { type: "diagram"; number?: string; title: string; body: string[]; flow: FlowItem[]; takeaway?: string };

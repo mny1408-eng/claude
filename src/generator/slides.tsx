@@ -88,10 +88,10 @@ const Body: React.FC<{ lines: string[]; hi: string; marker?: boolean; size?: num
 );
 
 // Full-bleed photo, darkened towards the text so white type stays readable.
-const PhotoBg: React.FC<{ src: string; pos?: string; ink: string }> = ({ src, pos, ink }) => (
+const PhotoBg: React.FC<{ src: string; pos?: string; ink: string; dim?: boolean }> = ({ src, pos, ink, dim }) => (
   <>
     <Img src={staticFile(src)} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: pos ?? "50% 30%" }} />
-    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, ${ink}D9 0%, ${ink}33 14%, ${ink}14 22%, ${ink}0A 40%, ${ink}B3 62%, ${ink}F2 80%)` }} />
+    <div style={{ position: "absolute", inset: 0, background: dim ? `linear-gradient(180deg, ${ink}D1 0%, ${ink}C2 45%, ${ink}EB 100%)` : `linear-gradient(180deg, ${ink}D9 0%, ${ink}33 12%, ${ink}1F 20%, ${ink}B8 34%, ${ink}E6 55%, ${ink}F5 80%)` }} />
   </>
 );
 
@@ -110,7 +110,7 @@ export const Cover: React.FC<{ ctx: Ctx; s: CoverSlide }> = ({ ctx, s }) => {
         <div style={{ position: "absolute", right: -160, top: 250, width: 640, height: 640, borderRadius: "50%", background: c.green, opacity: 0.12 }} />
       )}
       {/* With a photo the text sits low so faces in the upper half stay visible. */}
-      <Abs top={s.photo ? SIZE.height - 420 - s.title.length * size * 1.08 - (s.sub ? 110 : 0) : 190}>
+      <Abs top={s.photo ? SIZE.height - (s.small ? 470 : 260) - (s.kicker ? 60 : 0) - s.title.length * size * 1.08 - (s.sub ? 110 : 0) : 190}>
         {s.kicker && <Kicker ctx={ctx} color={c.orange}>{s.kicker}</Kicker>}
         {s.title.map((t, i) => (
           <Head key={i} ctx={ctx} size={size} hi={c.green} style={{ color: c.cream }}>
@@ -141,20 +141,24 @@ export const Cover: React.FC<{ ctx: Ctx; s: CoverSlide }> = ({ ctx, s }) => {
 // ── Problem ────────────────────────────────────────────────────────────
 export const Problem: React.FC<{ ctx: Ctx; s: ProblemSlide }> = ({ ctx, s }) => {
   const c = ctx.brand.colors;
+  // With a photo the slide turns dark: dimmed photo behind cream text, accent as text colour.
+  const dark = !!s.photo;
+  const hi = dark ? c.green : c.orange;
   return (
-    <Frame ctx={ctx}>
+    <Frame ctx={ctx} dark={dark}>
+      {s.photo && <PhotoBg src={s.photo} pos={s.photoPos} ink={c.ink} dim />}
       <Abs top={170}>
         {s.kicker && <Kicker ctx={ctx} color={c.orange}>{s.kicker}</Kicker>}
-        <Head ctx={ctx} size={104} hi={c.orange} marker>
+        <Head ctx={ctx} size={104} hi={hi} marker={!dark} style={dark ? { color: c.cream } : undefined}>
           {s.title}
         </Head>
         <div style={{ marginTop: 40 }}>
-          <Body lines={s.body} hi={c.orange} marker />
+          <Body lines={s.body} hi={hi} marker={!dark} color={dark ? c.cream : undefined} />
         </div>
         {s.chips && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 28 }}>
             {s.chips.map((t) => (
-              <div key={t} style={{ display: "flex", alignItems: "center", gap: 12, background: "#FFFFFF", border: `3px solid ${c.line}`, borderRadius: 999, padding: "12px 24px", fontSize: 32, fontWeight: 600 }}>
+              <div key={t} style={{ display: "flex", alignItems: "center", gap: 12, background: "#FFFFFF", color: c.ink, border: `3px solid ${c.line}`, borderRadius: 999, padding: "12px 24px", fontSize: 32, fontWeight: 600 }}>
                 <span style={{ color: c.orange, fontWeight: 800 }}>✕</span>
                 <span style={{ textDecoration: "line-through", textDecorationColor: c.orange, textDecorationThickness: 3 }}>{t}</span>
               </div>
@@ -163,13 +167,13 @@ export const Problem: React.FC<{ ctx: Ctx; s: ProblemSlide }> = ({ ctx, s }) => 
         )}
         {s.after && (
           <div style={{ marginTop: 30 }}>
-            <Body lines={[s.after]} hi={c.orange} marker />
+            <Body lines={[s.after]} hi={hi} marker={!dark} color={dark ? c.cream : undefined} />
           </div>
         )}
       </Abs>
       {s.takeaway && (
-        <div data-fit style={{ position: "absolute", left: MARGIN, right: MARGIN, bottom: 150, background: c.ink, color: c.cream, borderRadius: 28, padding: "34px 40px", fontFamily: ctx.head, fontWeight: 700, fontSize: 44, lineHeight: 1.2 }}>
-          <Rich text={s.takeaway} hi={c.green} />
+        <div data-fit style={{ position: "absolute", left: MARGIN, right: MARGIN, bottom: 150, background: dark ? c.cream : c.ink, color: dark ? c.ink : c.cream, borderRadius: 28, padding: "34px 40px", fontFamily: ctx.head, fontWeight: 700, fontSize: 44, lineHeight: 1.2 }}>
+          <Rich text={s.takeaway} hi={dark ? c.orange : c.green} marker={dark} />
         </div>
       )}
     </Frame>

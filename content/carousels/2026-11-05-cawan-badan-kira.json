@@ -20,7 +20,8 @@
         "**BADAN KIRA.**"
       ],
       "small": "Dah jaga nasi, tapi lupa cawan sebelah pinggan.",
-      "visual": "tea"
+      "photo": "material/milo-ais-kereta.jpg",
+      "photoPos": "50% 40%"
     },
     {
       "type": "diagram",

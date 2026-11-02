@@ -21,7 +21,9 @@
         "SEKALI",
         "MASUK..."
       ],
-      "small": "Dari zaman sekolah sampai dah kerja, kalau ada sukaneka, saya pilih duduk tepi."
+      "small": "Dari zaman sekolah sampai dah kerja, kalau ada sukaneka, saya pilih duduk tepi.",
+      "photo": "material/volleyball-pantai.jpg",
+      "photoPos": "50% 35%"
     },
     {
       "type": "problem",
@@ -42,7 +44,9 @@
         "Masa tu berat saya dah banyak turun.",
         "Team tak cukup orang. So saya masuk.",
         "Bukan sebab yakin. **Nak tolong team je.**"
-      ]
+      ],
+      "photo": "material/family-day-group.jpg",
+      "photoPos": "50% 50%"
     },
     {
       "type": "problem",
@@ -62,7 +66,9 @@
         "Lama saya ingat badan saya yang halang.",
         "Rupanya rasa takut tu pun sama besar."
       ],
-      "takeaway": "Kadang-kadang yakin tu datang lepas kita cuba. **Bukan sebelum.**"
+      "takeaway": "Kadang-kadang yakin tu datang lepas kita cuba. **Bukan sebelum.**",
+      "photo": "material/family-day-dukung-anak.jpg",
+      "photoPos": "50% 30%"
     },
     {
       "type": "cta",
