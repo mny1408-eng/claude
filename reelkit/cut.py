@@ -72,7 +72,7 @@ def main(proj: Path) -> None:
             offs.append((s, e, tt))
             tt += e - s
         for w in ws:
-            if w[1] >= b:
+            if w[1] >= b or w[2] <= tk.get("from", 0.0) + 0.05:
                 continue
             txt = w[0]
             for f, r in fixes.items():
