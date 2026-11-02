@@ -1,0 +1,103 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<title>Coach Nas Post Template</title>
+<style>
+  :root{
+    --teal:#0A4744; --teal-2:#0F5C57; --teal-deep:#062E2C;
+    --gold:#C9A24E; --gold-lt:#E9C77B; --gold-dk:#B98A35;
+    --cream:#FAF8F2; --ink:#1D2B2A; --muted:#5C6F6C;
+    --w:1080px; --h:1350px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#ddd;font-family:Inter,"Inter Display",Arial,sans-serif;display:flex;flex-wrap:wrap;gap:40px;padding:40px}
+  .slide{width:var(--w);height:var(--h);position:relative;overflow:hidden;display:flex;flex-direction:column;padding:84px 88px 0}
+  .light{background:var(--cream);color:var(--ink)}
+  .dark{background:linear-gradient(150deg,var(--teal-2),var(--teal-deep));color:#fff}
+  .display{font-family:"Inter Display",Inter,sans-serif}
+
+  /* header */
+  .hd{display:flex;align-items:center;gap:18px}
+  .hd svg{width:58px;height:58px}
+  .hd .nm{font-family:"Inter Display";font-weight:800;font-size:26px;letter-spacing:8px}
+  .hd .pill{margin-left:auto;font-weight:700;font-size:22px;letter-spacing:3px;text-transform:uppercase;padding:12px 24px;border-radius:999px;border:2px solid var(--gold);color:var(--gold-dk)}
+  .dark .hd .pill{color:var(--gold-lt)}
+
+  /* body */
+  .bd{flex:1;display:flex;flex-direction:column;justify-content:center}
+  h1{font-family:"Inter Display";font-weight:900;font-size:104px;line-height:1.02;letter-spacing:-2px}
+  h1 em, h2 em{font-style:normal;color:var(--gold-dk)}
+  .dark h1 em,.dark h2 em{color:var(--gold-lt)}
+  h2{font-family:"Inter Display";font-weight:900;font-size:76px;line-height:1.06;letter-spacing:-1px;margin-bottom:48px}
+  .sub{font-size:38px;line-height:1.4;font-weight:500;margin-top:40px;color:var(--muted);max-width:860px}
+  .dark .sub{color:#C9DAD7}
+  .rule{width:120px;height:8px;border-radius:4px;background:var(--gold);margin:44px 0 0}
+
+  .photo{margin-top:48px;height:420px;border-radius:28px;border:3px dashed var(--gold);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--muted);background-size:cover;background-position:center}
+  .photo.has{border:none}
+
+  ol{list-style:none;display:flex;flex-direction:column;gap:30px}
+  ol li{display:flex;gap:30px;align-items:flex-start;font-size:40px;line-height:1.3;font-weight:600}
+  ol li b{flex:none;width:72px;height:72px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Inter Display";font-weight:800;font-size:34px;display:flex;align-items:center;justify-content:center}
+  .dark ol li b{background:var(--gold);color:var(--teal-deep)}
+  ol li small{display:block;font-size:30px;font-weight:500;color:var(--muted);margin-top:6px}
+  .dark ol li small{color:#C9DAD7}
+
+  .mf{display:flex;flex-direction:column;gap:30px}
+  .mf .box{border-radius:28px;padding:40px 44px}
+  .mf .lab{font-weight:800;font-size:24px;letter-spacing:5px;margin-bottom:14px}
+  .mf .txt{font-size:42px;line-height:1.3;font-weight:600}
+  .mf .myth{background:#EDE7DA;color:#6B5E4A}
+  .mf .myth .txt{text-decoration:line-through;text-decoration-color:#B4553F;text-decoration-thickness:4px}
+  .mf .fact{background:var(--teal);color:#fff}
+  .mf .fact .lab{color:var(--gold-lt)}
+
+  .quote{font-family:"Inter Display";font-weight:700;font-size:54px;line-height:1.3}
+  .qmark{font-family:"Inter Display";font-weight:900;font-size:220px;line-height:.6;color:var(--gold);height:110px}
+  .who{margin-top:44px;font-size:32px;font-weight:700;color:var(--gold-dk)}
+  .dark .who{color:var(--gold-lt)}
+  .note{margin-top:16px;font-size:24px;color:var(--muted)}
+  .dark .note{color:#A9C4C0}
+
+  .cta-word{display:inline-block;margin-top:56px;font-family:"Inter Display";font-weight:900;font-size:72px;letter-spacing:6px;padding:26px 60px;border-radius:999px;background:var(--gold);color:var(--teal-deep)}
+
+  /* footer */
+  .ft{height:120px;display:flex;align-items:center;border-top:2px solid rgba(201,162,78,.45);margin:0 -88px;padding:0 88px}
+  .ft .h{font-weight:700;font-size:28px;letter-spacing:1px}
+  .ft .tag{margin-left:auto;font-family:"Inter Display";font-weight:700;font-size:26px;color:var(--gold-dk)}
+  .dark .ft .tag{color:var(--gold-lt)}
+  .ft .dots{display:flex;gap:10px;margin-left:36px}
+  .ft .dots i{width:12px;height:12px;border-radius:50%;background:rgba(201,162,78,.35)}
+  .ft .dots i.on{background:var(--gold);width:34px;border-radius:6px}
+</style></head>
+<body>
+<script>
+const MARK = (n) => `<svg viewBox="250 190 540 620"><defs><linearGradient id="g${n}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0D48E"/><stop offset="1" stop-color="#B98A35"/></linearGradient></defs>
+ <path d="M 720 300 A 260 260 0 1 0 720 700" fill="none" stroke="url(#g${n})" stroke-width="70" stroke-linecap="round"/>
+ <path d="M 450 660 L 450 340 L 650 660 L 650 340" fill="none" stroke="currentColor" stroke-width="62" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+// *word* in text becomes a gold highlight
+const fmt = (s='') => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\*(.+?)\*/g,'<em>$1</em>').replace(/\n/g,'<br>');
+
+const BODY = {
+  hook: s => `<div class="bd"><h1>${fmt(s.headline)}</h1>${s.sub?`<p class="sub">${fmt(s.sub)}</p>`:''}<div class="rule"></div>
+    ${s.photo!==undefined?`<div class="photo ${s.photo?'has':''}" style="${s.photo?`background-image:url('${s.photo}')`:''}">${s.photo?'':'Letak gambar sebenar Coach Nas di sini'}</div>`:''}</div>`,
+  tips: s => `<div class="bd"><h2>${fmt(s.title)}</h2><ol>${s.items.map((it,i)=>{const [a,b]=[].concat(it);return `<li><b>${i+1}</b><span>${fmt(a)}${b?`<small>${fmt(b)}</small>`:''}</span></li>`}).join('')}</ol></div>`,
+  mythfact: s => `<div class="bd"><h2>${fmt(s.title||'')}</h2><div class="mf"><div class="box myth"><div class="lab">MITOS</div><div class="txt">${fmt(s.myth)}</div></div><div class="box fact"><div class="lab">FAKTA</div><div class="txt">${fmt(s.fact)}</div></div></div></div>`,
+  quote: s => `<div class="bd"><div class="qmark">“</div><p class="quote">${fmt(s.quote)}</p><p class="who">${fmt(s.who)}</p>${s.note?`<p class="note">${fmt(s.note)}</p>`:''}</div>`,
+  cta: s => `<div class="bd"><h1>${fmt(s.headline)}</h1>${s.sub?`<p class="sub">${fmt(s.sub)}</p>`:''}<div><span class="cta-word">${fmt(s.word||'NAK')}</span></div></div>`,
+};
+
+function render(data){
+  const {slides, size='4x5', handle='@coachnas.pharmacist', tag='#misifightobesiti'} = data;
+  document.documentElement.style.setProperty('--h', size==='3x4' ? '1440px' : '1350px');
+  document.body.innerHTML = slides.map((s,i)=>`
+  <section class="slide ${s.theme||'light'}" id="s${i+1}">
+    <header class="hd" style="color:${(s.theme==='dark')?'#fff':'#0A4744'}">${MARK(i)}<span class="nm">COACH NAS</span>${s.label?`<span class="pill">${fmt(s.label)}</span>`:''}</header>
+    ${BODY[s.layout](s)}
+    <footer class="ft"><span class="h">${handle}</span><span class="tag">${tag}</span>
+      ${slides.length>1?`<span class="dots">${slides.map((_,j)=>`<i class="${j===i?'on':''}"></i>`).join('')}</span>`:''}</footer>
+  </section>`).join('');
+}
+window.render = render;
+</script>
+</body></html>

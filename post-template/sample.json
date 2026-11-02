@@ -1,0 +1,38 @@
+{
+  "size": "4x5",
+  "slides": [
+    {
+      "layout": "hook", "theme": "dark", "label": "Myth buster",
+      "headline": "Dah makan healthy,\ntapi *masih cepat lapar?*",
+      "sub": "Mungkin bukan sebab kurang disiplin. Mungkin sebab susunan makan."
+    },
+    {
+      "layout": "mythfact", "theme": "light", "label": "Info",
+      "title": "Ramai buat ni masa diet",
+      "myth": "Nak turun berat, kena skip makan.",
+      "fact": "Skip makan selalunya buat lapar lebih teruk dan craving malam. Yang lebih penting: struktur makan yang boleh sustain."
+    },
+    {
+      "layout": "tips", "theme": "light", "label": "Tips makanan",
+      "title": "4 cara kurangkan *cepat lapar*",
+      "items": [
+        ["Protein setiap kali makan", "Telur, ayam, ikan, tauhu, tempe"],
+        ["Separuh pinggan sayur", "Fiber bantu rasa kenyang lebih lama"],
+        ["Air kosong dulu", "Kadang dahaga rasa macam lapar"],
+        ["Tidur cukup", "Kurang tidur boleh naikkan selera makan"]
+      ]
+    },
+    {
+      "layout": "quote", "theme": "dark", "label": "Testimoni",
+      "quote": "[Letak testimoni SEBENAR client di sini, dengan izin dia.]",
+      "who": "Nama client, umur, pekerjaan",
+      "note": "Keputusan setiap individu berbeza."
+    },
+    {
+      "layout": "cta", "theme": "light", "label": "Program",
+      "headline": "Nak saya guide\n*step by step?*",
+      "sub": "Target 3–7kg sebulan dengan cara lebih tersusun. Komen di bawah:",
+      "word": "NAK"
+    }
+  ]
+}
