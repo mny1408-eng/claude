@@ -45,6 +45,8 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .pill { background:var(--gold); color:var(--ink); font-size:38px; font-weight:800; border-radius:999px; padding:6px 24px; white-space:nowrap; }
 .strike { position:absolute; left:-8px; right:-8px; top:52%; height:9px; background:var(--marker); border-radius:6px; transform-origin:0 50%; }
 .note { font-size:24px; font-weight:600; color:var(--gold); margin-top:12px; opacity:.9; }
+.photo { position:absolute; inset:0; z-index:22; overflow:hidden; }
+.photo img { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
 .cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
 .capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
 .capin .hl { padding:0 10px; }
@@ -132,6 +134,17 @@ def main(proj: Path, variant: str) -> None:
             t = at(ph, st - 0.05)
             js.append(f'tl.fromTo("#{el}", {{scaleX:0}}, {{scaleX:1, duration:0.24, ease:"power2.out"}}, {t:.2f});')
             sfx.append((t, "scribble", 0.45))
+
+    # photo cutaways: full frame, slow push-in, voice keeps playing underneath
+    for i, ph in enumerate(spec.get("photos", [])):
+        st, en = at(ph["at"]), at(ph["until"])
+        name = f"photo{i}.jpg"
+        shutil.copy(proj / ph["src"], out / "assets" / name)
+        html.append(f'<div id="ph{i}" class="clip photo" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="6"><img id="ph{i}i" src="assets/{name}" /></div>')
+        js.append(f'tl.fromTo("#ph{i}i", {{opacity:0, scale:1.12}}, {{opacity:1, scale:1.04, duration:0.25, ease:"power3.out"}}, {st:.2f});')
+        js.append(f'tl.to("#ph{i}i", {{scale:1.14, duration:{max(0.3, en - st - 0.25):.2f}, ease:"none"}}, {st + 0.25:.2f});')
+        js.append(f'tl.to("#ph{i}i", {{opacity:0, duration:0.15, ease:"power2.in"}}, {en - 0.15:.2f});')
+        sfx.append((st, "whoosh", 0.4))
 
     cta = spec["cta"]
     html.append(f'<div id="cta" class="slot clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="top:262px">'
