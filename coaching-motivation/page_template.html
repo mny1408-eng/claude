@@ -74,14 +74,14 @@ if(idx<0) idx=today<DAYS[0].date?0:DAYS.length-1;
 function label(i){const d=DAYS[i].date;return d===today?'Hari ini':(i>0&&DAYS[i-1].date===today)?'Esok':d.slice(8)+'/'+d.slice(5,7)}
 function render(){
   const d=DAYS[idx];
-  $('title').textContent='Hari '+d.day+' · '+d.tema;
+  $('title').textContent=(DAYS[0].label||'Hari')+' '+d.day+' · '+d.tema;
   $('when').textContent=nice(d.date)+', 7.00 pagi'+(todayIdx<0&&today>DAYS[DAYS.length-1].date?' (jadual dah habis, minta batch baru)':'');
   $('poster').src=d.img;
   $('cap').textContent=d.caption;
   $('status').textContent='';$('status2').textContent='';
   $('chips').innerHTML='';
   DAYS.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed',i===idx);
-    b.innerHTML='Hari '+x.day+'<small>'+label(i)+'</small>';b.onclick=()=>{idx=i;render()};$('chips').appendChild(b)});
+    b.innerHTML=(DAYS[0].label||'Hari')+' '+x.day+'<small>'+label(i)+'</small>';b.onclick=()=>{idx=i;render()};$('chips').appendChild(b)});
 }
 let dl=null;
 (window.claude?.use?.("downloads")??Promise.resolve(null)).then(d=>{dl=d;if(!d){$('save').hidden=true;$('both').textContent='Salin caption';$('hint').textContent='Simpan poster tak disokong dalam paparan ni. Download poster dari chat Claude.'}}).catch(()=>{});
@@ -93,7 +93,7 @@ async function copyCap(out){
 async function savePoster(out,prefix){
   if(!dl){return}
   const d=DAYS[idx];
-  try{await dl.save({filename:'mindset-hari-'+d.day+'.jpg',data:blobOf(d)});out.textContent=prefix+'Poster Hari '+d.day+' dihantar untuk disimpan.'}
+  try{await dl.save({filename:'mindset-day-'+d.day+'.jpg',data:blobOf(d)});out.textContent=prefix+'Poster Hari '+d.day+' dihantar untuk disimpan.'}
   catch(e){const c=e&&e.code;out.textContent=prefix+(c==='declined'?'Simpan poster dibatalkan.':c==='rate_limited'?'Tunggu sekejap, lepas tu cuba lagi.':'Poster tak dapat disimpan di sini. Download dari chat Claude.')}
 }
 $('both').onclick=async()=>{const o=$('status2');await copyCap(o);await savePoster(o,o.textContent+' ')};
