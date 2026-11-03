@@ -53,6 +53,19 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .sheet { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
 .ftitle { font-size:84px; font-weight:800; color:var(--paper); text-align:center; line-height:1.1; padding:0 80px; }
 .ftitle .hl { color:var(--ink); }
+.plab { position:absolute; font-size:40px; font-weight:800; color:#173C30; text-align:center; line-height:1.05; }
+.plab span { font-size:64px; }
+.endcard { position:absolute; inset:0; background:#F7F6F1; color:#2B2B2B; }
+.ec-head { position:absolute; left:60px; right:60px; top:200px; display:flex; justify-content:space-between; font-size:30px; color:#2B2B2B; border-bottom:3px solid #E4E4DE; padding-bottom:22px; }
+.ec-head b { color:#6F8F6E; } .ec-handle { color:#9A9A94; }
+.ec-photo { position:absolute; right:70px; top:300px; width:260px; height:260px; border-radius:50%; object-fit:cover; border:6px solid #1F4A3E; }
+.ec-title { position:absolute; left:70px; right:70px; font-family:'League Gothic', 'Oswald', sans-serif; font-size:150px; line-height:0.95; text-transform:uppercase; }
+#ec1 { top:600px; } #ec2 { top:760px; }
+.ec-green { color:#6F8F6E; }
+.ec-rule { position:absolute; left:70px; top:960px; width:90px; height:5px; background:#6F8F6E; }
+.ec-sub { position:absolute; left:70px; right:120px; top:1000px; font-size:44px; line-height:1.35; color:#3A3A36; }
+.ec-foot { position:absolute; left:0; right:0; bottom:330px; height:150px; background:#EDEDE9; display:flex; align-items:center; justify-content:space-between; padding:0 60px; font-size:32px; letter-spacing:3px; color:#4A4A46; }
+.ec-foot img { height:110px; }
 .cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
 .capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
 .capin .hl { padding:0 10px; }
@@ -182,10 +195,33 @@ def main(proj: Path, variant: str) -> None:
         sfx.append((t0 + 0.55, "whoosh", 0.4))
 
     cta = spec["cta"]
-    html.append(f'<div id="cta" class="slot clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="top:262px">'
-                f'<div id="ctai" class="cta"><div class="big">{cta["big"]}</div><div class="sub">{cta["sub"]}</div><div class="hd">@coachnas.pharmacist</div></div></div>')
-    js.append(f'tl.fromTo("#ctai", {{opacity:0, scale:0.85, y:30}}, {{opacity:1, scale:1, y:0, duration:0.45, ease:"back.out(1.4)"}}, {cta_t:.2f});')
-    sfx.append((cta_t, "pop", 0.5))
+    if cta.get("endcard"):
+        # standard end card (master-template look): ivory sheet, header line, round photo, big title, WDT footer
+        for f in ("coach-nas.jpg", "wdt-logo.png"):
+            shutil.copy(Path(__file__).parent / "assets" / f, out / "assets" / f)
+        html.append(f'<div id="cta" class="clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="position:absolute; inset:0; z-index:38">'
+                    f'<div id="ctai" class="endcard"><div class="ec-head"><span><b>COACH NAS</b> | CLINICAL PHARMACIST</span><span class="ec-handle">@coachnas.pharmacist</span></div>'
+                    f'<img class="ec-photo" src="assets/coach-nas.jpg" /><div id="ec1" class="ec-title">{cta["title1"]}</div><div id="ec2" class="ec-title ec-green">{cta["title2"]}</div>'
+                    f'<div class="ec-rule"></div><div id="ec3" class="ec-sub">{cta["sub"]}</div>'
+                    f'<div class="ec-foot"><span>{cta.get("foot", "SIMPAN · SHARE")}</span><img src="assets/wdt-logo.png" /></div></div></div>')
+        js.append(f'tl.fromTo("#ctai", {{opacity:0, y:60}}, {{opacity:1, y:0, duration:0.4, ease:"expo.out"}}, {cta_t:.2f});')
+        js.append(f'tl.fromTo(["#ec1","#ec2","#ec3"], {{opacity:0, y:24}}, {{opacity:1, y:0, duration:0.3, stagger:0.12, ease:"power3.out"}}, {cta_t + 0.25:.2f});')
+        sfx.append((cta_t, "swipe", 0.5))
+    else:
+        html.append(f'<div id="cta" class="slot clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="top:262px">'
+                    f'<div id="ctai" class="cta"><div class="big">{cta["big"]}</div><div class="sub">{cta["sub"]}</div><div class="hd">@coachnas.pharmacist</div></div></div>')
+        js.append(f'tl.fromTo("#ctai", {{opacity:0, scale:0.85, y:30}}, {{opacity:1, scale:1, y:0, duration:0.45, ease:"back.out(1.4)"}}, {cta_t:.2f});')
+        sfx.append((cta_t, "pop", 0.5))
+
+    # custom overlays (e.g. an animated infographic): html/js with {@phrase} replaced by that phrase's time
+    def fill(text: str) -> str:
+        text = re.sub(r"\{dur:([^|}]+)\|([^}]+)\}", lambda m: f"{at(m.group(2)) - at(m.group(1)):.2f}", text)  # {dur:a|b} = time(b) - time(a)
+        return re.sub(r"\{@([^}]+)\}", lambda m: f"{at(m.group(1)):.2f}", text)
+    for c in spec.get("custom", []):
+        html.append(fill(c["html"]))
+        js.append(fill(c["js"]))
+        for ph, name, vol in c.get("sfx", []):
+            sfx.append((at(ph), name, vol))
 
     # camera punch-ins, back out after 1.3 s
     js.append('tl.set("#cam", {transformOrigin:"50% 35%", scale:1}, 0);')
