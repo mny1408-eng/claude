@@ -55,17 +55,18 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .ftitle .hl { color:var(--ink); }
 .plab { position:absolute; font-size:40px; font-weight:800; color:#173C30; text-align:center; line-height:1.05; }
 .plab span { font-size:64px; }
-.endcard { position:absolute; inset:0; background:#F7F6F1; color:#2B2B2B; }
-.ec-head { position:absolute; left:60px; right:60px; top:200px; display:flex; justify-content:space-between; font-size:30px; color:#2B2B2B; border-bottom:3px solid #E4E4DE; padding-bottom:22px; }
-.ec-head b { color:#6F8F6E; } .ec-handle { color:#9A9A94; }
-.ec-photo { position:absolute; right:70px; top:300px; width:260px; height:260px; border-radius:50%; object-fit:cover; border:6px solid #1F4A3E; }
-.ec-title { position:absolute; left:70px; right:70px; font-family:'League Gothic', 'Oswald', sans-serif; font-size:150px; line-height:0.95; text-transform:uppercase; }
-#ec1 { top:600px; } #ec2 { top:760px; }
-.ec-green { color:#6F8F6E; }
-.ec-rule { position:absolute; left:70px; top:960px; width:90px; height:5px; background:#6F8F6E; }
-.ec-sub { position:absolute; left:70px; right:120px; top:1000px; font-size:44px; line-height:1.35; color:#3A3A36; }
-.ec-foot { position:absolute; left:0; right:0; bottom:330px; height:150px; background:#EDEDE9; display:flex; align-items:center; justify-content:space-between; padding:0 60px; font-size:32px; letter-spacing:3px; color:#4A4A46; }
-.ec-foot img { height:110px; }
+.endcard { position:absolute; inset:0; background:#F7F4EC; }
+.ec-photo { position:absolute; left:350px; top:215px; width:380px; height:380px; border-radius:50%; object-fit:cover; object-position:50% 20%; border:12px solid #C9A86A; box-sizing:border-box; }
+.ec-name { position:absolute; left:0; right:0; top:625px; text-align:center; font-size:88px; font-weight:800; color:#173C30; }
+.ec-role { position:absolute; left:0; right:0; top:745px; text-align:center; font-size:38px; font-weight:600; color:#3A3A36; }
+.ec-misi { position:absolute; left:310px; right:310px; top:830px; text-align:center; background:#173C30; color:#EAD49C; font-size:40px; font-weight:800; border-radius:999px; padding:14px 0; }
+.ec-rows { position:absolute; left:110px; right:110px; top:960px; display:flex; flex-direction:column; gap:22px; }
+.ec-row { display:flex; align-items:center; gap:30px; background:#fff; border:3px solid #173C30; border-radius:26px; padding:22px 32px; }
+.ec-row.ec-on { background:#173C30; }
+.ec-ic { font-size:62px; width:80px; text-align:center; }
+.ec-k { font-size:44px; font-weight:800; color:#173C30; } .ec-v { font-size:34px; font-weight:700; color:#173C30; margin-top:2px; }
+.ec-on .ec-k { color:#fff; } .ec-on .ec-v { color:#EAD49C; }
+.ec-handle { position:absolute; left:0; right:0; top:1545px; text-align:center; font-size:40px; font-weight:800; color:#3A3A36; }
 .cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
 .capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
 .capin .hl { padding:0 10px; }
@@ -196,17 +197,23 @@ def main(proj: Path, variant: str) -> None:
 
     cta = spec["cta"]
     if cta.get("endcard"):
-        # standard end card (master-template look): ivory sheet, header line, round photo, big title, WDT footer
-        for f in ("coach-nas.jpg", "wdt-logo.png"):
-            shutil.copy(Path(__file__).parent / "assets" / f, out / "assets" / f)
+        # standard end card: ivory sheet, round lab-coat photo in a gold ring, name + title, #MisiFightObesiti, SAVE / SHARE / KOMEN rows
+        shutil.copy(Path(__file__).parent / "assets" / "coach-nas.jpg", out / "assets" / "coach-nas.jpg")
+        rows = [("save", "📌", "SAVE", cta["save"]), ("share", "📤", "SHARE", cta["share"]), ("komen", "💬", "KOMEN", cta["komen"])]
+        rows_html = "".join(f'<div id="ecr{i}" class="ec-row{" ec-on" if i == 0 else ""}"><div class="ec-ic">{ic}</div><div><div class="ec-k">{k}</div><div class="ec-v">{v}</div></div></div>'
+                            for i, (_, ic, k, v) in enumerate(rows))
         html.append(f'<div id="cta" class="clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="position:absolute; inset:0; z-index:38">'
-                    f'<div id="ctai" class="endcard"><div class="ec-head"><span><b>COACH NAS</b> | CLINICAL PHARMACIST</span><span class="ec-handle">@coachnas.pharmacist</span></div>'
-                    f'<img class="ec-photo" src="assets/coach-nas.jpg" /><div id="ec1" class="ec-title">{cta["title1"]}</div><div id="ec2" class="ec-title ec-green">{cta["title2"]}</div>'
-                    f'<div class="ec-rule"></div><div id="ec3" class="ec-sub">{cta["sub"]}</div>'
-                    f'<div class="ec-foot"><span>{cta.get("foot", "SIMPAN · SHARE")}</span><img src="assets/wdt-logo.png" /></div></div></div>')
-        js.append(f'tl.fromTo("#ctai", {{opacity:0, y:60}}, {{opacity:1, y:0, duration:0.4, ease:"expo.out"}}, {cta_t:.2f});')
-        js.append(f'tl.fromTo(["#ec1","#ec2","#ec3"], {{opacity:0, y:24}}, {{opacity:1, y:0, duration:0.3, stagger:0.12, ease:"power3.out"}}, {cta_t + 0.25:.2f});')
+                    f'<div id="ctai" class="endcard"><img id="ecp" class="ec-photo" src="assets/coach-nas.jpg" />'
+                    f'<div id="ecn" class="ec-name">Coach Nas</div><div id="ect" class="ec-role">Clinical Pharmacist &amp; Wellness Coach</div>'
+                    f'<div id="ecm" class="ec-misi">#MisiFightObesiti</div><div class="ec-rows">{rows_html}</div>'
+                    f'<div id="ech" class="ec-handle">@coachnas.pharmacist</div></div></div>')
+        js.append(f'tl.fromTo("#ctai", {{opacity:0}}, {{opacity:1, duration:0.25, ease:"power2.out"}}, {cta_t:.2f});')
+        js.append(f'tl.fromTo("#ecp", {{opacity:0, scale:0.6}}, {{opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}}, {cta_t + 0.05:.2f});')
+        js.append(f'tl.fromTo(["#ecn","#ect","#ecm"], {{opacity:0, y:20}}, {{opacity:1, y:0, duration:0.3, stagger:0.08, ease:"power3.out"}}, {cta_t + 0.2:.2f});')
+        js.append(f'tl.fromTo(["#ecr0","#ecr1","#ecr2","#ech"], {{opacity:0, x:-60}}, {{opacity:1, x:0, duration:0.3, stagger:0.12, ease:"expo.out"}}, {cta_t + 0.4:.2f});')
         sfx.append((cta_t, "swipe", 0.5))
+        for i in range(3):
+            sfx.append((cta_t + 0.4 + 0.12 * i, "tick", 0.5))
     else:
         html.append(f'<div id="cta" class="slot clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="top:262px">'
                     f'<div id="ctai" class="cta"><div class="big">{cta["big"]}</div><div class="sub">{cta["sub"]}</div><div class="hd">@coachnas.pharmacist</div></div></div>')
