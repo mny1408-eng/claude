@@ -47,6 +47,12 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .note { font-size:24px; font-weight:600; color:var(--gold); margin-top:12px; opacity:.9; }
 .photo { position:absolute; inset:0; z-index:22; overflow:hidden; }
 .photo img { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+.polaroid { background:#fff; padding:14px 14px 10px; border-radius:6px; box-shadow:0 18px 40px rgba(0,0,0,.4); }
+.polaroid img { width:100%; object-fit:cover; display:block; border-radius:3px; }
+.pcap { font-size:28px; font-weight:700; color:var(--ink); text-align:center; padding-top:6px; }
+.sheet { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.ftitle { font-size:84px; font-weight:800; color:var(--paper); text-align:center; line-height:1.1; padding:0 80px; }
+.ftitle .hl { color:var(--ink); }
 .cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
 .capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
 .capin .hl { padding:0 10px; }
@@ -62,7 +68,7 @@ TT_CSS = """
 .card { background:#fff; color:var(--ink); border:5px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:22px 30px; max-width:810px; }
 .t1 { font-size:48px; } .t2 { font-size:36px; color:var(--ink); } .sm { color:var(--marker); font-size:26px; } .note { color:var(--marker); }
 .pill { font-size:32px; border:3px solid var(--ink); padding:5px 18px; } .num { border:3px solid var(--ink); }
-.hookA { color:var(--ink); font-size:62px; } .hookB { font-size:62px; border:4px solid var(--ink); }
+.hookA { color:var(--ink); font-size:58px; } .hookB { font-size:56px; border:4px solid var(--ink); }
 #hooki { border-radius:44px 44px 44px 10px; }
 .cap { left:70px; right:200px; top:1290px; }
 .capin { background:#fff; color:var(--ink); font-size:50px; max-width:800px; box-shadow:0 8px 24px rgba(0,0,0,.25); }
@@ -145,6 +151,35 @@ def main(proj: Path, variant: str) -> None:
         js.append(f'tl.to("#ph{i}i", {{scale:1.14, duration:{max(0.3, en - st - 0.25):.2f}, ease:"none"}}, {st + 0.25:.2f});')
         js.append(f'tl.to("#ph{i}i", {{opacity:0, duration:0.15, ease:"power2.in"}}, {en - 0.15:.2f});')
         sfx.append((st, "whoosh", 0.4))
+
+    # stickers: a tilted photo card popping in beside the speaker
+    for i, sk in enumerate(spec.get("stickers", [])):
+        st, en = at(sk["at"]), at(sk["until"])
+        name = f"sticker{i}.jpg"
+        shutil.copy(proj / sk["src"], out / "assets" / name)
+        x, y, w = sk.get("x", 640), sk.get("y", 720), sk.get("w", 360)
+        if variant == "tt":  # keep clear of TikTok's right-hand buttons
+            x, y = sk.get("tt_x", min(x, 1080 - 200 - w)), sk.get("tt_y", y)
+        html.append(f'<div id="sk{i}" class="clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="7" style="position:absolute; left:{x}px; top:{y}px; width:{w}px; z-index:21">'
+                    f'<div id="sk{i}i" class="polaroid"><img src="assets/{name}" style="height:{int(w * 1.15)}px" /><div class="pcap">{sk.get("label", "")}</div></div></div>')
+        js.append(f'tl.fromTo("#sk{i}i", {{opacity:0, scale:0.5, rotation:{sk.get("rot", 6) * 3}}}, {{opacity:1, scale:1, rotation:{sk.get("rot", 6)}, duration:0.35, ease:"back.out(1.6)"}}, {st:.2f});')
+        js.append(f'tl.to("#sk{i}i", {{opacity:0, scale:0.8, duration:0.15, ease:"power2.in"}}, {en - 0.15:.2f});')
+        sfx.append((st, "pop", 0.5))
+
+    # paper flip between the hook and the content: a forest-green sheet flips over the cut and away
+    if spec.get("transition"):
+        tr = spec["transition"]
+        t0 = at(tr["at"]) - 0.25
+        html.append(f'<div id="flip" class="clip" data-start="{t0:.2f}" data-duration="0.85" data-track-index="8" style="position:absolute; inset:0; z-index:35">'
+                    f'<div id="flipg" class="sheet" style="background:var(--gold)"></div>'
+                    f'<div id="flipi" class="sheet" style="background:var(--ink)"><div class="ftitle">{tr["title"]}</div></div></div>')
+        js.append(f'tl.fromTo("#flipg", {{scaleX:0, transformOrigin:"100% 50%"}}, {{scaleX:1, duration:0.2, ease:"power3.in"}}, {t0:.2f});')
+        js.append(f'tl.fromTo("#flipi", {{scaleX:0, transformOrigin:"100% 50%"}}, {{scaleX:1, duration:0.22, ease:"power3.in"}}, {t0 + 0.06:.2f});')
+        js.append(f'tl.fromTo("#flipi .ftitle", {{opacity:0, y:20}}, {{opacity:1, y:0, duration:0.15, ease:"power2.out"}}, {t0 + 0.22:.2f});')
+        js.append(f'tl.to("#flipi", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.55:.2f});')
+        js.append(f'tl.to("#flipg", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.6:.2f});')
+        sfx.append((t0, "swipe", 0.5))
+        sfx.append((t0 + 0.55, "whoosh", 0.4))
 
     cta = spec["cta"]
     html.append(f'<div id="cta" class="slot clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="top:262px">'

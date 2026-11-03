@@ -93,6 +93,8 @@ def main(proj: Path) -> None:
             merged.append(w)
     g = ed.get("grade")
     eq = f",eq=brightness={g.get('brightness', 0)}:contrast={g.get('contrast', 1)}:saturation={g.get('saturation', 1)}" if g else ""
+    if ed.get("grade_filter"):  # full ffmpeg filter chain, e.g. curves for harsh sun
+        eq = "," + ed["grade_filter"]
     fc, cat = "", ""
     for i, (_, s, e) in enumerate(pieces):
         fc += (f"[{i}:v]trim={s}:{e},setpts=PTS-STARTPTS,scale=1080:1920,fps=30,format=yuv420p,setsar=1{eq}[v{i}];"
