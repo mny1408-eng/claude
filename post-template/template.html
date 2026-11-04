@@ -6,7 +6,7 @@
     --teal:#0A4744; --teal-2:#0F5C57; --teal-deep:#062E2C;
     --gold:#C9A24E; --gold-lt:#E9C77B; --gold-dk:#B98A35;
     --cream:#FAF8F2; --ink:#1D2B2A; --muted:#5C6F6C;
-    --w:1080px; --h:1350px;
+    --w:1080px; --h:1440px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#ddd;font-family:Inter,"Inter Display",Arial,sans-serif;display:flex;flex-wrap:wrap;gap:40px;padding:40px}
@@ -88,8 +88,8 @@ const BODY = {
 };
 
 function render(data){
-  const {slides, size='4x5', handle='@coachnas.pharmacist', tag='#misifightobesiti'} = data;
-  document.documentElement.style.setProperty('--h', size==='3x4' ? '1440px' : '1350px');
+  const {slides, size='3x4', handle='@coachnas.pharmacist', tag='#misifightobesiti'} = data;
+  document.documentElement.style.setProperty('--h', size==='4x5' ? '1350px' : '1440px');
   document.body.innerHTML = slides.map((s,i)=>`
   <section class="slide ${s.theme||'light'}" id="s${i+1}">
     <header class="hd" style="color:${(s.theme==='dark')?'#fff':'#0A4744'}">${MARK(i)}<span class="nm">COACH NAS</span>${s.label?`<span class="pill">${fmt(s.label)}</span>`:''}</header>

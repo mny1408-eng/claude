@@ -1,5 +1,5 @@
 // Usage: node render.js <content.json> [out-dir]
-// Renders each slide in the JSON to a PNG (1080x1350 for 4x5, 1080x1440 for 3x4).
+// Renders each slide in the JSON to a PNG (1080x1440 for 3x4, the default; 1080x1350 for 4x5).
 const {chromium} = require('playwright');
 const fs = require('fs'), path = require('path');
 (async () => {

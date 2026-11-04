@@ -1,7 +1,7 @@
 # Coach Nas post template
 
-Instagram post template using the CN monogram. Default size is 4:5 (1080×1350).
-Set `"size": "3x4"` for 1080×1440, the size `.claude/instagram/voice.md` lists as the Notion production lock.
+Instagram poster template using the CN monogram. Default size is 3:4 (1080×1440), the Notion production lock in `.claude/instagram/voice.md`.
+Set `"size": "4x5"` only if a post needs 1080×1350.
 
 ## Make a post
 
