@@ -1,0 +1,95 @@
+{
+  "id": "tiruvasi-makan-kurang-gerak-lebih",
+  "title": "Tiruvasi · Makan Kurang, Gerak Lebih — Kenapa Susah Untuk Ayah Busy",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Untuk ayah yang busy",
+      "title": [
+        "MAKAN KURANG,",
+        "GERAK LEBIH.",
+        "**TAPI KENAPA**",
+        "**SUSAH?**"
+      ],
+      "small": "5 sebab kita selalu tersangkut, dan apa yang boleh buat."
+    },
+    {
+      "type": "problem",
+      "kicker": "Teori dia senang",
+      "title": "TAPI HIDUP KITA **BUKAN DALAM MAKMAL.**",
+      "body": [
+        "Kerja, jem, hantar anak, meeting lambat, anak demam.",
+        "Plan yang cuma jalan masa semua tenang memang susah nak kekal."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalah 1",
+      "title": "POTONG MAKAN **TERLALU BANYAK.**",
+      "body": [
+        "Okay je sampai petang. Pukul 4, lapar gila, apa ada depan mata semua masuk."
+      ],
+      "takeaway": "Jangan potong sampai kelaparan. Makan **cukup waktu siang** supaya petang tak crash."
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalah 2",
+      "title": "PLAN UNTUK **MINGGU YANG PERFECT.**",
+      "body": [
+        "Bukan untuk minggu yang ada OT, anak tak sihat, atau badan memang tak larat."
+      ],
+      "takeaway": "Plan kena ikut hidup awak, **bukan hidup ikut plan.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalah 3",
+      "title": "INGAT SENAMAN KENA **BESAR-BESARAN.**",
+      "body": [
+        "Beli kasut baru, cari gym, save video YouTube. Lepas tu tak mula-mula."
+      ],
+      "takeaway": "Jalan kaki, naik tangga. **Gerak sikit-sikit pun kira.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalah 4",
+      "title": "UBAH **SEMUA SERENTAK.**",
+      "body": [
+        "Diet baru. Workout baru. Tak boleh makan apa-apa yang sedap. Semua sekali gus."
+      ],
+      "takeaway": "Sekali tergelincir, terus give up. Mula dengan **satu tabiat kecil** dulu."
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalah 5",
+      "title": "CUBA **SORANG-SORANG.**",
+      "body": [
+        "Bila motivasi jatuh, takde siapa tanya khabar.",
+        "Takde siapa tolong adjust bila minggu tu tak ikut plan."
+      ],
+      "takeaway": "Plan, **check-in** dan sokongan bantu kita sambung balik."
+    },
+    {
+      "type": "cta",
+      "title": [
+        "BUKAN PERLU",
+        "PERATURAN",
+        "**LEBIH KERAS.**"
+      ],
+      "body": [
+        "Perlukan plan realistik yang boleh sambung balik lepas hari kucar-kacir, cuti atau makan luar.",
+        "Nak susun ikut hidup awak? DM saya **STRUCTURE**. Kita borak dulu."
+      ],
+      "save": "DM \"STRUCTURE\""
+    }
+  ]
+}
