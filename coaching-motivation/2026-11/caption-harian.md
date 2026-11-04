@@ -72,6 +72,8 @@ Benda kecil macam minum air selalu terlepas bila sibuk. Jadi kita mudahkan: isi 
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
 
+"Fix the inputs and the outputs will fix themselves." (James Clear)
+
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 ## Day 6 (2026-11-11) · Jaga badan
@@ -132,6 +134,8 @@ Berat badan boleh berubah ikut air, masa makan dan tidur. Apa pun nombornya, min
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
 
+"Your weight is a lagging measure of your eating habits." (James Clear)
+
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 ## Day 10 (2026-11-15) · Separuh jalan
@@ -190,6 +194,8 @@ Kita selalu cari cara baru, sedangkan yang berkesan ialah ulang benda yang sama.
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
 
+"You get what you repeat." (James Clear)
+
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 ## Day 14 (2026-11-19) · Sayur dulu
@@ -232,6 +238,8 @@ Hari ni timbang akhir. Apa pun keputusannya, awak dah tunjukkan komitmen selama 
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
 
+"When you fall in love with the process rather than the product, you don't have to wait to give yourself permission to be happy." (James Clear)
+
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 ## Day 17 (2026-11-22) · Jangan berhenti
@@ -260,6 +268,8 @@ Kita x perlu jadi sempurna setiap kali makan. Cukup pilih yang sedikit lebih bai
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
 
+"I can't be perfect, but I can avoid the second mistake." (James Clear)
+
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
 ## Day 19 (2026-11-24) · Yang tak nampak
@@ -273,6 +283,8 @@ Kadang-kadang kita rasa usaha tak berhasil sebab tak nampak. Tapi banyak perubah
 
 Reply 💪 kalau awak dah buat ea.
 - Coach Nas
+
+"…the task of building a good habit is like cultivating a delicate flower one day at a time." (James Clear)
 
 #wedotransformations #kurusfitonlinecoaching #misifightobesiti
 
