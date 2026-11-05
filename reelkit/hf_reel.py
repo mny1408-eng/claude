@@ -66,6 +66,7 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .ec-ic { font-size:62px; width:80px; text-align:center; }
 .ec-k { font-size:44px; font-weight:800; color:#173C30; } .ec-v { font-size:34px; font-weight:700; color:#173C30; margin-top:2px; }
 .ec-on .ec-k { color:#fff; } .ec-on .ec-v { color:#EAD49C; }
+.ec-note { position:absolute; left:0; right:0; top:1610px; text-align:center; font-size:28px; font-weight:600; color:#7A7A72; }
 .ec-handle { position:absolute; left:0; right:0; top:1545px; text-align:center; font-size:40px; font-weight:800; color:#3A3A36; }
 .cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
 .capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
@@ -175,7 +176,7 @@ def main(proj: Path, variant: str) -> None:
         if variant == "tt":  # keep clear of TikTok's right-hand buttons
             x, y = sk.get("tt_x", min(x, 1080 - 200 - w)), sk.get("tt_y", y)
         html.append(f'<div id="sk{i}" class="clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="7" style="position:absolute; left:{x}px; top:{y}px; width:{w}px; z-index:21">'
-                    f'<div id="sk{i}i" class="polaroid"><img src="assets/{name}" style="height:{int(w * 1.15)}px" /><div class="pcap">{sk.get("label", "")}</div></div></div>')
+                    f'<div id="sk{i}i" class="polaroid"><img src="assets/{name}" style="height:{int(w * sk.get("ratio", 1.15))}px" /><div class="pcap">{sk.get("label", "")}</div></div></div>')
         js.append(f'tl.fromTo("#sk{i}i", {{opacity:0, scale:0.5, rotation:{sk.get("rot", 6) * 3}}}, {{opacity:1, scale:1, rotation:{sk.get("rot", 6)}, duration:0.35, ease:"back.out(1.6)"}}, {st:.2f});')
         js.append(f'tl.to("#sk{i}i", {{opacity:0, scale:0.8, duration:0.15, ease:"power2.in"}}, {en - 0.15:.2f});')
         sfx.append((st, "pop", 0.5))
@@ -199,14 +200,14 @@ def main(proj: Path, variant: str) -> None:
     if cta.get("endcard"):
         # standard end card: ivory sheet, round lab-coat photo in a gold ring, name + title, #MisiFightObesiti, SAVE / SHARE / KOMEN rows
         shutil.copy(Path(__file__).parent / "assets" / "coach-nas.jpg", out / "assets" / "coach-nas.jpg")
-        rows = [("save", "📌", "SAVE", cta["save"]), ("share", "📤", "SHARE", cta["share"]), ("komen", "💬", "KOMEN", cta["komen"])]
+        rows = [(None, *r) for r in cta["rows"]] if cta.get("rows") else [("save", "📌", "SAVE", cta["save"]), ("share", "📤", "SHARE", cta["share"]), ("komen", "💬", "KOMEN", cta["komen"])]
         rows_html = "".join(f'<div id="ecr{i}" class="ec-row{" ec-on" if i == 0 else ""}"><div class="ec-ic">{ic}</div><div><div class="ec-k">{k}</div><div class="ec-v">{v}</div></div></div>'
                             for i, (_, ic, k, v) in enumerate(rows))
         html.append(f'<div id="cta" class="clip" data-start="{cta_t:.2f}" data-duration="{end - cta_t:.2f}" data-track-index="5" style="position:absolute; inset:0; z-index:38">'
                     f'<div id="ctai" class="endcard"><img id="ecp" class="ec-photo" src="assets/coach-nas.jpg" />'
                     f'<div id="ecn" class="ec-name">Coach Nas</div><div id="ect" class="ec-role">Clinical Pharmacist &amp; Wellness Coach</div>'
                     f'<div id="ecm" class="ec-misi">#MisiFightObesiti</div><div class="ec-rows">{rows_html}</div>'
-                    f'<div id="ech" class="ec-handle">@coachnas.pharmacist</div></div></div>')
+                    f'<div id="ech" class="ec-handle">@coachnas.pharmacist</div>' + (f'<div class="ec-note">{cta["note"]}</div>' if cta.get("note") else "") + '</div></div>')
         js.append(f'tl.fromTo("#ctai", {{opacity:0}}, {{opacity:1, duration:0.25, ease:"power2.out"}}, {cta_t:.2f});')
         js.append(f'tl.fromTo("#ecp", {{opacity:0, scale:0.6}}, {{opacity:1, scale:1, duration:0.4, ease:"back.out(1.6)"}}, {cta_t + 0.05:.2f});')
         js.append(f'tl.fromTo(["#ecn","#ect","#ecm"], {{opacity:0, y:20}}, {{opacity:1, y:0, duration:0.3, stagger:0.08, ease:"power3.out"}}, {cta_t + 0.2:.2f});')
