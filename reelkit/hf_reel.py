@@ -65,6 +65,11 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .doc-q2 { margin-top:14px; color:#EAD49C; }
 .lower3 { border-left:8px solid var(--gold); background:rgba(11,11,11,.72); padding:14px 26px 14px 22px; }
 .l3n { color:#fff; font-size:40px; font-weight:800; letter-spacing:2px; } .l3r { color:#EAD49C; font-size:28px; font-weight:600; }
+.gdot { position:absolute; top:782px; width:52px; height:52px; border-radius:50%; border:6px solid #fff; box-shadow:0 4px 12px rgba(0,0,0,.25); }
+.glab { position:absolute; top:860px; width:220px; text-align:center; font-size:34px; font-weight:800; color:#173C30; line-height:1.15; }
+.gtag { position:absolute; font-size:30px; font-weight:800; border-radius:999px; padding:8px 22px; }
+.rolec { position:absolute; top:560px; width:420px; height:380px; border-radius:36px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 20px 50px rgba(0,0,0,.4); }
+.ri { font-size:110px; line-height:1.1; } .rn { font-size:46px; font-weight:800; margin-top:8px; } .rs { font-size:32px; font-weight:700; margin-top:4px; }
 .endcard { position:absolute; inset:0; background:#F7F4EC; }
 .ec-photo { position:absolute; left:350px; top:215px; width:380px; height:380px; border-radius:50%; object-fit:cover; object-position:50% 20%; border:12px solid #C9A86A; box-sizing:border-box; }
 .ec-name { position:absolute; left:0; right:0; top:625px; text-align:center; font-size:88px; font-weight:800; color:#173C30; }
