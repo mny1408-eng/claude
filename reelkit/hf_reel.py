@@ -57,6 +57,18 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .ftitle .hl { color:var(--ink); }
 .plab { position:absolute; font-size:40px; font-weight:800; color:#173C30; text-align:center; line-height:1.05; }
 .plab span { font-size:64px; }
+.cov-warm { position:absolute; inset:0; background:linear-gradient(180deg, rgba(23,60,48,.55) 0%, rgba(23,60,48,0) 38%, rgba(0,0,0,0) 60%, rgba(10,20,16,.7) 100%); }
+.cov-kick { position:absolute; left:0; right:0; top:188px; text-align:center; color:#F7F5ED; font-size:30px; font-weight:700; letter-spacing:12px; }
+.cov-mast { position:absolute; left:0; right:0; top:222px; text-align:center; font-family:'Playfair Display', serif; font-weight:900; font-size:236px; line-height:1; color:#EAD49C; letter-spacing:-2px; }
+.cov-mast span { display:inline-block; }
+.cov-issue { position:absolute; left:70px; top:560px; color:#F7F5ED; font-size:24px; font-weight:700; letter-spacing:4px; }
+.cov-lines { position:absolute; left:70px; right:230px; top:1250px; font-family:'Playfair Display', serif; font-style:italic; color:#fff; font-size:58px; line-height:1.2; text-shadow:0 3px 16px rgba(0,0,0,.6); }
+.cov-l2 { color:#EAD49C; font-weight:700; margin-top:10px; }
+.cov-bar { position:absolute; left:70px; top:1500px; width:150px; height:54px; background:repeating-linear-gradient(90deg,#fff 0 3px,transparent 3px 6px,#fff 6px 7px,transparent 7px 11px); opacity:.85; }
+.split-card { position:absolute; left:0; right:0; top:0; height:760px; background:#F7F5ED; border-bottom:8px solid #173C30; display:flex; flex-direction:column; justify-content:flex-end; padding:0 200px 70px 70px; }
+.split-k { font-size:30px; font-weight:800; color:#C0613E; letter-spacing:4px; margin-bottom:18px; }
+.split-h { font-size:78px; font-weight:800; color:#173C30; line-height:1.12; }
+.split-h .hl { background:#EAD49C; border-radius:14px; padding:0 14px; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
 .doc-desat { position:absolute; inset:0; background:#808080; mix-blend-mode:saturation; opacity:.6; }
 .doc-warm { position:absolute; inset:0; background:rgba(120,80,30,.08); mix-blend-mode:multiply; }
 .doc-vig { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.45) 100%); }
@@ -149,7 +161,43 @@ def main(proj: Path, variant: str) -> None:
     hb = at(hook["b_at"]) if hook.get("b_at") else None
     qa, qb = ("“", "”") if variant == "tt" else ("", "")
     doc = spec.get("documentary")
-    if doc:
+    cover = spec.get("cover") if variant == "ig" else None
+    split = spec.get("split") if variant == "tt" else None
+    if cover:
+        # magazine cover: masthead behind the head (person cut-out on top), cover lines on the chest
+        d_end = hook_end + 0.35
+        shutil.copy(proj / cover["matte"], out / "assets" / "matte.webm")
+        letters = "".join(f'<span id="cm{i}">{ch}</span>' for i, ch in enumerate(cover["masthead"]))
+        html.append(f'<div id="cov" class="clip" data-start="0" data-duration="{d_end:.2f}" data-track-index="3" style="position:absolute; inset:0; z-index:22">'
+                    f'<div id="covw" class="cov-warm"></div><div id="covk" class="cov-kick">{cover.get("kicker", "")}</div>'
+                    f'<div id="covm" class="cov-mast">{letters}</div><div id="covi" class="cov-issue">{cover.get("issue", "")}</div></div>')
+        html.append(f'<video id="matte" class="clip" src="assets/matte.webm" data-start="0" data-duration="{d_end:.2f}" data-track-index="4" muted playsinline '
+                    f'style="position:absolute; left:0; top:0; width:1080px; height:1920px; z-index:23"></video>')
+        html.append(f'<div id="covf" class="clip" data-start="0" data-duration="{d_end:.2f}" data-track-index="5" style="position:absolute; inset:0; z-index:24">'
+                    f'<div class="cov-lines"><div id="covq1">{hook["a"]}</div><div id="covq2" class="cov-l2">{hook["b"]}</div></div><div id="covb" class="cov-bar"></div></div>')
+        js.append(f'tl.fromTo("#covm span", {{opacity:0, y:-80}}, {{opacity:1, y:0, duration:0.45, stagger:0.06, ease:"expo.out"}}, 0.05);')
+        js.append('tl.fromTo(["#covk","#covi","#covb"], {opacity:0}, {opacity:1, duration:0.4, stagger:0.1}, 0.3);')
+        js.append('tl.fromTo("#covq1", {opacity:0, x:-40}, {opacity:1, x:0, duration:0.45, ease:"expo.out"}, 0.6);')
+        js.append(f'tl.fromTo("#covq2", {{opacity:0, x:-40}}, {{opacity:1, x:0, duration:0.45, ease:"expo.out"}}, {hb if hb else 2.0:.2f});')
+        js.append(f'tl.to(["#cov","#covf"], {{opacity:0, duration:0.3}}, {hook_end - 0.25:.2f});')  # the cut-out stays opaque so the head keeps covering the masthead
+        sfx.append((0.05, "whoosh", 0.4))
+        if hb:
+            sfx.append((hb, "pop", 0.45))
+    elif split:
+        # split headline: a card slides down and pushes the speaker to the bottom half
+        d_end = hook_end
+        html.append(f'<div id="spl" class="clip" data-start="0" data-duration="{d_end:.2f}" data-track-index="3" style="position:absolute; inset:0; z-index:22">'
+                    f'<div id="splc" class="split-card"><div class="split-k">{split.get("kicker", "")}</div>'
+                    f'<div class="split-h">{hook["a"]} <span id="splb" class="hl">{hook["b"]}</span></div></div></div>')
+        js.append('tl.fromTo("#splc", {y:-780}, {y:0, duration:0.5, ease:"expo.out"}, 0);')
+        js.append('tl.fromTo("#frame", {y:0}, {y:480, duration:0.5, ease:"expo.out"}, 0);')
+        if hb:
+            js.append(f'tl.fromTo("#splb", {{scale:1}}, {{scale:1.08, duration:0.12, yoyo:true, repeat:1, ease:"power3.out"}}, {hb:.2f});')
+            sfx.append((hb, "pop", 0.45))
+        js.append(f'tl.to("#splc", {{y:-780, duration:0.4, ease:"power3.in"}}, {hook_end - 0.4:.2f});')
+        js.append(f'tl.to("#frame", {{y:0, duration:0.4, ease:"power3.in"}}, {hook_end - 0.4:.2f});')
+        sfx.append((0.0, "swipe", 0.5))
+    elif doc:
         # documentary hook: letterbox bars, desaturated warm picture, vignette, grain, a quote typed in serif
         d_end = hook_end + 0.35
         html.append(f'<div id="doc" class="clip" data-start="0" data-duration="{d_end:.2f}" data-track-index="3" style="position:absolute; inset:0; z-index:24">'
@@ -293,7 +341,7 @@ def main(proj: Path, variant: str) -> None:
 
     # captions: 1-2 word groups at chest level; the small hook pill leaves room for them, the documentary quote does not
     emph = set(spec.get("emphasis", []))
-    cw = [w for w in words if not doc or w[0] >= hook_end - 0.05]
+    cw = [w for w in words if not (doc or cover or split) or w[0] >= hook_end - 0.05]
     groups, cur = [], []
     for i, w in enumerate(cw):
         cur.append(w)
