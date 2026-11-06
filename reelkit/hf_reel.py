@@ -55,6 +55,16 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .ftitle .hl { color:var(--ink); }
 .plab { position:absolute; font-size:40px; font-weight:800; color:#173C30; text-align:center; line-height:1.05; }
 .plab span { font-size:64px; }
+.doc-desat { position:absolute; inset:0; background:#808080; mix-blend-mode:saturation; opacity:.6; }
+.doc-warm { position:absolute; inset:0; background:rgba(120,80,30,.08); mix-blend-mode:multiply; }
+.doc-vig { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.45) 100%); }
+.doc-grain { position:absolute; inset:0; opacity:.16; mix-blend-mode:overlay; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"); }
+.doc-bar { position:absolute; left:0; right:0; height:220px; background:#0b0b0b; display:flex; align-items:flex-end; justify-content:center; padding-bottom:30px; }
+.doc-label { color:#d9cfb8; font-size:26px; font-weight:600; letter-spacing:8px; text-transform:uppercase; }
+.doc-quote { position:absolute; left:80px; right:80px; top:1230px; text-align:center; font-family:'Playfair Display', serif; font-style:italic; color:#fff; font-size:64px; line-height:1.25; text-shadow:0 3px 18px rgba(0,0,0,.7); }
+.doc-q2 { margin-top:14px; color:#EAD49C; }
+.lower3 { border-left:8px solid var(--gold); background:rgba(11,11,11,.72); padding:14px 26px 14px 22px; }
+.l3n { color:#fff; font-size:40px; font-weight:800; letter-spacing:2px; } .l3r { color:#EAD49C; font-size:28px; font-weight:600; }
 .endcard { position:absolute; inset:0; background:#F7F4EC; }
 .ec-photo { position:absolute; left:350px; top:215px; width:380px; height:380px; border-radius:50%; object-fit:cover; object-position:50% 20%; border:12px solid #C9A86A; box-sizing:border-box; }
 .ec-name { position:absolute; left:0; right:0; top:625px; text-align:center; font-size:88px; font-weight:800; color:#173C30; }
@@ -75,6 +85,14 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .cta .big { font-size:66px; font-weight:800; }
 .cta .sub { font-size:34px; font-weight:600; margin-top:6px; }
 .cta .hd { font-size:30px; font-weight:700; color:var(--marker); margin-top:10px; }
+"""
+
+COMPACT_CSS = """
+.slot { top:228px; } .chip { top:172px; } .chip span { font-size:24px; padding:6px 18px; }
+.card { padding:16px 28px; border-radius:26px; max-width:880px; }
+.t1 { font-size:42px; } .t2 { font-size:32px; margin-top:6px; } .sm { font-size:22px; margin-bottom:4px; }
+.pill { font-size:30px; padding:4px 18px; } .num { width:46px; height:46px; font-size:26px; }
+.stamp { font-size:44px; border-width:5px; }
 """
 
 TT_CSS = """
@@ -122,13 +140,38 @@ def main(proj: Path, variant: str) -> None:
     hook_end = at(hook["until"])
     hb = at(hook["b_at"]) if hook.get("b_at") else None
     qa, qb = ("“", "”") if variant == "tt" else ("", "")
-    html.append(f'<div id="hook" class="slot clip" data-start="0" data-duration="{hook_end:.2f}" data-track-index="3" style="top:230px">'
-                f'<div id="hooki" class="card" style="padding:30px 46px"><div class="hookA">{qa}{hook["a"]}</div><div id="hookB" class="hookB">{hook["b"]}{qb}</div></div></div>')
-    js.append('tl.set("#hookB", {rotation:-2}, 0);')
-    if hb:
-        js.append(f'tl.fromTo("#hookB", {{scale:1}}, {{scale:1.12, duration:0.12, ease:"power3.out", yoyo:true, repeat:1}}, {hb:.2f});')
-        sfx.append((hb, "pop", 0.5))
-    js.append(f'OUT("#hooki", {hook_end:.2f});')
+    doc = spec.get("documentary")
+    if doc:
+        # documentary hook: letterbox bars, desaturated warm picture, vignette, grain, a quote typed in serif
+        d_end = hook_end + 0.35
+        html.append(f'<div id="doc" class="clip" data-start="0" data-duration="{d_end:.2f}" data-track-index="3" style="position:absolute; inset:0; z-index:24">'
+                    f'<div class="doc-desat"></div><div class="doc-warm"></div><div class="doc-vig"></div><div class="doc-grain"></div>'
+                    f'<div id="docT" class="doc-bar" style="top:0"><div id="docL" class="doc-label">{doc.get("label", "")}</div></div>'
+                    f'<div id="docB" class="doc-bar" style="bottom:0"></div>'
+                    f'<div class="doc-quote"><div id="docQ1">{hook["a"]}</div><div id="docQ2" class="doc-q2">{hook["b"]}</div></div></div>')
+        js.append('tl.set(["#docT", "#docB"], {scaleY:1}, 0);')
+        js.append('tl.fromTo("#docL", {opacity:0, letterSpacing:"18px"}, {opacity:1, letterSpacing:"8px", duration:1.2, ease:"power2.out"}, 0);')
+        js.append('tl.set("#docQ1", {opacity:1}, 0);')
+        if hb:
+            js.append(f'tl.fromTo("#docQ2", {{opacity:0, y:16, filter:"blur(6px)"}}, {{opacity:1, y:0, filter:"blur(0px)", duration:0.5, ease:"power2.out"}}, {hb:.2f});')
+        js.append(f'tl.to(["#docQ1","#docQ2","#docL"], {{opacity:0, duration:0.25}}, {hook_end - 0.2:.2f});')
+        js.append(f'tl.to("#docT", {{y:-220, duration:0.35, ease:"power3.in"}}, {hook_end - 0.1:.2f});')
+        js.append(f'tl.to("#docB", {{y:220, duration:0.35, ease:"power3.in"}}, {hook_end - 0.1:.2f});')
+        js.append(f'tl.to("#doc .doc-desat, #doc .doc-warm, #doc .doc-vig, #doc .doc-grain", {{opacity:0, duration:0.35}}, {hook_end - 0.1:.2f});')
+        for lt in ([doc["lower"]] if doc.get("lower") else []):
+            ls, le = at(lt["at"]), at(lt["until"])
+            html.append(f'<div id="ldoc" class="clip" data-start="{ls:.2f}" data-duration="{le - ls:.2f}" data-track-index="4" style="position:absolute; left:60px; top:1180px; z-index:24">'
+                        f'<div id="ldi" class="lower3"><div class="l3n">{lt["name"]}</div><div class="l3r">{lt["role"]}</div></div></div>')
+            js.append(f'tl.fromTo("#ldi", {{opacity:0, x:-50}}, {{opacity:1, x:0, duration:0.45, ease:"expo.out"}}, {ls:.2f}); tl.to("#ldi", {{opacity:0, duration:0.2}}, {le - 0.2:.2f});')
+            sfx.append((ls, "tick", 0.5))
+    else:
+        html.append(f'<div id="hook" class="slot clip" data-start="0" data-duration="{hook_end:.2f}" data-track-index="3" style="top:230px">'
+                    f'<div id="hooki" class="card" style="padding:30px 46px"><div class="hookA">{qa}{hook["a"]}</div><div id="hookB" class="hookB">{hook["b"]}{qb}</div></div></div>')
+        js.append('tl.set("#hookB", {rotation:-2}, 0);')
+        if hb:
+            js.append(f'tl.fromTo("#hookB", {{scale:1}}, {{scale:1.12, duration:0.12, ease:"power3.out", yoyo:true, repeat:1}}, {hb:.2f});')
+            sfx.append((hb, "pop", 0.5))
+        js.append(f'OUT("#hooki", {hook_end:.2f});')
 
     cta_t = at(spec["cta"]["at"])
     starts = [at(c["at"]) for c in spec["cards"]]
@@ -185,16 +228,17 @@ def main(proj: Path, variant: str) -> None:
     if spec.get("transition"):
         tr = spec["transition"]
         t0 = at(tr["at"]) - 0.25
-        html.append(f'<div id="flip" class="clip" data-start="{t0:.2f}" data-duration="0.85" data-track-index="8" style="position:absolute; inset:0; z-index:35">'
+        hold = tr.get("hold", 0.33)  # how long the title stays readable
+        html.append(f'<div id="flip" class="clip" data-start="{t0:.2f}" data-duration="{0.52 + hold:.2f}" data-track-index="8" style="position:absolute; inset:0; z-index:35">'
                     f'<div id="flipg" class="sheet" style="background:var(--gold)"></div>'
                     f'<div id="flipi" class="sheet" style="background:var(--ink)"><div class="ftitle">{tr["title"]}</div></div></div>')
         js.append(f'tl.fromTo("#flipg", {{scaleX:0, transformOrigin:"100% 50%"}}, {{scaleX:1, duration:0.2, ease:"power3.in"}}, {t0:.2f});')
         js.append(f'tl.fromTo("#flipi", {{scaleX:0, transformOrigin:"100% 50%"}}, {{scaleX:1, duration:0.22, ease:"power3.in"}}, {t0 + 0.06:.2f});')
         js.append(f'tl.fromTo("#flipi .ftitle", {{opacity:0, y:20}}, {{opacity:1, y:0, duration:0.15, ease:"power2.out"}}, {t0 + 0.22:.2f});')
-        js.append(f'tl.to("#flipi", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.55:.2f});')
-        js.append(f'tl.to("#flipg", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.6:.2f});')
+        js.append(f'tl.to("#flipi", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.22 + hold:.2f});')
+        js.append(f'tl.to("#flipg", {{scaleX:0, transformOrigin:"0% 50%", duration:0.22, ease:"power3.out"}}, {t0 + 0.27 + hold:.2f});')
         sfx.append((t0, "swipe", 0.5))
-        sfx.append((t0 + 0.55, "whoosh", 0.4))
+        sfx.append((t0 + 0.22 + hold, "whoosh", 0.4))
 
     cta = spec["cta"]
     if cta.get("endcard"):
@@ -263,7 +307,7 @@ def main(proj: Path, variant: str) -> None:
         f'<audio id="sfx{i}" class="clip" src="assets/{f}.wav" data-start="{max(0, t + F - PEAK[f]):.3f}" data-duration="{LEN[f]}" data-volume="{v}" data-track-index="{20 + i % 4}"></audio>'
         for i, (t, f, v) in enumerate(sorted(sfx)))
     chip = f'<div id="chip" class="chip clip" data-start="{hook_end:.2f}" data-duration="{cta_t - hook_end:.2f}" data-track-index="2"><span id="chipi">{spec["series"]}</span></div>'
-    css = BASE_CSS + (TT_CSS if variant == "tt" else "")
+    css = BASE_CSS + (COMPACT_CSS if spec.get("compact") else "") + (TT_CSS if variant == "tt" else "")
     doc = f"""<!doctype html>
 <html lang="ms" data-resolution="portrait">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
