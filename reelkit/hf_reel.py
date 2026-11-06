@@ -10,6 +10,7 @@ Usage: hf_reel.py <proj> <ig|tt>   -> writes <proj>/hf-<variant>/index.html (+ a
   cta        {"at": phrase, "big": html, "sub": text, "hold": seconds after the talk}
   punch      phrases that get a quick punch-in
   emphasis   words (lower case, no punctuation) highlighted in the captions
+  simple     true for the TikTok Simple look: no progress bar (leave out transition/endcard in that spec)
 A phrase is matched against the words on the cut timeline; its first word's start is the time.
 """
 import json, re, shutil, sys
@@ -379,7 +380,7 @@ def main(proj: Path, variant: str) -> None:
 <video id="talk" class="clip" src="assets/talk.mp4" data-start="0" data-duration="{talk - 0.04:.2f}" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
 <img id="hold" class="clip" src="assets/last.jpg" data-start="{talk - 0.04:.2f}" data-duration="{end - talk + 0.04:.2f}" data-track-index="1" />
 </div></div>
-<div id="prog"></div>
+{"" if spec.get("simple") else chr(60) + 'div id="prog"' + chr(62) + chr(60) + "/div" + chr(62)}
 {chr(10).join(html)}
 {sfx_html}
 </div>
@@ -389,7 +390,7 @@ const IN = (sel, t) => tl.fromTo(sel, {{opacity:0, y:-30, scale:0.94, filter:"bl
 const OUT = (sel, t) => tl.to(sel, {{opacity:0, y:-16, filter:"blur(6px)", duration:0.16, ease:"power3.in"}}, t - 0.17);
 const POP = (sel, t, s=1.6) => tl.fromTo(sel, {{opacity:0, scale:s}}, {{opacity:1, scale:1, duration:0.26, ease:"back.out(1.6)"}}, t);
 const STAMP = (sel, t, r) => tl.fromTo(sel, {{opacity:0, scale:2.4, rotation:r*1.6}}, {{opacity:1, scale:1, rotation:r, duration:0.2, ease:"power4.out"}}, t);
-tl.fromTo("#prog", {{scaleX:0, transformOrigin:"0 50%"}}, {{scaleX:1, duration:{end:.2f}, ease:"none"}}, 0);
+{"" if spec.get("simple") else f'tl.fromTo("#prog", {{scaleX:0, transformOrigin:"0 50%"}}, {{scaleX:1, duration:{end:.2f}, ease:"none"}}, 0);'}
 {chr(10).join(js)}
 window.__timelines = window.__timelines || {{}};
 window.__timelines["main"] = tl;
