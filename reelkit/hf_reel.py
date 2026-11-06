@@ -4,7 +4,7 @@ Usage: hf_reel.py <proj> <ig|tt>   -> writes <proj>/hf-<variant>/index.html (+ a
 
 <proj>/spec.json:
   series     (unused: the chip sat in IG's top danger zone)
-  eye_y      optional: eye level (px) in talk.mp4; the picture is reframed so the eyes sit on the upper third (y 640)
+  eye_y      optional: eye level (px) in talk.mp4, the anchor for punch-ins (default 760, ~40 %)
   hook       {"a": text, "b": highlighted words (one short pill at the top), "b_at": phrase where line 2 pulses, "until": phrase that ends the hook}
   cards      [{"at": phrase, "html": inner html, "pops": [[id, phrase]], "stamps": [[id, phrase, rotation]], "lines": [[id, phrase]]}]
   cta        {"at": phrase, "big": html, "sub": text, "hold": seconds after the talk}
@@ -85,7 +85,7 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .ec-on .ec-k { color:#fff; } .ec-on .ec-v { color:#EAD49C; }
 .ec-note { position:absolute; left:130px; right:130px; top:1460px; text-align:center; font-size:28px; font-weight:600; color:#7A7A72; }
 .ec-handle { position:absolute; left:0; right:0; top:1395px; text-align:center; font-size:40px; font-weight:800; color:#3A3A36; }
-.cap { position:absolute; left:90px; right:200px; top:1130px; display:flex; justify-content:center; z-index:25; }
+.cap { position:absolute; left:90px; right:200px; top:1280px; display:flex; justify-content:center; z-index:25; }
 .capin { color:#fff; font-size:78px; font-weight:800; text-align:center; line-height:1.2; letter-spacing:.5px;
   -webkit-text-stroke:12px #10241C; paint-order:stroke fill; text-shadow:0 6px 18px rgba(0,0,0,.45); }
 .capin .w { display:inline-block; }
@@ -111,7 +111,7 @@ TT_CSS = """
 .t1 { font-size:48px; } .t2 { font-size:36px; color:var(--ink); } .sm { color:var(--marker); font-size:26px; } .note { color:var(--marker); }
 .pill { font-size:32px; border:3px solid var(--ink); padding:5px 18px; } .num { border:3px solid var(--ink); }
 .hookpill { background:#fff; color:var(--ink); border:4px solid var(--ink); } .hookwrap { left:70px; right:200px; top:250px; }
-.cap { left:70px; right:200px; top:1180px; }
+.cap { left:70px; right:200px; top:1260px; }
 .capin { font-size:72px; }
 .cta { max-width:810px; }
 """
@@ -168,7 +168,7 @@ def main(proj: Path, variant: str) -> None:
         js.append(f'tl.to("#doc .doc-desat, #doc .doc-warm, #doc .doc-vig, #doc .doc-grain", {{opacity:0, duration:0.35}}, {hook_end - 0.1:.2f});')
         for lt in ([doc["lower"]] if doc.get("lower") else []):
             ls, le = at(lt["at"]), at(lt["until"])
-            html.append(f'<div id="ldoc" class="clip" data-start="{ls:.2f}" data-duration="{le - ls:.2f}" data-track-index="4" style="position:absolute; left:60px; top:1330px; z-index:24">'
+            html.append(f'<div id="ldoc" class="clip" data-start="{ls:.2f}" data-duration="{le - ls:.2f}" data-track-index="4" style="position:absolute; left:60px; top:1440px; z-index:24">'
                         f'<div id="ldi" class="lower3"><div class="l3n">{lt["name"]}</div><div class="l3r">{lt["role"]}</div></div></div>')
             js.append(f'tl.fromTo("#ldi", {{opacity:0, x:-50}}, {{opacity:1, x:0, duration:0.45, ease:"expo.out"}}, {ls:.2f}); tl.to("#ldi", {{opacity:0, duration:0.2}}, {le - 0.2:.2f});')
             sfx.append((ls, "tick", 0.5))
@@ -285,12 +285,7 @@ def main(proj: Path, variant: str) -> None:
             sfx.append((at(ph), name, vol))
 
     # camera punch-ins, back out after 1.3 s
-    eye = 672.0  # 35 %
-    if spec.get("eye_y"):
-        ey = float(spec["eye_y"])
-        s = min(1.15, max(1.0, 1280 / (1920 - ey)))  # scale from the bottom edge so the eyes land on y 640 with no gap
-        eye = 1920 - s * (1920 - ey)
-        js.append(f'tl.set("#frame", {{transformOrigin:"50% 100%", scale:{s:.3f}}}, 0);')
+    eye = float(spec.get("eye_y", 760))  # punch-ins zoom around the eyes so the eye line stays put (no reframe zoom)
     js.append(f'tl.set("#cam", {{transformOrigin:"50% {eye:.0f}px", scale:1}}, 0);')
     for ph in spec.get("punch", []):
         t = at(ph)
