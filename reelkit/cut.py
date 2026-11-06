@@ -3,6 +3,7 @@
 edit.json: {"takes": [{"file": "x.mp4", "words": "work/rt_x.json", "upto": 5.4 (optional cut-off), "from": 0 (optional)}],
             "grade": {"brightness": 0.0, "contrast": 1.0, "saturation": 1.0} (optional),
             "blur": [x, y, w, h] (optional, hides e.g. a shirt logo), "fixes": {"wrong word": "right word"}}
+            a take may carry "nocut": [[from, to]] (source seconds) where quiet speech must not be cut as silence
 Edges come from real speech (silencedetect), silences inside a take of 0.35 s or more are cut to 0.1 s pads.
 Writes <proj>/work/talk.mp4 and <proj>/work/words.json ([start, end, text] on the cut timeline).
 """
@@ -29,11 +30,11 @@ def onset(wav: Path, a: float) -> float:
     return a
 
 
-def speech_spans(a: float, b: float, sil: list[tuple[float, float]]) -> list[tuple[float, float]]:
+def speech_spans(a: float, b: float, sil: list[tuple[float, float]], keep=()) -> list[tuple[float, float]]:
     """Speech inside [a, b] with long silences removed; edges trimmed to speech."""
     spans, cur = [], a
     for s, e in sil:
-        if e <= a or s >= b:
+        if e <= a or s >= b or any(s < k1 and e > k0 for k0, k1 in keep):
             continue
         s, e = max(s, a), min(e, b)
         if s <= a + 0.5:  # leading silence: start at speech
@@ -63,7 +64,7 @@ def main(proj: Path) -> None:
         b = min(dur, tk.get("upto", ws[-1][2] + (0.6 if last else 0.25)))
         # real start: first 100 ms window louder than -26 dB (car/room noise sits around -30 to -35 dB)
         a = max(a, onset(wav, a) - 0.1)
-        spans = speech_spans(a, b, silences(wav, dur))
+        spans = speech_spans(a, b, silences(wav, dur), tk.get("nocut", ()))
         if last:  # let the last word ring out
             spans[-1] = (spans[-1][0], min(dur, spans[-1][1] + 0.3))
         offs, tt = [], t
