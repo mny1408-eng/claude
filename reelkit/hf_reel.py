@@ -3,8 +3,9 @@
 Usage: hf_reel.py <proj> <ig|tt>   -> writes <proj>/hf-<variant>/index.html (+ assets), ready for `npx hyperframes render`.
 
 <proj>/spec.json:
-  series     small chip text (IG only)
-  hook       {"a": line 1, "b": highlighted line 2, "b_at": phrase where line 2 pulses, "until": phrase that ends the hook}
+  series     (unused: the chip sat in IG's top danger zone)
+  eye_y      optional: eye level (px) in talk.mp4; the picture is reframed so the eyes sit on the upper third (y 640)
+  hook       {"a": text, "b": highlighted words (one short pill at the top), "b_at": phrase where line 2 pulses, "until": phrase that ends the hook}
   cards      [{"at": phrase, "html": inner html, "pops": [[id, phrase]], "stamps": [[id, phrase, rotation]], "lines": [[id, phrase]]}]
   cta        {"at": phrase, "big": html, "sub": text, "hold": seconds after the talk}
   punch      phrases that get a quick punch-in
@@ -32,14 +33,15 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .chip { position:absolute; left:0; right:0; top:180px; display:flex; justify-content:center; z-index:30; }
 .chip span { background:var(--ink); color:var(--paper); font-weight:700; font-size:28px; letter-spacing:4px; padding:8px 22px; border-radius:999px; border:3px solid var(--gold); }
 .slot { position:absolute; left:60px; right:60px; top:252px; display:flex; flex-direction:column; align-items:center; z-index:20; }
+.hookwrap { top:190px; }
 .card { position:relative; background:var(--glass); color:#fff; border-radius:34px; padding:26px 40px; text-align:center; box-shadow:0 14px 40px rgba(0,0,0,.35); max-width:960px; }
 .t1 { font-size:54px; font-weight:800; line-height:1.15; }
 .t2 { font-size:42px; font-weight:700; line-height:1.2; margin-top:10px; color:#fff; }
 .sm { font-size:28px; font-weight:700; letter-spacing:2px; color:var(--gold); margin-bottom:8px; }
 .hl { background:var(--gold); color:var(--ink); border-radius:12px; padding:0 14px; }
 .num { display:inline-flex; width:58px; height:58px; border-radius:50%; background:var(--gold); color:var(--ink); font-size:34px; font-weight:800; align-items:center; justify-content:center; margin-right:14px; vertical-align:middle; }
-.hookA { font-size:72px; font-weight:800; color:#fff; line-height:1.05; }
-.hookB { display:inline-block; font-size:76px; font-weight:800; color:var(--ink); background:var(--gold); border-radius:22px; padding:2px 26px; margin-top:12px; }
+.hookpill { background:var(--ink); color:#fff; border:3px solid var(--gold); border-radius:999px; padding:10px 30px; font-size:40px; font-weight:800; line-height:1.25; text-align:center; max-width:860px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+.hookB { display:inline-block; color:var(--ink); background:var(--gold); border-radius:999px; padding:0 16px; }
 .stamp { position:absolute; font-size:56px; font-weight:800; color:var(--marker); border:7px solid var(--marker); border-radius:16px; padding:2px 22px; background:rgba(247,245,237,.95); letter-spacing:3px; white-space:nowrap; }
 .chips { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
 .pill { background:var(--gold); color:var(--ink); font-size:38px; font-weight:800; border-radius:999px; padding:6px 24px; white-space:nowrap; }
@@ -71,21 +73,23 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .rolec { position:absolute; top:560px; width:420px; height:380px; border-radius:36px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 20px 50px rgba(0,0,0,.4); }
 .ri { font-size:110px; line-height:1.1; } .rn { font-size:46px; font-weight:800; margin-top:8px; } .rs { font-size:32px; font-weight:700; margin-top:4px; }
 .endcard { position:absolute; inset:0; background:#F7F4EC; }
-.ec-photo { position:absolute; left:350px; top:215px; width:380px; height:380px; border-radius:50%; object-fit:cover; object-position:50% 20%; border:12px solid #C9A86A; box-sizing:border-box; }
-.ec-name { position:absolute; left:0; right:0; top:625px; text-align:center; font-size:88px; font-weight:800; color:#173C30; }
-.ec-role { position:absolute; left:0; right:0; top:745px; text-align:center; font-size:38px; font-weight:600; color:#3A3A36; }
-.ec-misi { position:absolute; left:310px; right:310px; top:830px; text-align:center; background:#173C30; color:#EAD49C; font-size:40px; font-weight:800; border-radius:999px; padding:14px 0; }
-.ec-rows { position:absolute; left:110px; right:110px; top:960px; display:flex; flex-direction:column; gap:22px; }
-.ec-row { display:flex; align-items:center; gap:30px; background:#fff; border:3px solid #173C30; border-radius:26px; padding:22px 32px; }
+.ec-photo { position:absolute; left:370px; top:190px; width:340px; height:340px; border-radius:50%; object-fit:cover; object-position:50% 20%; border:12px solid #C9A86A; box-sizing:border-box; }
+.ec-name { position:absolute; left:0; right:0; top:548px; text-align:center; font-size:84px; font-weight:800; color:#173C30; }
+.ec-role { position:absolute; left:0; right:0; top:662px; text-align:center; font-size:38px; font-weight:600; color:#3A3A36; }
+.ec-misi { position:absolute; left:310px; right:310px; top:740px; text-align:center; background:#173C30; color:#EAD49C; font-size:40px; font-weight:800; border-radius:999px; padding:14px 0; }
+.ec-rows { position:absolute; left:130px; right:130px; top:860px; display:flex; flex-direction:column; gap:22px; }
+.ec-row { display:flex; align-items:center; gap:30px; background:#fff; border:3px solid #173C30; border-radius:26px; padding:16px 32px; }
 .ec-row.ec-on { background:#173C30; }
 .ec-ic { font-size:62px; width:80px; text-align:center; }
 .ec-k { font-size:44px; font-weight:800; color:#173C30; } .ec-v { font-size:34px; font-weight:700; color:#173C30; margin-top:2px; }
 .ec-on .ec-k { color:#fff; } .ec-on .ec-v { color:#EAD49C; }
-.ec-note { position:absolute; left:0; right:0; top:1610px; text-align:center; font-size:28px; font-weight:600; color:#7A7A72; }
-.ec-handle { position:absolute; left:0; right:0; top:1545px; text-align:center; font-size:40px; font-weight:800; color:#3A3A36; }
-.cap { position:absolute; left:0; right:0; top:1395px; display:flex; justify-content:center; z-index:25; }
-.capin { background:rgba(23,60,48,.88); color:#fff; font-size:56px; font-weight:800; border-radius:22px; padding:8px 26px; max-width:920px; text-align:center; line-height:1.3; }
-.capin .hl { padding:0 10px; }
+.ec-note { position:absolute; left:130px; right:130px; top:1460px; text-align:center; font-size:28px; font-weight:600; color:#7A7A72; }
+.ec-handle { position:absolute; left:0; right:0; top:1395px; text-align:center; font-size:40px; font-weight:800; color:#3A3A36; }
+.cap { position:absolute; left:90px; right:200px; top:1130px; display:flex; justify-content:center; z-index:25; }
+.capin { color:#fff; font-size:78px; font-weight:800; text-align:center; line-height:1.2; letter-spacing:.5px;
+  -webkit-text-stroke:12px #10241C; paint-order:stroke fill; text-shadow:0 6px 18px rgba(0,0,0,.45); }
+.capin .w { display:inline-block; }
+.capin .hl { -webkit-text-stroke:0; text-shadow:none; color:var(--ink); background:var(--gold); border-radius:16px; padding:0 16px; box-shadow:0 6px 18px rgba(0,0,0,.35); }
 .cta { background:var(--paper); color:var(--ink); border-radius:34px; padding:28px 44px; text-align:center; border:5px solid var(--gold); box-shadow:0 14px 40px rgba(0,0,0,.35); }
 .cta .big { font-size:66px; font-weight:800; }
 .cta .sub { font-size:34px; font-weight:600; margin-top:6px; }
@@ -93,7 +97,7 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 """
 
 COMPACT_CSS = """
-.slot { top:228px; } .chip { top:172px; } .chip span { font-size:24px; padding:6px 18px; }
+.slot { top:228px; }
 .card { padding:16px 28px; border-radius:26px; max-width:880px; }
 .t1 { font-size:42px; } .t2 { font-size:32px; margin-top:6px; } .sm { font-size:22px; margin-bottom:4px; }
 .pill { font-size:30px; padding:4px 18px; } .num { width:46px; height:46px; font-size:26px; }
@@ -106,10 +110,9 @@ TT_CSS = """
 .card { background:#fff; color:var(--ink); border:5px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:22px 30px; max-width:810px; }
 .t1 { font-size:48px; } .t2 { font-size:36px; color:var(--ink); } .sm { color:var(--marker); font-size:26px; } .note { color:var(--marker); }
 .pill { font-size:32px; border:3px solid var(--ink); padding:5px 18px; } .num { border:3px solid var(--ink); }
-.hookA { color:var(--ink); font-size:58px; } .hookB { font-size:56px; border:4px solid var(--ink); }
-#hooki { border-radius:44px 44px 44px 10px; }
-.cap { left:70px; right:200px; top:1290px; }
-.capin { background:#fff; color:var(--ink); font-size:50px; max-width:800px; box-shadow:0 8px 24px rgba(0,0,0,.25); }
+.hookpill { background:#fff; color:var(--ink); border:4px solid var(--ink); } .hookwrap { left:70px; right:200px; top:250px; }
+.cap { left:70px; right:200px; top:1180px; }
+.capin { font-size:72px; }
 .cta { max-width:810px; }
 """
 
@@ -165,16 +168,16 @@ def main(proj: Path, variant: str) -> None:
         js.append(f'tl.to("#doc .doc-desat, #doc .doc-warm, #doc .doc-vig, #doc .doc-grain", {{opacity:0, duration:0.35}}, {hook_end - 0.1:.2f});')
         for lt in ([doc["lower"]] if doc.get("lower") else []):
             ls, le = at(lt["at"]), at(lt["until"])
-            html.append(f'<div id="ldoc" class="clip" data-start="{ls:.2f}" data-duration="{le - ls:.2f}" data-track-index="4" style="position:absolute; left:60px; top:1180px; z-index:24">'
+            html.append(f'<div id="ldoc" class="clip" data-start="{ls:.2f}" data-duration="{le - ls:.2f}" data-track-index="4" style="position:absolute; left:60px; top:1330px; z-index:24">'
                         f'<div id="ldi" class="lower3"><div class="l3n">{lt["name"]}</div><div class="l3r">{lt["role"]}</div></div></div>')
             js.append(f'tl.fromTo("#ldi", {{opacity:0, x:-50}}, {{opacity:1, x:0, duration:0.45, ease:"expo.out"}}, {ls:.2f}); tl.to("#ldi", {{opacity:0, duration:0.2}}, {le - 0.2:.2f});')
             sfx.append((ls, "tick", 0.5))
     else:
-        html.append(f'<div id="hook" class="slot clip" data-start="0" data-duration="{hook_end:.2f}" data-track-index="3" style="top:230px">'
-                    f'<div id="hooki" class="card" style="padding:30px 46px"><div class="hookA">{qa}{hook["a"]}</div><div id="hookB" class="hookB">{hook["b"]}{qb}</div></div></div>')
-        js.append('tl.set("#hookB", {rotation:-2}, 0);')
+        html.append(f'<div id="hook" class="slot hookwrap clip" data-start="0" data-duration="{hook_end:.2f}" data-track-index="3">'
+                    f'<div id="hooki" class="hookpill">{qa}{hook["a"]} <span id="hookB" class="hookB">{hook["b"]}{qb}</span></div></div>')
+        js.append('tl.fromTo("#hooki", {opacity:0, y:-20}, {opacity:1, y:0, duration:0.35, ease:"expo.out"}, 0);')
         if hb:
-            js.append(f'tl.fromTo("#hookB", {{scale:1}}, {{scale:1.12, duration:0.12, ease:"power3.out", yoyo:true, repeat:1}}, {hb:.2f});')
+            js.append(f'tl.fromTo("#hookB", {{scale:1}}, {{scale:1.1, duration:0.12, ease:"power3.out", yoyo:true, repeat:1}}, {hb:.2f});')
             sfx.append((hb, "pop", 0.5))
         js.append(f'OUT("#hooki", {hook_end:.2f});')
 
@@ -221,8 +224,9 @@ def main(proj: Path, variant: str) -> None:
         name = f"sticker{i}.jpg"
         shutil.copy(proj / sk["src"], out / "assets" / name)
         x, y, w = sk.get("x", 640), sk.get("y", 720), sk.get("w", 360)
-        if variant == "tt":  # keep clear of TikTok's right-hand buttons
-            x, y = sk.get("tt_x", min(x, 1080 - 200 - w)), sk.get("tt_y", y)
+        x = min(x, 1080 - 200 - w)  # keep clear of the right-hand buttons (IG and TikTok)
+        if variant == "tt":
+            x, y = sk.get("tt_x", x), sk.get("tt_y", y)
         html.append(f'<div id="sk{i}" class="clip" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="7" style="position:absolute; left:{x}px; top:{y}px; width:{w}px; z-index:21">'
                     f'<div id="sk{i}i" class="polaroid"><img src="assets/{name}" style="height:{int(w * sk.get("ratio", 1.15))}px" /><div class="pcap">{sk.get("label", "")}</div></div></div>')
         js.append(f'tl.fromTo("#sk{i}i", {{opacity:0, scale:0.5, rotation:{sk.get("rot", 6) * 3}}}, {{opacity:1, scale:1, rotation:{sk.get("rot", 6)}, duration:0.35, ease:"back.out(1.6)"}}, {st:.2f});')
@@ -281,19 +285,25 @@ def main(proj: Path, variant: str) -> None:
             sfx.append((at(ph), name, vol))
 
     # camera punch-ins, back out after 1.3 s
-    js.append('tl.set("#cam", {transformOrigin:"50% 35%", scale:1}, 0);')
+    eye = 672.0  # 35 %
+    if spec.get("eye_y"):
+        ey = float(spec["eye_y"])
+        s = min(1.15, max(1.0, 1280 / (1920 - ey)))  # scale from the bottom edge so the eyes land on y 640 with no gap
+        eye = 1920 - s * (1920 - ey)
+        js.append(f'tl.set("#frame", {{transformOrigin:"50% 100%", scale:{s:.3f}}}, 0);')
+    js.append(f'tl.set("#cam", {{transformOrigin:"50% {eye:.0f}px", scale:1}}, 0);')
     for ph in spec.get("punch", []):
         t = at(ph)
         js.append(f'tl.to("#cam", {{scale:1.09, duration:0.14, ease:"power4.out"}}, {t:.2f}); tl.to("#cam", {{scale:1, duration:0.3, ease:"power2.inOut"}}, {t + 1.3:.2f});')
 
-    # captions: 3-word groups, none while the hook card is up
+    # captions: 1-2 word groups at chest level; the small hook pill leaves room for them, the documentary quote does not
     emph = set(spec.get("emphasis", []))
-    cw = [w for w in words if w[0] >= hook_end - 0.05]
+    cw = [w for w in words if not doc or w[0] >= hook_end - 0.05]
     groups, cur = [], []
     for i, w in enumerate(cw):
         cur.append(w)
         n = cw[i + 1] if i + 1 < len(cw) else None
-        if not n or len(cur) >= 3 or w[2][-1] in ".,?!" or n[0] - w[1] >= 0.15:
+        if not n or len(cur) >= 2 or len(w[2]) + len(n[2]) > 13 or w[2][-1] in ".,?!" or n[0] - w[1] >= 0.15:
             groups.append(cur)
             cur = []
     for gi, g in enumerate(groups):
@@ -304,15 +314,17 @@ def main(proj: Path, variant: str) -> None:
         for wi, w in enumerate(g):
             cls = "w hl" if norm(w[2]) in emph else "w"
             spans.append(f'<span id="c{gi}w{wi}" class="{cls}">{escape(w[2])}</span>')
-            js.append(f'tl.fromTo("#c{gi}w{wi}", {{opacity:0.4}}, {{opacity:1, duration:0.08}}, {w[0]:.2f});')
+            if cls == "w hl":  # keyword pill pops in when it is said
+                js.append(f'tl.fromTo("#c{gi}w{wi}", {{opacity:0, scale:0.7}}, {{opacity:1, scale:1, duration:0.16, ease:"back.out(2)"}}, {w[0]:.2f});')
+            else:
+                js.append(f'tl.fromTo("#c{gi}w{wi}", {{opacity:0.45}}, {{opacity:1, duration:0.08}}, {w[0]:.2f});')
         html.append(f'<div id="cap{gi}" class="clip cap" data-start="{st:.2f}" data-duration="{max(0.1, en - st):.2f}" data-track-index="9"><div id="cap{gi}i" class="capin">{" ".join(spans)}</div></div>')
         js.append(f'tl.fromTo("#cap{gi}i", {{y:16, opacity:0}}, {{y:0, opacity:1, duration:0.14, ease:"power3.out"}}, {st:.2f});')
 
     sfx_html = "\n".join(
         f'<audio id="sfx{i}" class="clip" src="assets/{f}.wav" data-start="{max(0, t + F - PEAK[f]):.3f}" data-duration="{LEN[f]}" data-volume="{v}" data-track-index="{20 + i % 4}"></audio>'
         for i, (t, f, v) in enumerate(sorted(sfx)))
-    chip = f'<div id="chip" class="chip clip" data-start="{hook_end:.2f}" data-duration="{cta_t - hook_end:.2f}" data-track-index="2"><span id="chipi">{spec["series"]}</span></div>'
-    css = BASE_CSS + (COMPACT_CSS if spec.get("compact") else "") + (TT_CSS if variant == "tt" else "")
+    css = BASE_CSS + (COMPACT_CSS if spec.get("compact", True) else "") + (TT_CSS if variant == "tt" else "")
     doc = f"""<!doctype html>
 <html lang="ms" data-resolution="portrait">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
@@ -320,12 +332,11 @@ def main(proj: Path, variant: str) -> None:
 <style>{css}</style></head>
 <body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="{end:.2f}" data-width="1080" data-height="1920">
-<div id="cam">
+<div id="cam"><div id="frame" style="position:absolute; inset:0">
 <video id="talk" class="clip" src="assets/talk.mp4" data-start="0" data-duration="{talk - 0.04:.2f}" data-track-index="0" playsinline data-has-audio="true" data-volume="1"></video>
 <img id="hold" class="clip" src="assets/last.jpg" data-start="{talk - 0.04:.2f}" data-duration="{end - talk + 0.04:.2f}" data-track-index="1" />
-</div>
+</div></div>
 <div id="prog"></div>
-{chip}
 {chr(10).join(html)}
 {sfx_html}
 </div>
@@ -336,7 +347,6 @@ const OUT = (sel, t) => tl.to(sel, {{opacity:0, y:-16, filter:"blur(6px)", durat
 const POP = (sel, t, s=1.6) => tl.fromTo(sel, {{opacity:0, scale:s}}, {{opacity:1, scale:1, duration:0.26, ease:"back.out(1.6)"}}, t);
 const STAMP = (sel, t, r) => tl.fromTo(sel, {{opacity:0, scale:2.4, rotation:r*1.6}}, {{opacity:1, scale:1, rotation:r, duration:0.2, ease:"power4.out"}}, t);
 tl.fromTo("#prog", {{scaleX:0, transformOrigin:"0 50%"}}, {{scaleX:1, duration:{end:.2f}, ease:"none"}}, 0);
-tl.fromTo("#chipi", {{opacity:0, y:-12}}, {{opacity:1, y:0, duration:0.3, ease:"expo.out"}}, {hook_end:.2f});
 {chr(10).join(js)}
 window.__timelines = window.__timelines || {{}};
 window.__timelines["main"] = tl;
