@@ -2,7 +2,7 @@
 
 Usage: python3 workout_story.py <proj>   -> <proj>/hf/index.html (+ assets), then `npx hyperframes render <proj>/hf`
 Reads <proj>/workout.json (bpm, segments, music {file, start}, title {day, sub, done}) and <proj>/work/montage.mp4.
-The first segment carries the intro title, the last one the done card; the ones between are counted (1/N ... N/N).
+The first segment carries the intro title, the last one the done card; the ones between are counted (1/N ... N/N).\ntitle.intro_on_first: the first segment is a move as well and gets counted.
 """
 import json, shutil, subprocess, sys
 from pathlib import Path
@@ -57,7 +57,8 @@ def main(proj: Path) -> None:
         audio = f'<audio id="music" class="clip" src="assets/music.m4a" data-start="0" data-duration="{end:.3f}" data-volume="1" data-track-index="9"></audio>'
 
     html, js = [], []
-    n = len(segs) - 2
+    first = 0 if ti.get("intro_on_first") else 1  # intro_on_first: the title rides on the first move, which is counted too
+    n = len(segs) - 1 - first
     html.append(f'<div id="intro" class="clip" data-start="0" data-duration="{starts[1]:.3f}" data-track-index="2" style="position:absolute; left:0; right:0; top:1060px; z-index:20; display:flex; flex-direction:column; align-items:center">'
                 f'<div id="logo" class="logo"><img src="assets/wdt-logo.png"/></div><div id="day" class="day">DAY <span>{day}</span></div><div id="sub" class="sub">{sub}</div></div>')
     js.append('tl.fromTo("#logo",{opacity:0,y:-40},{opacity:1,y:0,duration:0.3,ease:"expo.out"},0.02);')
@@ -68,7 +69,7 @@ def main(proj: Path) -> None:
                 f'<div id="badgei" class="badge"><img src="assets/wdt-logo.png"/><div><div class="bd">DAY {day}</div><div class="bs">{sub}</div></div></div></div>')
     js.append(f'tl.fromTo("#badgei",{{opacity:0,x:-60}},{{opacity:1,x:0,duration:0.3,ease:"expo.out"}},{starts[1]:.3f});')
     for i in range(n):
-        s, d = starts[i + 1], segs[i + 1] * beat
+        s, d = starts[i + first], segs[i + first] * beat
         html.append(f'<div id="n{i}" class="clip" data-start="{s:.3f}" data-duration="{d:.3f}" data-track-index="{4 + i % 2}" style="position:absolute; right:60px; top:285px; z-index:20"><div id="n{i}i" class="cnt"><b>{i + 1}</b>/{n}</div></div>')
         js.append(f'tl.fromTo("#n{i}i",{{opacity:0,scale:1.6}},{{opacity:1,scale:1,duration:0.2,ease:"back.out(2)"}},{s:.3f});')
     for s in starts[1:]:  # a flash and a small punch on every cut (both start invisible, so nothing shows before the first cut)
