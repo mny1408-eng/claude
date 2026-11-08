@@ -1,0 +1,77 @@
+{
+  "id": "2026-11-10-nasihat-pesakit",
+  "title": "Tue 10 Nov · Nasihat Pesakit, Dalam Hati Tersentak (repurpose Reel Connection 9 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Cerita saya",
+      "title": [
+        "NASIHAT PESAKIT.",
+        "**DALAM HATI,**",
+        "**TERSENTAK.**"
+      ],
+      "small": "Kaunseling ubat biasa je. Tiba-tiba macam terdengar balik ayat sendiri."
+    },
+    {
+      "type": "problem",
+      "kicker": "Kerja saya hari-hari",
+      "title": "EXPLAIN UBAT. **JAGA MAKAN.**",
+      "body": [
+        "Explain ubat.",
+        "Explain jaga makan, jaga lifestyle.",
+        "Benda tu memang kerja saya hari-hari."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Tapi masa tu",
+      "title": "BADAN SAYA SENDIRI **BESAR.**",
+      "body": [
+        "Dan saya tengah struggle.",
+        "Tiba-tiba terdengar balik ayat sendiri:"
+      ],
+      "takeaway": "Jaga makan. Jaga berat. **Jangan tunggu badan bagi signal.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Dalam hati terlintas",
+      "title": "“AKU NI NASIHAT **ORANG...**”",
+      "body": [
+        "“...tapi diri sendiri pun tengah struggle.”"
+      ],
+      "takeaway": "Ayat tu bukan datang nak malukan saya. **Dia datang nak kejutkan saya.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Yang saya sedar",
+      "title": "TAHU **≠ SIHAT.**",
+      "body": [
+        "Tahu pasal kesihatan tak automatik buat kita sihat.",
+        "Saya bukan tersentak sebab rasa tak layak."
+      ],
+      "takeaway": "Saya tersentak sebab saya tahu, **saya pun kena mula.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "PERNAH BAGI NASIHAT",
+        "**UNTUK DIRI SENDIRI?**"
+      ],
+      "body": [
+        "Kadang-kadang nasihat yang kita bagi kat orang, itulah yang kita sendiri paling perlu dengar.",
+        "Cerita sikit kat komen."
+      ],
+      "save": "KOMEN"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "id": "2026-11-12-lepas-kenduri-jangan-tunggu-isnin",
+  "title": "Thu 12 Nov · Lepas Kenduri, Jangan Tunggu Isnin (repurpose Reel Broad Value 11 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Kenduri hari Sabtu",
+      "title": [
+        "LEPAS KENDURI,",
+        "**JANGAN TUNGGU**",
+        "**ISNIN.**"
+      ],
+      "small": "Nasi minyak dua pinggan, dalca, air sirap. Ahad pagi: “Takpe la, Isnin start balik.”"
+    },
+    {
+      "type": "problem",
+      "kicker": "Masalahnya",
+      "title": "AHAD JADI **HARI ALANG-ALANG.**",
+      "body": [
+        "“Alang-alang dah rosak, makan je la.”"
+      ],
+      "takeaway": "Satu pinggan lebih tak padam usaha seminggu. Yang buat kita makin jauh, **hari alang-alang lepas tu.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Esok pagi timbang, naik sikit",
+      "title": "**JANGAN PANIK.**",
+      "body": [
+        "Kebanyakannya makanan dengan air yang masih dalam badan.",
+        "Bukan semua tu lemak."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Lepas kenduri",
+      "title": "TAK PAYAH **TUNGGU ISNIN.**",
+      "body": [
+        "Tak payah denda diri, skip makan esoknya."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Yang perlu buat",
+      "title": "BALIK PADA **MAKAN SETERUSNYA.**",
+      "body": [
+        "Tersasar masa lunch? Dinner tu makan macam biasa.",
+        "Pinggan biasa. Air biasa."
+      ],
+      "takeaway": "**Itu je.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "ISNIN BUKAN",
+        "**GARISAN PERMULAAN.**"
+      ],
+      "body": [
+        "Pinggan seterusnya, tu dia.",
+        "Share dengan geng yang selalu cakap “Isnin start”. Save untuk lepas kenduri hujung minggu ni."
+      ],
+      "save": "SAVE & SHARE"
+    }
+  ]
+}

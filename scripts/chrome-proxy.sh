@@ -4,7 +4,7 @@
 # interception CA is trusted by SPKI pin (computed from /root/.ccr/ca-bundle.crt), so
 # Google Fonts load. Usage: CAROUSEL_BROWSER=scripts/chrome-proxy.sh npm run carousel -- <id>
 set -e
-BIN=$(ls -d /opt/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell 2>/dev/null | head -1)
+BIN=$(ls -d /opt/pw-browsers/chromium_headless_shell-*/chrome-linux/headless_shell /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell 2>/dev/null | head -1)
 [ -x "$BIN" ] || { echo "headless_shell not found under /opt/pw-browsers" >&2; exit 1; }
 SPKI=$(python3 -I - <<'EOF'
 import base64, hashlib, re, subprocess
