@@ -21,11 +21,11 @@ def silences(wav: Path, dur: float, db: int = -32) -> list[tuple[float, float]]:
     return list(zip(st, en))
 
 
-def onset(wav: Path, a: float) -> float:
+def onset(wav: Path, a: float, db: float = -26) -> float:
     err = subprocess.run(["ffmpeg", "-ss", str(a), "-i", str(wav), "-af", "asetnsamples=1600,astats=metadata=1:reset=1,ametadata=print:key=lavfi.astats.Overall.RMS_level",
                           "-f", "null", "-"], capture_output=True, text=True).stderr
     for k, v in enumerate(re.findall(r"RMS_level=(-?[\d.]+|-inf)", err)):
-        if v != "-inf" and float(v) > -26:
+        if v != "-inf" and float(v) > db:
             return a + k * 0.1
     return a
 
@@ -63,7 +63,7 @@ def main(proj: Path) -> None:
         last = k == len(ed["takes"]) - 1
         b = min(dur, tk.get("upto", ws[-1][2] + (0.6 if last else 0.25)))
         # real start: first 100 ms window louder than -26 dB (car/room noise sits around -30 to -35 dB)
-        a = max(a, onset(wav, a) - 0.1)
+        a = max(a, onset(wav, a, tk.get("onset_db", -26)) - 0.1)  # onset_db: lower it (e.g. -36) for a soft-spoken start
         spans = speech_spans(a, b, silences(wav, dur), tk.get("nocut", ()))
         if last:  # let the last word ring out
             spans[-1] = (spans[-1][0], min(dur, spans[-1][1] + 0.3))

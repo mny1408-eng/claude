@@ -115,6 +115,7 @@ COMPACT_CSS = """
 .t1 { font-size:42px; } .t2 { font-size:32px; margin-top:6px; } .sm { font-size:22px; margin-bottom:4px; }
 .pill { font-size:30px; padding:4px 18px; } .num { width:46px; height:46px; font-size:26px; }
 .stamp { font-size:44px; border-width:5px; }
+.cta { padding:16px 30px; border-radius:26px; } .cta .big { font-size:50px; } .cta .sub { font-size:28px; } .cta .hd { font-size:24px; margin-top:6px; }
 """
 
 TT_CSS = """
