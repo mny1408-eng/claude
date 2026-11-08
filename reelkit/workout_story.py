@@ -2,7 +2,7 @@
 
 Usage: python3 workout_story.py <proj>   -> <proj>/hf/index.html (+ assets), then `npx hyperframes render <proj>/hf`
 Reads <proj>/workout.json (bpm, segments, music {file, start}, title {day, sub, done}) and <proj>/work/montage.mp4.
-The first segment carries the intro title, the last one the done card; the ones between are counted (1/N ... N/N).\ntitle.intro_on_first: the first segment is a move as well and gets counted.
+The first segment carries the intro title, the last one the done card; the ones between are counted (1/N ... N/N).\ntitle.intro_on_first: the first segment is a move as well and gets counted. title.done_y: top of the done card (default 1250; raise it when the last shot is on the floor).
 """
 import json, shutil, subprocess, sys
 from pathlib import Path
@@ -76,7 +76,7 @@ def main(proj: Path) -> None:
         js.append(f'tl.fromTo("#flash",{{opacity:0.55}},{{opacity:0,duration:0.16,ease:"power2.out",immediateRender:false}},{s:.3f});')
         js.append(f'tl.fromTo("#vid",{{scale:1.06}},{{scale:1,duration:0.25,ease:"power3.out",immediateRender:false}},{s:.3f});')
     o = starts[-1]
-    html.append(f'<div id="out" class="clip" data-start="{o:.3f}" data-duration="{end - o:.3f}" data-track-index="6" style="position:absolute; left:0; right:0; top:1250px; z-index:20; display:flex; flex-direction:column; align-items:center">'
+    html.append(f'<div id="out" class="clip" data-start="{o:.3f}" data-duration="{end - o:.3f}" data-track-index="6" style="position:absolute; left:0; right:0; top:{ti.get("done_y", 1250)}px; z-index:20; display:flex; flex-direction:column; align-items:center">'
                 f'<div id="done" class="done">DAY {day} <span>✓</span> SELESAI</div>' + (f'<div id="next" class="next">{nxt}</div>' if nxt else "") + '</div>')
     js.append(f'tl.fromTo("#done",{{opacity:0,scale:1.6}},{{opacity:1,scale:1,duration:0.3,ease:"power4.out"}},{o + 0.05:.3f});')
     if nxt:
