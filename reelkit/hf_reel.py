@@ -130,6 +130,22 @@ TT_CSS = """
 .cta { max-width:810px; }
 """
 
+# spec "tt_style": "bold" - a TikTok look that does not echo the IG palette: black headline card,
+# yellow + pink accents, native-style white text boxes, big all-caps captions
+TT_BOLD_CSS = """
+.split-card { background:#0E0E0E; border-bottom:10px solid #FFE500; }
+.split-k { color:#FE2C55; }
+.split-h { color:#fff; font-weight:900; }
+.split-h .hl { background:#FFE500; color:#0E0E0E; }
+.card { background:#fff; color:#0E0E0E; border:0; border-radius:18px; box-shadow:none; padding:14px 26px; }
+.t1 { font-weight:900; } .t2 { color:#0E0E0E; } .sm { color:#FE2C55; font-weight:900; }
+.card .hl, .cta .hl { background:#FFE500; color:#0E0E0E; }
+.capin { font-size:84px; font-weight:900; text-transform:uppercase; -webkit-text-stroke:12px #000; }
+.capin .hl { background:none; box-shadow:none; color:#FFE500; -webkit-text-stroke:12px #000; paint-order:stroke fill; padding:0; }
+.cta { background:#0E0E0E; color:#fff; border:4px solid #FFE500; } .cta .hd { color:#FE2C55; }
+.hookpill { background:#FFE500; color:#0E0E0E; border:0; }
+"""
+
 
 def norm(t: str) -> str:
     return re.sub(r"[^\w-]", "", t.lower())
@@ -369,7 +385,7 @@ def main(proj: Path, variant: str) -> None:
     sfx_html = "\n".join(
         f'<audio id="sfx{i}" class="clip" src="assets/{f}.wav" data-start="{max(0, t + F - PEAK[f]):.3f}" data-duration="{LEN[f]}" data-volume="{v}" data-track-index="{20 + i % 4}"></audio>'
         for i, (t, f, v) in enumerate(sorted(sfx)))
-    css = BASE_CSS + (COMPACT_CSS if spec.get("compact", True) else "") + (TT_CSS if variant == "tt" else "")
+    css = BASE_CSS + (COMPACT_CSS if spec.get("compact", True) else "") + (TT_CSS if variant == "tt" else "") + (TT_BOLD_CSS if variant == "tt" and spec.get("tt_style") == "bold" else "")
     doc = f"""<!doctype html>
 <html lang="ms" data-resolution="portrait">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
