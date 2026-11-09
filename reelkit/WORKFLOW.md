@@ -12,3 +12,4 @@ Standing rules for every video made with reelkit:
 4. Workout story/reel: 10–15 s, 1.5–2 s per move, WDT logo + DAY n, no audio (Coach Nas adds music in IG).
 5. Herbalife branding does not need blurring on TikTok; recruitment/"DM BUILD" wording stays off TikTok.
 6. Coach Nas's own family (wall photo at home, his children's photos) does not need blurring. Blur only other people who have not agreed.
+7. **No repetition except the hook.** Before building any reel, read the whole cut transcript and run `python3 reelkit/repeat_check.py <proj>`; cut every repeated line, false start or restart (e.g. "ramai orang… ramai ayah" keeps only "ramai ayah"). Only the hook may repeat on purpose.
