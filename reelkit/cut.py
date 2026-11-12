@@ -109,7 +109,7 @@ def main(proj: Path) -> None:
     last = "vc"
     for i, (x, y, w, h) in enumerate(regions):
         fc += (f";[{last}]split[base{i}][bl{i}];[bl{i}]crop={w}:{h}:{x}:{y},gblur=sigma=34,format=yuva420p,"
-               f"geq=lum='lum(X,Y)':cb='cb(X,Y)':cr='cr(X,Y)':a='255*min(1,min(min(X,W-X),min(Y,H-Y))/45)'[bb{i}];"
+               f"geq=lum='lum(X,Y)':cb='cb(X,Y)':cr='cr(X,Y)':a='255*min(1,min(min({'X' if x > 0 else '999'},{'W-X' if x + w < 1080 else '999'}),min({'Y' if y > 0 else '999'},{'H-Y' if y + h < 1920 else '999'}))/45)'[bb{i}];"
                f"[base{i}][bb{i}]overlay={x}:{y}[o{i}]")
         last = f"o{i}"
     fc += f";[{last}]null[v]"
