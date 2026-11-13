@@ -180,7 +180,7 @@ def main(proj: Path, variant: str) -> None:
     qa, qb = ("“", "”") if variant == "tt" else ("", "")
     doc = spec.get("documentary")
     cover = spec.get("cover") if variant == "ig" else None
-    split = spec.get("split") if variant == "tt" else None
+    split = spec.get("split") if variant == "tt" or spec.get("split_ig") else None
     if cover:
         # magazine cover: masthead behind the head (person cut-out on top), cover lines on the chest
         d_end = hook_end + 0.35
