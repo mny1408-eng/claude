@@ -1,0 +1,77 @@
+{
+  "id": "2026-11-17-sebotol-perfume",
+  "title": "Tue 17 Nov · Sebotol Perfume, Saya Hilang Sabar (repurpose Reel Connection 16 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Cerita saya",
+      "title": [
+        "SEBOTOL PERFUME.",
+        "**SAYA HILANG**",
+        "**SABAR.**"
+      ],
+      "small": "Malam tu dah nak tidur. Anak sulung saya, masa tu dua tahun lebih, panjat atas badan saya."
+    },
+    {
+      "type": "problem",
+      "kicker": "Tiba-tiba bau wangi sangat",
+      "title": "PERFUME MAHAL. **TUMPAH.**",
+      "body": [
+        "Rupanya dia dah buka sebotol perfume mahal.",
+        "Saya terus naik angin.",
+        "Marah dia kuat sangat."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Isteri saya tegur",
+      "title": "“EH, NI **ANAK AWAK NI.**”",
+      "body": [
+        "Saya tersentak.",
+        "Tapi ego masa tu tinggi. Saya tak terus betulkan keadaan."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Esok pagi baru terfikir",
+      "title": "“APA YANG **AKU BUAT NI?**”",
+      "body": [
+        "Dia kecil lagi.",
+        "Perfume tu boleh beli lain."
+      ],
+      "takeaway": "Sampai sekarang **saya ingat malam tu.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Sekarang",
+      "title": "BERHENTI KEJAP **DULU.**",
+      "body": [
+        "Saya bukan ayah yang sempurna.",
+        "Saya still boleh marah."
+      ],
+      "takeaway": "Cuma sekarang saya cuba berhenti kejap dulu, **sebelum mulut laju.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "PERNAH MENYESAL",
+        "**LEPAS MARAH ANAK?**"
+      ],
+      "body": [
+        "Tak payah cerita detail.",
+        "Tulis “pernah” kat komen pun cukup."
+      ],
+      "save": "KOMEN"
+    }
+  ]
+}

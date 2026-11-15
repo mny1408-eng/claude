@@ -1,0 +1,73 @@
+{
+  "id": "2026-11-19-nasi-lemak-pagi",
+  "title": "Thu 19 Nov · Nasi Lemak Pagi-Pagi, Rosak Ke? (repurpose Reel Broad Value 18 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "7 pagi · gerai tepi jalan",
+      "title": [
+        "NASI LEMAK",
+        "**PAGI-PAGI.**",
+        "ROSAK KE?"
+      ],
+      "small": "Bungkus satu sebelum hantar anak sekolah. Rosak ke diet?"
+    },
+    {
+      "type": "problem",
+      "kicker": "Jawapan ringkas",
+      "title": "**TAK.**",
+      "body": [
+        "Satu bungkus je tak tentukan berat awak."
+      ],
+      "takeaway": "Yang kira: **berapa kerap**, dan **apa yang ada dalam bungkus tu.**"
+    },
+    {
+      "type": "problem",
+      "kicker": "Main satu benda je dulu",
+      "title": "MINTA **“NASI SIKIT”.**",
+      "body": [
+        "Sambal kekal.",
+        "Telur kekal. Telur tu dah ada protein."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Ayam goreng atau sotong?",
+      "title": "SIMPAN UNTUK **HARI TERTENTU.**",
+      "body": [
+        "Tak payah tiap pagi."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Lepas tu",
+      "title": "LUNCH **MACAM BIASA.**",
+      "body": [
+        "Tak payah denda diri.",
+        "Tak payah skip."
+      ]
+    },
+    {
+      "type": "cta",
+      "title": [
+        "NASI LEMAK",
+        "**BOLEH STAY.**"
+      ],
+      "body": [
+        "Yang kita ubah: saiz dengan kekerapan.",
+        "Esok pagi kat gerai, cuba sebut “nasi sikit”. Share dengan geng sarapan korang."
+      ],
+      "save": "SAVE & SHARE"
+    }
+  ]
+}
