@@ -52,6 +52,17 @@ BOLD_CSS = """
 .line .l1 .hl { background:#FFE500; color:#000; }
 """
 
+# broll.json "style": "bold_ig" - same loud layout in the brand palette (forest / gold / ivory); end line kept clear of IG's caption + icon zone
+BOLD_IG_CSS = BOLD_CSS + """
+.shade { background:linear-gradient(180deg, rgba(16,36,28,.65), rgba(16,36,28,0)); }
+.hook .h1 { -webkit-text-stroke:14px #10241C; }
+.hook .h1 .hl { background:#C9A84C; color:#1C4A3E; box-shadow:8px 8px 0 #10241C; }
+.hook .h2 { background:#1C4A3E; color:#F9F6F0; border:4px solid #C9A84C; box-shadow:6px 6px 0 #10241C; }
+.line { top:1150px !important; right:200px; }
+.line .l1 { background:#1C4A3E; color:#F9F6F0; border-color:#C9A84C; font-size:60px; }
+.line .l1 .hl { background:#C9A84C; color:#1C4A3E; }
+"""
+
 
 def cut(proj: Path, cfg: dict) -> float:
     ins, fc, t = [], "", 0.0
@@ -92,7 +103,7 @@ def main(proj: Path) -> None:
         else:
             inner = f'<div class="endcard"><div class="e1">{b["html"]}</div>' + (f'<div class="e2">{b["sub"]}</div>' if b.get("sub") else "") + '</div>'
         html.append(f'<div id="b{i}" class="clip beat {k}"' + (f' style="top:{b["top"]}px"' if b.get("top") else "") + f' data-start="{a:.3f}" data-duration="{u - a:.3f}" data-track-index="{2 + i % 3}"><div id="b{i}i">{inner}</div></div>')
-        js.append(f'tl.fromTo("#b{i}i",{{opacity:0,y:30,scale:{1.4 if cfg.get("style") == "bold" and k == "hook" else 0.94}}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"expo.out"}},{a + 0.02:.3f});')
+        js.append(f'tl.fromTo("#b{i}i",{{opacity:0,y:30,scale:{1.4 if cfg.get("style") in ("bold", "bold_ig") and k == "hook" else 0.94}}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"expo.out"}},{a + 0.02:.3f});')
         if b.get("sub"):
             js.append(f'tl.fromTo("#b{i}s",{{opacity:0,x:-30}},{{opacity:1,x:0,duration:0.3,ease:"expo.out"}},{a + b.get("sub_delay", 0.6):.3f});')
         if u < end - 0.05:
@@ -101,7 +112,7 @@ def main(proj: Path) -> None:
         js.append(f'tl.fromTo("#vid",{{scale:1.05}},{{scale:1,duration:0.3,ease:"power3.out",immediateRender:false}},{s:.3f});')
     doc = f"""<!doctype html>
 <html><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
-<script src="assets/gsap.min.js"></script><style>{CSS + (BOLD_CSS if cfg.get("style") == "bold" else "")}</style></head><body>
+<script src="assets/gsap.min.js"></script><style>{CSS + {"bold": BOLD_CSS, "bold_ig": BOLD_IG_CSS}.get(cfg.get("style"), "")}</style></head><body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="{end:.3f}" data-width="1080" data-height="1920">
 <video id="vid" class="clip" src="assets/montage.mp4" data-start="0" data-duration="{end:.3f}" data-track-index="0" muted playsinline></video>
 <div class="shade"></div>
