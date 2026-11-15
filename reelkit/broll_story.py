@@ -41,6 +41,17 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .handle { position:absolute; left:0; right:0; top:1590px; text-align:center; color:#fff; font-size:32px; font-weight:700; text-shadow:0 3px 10px rgba(0,0,0,.6); z-index:20; }
 """
 
+# broll.json "style": "bold" - loud scroll-stopper: huge stroked headline, yellow block, red pill
+BOLD_CSS = """
+.shade { height:900px; background:linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,0)); }
+.hook { top:240px; left:56px; right:56px; }
+.hook .h1 { font-size:118px; font-weight:900; line-height:1.0; letter-spacing:-2px; text-transform:uppercase; -webkit-text-stroke:14px #000; }
+.hook .h1 .hl { display:inline-block; margin-top:10px; background:#FFE500; color:#000; border-radius:14px; padding:2px 18px 6px; transform:rotate(-2deg); box-shadow:8px 8px 0 #000; }
+.hook .h2 { margin-top:26px; background:#FE2C55; color:#fff; font-size:44px; white-space:nowrap; font-weight:900; border-radius:999px; padding:10px 30px; box-shadow:6px 6px 0 #000; }
+.line .l1 { font-size:68px; -webkit-text-stroke:0; text-shadow:none; background:#000; color:#fff; border-radius:18px; padding:10px 26px; border:5px solid #FFE500; }
+.line .l1 .hl { background:#FFE500; color:#000; }
+"""
+
 
 def cut(proj: Path, cfg: dict) -> float:
     ins, fc, t = [], "", 0.0
@@ -80,7 +91,7 @@ def main(proj: Path) -> None:
         else:
             inner = f'<div class="endcard"><div class="e1">{b["html"]}</div>' + (f'<div class="e2">{b["sub"]}</div>' if b.get("sub") else "") + '</div>'
         html.append(f'<div id="b{i}" class="clip beat {k}" data-start="{a:.3f}" data-duration="{u - a:.3f}" data-track-index="{2 + i % 3}"><div id="b{i}i">{inner}</div></div>')
-        js.append(f'tl.fromTo("#b{i}i",{{opacity:0,y:30,scale:0.94}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"expo.out"}},{a + 0.02:.3f});')
+        js.append(f'tl.fromTo("#b{i}i",{{opacity:0,y:30,scale:{1.4 if cfg.get("style") == "bold" and k == "hook" else 0.94}}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"expo.out"}},{a + 0.02:.3f});')
         if b.get("sub"):
             js.append(f'tl.fromTo("#b{i}s",{{opacity:0,x:-30}},{{opacity:1,x:0,duration:0.3,ease:"expo.out"}},{a + b.get("sub_delay", 0.6):.3f});')
         if u < end - 0.05:
@@ -89,7 +100,7 @@ def main(proj: Path) -> None:
         js.append(f'tl.fromTo("#vid",{{scale:1.05}},{{scale:1,duration:0.3,ease:"power3.out",immediateRender:false}},{s:.3f});')
     doc = f"""<!doctype html>
 <html><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
-<script src="assets/gsap.min.js"></script><style>{CSS}</style></head><body>
+<script src="assets/gsap.min.js"></script><style>{CSS + (BOLD_CSS if cfg.get("style") == "bold" else "")}</style></head><body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="{end:.3f}" data-width="1080" data-height="1920">
 <video id="vid" class="clip" src="assets/montage.mp4" data-start="0" data-duration="{end:.3f}" data-track-index="0" muted playsinline></video>
 <div class="shade"></div>
