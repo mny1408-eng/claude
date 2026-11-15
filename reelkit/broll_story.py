@@ -91,7 +91,7 @@ def main(proj: Path) -> None:
             inner = f'<div class="l1">{b["html"]}</div>'
         else:
             inner = f'<div class="endcard"><div class="e1">{b["html"]}</div>' + (f'<div class="e2">{b["sub"]}</div>' if b.get("sub") else "") + '</div>'
-        html.append(f'<div id="b{i}" class="clip beat {k}" data-start="{a:.3f}" data-duration="{u - a:.3f}" data-track-index="{2 + i % 3}"><div id="b{i}i">{inner}</div></div>')
+        html.append(f'<div id="b{i}" class="clip beat {k}"' + (f' style="top:{b["top"]}px"' if b.get("top") else "") + f' data-start="{a:.3f}" data-duration="{u - a:.3f}" data-track-index="{2 + i % 3}"><div id="b{i}i">{inner}</div></div>')
         js.append(f'tl.fromTo("#b{i}i",{{opacity:0,y:30,scale:{1.4 if cfg.get("style") == "bold" and k == "hook" else 0.94}}},{{opacity:1,y:0,scale:1,duration:0.35,ease:"expo.out"}},{a + 0.02:.3f});')
         if b.get("sub"):
             js.append(f'tl.fromTo("#b{i}s",{{opacity:0,x:-30}},{{opacity:1,x:0,duration:0.3,ease:"expo.out"}},{a + b.get("sub_delay", 0.6):.3f});')
