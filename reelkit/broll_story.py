@@ -57,7 +57,8 @@ def cut(proj: Path, cfg: dict) -> float:
     ins, fc, t = [], "", 0.0
     for i, s in enumerate(cfg["segments"]):
         ins += ["-ss", str(s["start"]), "-t", f"{s['dur']:.3f}", "-i", str(proj / s["file"])]
-        fc += (f"[{i}:v]fps=30,scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,format=yuv420p,"
+        cr = f"crop={s['crop'][2]}:{s['crop'][3]}:{s['crop'][0]}:{s['crop'][1]}," if s.get("crop") else ""  # crop [x,y,w,h]: a closer framing of the same clip
+        fc += (f"[{i}:v]{cr}fps=30,scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,format=yuv420p,"
                f"trim=duration={s['dur']:.3f},setpts=PTS-STARTPTS[v{i}];")
         t += s["dur"]
     fc += "".join(f"[v{i}]" for i in range(len(cfg["segments"]))) + f"concat=n={len(cfg['segments'])}:v=1:a=0[v]"
