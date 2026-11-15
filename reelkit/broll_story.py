@@ -23,6 +23,7 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .beat { position:absolute; left:70px; right:200px; display:flex; flex-direction:column; align-items:flex-start; z-index:20; }
 .hook { top:300px; }
 .hook .h1 { font-size:96px; font-weight:900; line-height:1.02; color:#fff; -webkit-text-stroke:10px #10241C; paint-order:stroke fill; text-shadow:0 8px 28px rgba(0,0,0,.5); }
+.hook .h1 .hl { -webkit-text-stroke:0; text-shadow:none; }
 .hook .h2 { margin-top:16px; background:var(--gold); color:var(--forest); font-size:50px; font-weight:800; border-radius:16px; padding:6px 22px; }
 .tip { top:290px; }
 .tipcard { background:var(--ivory); border-radius:28px; padding:22px 28px 24px; box-shadow:0 16px 44px rgba(0,0,0,.35); border-left:12px solid var(--gold); max-width:810px; }
@@ -31,7 +32,7 @@ html, body { width:1080px; height:1920px; overflow:hidden; background:#000; font
 .tt { margin-top:10px; font-size:52px; font-weight:800; color:var(--forest); line-height:1.12; }
 .ts { margin-top:8px; font-size:32px; font-weight:600; color:#3A3A36; line-height:1.25; }
 .hl { background:var(--gold); color:var(--forest); border-radius:12px; padding:0 12px; }
-.line { top:1180px; left:60px; right:200px; align-items:center; text-align:center; }
+.line { top:1400px; left:60px; right:200px; align-items:center; text-align:center; }
 .line .l1 { font-size:76px; font-weight:900; color:#fff; line-height:1.1; -webkit-text-stroke:10px #10241C; paint-order:stroke fill; text-shadow:0 8px 24px rgba(0,0,0,.45); }
 .line .l1 .hl { -webkit-text-stroke:0; }
 .end { top:1100px; left:60px; right:60px; align-items:center; text-align:center; }
