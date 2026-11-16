@@ -58,7 +58,7 @@ BOLD_IG_CSS = BOLD_CSS + """
 .hook .h1 { -webkit-text-stroke:14px #10241C; }
 .hook .h1 .hl { background:#C9A84C; color:#1C4A3E; box-shadow:8px 8px 0 #10241C; }
 .hook .h2 { background:#1C4A3E; color:#F9F6F0; border:4px solid #C9A84C; box-shadow:6px 6px 0 #10241C; }
-.line { top:1150px !important; right:200px; }
+.beat.line { top:1150px; right:200px; }
 .line .l1 { background:#1C4A3E; color:#F9F6F0; border-color:#C9A84C; font-size:60px; }
 .line .l1 .hl { background:#C9A84C; color:#1C4A3E; }
 """
