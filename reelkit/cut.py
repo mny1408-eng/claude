@@ -64,7 +64,7 @@ def main(proj: Path) -> None:
         b = min(dur, tk.get("upto", ws[-1][2] + (0.6 if last else 0.25)))
         # real start: first 100 ms window louder than -26 dB (car/room noise sits around -30 to -35 dB)
         a = max(a, onset(wav, a, tk.get("onset_db", -26)) - 0.1)  # onset_db: lower it (e.g. -36) for a soft-spoken start
-        spans = speech_spans(a, b, silences(wav, dur), tk.get("nocut", ()))
+        spans = speech_spans(a, b, silences(wav, dur, tk.get("sil_db", -32)), tk.get("nocut", ()))  # sil_db: raise (e.g. -26) for a noisy room/car
         if last:  # let the last word ring out
             spans[-1] = (spans[-1][0], min(dur, spans[-1][1] + 0.3))
         offs, tt = [], t
