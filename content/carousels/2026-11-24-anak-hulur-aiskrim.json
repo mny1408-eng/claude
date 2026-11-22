@@ -1,0 +1,63 @@
+{
+  "id": "2026-11-24-anak-hulur-aiskrim",
+  "title": "Tue 24 Nov · Anak Hulur Aiskrim (repurpose Reel Connection 23 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Masa family day",
+      "title": [
+        "ANAK HULUR",
+        "AISKRIM.",
+        "**“BABAH NAK?”**"
+      ],
+      "small": "Dalam kepala, terus ada dua suara."
+    },
+    {
+      "type": "problem",
+      "kicker": "Suara pertama",
+      "title": "“TADI **DAH MAKAN.**”",
+      "body": [
+        "Tak payah la."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Suara kedua",
+      "title": "“DIA YANG **OFFER.**”",
+      "body": [
+        "Bukan selalu anak nak share benda dia."
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Akhirnya",
+      "title": "SAYA AMBIK **SATU GIGIT.**",
+      "body": [
+        "Tu je."
+      ],
+      "takeaway": "Bila anak sendiri yang hulur, rasa macam dia ajak **Babah join sekali.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "TEAM SATU GIGIT,",
+        "ATAU **“TAKPE,**",
+        "**ADIK MAKAN”?**"
+      ],
+      "body": [
+        "Ayah-ayah, komen sikit."
+      ],
+      "save": "KOMEN"
+    }
+  ]
+}

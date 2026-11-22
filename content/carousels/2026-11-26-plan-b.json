@@ -1,0 +1,80 @@
+{
+  "id": "2026-11-26-plan-b",
+  "title": "Thu 26 Nov · Rabu, Semangat Isnin Dah Lari? (repurpose Reel Broad Value 25 Nov)",
+  "brand": {
+    "colors": {
+      "ink": "#1C4A3E",
+      "cream": "#F9F6F0",
+      "green": "#E3C770",
+      "orange": "#C9A84C",
+      "muted": "#5C6B64",
+      "line": "#E6E0D2"
+    }
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Isnin semangat gila",
+      "title": [
+        "RABU.",
+        "**SEMANGAT ISNIN**",
+        "DAH LARI?"
+      ],
+      "small": "Plan bawak bekal, tidur awal, jalan pagi. Rabu, kasut sukan masih tepi pintu."
+    },
+    {
+      "type": "problem",
+      "kicker": "Tu normal",
+      "title": "SEMANGAT **NAIK TURUN.**",
+      "body": [
+        "Kalau tunggu dia datang balik, lama la kita tunggu."
+      ],
+      "takeaway": "Yang tolong: **plan B yang kecil.** Siap awal, sebelum hari tu kacau."
+    },
+    {
+      "type": "diagram",
+      "title": "SATU AYAT **JE.**",
+      "body": [
+        "“Kalau jadi macam ni, aku buat ni.” Contoh:"
+      ],
+      "flow": [
+        {
+          "label": "Balik lewat",
+          "note": "Tetap makan dinner. Tak skip.",
+          "tone": "green"
+        },
+        {
+          "label": "Tak sempat bersenam",
+          "note": "Naik tangga hari tu.",
+          "tone": "orange"
+        },
+        {
+          "label": "Tak sempat bawak bekal",
+          "note": "Ambik lauk dulu, nasi kemudian.",
+          "tone": "ink"
+        }
+      ]
+    },
+    {
+      "type": "problem",
+      "kicker": "Lepas tu",
+      "title": "PILIH SATU. **TULIS KAT NOTES PHONE.**",
+      "body": [
+        "Yang kena dengan minggu awak."
+      ],
+      "takeaway": "Hari plan A jalan, bagus. Hari huru-hara, **plan B ni yang sambut awak.**"
+    },
+    {
+      "type": "cta",
+      "title": [
+        "MALAM NI,",
+        "**TULIS PLAN B AWAK.**"
+      ],
+      "body": [
+        "Sebelum Khamis datang.",
+        "Share dengan geng yang semangat Isnin je."
+      ],
+      "save": "SAVE & SHARE"
+    }
+  ]
+}
