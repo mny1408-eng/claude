@@ -46,8 +46,13 @@ All work and commits go on `claude/nhms-realiti-carousel`. Never commit personal
   1. **Cover** — header, photo circle, big title (grey / green highlight / grey), 3 short paragraphs, shield note box, bottom bar.
   2. **Step / Point** — kicker ("01 · LANGKAH"), title, body, TAKEAWAY box.
   3. **CTA** — kicker ("NAK MULA?"), title, body, green button ("Komen “NAK”"), save line, handle in the bottom bar.
-- Create the design with `create-design-from-brand-template` and `page_numbers` = `[1, 2, 2, …, 3]` (one `2` per point, 5–6 slides total).
-  If repeated page numbers are refused, create `[1,2,3]` once per needed step page and join them with `merge-designs`.
+- Create the design with `create-design-from-brand-template` (omit `page_numbers`, or pass distinct pages only).
+  Tested 22 Nov 2026: **repeated page numbers (e.g. `[1,2,2,3]`) are refused** — Canva wrongly reports
+  "brand template not found". `merge-designs` needs Nasri's explicit approval on every call, so the unattended
+  routine must not use it.
+  - If the template has only 3 pages: make a 3-slide carousel (cover → one step page holding the key points → CTA)
+    and say in the report that more step pages need Nasri to add duplicate step pages to the template.
+  - If the template has been given more step pages, pick the ones needed by number (e.g. `[1,2,3,4,6]`), never repeating one.
 - Open a transaction (`read-design` with `open_transaction: true`) and fill each page with `find_and_replace_text`
   (keeps the formatting) — replace the whole placeholder string in each element.
   - Cover title: keep the 3-region style — first line grey, key phrase green, rest grey. Use explicit "\n" so no word is hyphen-split.
