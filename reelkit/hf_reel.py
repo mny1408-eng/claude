@@ -13,6 +13,7 @@ Usage: hf_reel.py <proj> <ig|tt>   -> writes <proj>/hf-<variant>/index.html (+ a
   simple     true for the TikTok Simple look: no progress bar (leave out transition/endcard in that spec)
 A phrase is matched against the words on the cut timeline; its first word's start is the time.
 """
+import subprocess
 import json, re, shutil, sys
 from html import escape
 from pathlib import Path
@@ -276,9 +277,18 @@ def main(proj: Path, variant: str) -> None:
     # photo cutaways: full frame, slow push-in, voice keeps playing underneath
     for i, ph in enumerate(spec.get("photos", [])):
         st, en = at(ph["at"]), at(ph["until"])
-        name = f"photo{i}.jpg"
-        shutil.copy(proj / ph["src"], out / "assets" / name)
-        html.append(f'<div id="ph{i}" class="clip photo" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="6"><img id="ph{i}i" src="assets/{name}" /></div>')
+        src = Path(ph["src"]) if Path(ph["src"]).is_absolute() else proj / ph["src"]
+        if src.suffix.lower() in (".mov", ".mp4"):
+            # video cutaway: trimmed from `from`, muted, cropped to 9:16
+            name = f"photo{i}.mp4"
+            subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(ph.get("from", 0)), "-i", str(src), "-t", f"{en - st + 0.2:.2f}", "-an",
+                            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30", "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p",
+                            str(out / "assets" / name)], check=True)
+            html.append(f'<div id="ph{i}" class="clip photo" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="6"><video id="ph{i}i" class="clip" src="assets/{name}" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="9" muted playsinline style="position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover"></video></div>')
+        else:
+            name = f"photo{i}.jpg"
+            shutil.copy(src, out / "assets" / name)
+            html.append(f'<div id="ph{i}" class="clip photo" data-start="{st:.2f}" data-duration="{en - st:.2f}" data-track-index="6"><img id="ph{i}i" src="assets/{name}" /></div>')
         js.append(f'tl.fromTo("#ph{i}i", {{opacity:0, scale:1.12}}, {{opacity:1, scale:1.04, duration:0.25, ease:"power3.out"}}, {st:.2f});')
         js.append(f'tl.to("#ph{i}i", {{scale:1.14, duration:{max(0.3, en - st - 0.25):.2f}, ease:"none"}}, {st + 0.25:.2f});')
         js.append(f'tl.to("#ph{i}i", {{opacity:0, duration:0.15, ease:"power2.in"}}, {en - 0.15:.2f});')
