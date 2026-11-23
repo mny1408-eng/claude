@@ -34,9 +34,15 @@ All work and commits go on `claude/nhms-realiti-carousel`. Never commit personal
 
 > **From the run on Sun 29 Nov 2026 (week 30 Nov–6 Dec) onward, carousels are built in Canva — use section 3C/4C/5C below
 > instead of 3–5.** Sections 3–5 (Remotion) stay only as a fallback if the Canva connector is down; say so in the report if used.
-> Also from that week: follow the week plan's own carousel toggle when it has one (it has so far said: Tue + Thu at
-> 12:30 PM, repurposing Mon Connection + Wed Broad Value; providers FB + IG, + TikTok for Connection/Broad Value only;
-> **no Threads**; JPG slides). The plan's toggle wins over the "days with no Reel" rule in step 2.
+> **Cadence from the week of 30 Nov 2026 (Nasri, 23 Nov): 5 carousels a week, Mon–Fri, one per day at 7:00 AM MYT**
+> (≈20 a month). This replaces the plan toggle's Tue/Thu 12:30 slots and the "days with no Reel" rule in step 2.
+> - A Reel on the same day is fine (different slot); only skip a day if Metricool already has a post at/near 7:00 AM.
+> - Sources, mixed across the 5 days: (a) the week's Reel scripts (Connection, Broad Value, Niche Value, Transform),
+>   repurposed; (b) the numbered hooks / hook bank in the week plan, each built only from what the plan says about it.
+>   Prefer variety: don't put two carousels from the same Reel on consecutive days.
+> - Still skip anything "Awaiting Coach Nas Facts" or needing unconfirmed consent/photos; if that leaves fewer than
+>   5 usable sources, make fewer and say so. Never invent topics to fill a slot.
+> - Providers: FB + IG; + TikTok only for Connection/Broad Value material. **No Threads**. JPG slides.
 
 ## 3C. Build the carousel in Canva (brand template)
 - Brand template: **"Coach Nas — Carousel Master Template 3:4 (1080x1440)"**, id **`EAHbwLsUUaY`** (6 pages, published 23 Nov 2026).
