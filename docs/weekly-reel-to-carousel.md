@@ -43,6 +43,11 @@ All work and commits go on `claude/nhms-realiti-carousel`. Never commit personal
 > - Still skip anything "Awaiting Coach Nas Facts" or needing unconfirmed consent/photos; if that leaves fewer than
 >   5 usable sources, make fewer and say so. Never invent topics to fill a slot.
 > - Providers: FB + IG; + TikTok only for Connection/Broad Value material. **No Threads**. JPG slides.
+> - **Metricool plan cap: 20 posts per calendar month.** Reels are NOT posted through Metricool, so the cap is all carousels.
+>   Before creating each post, `getScheduledPosts` for that day's whole calendar month (1st–last day, MYT) and count
+>   every post there (drafts included). If the month already holds 20, do not create it; report the skipped days.
+>   Months with 21+ weekdays will hit the cap before month end — that's expected; skip the last days of the month.
+> - The routine itself runs Sundays ~6:51 AM MYT.
 
 ## 3C. Build the carousel in Canva (brand template)
 - Brand template: **"Coach Nas — Carousel Master Template 3:4 (1080x1440)"**, id **`EAHbwLsUUaY`** (6 pages, published 23 Nov 2026).
