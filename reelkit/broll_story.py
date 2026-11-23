@@ -112,7 +112,7 @@ def main(proj: Path) -> None:
         js.append(f'tl.fromTo("#vid",{{scale:1.05}},{{scale:1,duration:0.3,ease:"power3.out",immediateRender:false}},{s:.3f});')
     doc = f"""<!doctype html>
 <html><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
-<script src="assets/gsap.min.js"></script><style>{CSS + {"bold": BOLD_CSS, "bold_ig": BOLD_IG_CSS}.get(cfg.get("style"), "")}</style></head><body>
+<script src="assets/gsap.min.js"></script><style>{CSS + {"bold": BOLD_CSS, "bold_ig": BOLD_IG_CSS}.get(cfg.get("style"), "") + (f".hook .h1{{font-size:{cfg['hook_size']}px}}" if cfg.get("hook_size") else "")}</style></head><body>
 <div id="root" data-composition-id="main" data-start="0" data-duration="{end:.3f}" data-width="1080" data-height="1920">
 <video id="vid" class="clip" src="assets/montage.mp4" data-start="0" data-duration="{end:.3f}" data-track-index="0" muted playsinline></video>
 <div class="shade"></div>
