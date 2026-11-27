@@ -2,7 +2,7 @@ const fs=require('fs');const {chromium}=require('playwright');
 const DIR=process.env.DIR||'.';const LABEL=process.env.LABEL||'Hari';
 const days=JSON.parse(fs.readFileSync(DIR+'/days.json','utf8'));
 let tpl=fs.readFileSync('poster.html','utf8');
-const THEMES={nov:'body{background:linear-gradient(160deg,#1b1f45 0%,#2a2f6b 55%,#3b3f8f 100%)}.tag,.head span,.quote b,.foot em{color:#ffb38a}.quote{border-left-color:#ffb38a}.circle2{background:rgba(255,179,138,.08)}'};
+const THEMES={dec:'body{background:linear-gradient(160deg,#3a0f20 0%,#5a1830 55%,#7a2440 100%)}.tag,.head span,.quote b,.foot em{color:#f3d6a4}.quote{border-left-color:#f3d6a4}.circle2{background:rgba(243,214,164,.08)}',nov:'body{background:linear-gradient(160deg,#1b1f45 0%,#2a2f6b 55%,#3b3f8f 100%)}.tag,.head span,.quote b,.foot em{color:#ffb38a}.quote{border-left-color:#ffb38a}.circle2{background:rgba(255,179,138,.08)}'};
 if(process.env.THEME&&THEMES[process.env.THEME])tpl=tpl.replace('</style>',THEMES[process.env.THEME]+'</style>');
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 (async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});const p=await b.newPage({viewport:{width:1080,height:1350}});
